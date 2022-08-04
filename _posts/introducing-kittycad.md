@@ -1,0 +1,85 @@
+--- 
+title: 'Introducing KittyCAD'
+excerpt: 'In the software world, we have paradigms for building, testing, and
+deploying applications automatically. We’ve gotten very good at reducing the
+load on developers so that with a simple push of a commit to a git repo a Rube Goldberg machine is triggered resulting in an artifact.' 
+coverImage: '/kittycad-long.png' 
+date: '2021-05-17T05:35:07.322Z' 
+author:
+  name: Jenna Bryant, Jordan Noone, Jessie Frazelle
+  picture: '/kittycad.png' 
+ogImage: 
+  url: '/kittycad.png'
+---
+
+In the software world, we have paradigms for building, testing, and deploying
+applications automatically. We’ve gotten very good at reducing the load on
+developers so that with a simple push of a commit to a git repo a Rube Goldberg 
+machine is triggered resulting in an artifact. The artifact could be many
+different things: test output, linting, a deployment, and more. Programmability
+extends far beyond a push of a repo, it is embedded in text editors through
+plugins. For software
+developers, everything is programmable, scriptable, and capable of being
+automated in any language of your choice.
+
+In the hardware world, specifically
+that of mechanical CAD, these paradigms do not yet exist. Any faint resemblance
+of software automation is limited to specific languages, incomplete interfaces,
+and single-threaded runtime environments. The world of mechanical CAD has not
+been innovated in quite some time.
+
+A few months ago, we opened a [public readme
+on a GitHub repo](https://github.com/EmbeddedVentures/community)
+to try to find people who thought similarly to us. We were
+looking for people who understood both the software and hardware worlds and saw
+these large puzzle pieces missing to bring mechanical CAD to the future, to make
+mechanical CAD programmable with similar paradigms
+to that of software in terms of plugins, testing, and collaboration.
+
+For example, imagine
+you push a change to a CAD model and you trigger your own Rube Goldberg machine
+that runs all the simulations for air flow and thermals and outputs whether your
+change is okay to be merged. Or, a custom plugin for your CAD program that automatically
+does the right topology transformations to your model for your product on save.
+As you can imagine these are small examples of
+a much larger vision of what would be possible. With an open ecosystem, much
+like that of developer tools, all these scripts, automations, and plugins
+would be available for people to share and modify for their own use cases.
+
+Our call to action to find
+folks who saw this same future had a great response! The energy from talking to
+people who see all the same problems and want the same future is utterly
+contagious. Because of the response, we knew what we had to do to: start a company.
+By starting a company, we can ensure that this vision becomes a reality and is
+sustainable over time.
+
+Seeing as [Embedded Ventures’](https://embedded.ventures/) purpose is to fund hard tech founders, naturally
+a tool to help people building hard tech would also have a very happy home there
+as an incubated company. The Embedded team is made up of founders and advisors
+who have viscerally felt the pain of the existing tools so it is a perfect fit.
+
+Today, we are ecstatic to announce KittyCAD! KittyCAD's purpose is to
+build the mechanical CAD of the future: fully programmable, user
+friendly, multi-threaded, and fast. To learn more about the current state of the
+industry and where we want to head, please read
+[Mechanical CAD: Yesterday, Today, and Tomorrow](https://medium.com/embedded-ventures/mechanical-cad-yesterday-today-and-tomorrow-981cef7e06b1).
+
+We are looking
+for two operational founders to join our mission and help build this company with us.
+The three of us know how important it is that this company exists, and will work
+tirelessly to make sure it is successful, however we
+are each responsible for other companies as well.
+This is a very
+exciting opportunity to pave the path for the future of hardware engineering. We
+are at the epicenter of a new wave of hardware developer tooling and KittyCAD
+will help enable more people to build hardware than ever before.
+
+Whether you
+are building hardware or software you want to **build**, you want to run with your
+idea until you reach your ultimate vision. Your tools should enable you to get
+there faster. They should unblock you from wasting time on repetitive tasks and
+let the computers work _for you_.
+
+To all the builders, present and
+future, with a vision of what they want to build, the future is just getting
+started and we hope KittyCAD will help make your dream a reality!

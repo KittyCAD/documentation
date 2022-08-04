@@ -1,0 +1,180 @@
+---
+title: 'Beta User Agreement'
+excerpt: 'Our Beta User Agreement'
+---
+
+This Beta Tester Agreement (this "**Beta Agreement**") is entered into between
+KittyCAD, Inc., a Delaware Corporation ("KittyCAD"), and you ("**You**"). This Beta
+Tester Agreement governs your access to and use of certain software and related
+services (the "**Beta Services**") offered by KittyCAD solely for testing and
+evaluation purposes. Further description and related details of the Beta
+Services may be provided to you at the time you access or engage with the Beta
+Services. By accessing or using the Beta Services, you agree to be bound by this
+Beta Agreement and accept all of its terms. If you do not accept all the terms
+of this Beta Agreement, then you may not use the Beta Services.
+
+1. <u>Terms of Use.</u> You acknowledge and agree that your access and use of the Beta
+   Services will be subject to the KittyCAD’s terms of use (accessible at
+   [kittycad.io/terms-and-conditions](https://kittycad.io/terms-and-conditions))
+   ("**ToU**") and Privacy Policy (accessible at
+   [kittycad.io/privacy-policy](https://kittycad.io/privacy-policy)) ("**Privacy
+   Policy**"), both of which are incorporated herein by reference, and the Beta
+   Services are part of the Services (as such term is defined in the ToU) for
+   purposes of the ToU and Privacy Policy. In the event of a conflict between the
+   terms of this Beta Agreement and any terms of the ToU, this Beta Agreement
+   supersedes the ToU with respect to your access to and use of the Beta Services.
+
+2. <u>Acknowledgment of Beta Services Limitations.</u> You acknowledge that: (a) the Beta
+   Services have not been made commercially available by KittyCAD; (b) the Beta
+   Services may not operate properly, be in final form or fully functional; (c) the
+   Beta Services may contain errors, design flaws or other problems; (d) it may not
+   be possible to make the Beta Services fully functional; (e) use of the Beta
+   Services may result in unexpected results, corruption or loss of data, or other
+   unpredictable damage or loss; and (f) KittyCAD has no obligation to release
+   a commercial version of the Beta Services or otherwise introduce the Beta
+   Services. You assume all risk arising from use of the Beta Services as further
+   stated in this Beta Agreement.
+
+3. <u>Obligations under Third Party Agreements.</u> If you have obligations to any third
+   party, such as under the terms, conditions or policies of a telecommunication
+   services provider that you use or through which you purchase data services (as
+   a non-limiting example), you, and not KittyCAD, are solely responsible for your
+   compliance with those requirements. By providing you with access to the Beta
+   Services, KittyCAD does not warrant or guarantee that how you may choose to use
+   the Beta Services is allowed by any particular service provider, nor that your
+   use complies with any laws or regulations that may apply to your use or purchase
+   of any other services. KittyCAD is not liable for your failure to comply with
+   any applicable local, state, national and foreign laws, treaties and regulations
+   or any contracts, rules, policies or procedures applicable to your activities.
+
+4. <u>License.</u>
+
+    4.1. <u>License Grant.</u> Subject to your compliance with the terms and conditions of this
+    Beta Agreement, KittyCAD hereby grants to you a limited, nonexclusive,
+    nontransferable, revocable license, during the Term of this Beta Agreement, to
+    access and use the Beta Services solely for the purposes of testing and
+    evaluation, and not for general production or commercial use.
+
+    4.2. <u>Restrictions.</u> You acknowledge that the Beta Services contain trade secrets of
+    KittyCAD and its licensors, and, in order to protect such trade secrets and
+    other interests that KittyCAD and its licensors may have in the Beta Services,
+    you agree not to: (i) reverse engineer, decompile or disassemble the Beta
+    Services or authorize a third party to do any of the foregoing, (ii) modify the
+    Beta Services, (iii) distribute sell, sublicense or otherwise transfer the Beta
+    Services, or (iv) copy the Beta Services, except as strictly necessary to use
+    the Beta Services in accordance with the terms of Section 4.1.
+
+5. <u>Feedback.</u> You agree to (a) test the Beta Services and cooperate with KittyCAD in
+   evaluating the Beta Services, and (b) provide KittyCAD with feedback as
+   reasonably requested from time to time. All feedback, comments, and suggestions
+   for improvements that you provide to KittyCAD hereunder are referred to
+   collectively as "**Feedback**". You hereby grant KittyCAD a non-exclusive,
+   worldwide, perpetual, irrevocable, fully-paid, royalty-free, sublicensable and
+   transferable license under any and all intellectual property rights that you own
+   or control to use, copy, modify, create derivative works based upon and
+   otherwise exploit the Feedback for any purpose.
+
+6. <u>Ownership.</u> As between the parties, KittyCAD is the sole owner of all rights,
+   title and interest in and to the Beta Services, including all intellectual
+   property rights therein. You will not acquire any rights or licenses in the Beta
+   Services or KittyCAD’s Confidential Information, except as expressly provided in
+   Section 4.1 this Beta Agreement.
+
+7. <u>Confidentiality.</u>
+
+    7.1. For purposes of this Beta Agreement, "**Confidential Information**" means the Beta
+    Services and any information or materials disclosed by or on behalf of KittyCAD
+    to you that (a) is marked "confidential" or "proprietary" or with a similar
+    designation at the time of such disclosure, or (b) due to its nature or the
+    circumstances of its disclosure, a person exercising reasonable business
+    judgment would understand to be confidential or proprietary. You agree: (i) to
+    maintain all Confidential Information in strict confidence; (ii) not to disclose
+    Confidential Information to any third parties; and (iii) not to use any
+    Confidential Information for any purpose except for the purpose of testing and
+    evaluating the Beta Services in accordance with this Beta Agreement and the ToU.
+
+    7.2. The obligations and restrictions in Section 7.1 will not apply to any
+    information or materials that: (a) were, at the date of disclosure, or have
+    subsequently become, generally known or available to the public through no act
+    or failure to act by you; (b) were rightfully known by you prior to the
+    disclosure of such information or materials from KittyCAD; (c) are rightfully
+    acquired by you from a third party who has the right to disclose such
+    information or materials without breach of any obligation of confidentiality or
+    restricted use to KittyCAD; or (d) are independently developed by you without
+    access to any Confidential Information.
+
+    7.3. Upon termination of this Beta Agreement, or earlier upon KittyCAD’s request, you
+    will promptly return to KittyCAD, or, at KittyCAD’s option, destroy, all
+    tangible items and embodiments containing or consisting of Confidential
+    Information and all copies thereof. All Confidential Information remains the
+    sole and exclusive property of KittyCAD.
+
+    7.4. You agree that any breach of this Beta Agreement by you may result in
+    irreparable harm to KittyCAD, for which damages would be an inadequate remedy
+    and therefore, in addition to its rights and remedies otherwise available at
+    law, KittyCAD shall be entitled to seek equitable relief, including injunction,
+    in the event of such breach.
+
+8. <u>Termination.</u> KittyCAD reserves the right to modify or terminate the Beta
+   Services, this Beta Agreement, or your use of the Beta Services, or to limit or
+   deny access to the Beta Services, at any time, in its sole discretion, for any
+   reason, with or without notice and without liability to you. You may discontinue
+   your use of the Beta Services at any time. Upon any termination, discontinuation
+   or cancellation of the Beta Services, this Beta Agreement or your access, the
+   following sections of this Beta Agreement will survive: 2, 3, 4.2, 5, 6, 7, 9,
+   10 and 11.
+
+9. <u>Warranty Disclaimers.</u> YOU ACKNOWLEDGE THAT THE BETA SERVICES ARE BEING PROVIDED
+   "AS IS." KITTYCAD DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING THE
+   IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+   NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE
+   OF TRADE. KITTYCAD MAKES NO WARRANTY THAT ANY OF THE BETA SERVICES WILL MEET
+   YOUR REQUIREMENTS AND/OR THAT THE BETA SERVICES WILL BE UNINTERRUPTED, TIMELY OR
+   ERROR-FREE, NOR DOES KITTYCAD MAKE ANY WARRANTY AS TO THE RESULTS THAT MAY BE
+   OBTAINED FROM THE USE OF THE BETA SERVICES OR THE ACCURACY OF ANY OTHER
+   INFORMATION OBTAINED THROUGH THE BETA SERVICES. YOU UNDERSTAND AND AGREE THAT
+   ANY MATERIAL AND/OR DATA DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF ANY
+   OF THE BETA SERVICES IS DONE AT YOUR SOLE RISK AND THAT YOU WILL BE SOLELY
+   RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM AND/OR LOSS OF DATA THAT
+   RESULTS FROM THE DOWNLOAD OF SUCH MATERIAL AND/OR DATA.
+
+10. <u>Limitation on Liability.</u> IN NO EVENT WILL KITTYCAD BE LIABLE TO YOU OR TO ANY
+    THIRD PARTY FOR DAMAGES OF ANY KIND, INCLUDING, WITHOUT LIMITATION, DIRECT,
+    SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES (INCLUDING LOSS OF USE,
+    DATA, BUSINESS OR PROFITS) ARISING OUT OF OR IN CONNECTION WITH THIS BETA
+    AGREEMENT OR THE INSTALLATION OR USE OF OR INABILITY TO USE THE BETA SERVICES OR
+    FOR ANY ERROR OR DEFECT IN THE BETA SERVICES, WHETHER SUCH LIABILITY ARISES FROM
+    ANY CLAIM BASED UPON CONTRACT, WARRANTY, TORT (INCLUDING NEGLIGENCE), STRICT
+    LIABILITY OR OTHERWISE, AND WHETHER OR NOT KITTYCAD HAS BEEN ADVISED OF THE
+    POSSIBILITY OF SUCH LOSS OR DAMAGE. THE PARTIES HAVE AGREED THAT THESE
+    LIMITATIONS WILL SURVIVE AND APPLY EVEN IF ANY LIMITED REMEDY SPECIFIED IN THIS
+    BETA AGREEMENT IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE. TO THE EXTENT
+    PERMITTED BY APPLICABLE LAW, KITTYCAD’S LIABILITY HEREUNDER IS LIMITED TO
+    $50.00.
+
+11. <u>Miscellaneous.</u> This Beta Agreement will be governed and construed in accordance
+    with the laws of the State of California, without regard to its conflict of laws
+    provisions. The exclusive jurisdiction and venue of any action related to this
+    Beta Agreement will be the state and federal courts located in the San
+    Francisco, California, and each of the parties hereto waives any objection to
+    jurisdiction and venue in such courts. This Beta Agreement, together with the
+    ToU and Privacy Policy, constitutes the entire and exclusive understanding and
+    agreement between KittyCAD and you with respect to its subject matter, and
+    supersedes and replaces any and all prior oral or written understandings or
+    agreements between KittyCAD and you with respect to its subject matter. If for
+    any reason a court of competent jurisdiction finds any provision of this Beta
+    Agreement invalid or unenforceable, that provision will be enforced to the
+    maximum extent permissible and the other provisions of this Beta Agreement will
+    remain in full force and effect. You may not assign or transfer this Beta
+    Agreement, by operation of law or otherwise, without KittyCAD’s prior written
+    consent. Any attempt by you to assign or transfer this Beta Agreement, without
+    such consent, will be null and of no effect. KittyCAD may freely assign or
+    transfer this Beta Agreement without restriction. Subject to the foregoing, this
+    Beta Agreement will bind and inure to the benefit of the parties, their
+    successors and permitted assigns. KittyCAD’s failure to enforce any right or
+    provision of this Beta Agreement will not be considered a waiver of those
+    rights. The waiver of any such right or provision will be effective only if in
+    writing and signed by a duly authorized representative of KittyCAD. Except as
+    expressly set forth in this Beta Agreement, the exercise by either party of any
+    of its remedies under this Beta Agreement will be without prejudice to its other
+    remedies under this Beta Agreement or otherwise.

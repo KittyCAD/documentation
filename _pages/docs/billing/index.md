@@ -1,0 +1,12 @@
+---
+title: 'Billing'
+description: 'Information about billing how we bill users.'
+---
+
+## Important Info
+
+-   50 cents a minute per conversion.
+-   Minimum of a minute for requests; that is, requests under a minute are rounded up.
+-   You will never be charged for failed requests. Only for successful responses.
+-   Bills are received on a monthly basis.
+-   You are not charged for `GET` requests, only `POST` requests. This includes all endpoints except endpoints within the scope of your user such as updating your user's information, billing details, etc. For example, if you convert a CAD file (requiring a `POST` request) you are charged for that request. You are not charged for any requests to the `GET` endpoint if your request was run async and you want to get the status of your conversion.
