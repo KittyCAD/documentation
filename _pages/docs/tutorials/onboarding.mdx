@@ -12,16 +12,21 @@ KittyCAD offers client libraries in Python and other languages, and our "Litterb
 
 {/* __PRE-FETCH__: tutorials/getting_started/getting_started */}
 
-<InlineLitterbox
-    path="tutorials/getting_started/getting_started"
-/>
+<InlineLitterbox path="tutorials/getting_started/getting_started" />
 
 Now try modifying the code and executing it again, for example add your name below the section of the code that says
 
-```python
-# Try adding your name by changing the text below to
-# "File conversion status for <your-name>":
-```
+<TabbedEditor
+    tabs={[
+        {
+            title: '',
+            range: [0, 0],
+            lang: 'py',
+            code: `# Try adding your name by changing the text below to
+# "File conversion status for <your-name>":`,
+        },
+    ]}
+/>
 
 Then execute. If you came to this tutorial from [Account Onboarding Progress](/account?tab=onboarding_progress) than you'll need to modify and execute the code in order for it to count as completing the second task.
 
@@ -29,28 +34,40 @@ Then execute. If you came to this tutorial from [Account Onboarding Progress](/a
 
 Again we're going to use python as an example, but if you're comfortable with installing libraries for Go, Javascript or Rust, Instructions for installing them can [be found here](/docs/api).
 
-You will need to have Python installed on your machine, this will depend on your operating-system, but instructions can be found on the [Python website](https://www.python.org/about/gettingstarted/)
+You will need to have Python installed on your machine, this will depend on your operating-system, but instructions can be found on the [Python website](https://www.python.org/about/gettingstarted/).
 
 Create a new folder where you'de like to setup your test project, and add two text files.
 
 The first will be called `requirements.txt` and will have the following inside.
 
-```
-# requirements.txt
-kittycad==0.3.1
-```
+<TabbedEditor
+    tabs={[
+        {
+            title: 'requirements.txt',
+            range: [0, 0],
+            lang: 'py',
+            code: `kittycad==0.3.1`,
+        },
+    ]}
+/>
 
 The second will be called `ping.py` and will have the following inside
 
-```python
-# ping.py
+<TabbedEditor tabs={
+    [{
+        title:'ping.py',
+        range: [0, 0],
+        lang: 'py',
+        code:`
 from kittycad.client import ClientFromEnv
 from kittycad.models import Pong
 from kittycad.api.meta import ping
 
 pong: Pong = ping.sync(client=ClientFromEnv())
 print(pong)
-```
+`
+}]
+} />
 
 Then open a PowerShell or Bash terminal depending on your operating-system and nagigate to the folder you recently created and run the following:
 
@@ -66,7 +83,7 @@ Then open a PowerShell or Bash terminal depending on your operating-system and n
                 ? 'venv/Scripts/Activate.ps1'
                 : 'source venv/bin/activate',
             'pip install -r requirements.txt',
-            'python3 ping.py'
+            'python3 ping.py',
         ].join('\n')
     }
 </Token>
