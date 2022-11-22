@@ -36,7 +36,7 @@ Again we're going to use python as an example, but if you're comfortable with in
 
 You will need to have Python installed on your machine, this will depend on your operating-system, but instructions can be found on the [Python website](https://www.python.org/about/gettingstarted/).
 
-Create a new folder where you'de like to setup your test project, and add two text files.
+Create a new folder where you'de like to setup your test project, and add three text files.
 
 The first will be called `requirements.txt` and will have the following inside.
 
@@ -46,12 +46,59 @@ The first will be called `requirements.txt` and will have the following inside.
             title: 'requirements.txt',
             range: [0, 0],
             lang: 'py',
-            code: `kittycad==0.3.1`,
+            code: `kittycad==0.3.3`,
         },
     ]}
 />
 
-The second will be called `ping.py` and will have the following inside
+The second will be called `convert.py` and will have the following inside
+
+<TabbedEditor tabs={
+    [{
+        title:'convert.py',
+        range: [0, 0],
+        lang: 'py',
+        code:`
+from kittycad.client import ClientFromEnv
+from kittycad.models.file_export_format import FileExportFormat
+from kittycad.models.file_import_format import FileImportFormat
+from kittycad.models.error import Error
+from kittycad.api.file import create_file_conversion_with_base64_helper
+
+# Create a new client with your token parsed from the environment variable:
+#   KITTYCAD_API_TOKEN.
+client = ClientFromEnv(timeout=500, verify_ssl=True)
+
+# Convert a file from OBJ to STL.
+# Read in the contents of the file.
+file = open("./cube.obj", "rb")
+content = file.read()
+file.close()
+
+fc = create_file_conversion_with_base64_helper.sync(
+    client=client,
+    body=content,
+    src_format=FileImportFormat.OBJ,
+    output_format=FileExportFormat.STL)
+
+if isinstance(fc, Error) or fc == None:
+    raise Exception("There was a problem")
+
+print(f"File conversion id: {fc.id}")
+# Try adding your name by changing the text below to
+# "File conversion status for <your-name>":
+print(f"File conversion status: {fc.status}")
+
+output_file_path = "./output.stl"
+print(f"Saving output to {output_file_path}")
+output_file = open(output_file_path, "wb")
+output_file.write(fc.output)
+output_file.close()
+`
+}]
+} />
+
+Lastly we'll add a very basic `.obj` file called `cube.obj` and add the following contents
 
 <TabbedEditor tabs={
     [{
@@ -59,12 +106,38 @@ The second will be called `ping.py` and will have the following inside
         range: [0, 0],
         lang: 'py',
         code:`
-from kittycad.client import ClientFromEnv
-from kittycad.models import Pong
-from kittycad.api.meta import ping
-
-pong: Pong = ping.sync(client=ClientFromEnv())
-print(pong)
+# Blender 3.1.0
+# www.blender.org
+o Cube
+v 1.000000 1.000000 -1.000000
+v 1.000000 -1.000000 -1.000000
+v 1.000000 1.000000 1.000000
+v 1.000000 -1.000000 1.000000
+v -1.000000 1.000000 -1.000000
+v -1.000000 -1.000000 -1.000000
+v -1.000000 1.000000 1.000000
+v -1.000000 -1.000000 1.000000
+vn -0.0000 1.0000 -0.0000
+vn -0.0000 -0.0000 1.0000
+vn -1.0000 -0.0000 -0.0000
+vn -0.0000 -1.0000 -0.0000
+vn 1.0000 -0.0000 -0.0000
+vn -0.0000 -0.0000 -1.0000
+vt 0.625000 0.500000
+vt 0.375000 0.500000
+vt 0.625000 0.750000
+vt 0.375000 0.750000
+vt 0.875000 0.500000
+vt 0.625000 0.250000
+vt 0.125000 0.500000
+vt 0.375000 0.250000
+vt 0.875000 0.750000
+vt 0.625000 1.000000
+vt 0.625000 0.000000
+vt 0.375000 1.000000
+vt 0.375000 0.000000
+vt 0.125000 0.750000
+s 0
 `
 }]
 } />
@@ -88,7 +161,13 @@ Then open a PowerShell or Bash terminal depending on your operating-system and n
     }
 </Token>
 
-You should see the following message printed in your terminal `Pong(message='pong', additional_properties={})`.
+You should see the following message printed in your terminal:
+
+```
+File conversion id: <your-conversion-id>
+File conversion status: Completed
+Saving output to ./output.stl
+```
 
 Note that the `python3` command might differ depending on what version you've got installed.
 
