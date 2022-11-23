@@ -8,13 +8,13 @@ In this tutorial we'll walk through getting started using the KITTYCAD API
 
 ### The Litterbox
 
-KittyCAD offers client libraries in Python and other languages, and our "Litterbox" below is our mini in-browser editor for demonstrating with code snippets. Try executing the python STL conversion code below. You should see the 3d-file re-appear on the left-hand side along with logs from the execution.
+KittyCAD offers client libraries in Python and other languages, and our "Litterbox" below is our mini in-browser editor for demonstrating with code snippets. Try executing the python STL conversion code below. You should see the 3d-file re-appear on the right-hand side along with logs from the execution.
 
 {/* __PRE-FETCH__: tutorials/getting_started/getting_started */}
 
 <InlineLitterbox path="tutorials/getting_started/getting_started" />
 
-Now try modifying the code and executing it again, for example add your name below the section of the code that says
+Now try modifying the code and executing it again. As an example, delete the "#" to the left of "print(<your name>, congrats! Your STL conversion was successful):" and replace <your name> with your first name.
 
 <TabbedEditor
     tabs={[
@@ -23,7 +23,7 @@ Now try modifying the code and executing it again, for example add your name bel
             range: [0, 0],
             lang: 'py',
             code: `# Try adding your name by changing the text below to
-# "File conversion status for <your-name>":`,
+# "print(<your name>, congrats! Your STL conversion was successful):"`,
         },
     ]}
 />
@@ -150,12 +150,12 @@ Then open a PowerShell or Bash terminal depending on your operating-system and n
             platform === 'windows'
                 ? `$env:KITTYCAD_API_TOKEN = '${token}'`
                 : `export KITTYCAD_API_TOKEN="${token}"`,
-            'pip install virtualenv',
+            'pip3 install virtualenv',
             'python3 -m venv venv',
             platform === 'windows'
                 ? 'venv/Scripts/Activate.ps1'
                 : 'source venv/bin/activate',
-            'pip install -r requirements.txt',
+            'pip3 install -r requirements.txt',
             'python3 convert.py',
         ].join('\n')
     }
