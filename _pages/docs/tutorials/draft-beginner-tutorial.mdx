@@ -1,0 +1,221 @@
+---
+title: 'Beginner Tutorial'
+excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API
+langs: ['py']
+---
+
+Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
+
+Welcome to our beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
+
+## What is an API?
+
+API stands for Application Programming Interface. The key to an API is that it allows applications to talk to each other. Here are some current examples of API's used today.
+* Uber drivers have Google Maps built into their Uber app for naviation.
+* Duolingo allows users to log in using their Facebook information.
+* Many applications use Stripe for processing payments. 
+
+API's are powerful. Let's take the Uber example above. It would take a lot of time and engineers to develop a map feature like similar Google Maps within the Uber app. Uber uses Google Maps' API to access it within their own app. Of course, Uber pays a portion of their sales to Google in return for using their API. 
+
+## Let's Get Started
+
+For you to communicate with KittyCAD's website, you must have an API key. When you make an API command, you will pass this APi key along with your command, so that we can verify it's you. 
+
+If you have already generated an API key, you will see it shown below. If you see "No API keys have been generated yet". In order for you to see your API key, you must do the following:
+* Create an account. If you haven't already, you can [create an account here](/account)
+* Sign in. Once you've signed up for an account, make sure you are signed in. 
+* Generate an API key. You can either go into your [account settings](/account?tab=api_tokens) to generate an API key, or you can press the button below and we will take care of it for you!
+
+<MarkDownAPITokens />
+
+## The Litterbox
+
+Below is what we call our "Litterbox" (other sites tend to refer to it as a "Sandbox"). Essentially, this is an area in which you can try out code without any additional steps. Below is an example of a Python script that uses KittyCAD's API to convert an OBJ file to an STL file.
+
+{/* __PRE-FETCH__: tutorials/getting_started/getting_started */}
+
+<InlineLitterbox path="tutorials/getting_started/getting_started" />
+
+Now try modifying the code and executing it again. As an example, delete the "#" to the left of `"print(<your-name>, congrats! Your STL conversion was successful):"` and replace `<your-name>` with your first name.
+
+<TabbedEditor
+    tabs={[
+        {
+            title: '',
+            range: [0, 0],
+            lang: 'py',
+            code: `# Try adding your name by changing the text below to \n# print(<your-name>, congrats! Your STL conversion was successful):`,
+        },
+    ]}
+/>
+
+Then execute. If you came to this tutorial from [Account Onboarding Progress](/account?tab=onboarding_progress) than you'll need to modify and execute the code in order for it to count as completing the second task.
+
+## Executing From Your Computer
+
+* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with most everything you need. There are a few files that you will need to download from the KittyCAD repository:
+Download Here
+The link will have you download a zip file. Place this zip file in an easy-to-access location in your computer (the Desktop is a simple spot).
+
+### Mac
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder with all the contents into your directory. 
+* You will need to install Python. Install the latest Python specific for your machine here: [Install Python](https://www.python.org/downloads/)
+    * **make sure you download the correct version for Mac**
+* Once you download Python, you will need to open your **Terminal**. You can open **Terminal** a few ways:
+    * Press "cmd" + "space" and type in "Terminal" and hit "return"
+    * Press the magnifying glass icon on the top-right of your screen. 
+    <img src="/dock-screenshot.png" style="width: 100%;" />
+    * Go to your **Applications/Utilites** folder. Double-click **Terminal**.
+* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+You will now be working inside the folder you created called KittyCADPractice.
+
+Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+
+* Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below)
+
+
+
+<Token>
+    {(token, platform) =>
+        [
+            platform === 'windows'
+                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
+                : `export KITTYCAD_API_TOKEN="${token}"`,
+            'pip3 install virtualenv',
+            'python3 -m venv venv',
+            platform === 'windows'
+                ? 'venv/Scripts/Activate.ps1'
+                : 'source venv/bin/activate',
+            'pip3 install -r requirements.txt',
+            'python3 convert.py',
+        ].join('\n')
+    }
+</Token>
+
+As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+
+```
+File conversion id: <your-conversion-id>
+File conversion status: Completed
+Saving output to ./output.stl
+```
+
+**Note:** depending on the version of Python you have installed, the "Python3" command might differ.
+
+Congrats! You just make your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculate center of mass, convert units, and more). Check them out [here!](/docs/api)
+
+### Windows
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* You will need to install Python. Install the latest Python specific for your machine here: [Install Python](https://www.python.org/downloads/)
+    * **make sure you download the correct version for Windows**
+* Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
+* Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then just drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Just hit "enter". 
+
+You will now be working inside the folder you created called KittyCADPractice.
+* Once inside the correct folder, input the following command into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below)
+
+<Token>
+    {(token, platform) =>
+        [
+            platform === 'windows'
+                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
+                : `export KITTYCAD_API_TOKEN="${token}"`,
+            'pip3 install virtualenv',
+            'python3 -m venv venv',
+            platform === 'windows'
+                ? 'venv/Scripts/Activate.ps1'
+                : 'source venv/bin/activate',
+            'pip3 install -r requirements.txt',
+            'python3 convert.py',
+        ].join('\n')
+    }
+</Token>
+
+As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+
+```
+File conversion id: <your-conversion-id>
+File conversion status: Completed
+Saving output to ./output.stl
+```
+
+**Note:** depending on the version of Python you have installed, the "Python3" command might differ.
+
+Congrats! You just make your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculate center of mass, convert units, and more). Check them out [here!](/docs/api)
+
+### Linux
+
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* You will need to install Python. Install the latest Python specific for your machine here: [Install Python](https://www.python.org/downloads/)
+    * **make sure you download the correct version for Linux**
+* Once you download Python, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
+    * Press "CTRL" + "ALT" + "T"
+    * Click the **Terminal** icon amongst the list of all apps. 
+* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+
+You will now be working inside the folder you created called KittyCADPractice.
+* Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below)
+
+<Token>
+    {(token, platform) =>
+        [
+            platform === 'windows'
+                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
+                : `export KITTYCAD_API_TOKEN="${token}"`,
+            'pip3 install virtualenv',
+            'python3 -m venv venv',
+            platform === 'windows'
+                ? 'venv/Scripts/Activate.ps1'
+                : 'source venv/bin/activate',
+            'pip3 install -r requirements.txt',
+            'python3 convert.py',
+        ].join('\n')
+    }
+</Token>
+
+As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+
+```
+File conversion id: <your-conversion-id>
+File conversion status: Completed
+Saving output to ./output.stl
+```
+
+**Note:** depending on the version of Python you have installed, the "Python3" command might differ.
+
+Congrats! You just make your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculate center of mass, convert units, and more). Check them out [here!](/docs/api)   
