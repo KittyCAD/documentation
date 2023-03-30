@@ -96,22 +96,16 @@ Another method for changing directories is if you see the folder you want to mov
 
 * Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
-<Token>
-    {(token, platform) =>
-        [
-            platform === 'windows'
-                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
-                : `export KITTYCAD_API_TOKEN="${token}"`,
-            'pip3 install virtualenv',
-            'python3 -m venv venv',
-            platform === 'windows'
-                ? 'venv/Scripts/Activate.ps1'
-                : 'source venv/bin/activate',
-            'pip3 install -r requirements.txt',
-            'python3 convert.py',
-        ].join('\n')
-    }
-</Token>
+```
+export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+pip3 install virtualenv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 convert.py
+```
+
+<TokenReplacementNote />
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
@@ -148,24 +142,18 @@ cd ~/Documents/KittyCADPractice
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then just drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Just hit "enter". 
 
 You will now be working inside the folder you created called KittyCADPractice.
-* Once inside the correct folder, input the following command into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
+* Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
-<Token>
-    {(token, platform) =>
-        [
-            platform === 'windows'
-                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
-                : `export KITTYCAD_API_TOKEN="${token}"`,
-            'pip3 install virtualenv',
-            'python3 -m venv venv',
-            platform === 'windows'
-                ? 'venv/Scripts/Activate.ps1'
-                : 'source venv/bin/activate',
-            'pip3 install -r requirements.txt',
-            'python3 convert.py',
-        ].join('\n')
-    }
-</Token>
+```
+$env:KITTYCAD_API_TOKEN = 'YOUR-API-TOKEN'
+pip3 install virtualenv
+python3 -m venv venv
+venv/Scripts/Activate.ps1
+pip3 install -r requirements.txt
+python3 convert.py
+```
+
+<TokenReplacementNote />
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
@@ -206,23 +194,16 @@ Another method for changing directories is if you see the folder you want to mov
 You will now be working inside the folder you created called KittyCADPractice.
 * Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below).    Simply copy and paste the following:
 
+```
+export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+pip3 install virtualenv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 convert.py
+```
 
-<Token>
-    {(token, platform) =>
-        [
-            platform === 'windows'
-                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
-                : `export KITTYCAD_API_TOKEN="${token}"`,
-            'pip3 install virtualenv',
-            'python3 -m venv venv',
-            platform === 'windows'
-                ? 'venv/Scripts/Activate.ps1'
-                : 'source venv/bin/activate',
-            'pip3 install -r requirements.txt',
-            'python3 convert.py',
-        ].join('\n')
-    }
-</Token>
+<TokenReplacementNote />
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
