@@ -1,0 +1,243 @@
+---
+title: 'Typescript Beginner Tutorial'
+excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API with Typescript/Javascript
+langs: ['ts', 'js']
+---
+
+Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
+
+Welcome to our Typescript/Javascript beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
+
+## What is an API?
+
+API stands for Application Programming Interface. The key to an API is that it allows applications to talk and be used by one another. Here are some current examples of API's used today.
+* Uber drivers use Google Maps for navigation in the Uber app.
+* Duolingo allows users to log in using their Facebook information.
+* Shopify uses Stripe to process credit card payments. 
+
+API's are powerful. Let's take the Uber example above. It would take a lot of time and engineers to develop a map feature similar to Google Maps within the Uber app. Uber uses Google Maps' API to access it within their own app. Of course, Uber pays a portion of their sales to Google in return for using their API. 
+
+## Let's Get Started
+
+For you to communicate with KittyCAD's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
+
+You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
+* Create an account. If you haven't already, you can [create an account here](/account)
+* Sign in. Once you've signed up for an account, make sure you are signed in. 
+* Generate an API key. You can either go into your [account settings](/account?tab=api_tokens) to generate an API key, or you can press the button below and we will take care of it for you!
+
+<MarkDownAPITokens />
+
+## Executing From Your Computer
+
+* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
+
+[Download Here](https://github.com/KittyCAD/tutorial-files-ts/archive/refs/heads/main.zip)
+
+The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains two files: a 3D model of a gear (gear.obj and a javascript file, convertOBJtoSTEP.js)
+
+### Jump to the appropriate tutorial for your setup
+
+- <a href="#Windows">Windows</a>
+- <a href="#Mac">Mac</a>
+- <a href="#Linux">Linux</a>
+
+<h3 id="Windows">Windows</h3>
+
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
+    * **make sure you download the correct version for Windows**
+* Once you download node.js, you will need to open **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
+* Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
+
+You will now be working inside the folder you created called KittyCADPractice.
+* Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+
+```
+export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+yarn add @kittycad/lib
+npm pkg set type="module"
+```
+
+<TokenReplacementNote />
+
+As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
+
+```
+File created successfully.
+```
+Curious how to write your own script? Click the button below for a step by step look into the convertOBJtoSTEP.js file.
+### [Code Rundown](#rundown)
+
+Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
+
+<h3 id="Mac">Mac</h3>
+
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder with all the contents into your directory. 
+* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
+    * **make sure you download the correct version for Mac**
+* Once you download Node.js, you will need to open your **Terminal**. You can open **Terminal** in a few ways:
+    * Press "cmd" + "space" and type in "Terminal" and hit "return"
+    * Press the magnifying glass icon on the top-right of your screen, type "Terminal" in the search box, and hit "return"
+    <img src="/dock-screenshot.png" />
+    * Go to your **Applications/Utilities** folder. Double-click **Terminal**
+* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+You will now be working inside the folder you created called KittyCADPractice.
+
+Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+
+* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+
+```
+export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+yarn add @kittycad/lib
+npm pkg set type="module"
+```
+
+* You may notice that there were some more files added into the directory (yarn.lock, package.json, etc.). These are needed to run a Typescript (or Javascript) file. 
+
+<TokenReplacementNote />
+
+As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory. This may take 15 to 20 seconds):
+
+```
+File created successfully.
+```
+Curious how to write your own script? Click the button below for a step by step look into the convertOBJtoSTEP.js file.
+### [Code Rundown](#rundown)
+
+Congrats! You just made your first successful API command using Javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
+
+<h3 id="Linux">Linux</h3>
+
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
+    * **make sure you download the correct version for your machine**
+* Once you download node.js, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
+    * Press "CTRL" + "ALT" + "T"
+    * Click the **Terminal** icon amongst the list of all apps. 
+* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
+
+```    
+cd ~/Desktop
+```
+
+cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+
+```
+cd ~/Documents/KittyCADPractice
+```
+
+Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+
+You will now be working inside the folder you created called KittyCADPractice.
+* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+
+```
+export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+yarn add @kittycad/lib
+npm pkg set type="module"
+```
+
+<TokenReplacementNote />
+
+As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+
+```
+File created successfully.
+```
+Curious how to write your own script? Look down below for a step by step look into the convertOBJtoSTEP.js file.
+
+Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api). 
+
+<h3 id="rundown">Code Rundown</h3>
+This is a quick look inside the **convertOBJtoSTEP.js** file. Here we will go through the code line by line and explain what's happening, so you can create your own code! First, a look at the entire code:
+
+```
+import { file } from '@kittycad/lib'
+import fsp from 'fs/promises'
+
+async function convertOBJtoSTEP() {
+  // Use KittyCAD client library to output base64 string from OBJ to STEP
+    const response = await file.create_file_conversion({
+        output_format: 'step',
+        src_format: 'obj',
+        body: await fsp.readFile('./gear.obj', 'base64'),
+    })
+    // Decode the base64 string
+    const decodedSTEPfile = Buffer.from(response.output, "base64").toString("utf-8")
+
+    // Use fs/promises library to write a new STEP file using the decoded base64 string
+    fsp.writeFile('gear.step', decodedSTEPfile, function (err) {
+      if (err) throw err;
+    })
+    if ('error_code' in response) throw response
+    else {
+      console.log('File created successfully.');
+    }
+}
+
+convertOBJtoSTEP()
+```
+
+
+The first two lines are importing the KittyCAD library, as well as the fs/promises library. 
+```
+import { file } from '@kittycad/lib'
+import fsp from 'fs/promises'
+```
+* The KittyCAD library is what we will use to do the OBJ to STEP file conversion.
+* The fs/promises library is what we are using to write a new file after we do the conversion. 
+
+The next segment in the code is responsible for the file conversion:
+```
+async function convertOBJtoSTEP() {
+  // Use KittyCAD client library to output base64 string from OBJ to STEP
+    const response = await file.create_file_conversion({
+        output_format: 'step',
+        src_format: 'obj',
+        body: await fsp.readFile('./gear.obj', 'base64'),
+})
+```
+
+This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **source_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
+
+The next line is a way to decode a base64 string into a readable format.
+```
+const decodedSTEPfile = Buffer.from(response.output, "base64").toString("utf-8")
+```
+The next segment writes the STEP file. 
+```
+fsp.writeFile('gear.step', decodedSTEPfile, function (err) {
+      if (err) throw err;
+    })
+    if ('error_code' in response) throw response
+    else {
+      console.log('File created successfully.');
+    }
+```
+
+**fsp.writeFile** takes three parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, decodedSTEPfile has all the information for the STEP file. The last parameter is a function that will throw an error if it didn't work, or a success message on completion.
