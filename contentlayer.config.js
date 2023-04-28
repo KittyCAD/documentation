@@ -35,7 +35,28 @@ const Tutorial = defineDocumentType(() => ({
     }
 }))
 
+const LegalPage = defineDocumentType(() => ({
+    name: 'Legal Page',
+    filePathPattern: `legal/*.md*`,
+    contentType: 'mdx',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the page, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description: 'The excerpt of the page, for SEO and preview text use.',
+            required: true,
+        },
+    }
+}))
+
 export default makeSource({
     contentDirPath: '_pages',
-    documentTypes: [Tutorial],
+    documentTypes: [
+        LegalPage,
+        Tutorial,
+    ],
 })
