@@ -1,2 +1,3 @@
 node_modules
 .contentlayer
+.DS_Store
