@@ -53,10 +53,38 @@ const LegalPage = defineDocumentType(() => ({
     }
 }))
 
+const Glossary = defineDocumentType(() => ({
+    name: 'Glossary',
+    filePathPattern: `docs/glossary/*.md*`,
+    contentType: 'mdx',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'Primary term of the glossary entry.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description: 'The excerpt of the glossary definition, for SEO and preview text use.',
+            required: true,
+        },
+        synonyms: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'Synonyms of the primary term.',
+            required: false,
+        },
+    },
+}))
+
+
 export default makeSource({
     contentDirPath: '_pages',
     documentTypes: [
         LegalPage,
         Tutorial,
+        Glossary,
     ],
 })
