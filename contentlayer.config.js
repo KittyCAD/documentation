@@ -1,8 +1,8 @@
-import { makeSource, defineDocumentType } from '@contentlayer/source-files'
+import { makeSource, defineDocumentType, defineNestedType } from '@contentlayer/source-files'
 
 const Tutorial = defineDocumentType(() => ({
     name: 'Tutorial',
-    filePathPattern: `docs/tutorials/*.md*`,
+    filePathPattern: `tutorials/*.md*`,
     contentType: 'mdx',
     fields: {
         title: {
@@ -35,9 +35,9 @@ const Tutorial = defineDocumentType(() => ({
     }
 }))
 
-const LegalPage = defineDocumentType(() => ({
-    name: 'Legal Page',
-    filePathPattern: `legal/*.md*`,
+const Page = defineDocumentType(() => ({
+    name: 'Page',
+    filePathPattern: `pages/**/*.md*`,
     contentType: 'mdx',
     fields: {
         title: {
@@ -55,7 +55,7 @@ const LegalPage = defineDocumentType(() => ({
 
 const Glossary = defineDocumentType(() => ({
     name: 'Glossary',
-    filePathPattern: `docs/glossary/*.md*`,
+    filePathPattern: `glossary/*.md*`,
     contentType: 'mdx',
     fields: {
         title: {
@@ -79,12 +79,83 @@ const Glossary = defineDocumentType(() => ({
     },
 }))
 
+const Author = defineNestedType(() => ({
+    name: 'Author',
+    fields: {
+        name: {
+            type: 'string',
+            description: 'The name of the author.',
+            required: true,
+        },
+        picture: {
+            type: 'string',
+            description: 'The picture of the author.',
+            required: true,
+        },
+    },
+}))
+
+const OgImage = defineNestedType(() => ({
+    name: 'OgImage',
+    description: 'The og:image of the blog post, for SEO and preview image use.',
+    fields: {
+        url: {
+            type: 'string',
+            description: 'The url of the og:image.',
+            required: true,
+        },
+    },
+}))
+
+
+const BlogPost = defineDocumentType(() => ({
+    name: 'Blog Post',
+    filePathPattern: `posts/*.md*`,
+    contentType: 'mdx',
+    description: 'A blog post. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, InlineLitterbox, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the blog post, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description: 'The excerpt of the blog post, for SEO and preview text use.',
+            required: true,
+        },
+        coverImage: {
+            type: 'string',
+            description: 'The cover image of the blog post, for SEO and preview image use.',
+            required: true,
+        },
+        date: {
+            type: 'date',
+            description: 'The date of the blog post.',
+            required: true,
+        },
+        author: {
+            type: 'nested',
+            of: Author,
+            description: 'The author of the blog post.',
+            required: true,
+        },
+        ogImage: {
+            type: 'nested',
+            of: OgImage,
+            description: 'The og:image of the blog post, for SEO and preview image use.',
+            required: false,
+        },
+    }
+}))
+
 
 export default makeSource({
-    contentDirPath: '_pages',
+    contentDirPath: 'content',
     documentTypes: [
-        LegalPage,
         Tutorial,
         Glossary,
+        BlogPost,
+        Page,
     ],
 })

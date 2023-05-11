@@ -1,0 +1,292 @@
+---
+title: 'Vulkan Shader Resource binding in 2023'
+excerpt: |
+    A tiny dive into how we're managing our resources using Vulkan!
+coverImage: '/vulkan-resource-blog/ss1.png'
+date: '2023-04-20T00:00:00.000Z'
+author:
+    name: Mike Farrell
+    picture: '/mike.jpg'
+ogImage:
+    url: '/kittycad.png'
+---
+
+While learning Vulkan, one is bound to come across [this classic article from NVIDIA](https://developer.nvidia.com/vulkan-shader-resource-binding) going through a birds eye view of Vulkan resource binding, pipeline layouts, and (simplified) engine design surrounding these topics. Its no secret that the first (and second and third) time reading this article can lead to feelings of confusion. Vulkan resource binding can be counter-intuitive to learn, and that's putting it lightly. It's easy to get mixed up and confuse pipeline layouts with descriptor set layouts, descriptor set indices with bindings, and even individual descriptors with the sets that contain them. Nonetheless, when developing a new rendering engine, its important not to shy away from complexity, but to instead tame it to build as efficient and easy to use of an engine as possible.
+
+## Shader Resources
+
+Readers coming from OpenGL (and D3D11) likely are familiar with the concepts of "uniform" variables or "constant buffers". At a lower level, anything that the shader (GPU) needs to access that is connected to the host application (CPU) can be broadly referred to as a _Shader Resource_. These resources may be textures (albedo maps, shadow maps, noise tables), groups of parameters (uniform buffers, storage buffers), general purpose storage images, and more. With Vulkan, shader resources are bound via collections of _Descriptors_ called _Descriptor Sets_.
+
+## GL-Free Design
+
+When designing our graphics engine renderer on top of Vulkan, we made an early decision to free ourselves from the shackles of OpenGL. This meant we could fully utilize Vulkan to keep our rendering overhead as low as possible, especially with respect to draw-calls. No worrying about global bindings, state corruption, or clunky shader uniform lookups. Instead, we utilize modern resource binding to keep the amount of render-time changes as minimal as possible. According to NVIDIA's own recommendations, we can use Vulkan to build a shader resource hierarchy to group shader resources into sets depending upon how frequently these resources are updated and their bindings need to change. These sets are our Vulkan _Descriptor Sets_. Furthermore, we want to leverage the persistent nature of descriptor set bindings. This way, when we bind our scene state, it _stays_ bound for the duration of the frame. Even as other materials, textures, transforms are updated.
+
+For our engine, we decided to start by standardizing 3 _Descriptor Set Layouts_ which will be used as the template for most shader resources used throughout the engine. The first set (set 0) would contain scene resources (such as the camera, lights) which may be updated once per frame. The second set (set 1) would be for materials needed to be bound once per object. The last set (set 2) would be the container for per-draw-call changes, namely model transforms. This last set is quite dynamic in nature, and thus would need to be efficiently updated quite frequently.
+
+Below are examples of the 3 set bindings in shader code.
+
+<BasicSnippet
+lang="cpp"
+title="GLSL"
+code={`
+layout(set = 0, binding = 0) uniform Scene
+{
+  mat4 viewProjection;
+  vec3 cameraPosition;
+  //...
+} scene;
+
+layout(set = 1, binding = 0) uniform Material
+{
+  vec4 albedo;
+  float metalness;
+  float roughness;
+  float ao;
+  //...
+} material;
+layout(set = 1, binding = 1) uniform sampler2D textures[];
+
+layout(set = 2, binding = 0) uniform Draw
+{
+  mat4 model;
+  //...
+} draw;
+`}
+/>
+
+## One pipeline layout to rule them all
+
+Before the descriptor sets can be bound to a pipeline, they must first be referenced by a _Pipeline Layout_. Pipeline layouts essentially tell the API which descriptor set layouts the shader can expect.
+While the per-set-layout bindings are statically defined, standardizing them across the engine frees us to re-use both the descriptor set layouts and the pipeline layout that reference them for most of our common shader collections. Doing this drastically simplifies the engine design. For OpenGL-like implementations, allocating tons of descriptor sets and copying & rewriting the bindings for every draw call is a common practice. The elegant persistent binding method highlighted in the NVIDIA article was far more preferable to us. This means that having maximally flexible descriptor set layouts is a crucial design goal.
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+VkDescriptorSetLayoutCreateInfo createInfo = {};
+createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+
+vector<VkDescriptorSetLayoutBinding> bindings[3];
+
+//Scene Environment UBO (set 0)
+bindings[0].push_back({
+  0, //binding
+  VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, //type
+  1, //count
+  //shader stages
+  VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+  nullptr
+});
+
+//Material UBO + textures (set 1)
+bindings[1].push_back({
+  0,
+  VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+  1,
+  VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+  nullptr
+});
+
+//Model/draw-call UBO (set 2)
+bindings[2].push_back({
+  0,
+  VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+  1,
+  VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+  nullptr
+});
+
+for(int i = 0; i < 3; i++)
+{
+  createInfo.bindingCount = (uint32_t)bindings[i].size();
+  createInfo.pBindings = bindings[i].data();
+  checkVk(vkCreateDescriptorSetLayout(
+    instance.getDevice(),
+    &createInfo,
+    nullptr,
+    &defaultDSLayouts[i])
+  );
+}
+`}/>
+
+Note that the usage of "UBO" in various code examples here is a relic of the old OpenGL nomenclature for "Uniform Buffer Object". Essentially "UBO" and "Uniform Buffer" refer to the same concept.
+
+## Descriptor Indexing to the rescue!
+
+Before Vulkan Descriptor Indexing, one had to pre-specify exactly how many texture bindings there could be in a descriptor set. Additionally, each binding had to be set to a valid VkImage resource regardless of whether or not it was used by each shader. This made writing the code for re-usable flexible pipeline layouts both tedious and ugly. Luckily, the Descriptor Indexing feature is core as of Vulkan 1.2. All we have to do is enable the feature during instance creation, and then use it in our code!
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+//...
+bindings[1].push_back({
+  1,
+  VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
+  Constants::MAX_BOUND_TEXTURES_PER_SHADER,
+  VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+  nullptr
+});
+VkDescriptorBindingFlags bindFlags[] = {
+  0,
+  VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT
+};
+bindingsExtInfo[1].sType = 
+  VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
+bindingsExtInfo[1].bindingCount = (uint32_t)bindings[1].size();
+bindingsExtInfo[1].pBindingFlags = bindFlags;
+
+//...
+createInfo.pNext = &bindingsExtInfo[i];
+checkVk(vkCreateDescriptorSetLayout(
+  instance.getDevice(),
+  &createInfo,
+  nullptr,
+  &defaultDSLayouts[i])
+);
+`}/>
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+VkWriteDescriptorSet write = {};
+VkDescriptorImageInfo imageInfo = {};
+
+imageInfo.imageView = imageView;
+imageInfo.sampler = sampler;
+imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+
+write.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+write.dstSet = set;
+write.dstBinding = binding;
+write.dstArrayElement = index; //texture array index!
+write.descriptorType = type;
+write.descriptorCount = 1;
+write.pImageInfo = &imageInfo;
+
+vkUpdateDescriptorSets(device, 1, &write, 0, nullptr);
+`}/>
+
+And in our shader:
+
+<BasicSnippet
+lang="cpp"
+title="GLSL"
+code={`
+#define TEX_NORMAL 0
+layout(set = 1, binding = 1) uniform sampler2D textures[];
+
+//...
+vec4 encodedNormal = texture(textures[TEX_NORMAL], va_texcoord);
+`}/>
+
+## Where things live matters
+
+Once our descriptor set layouts, pipeline layouts, and pipelines were set up, we needed to actually allocate our resources on the GPU. For Vulkan, that boils down to whether or not they should live in device-local memory or not. For textures, the question is a no brainer - device-local memory is more efficient for the GPU to access during sampling. For buffers, the answer becomes less cut and dry. Device-local memory requires a copy from host-visible (CPU) memory to update. This update usually requires recording a command buffer to execute the transfer for you. On the other hand, host-visible memory, as its name implies, can be directly updated from the host (with some coherency and caching caveats that may need to be considered). The general rule is, if the resource is updated infrequently and accessed repeatedly from a shader, device-local is the way to go. Otherwise, host-visible is usually a better option.
+
+For our engine, we decided to go with device-local scene uniform buffers (updated once per frame), device-local material uniform buffers (updated during scene initialization), and host-visible per-draw uniform buffers.
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+sceneUbo = make_unique<Buffer>(
+  device,
+  gfxQueue,
+  VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+  VMA_MEMORY_USAGE_AUTO_PREFER_DEVICE
+);
+materialUbo = make_unique<Buffer>(
+  device,
+  gfxQueue,
+  VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+  VMA_MEMORY_USAGE_AUTO_PREFER_DEVICE
+);
+drawUbo = make_unique<Buffer>(
+  device,
+  gfxQueue,
+  VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+  VMA_MEMORY_USAGE_AUTO_PREFER_HOST
+);
+`}/>
+
+## Dynamic Draw call UBOs
+
+The last consideration we made was to employ an old solution to an old problem. Updating draw UBOs in Vulkan is quite different compared to higher level APIs such as OpenGL. In Vulkan, you cannot change a resource that is currently being utilized by an in-flight command buffer. This means, that if we draw 100 objects in a single frame, we would need to maintain memory for and perform updates on 100 separate drawUbo buffers. This quickly becomes unruly as scene complexity grows. Thus, we opted to go with dynamic uniform buffers to solve this problem. Dynamic UBOs essentially allow us to map one large host visible buffer and copy each buffer into it and grow it as we draw our frame. This method works well for most dynamic scenes with lots of draws.
+
+Going back to our descriptor set layout init:
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`//Model/draw-call UBO (set 2)
+bindings[2].push_back({
+  0,
+  VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC,
+  1,
+  VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+  nullptr
+});`}/>
+
+and our buffer init:
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+drawUbo = make_unique<Buffer>(
+  device,
+  gfxQueue,
+  VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+  VMA_MEMORY_USAGE_AUTO_PREFER_HOST
+);
+drawUbo->setPersistentlyMapped(true);
+
+//1<<20 is a fancy-way to specify 1 MB of memory
+drawUbo->createBuffer(1<<20);
+`}/>
+
+now, we can populate the data each frame:
+
+<BasicSnippet
+lang="cpp"
+title="c++"
+code={`
+void updateDynamicUBO(
+  const void \*data,
+  size_t len,
+  uint32_t &uboOffset
+)
+{
+  const size_t alignedLen = UBO_ALIGN(
+    len,
+    minUniformBufferOffsetAlignment
+  );
+
+  //make sure we haven't ran off the end of the dynamic UBO
+  if(uboOffset+alignedLen < ubo->getSize())
+  {
+    uint8_t *uboHostData = 
+      (uint8_t *)drawUbo->getPersistentlyMappedData();
+    memcpy(uboHostData+uboOffset, data, len);
+
+    uboOffset += len;
+    uboOffset = UBO_ALIGN(
+      uboOffset,
+      minUniformBufferOffsetAlignment
+    );
+  }
+
+}
+`}/>
+
+## Bringing it all back to earth
+
+So what did we accomplish with all this? After this minor engine work, we've enabled the following:
+
+-   A standardized (but flexible) group of descriptor set layouts that can each be updated independently of each other.
+-   Modern indexed descriptor indexing so that we can bind any number of textures to a shader without specifying that number in advance.
+-   Dynamic uniform buffers so that draw call code complexity can be kept low, but still remain flexible enough for user-generated content.
+
+With these tools in place, we can now focus our efforts on the work of creating and rendering 3D CAD geometry!
