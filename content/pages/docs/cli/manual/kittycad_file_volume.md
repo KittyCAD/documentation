@@ -1,7 +1,6 @@
 ---
 title: 'kittycad file volume'
 excerpt: 'Get the volume of an object in a CAD file.'
-layout: manual
 ---
 
 Get the volume of an object in a CAD file.

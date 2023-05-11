@@ -1,7 +1,6 @@
 ---
 title: 'kittycad api-call'
 excerpt: 'Perform operations on CAD files.'
-layout: manual
 ---
 
 Perform operations on CAD files.

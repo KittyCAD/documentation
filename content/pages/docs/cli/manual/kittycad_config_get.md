@@ -1,7 +1,6 @@
 ---
 title: 'kittycad config get'
 excerpt: 'Print the value of a given configuration key.'
-layout: manual
 ---
 
 Print the value of a given configuration key.

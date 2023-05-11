@@ -1,7 +1,6 @@
 ---
 title: 'kittycad completion'
 excerpt: 'Generate shell completion scripts.'
-layout: manual
 ---
 
 Generate shell completion scripts.

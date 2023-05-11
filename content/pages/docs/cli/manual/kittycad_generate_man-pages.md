@@ -1,7 +1,6 @@
 ---
 title: 'kittycad generate man-pages'
 excerpt: 'Generate manual pages.'
-layout: manual
 ---
 
 Generate manual pages.

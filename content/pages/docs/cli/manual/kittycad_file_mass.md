@@ -1,7 +1,6 @@
 ---
 title: 'kittycad file mass'
 excerpt: 'Get the mass of an object in a CAD file.'
-layout: manual
 ---
 
 Get the mass of an object in a CAD file.

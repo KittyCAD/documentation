@@ -1,7 +1,6 @@
 ---
 title: 'kittycad version'
 excerpt: 'Prints the version of the program.'
-layout: manual
 ---
 
 Prints the version of the program.

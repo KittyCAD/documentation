@@ -1,7 +1,6 @@
 ---
 title: 'kittycad api-call status'
 excerpt: 'Perform operations for API calls.'
-layout: manual
 ---
 
 Perform operations for API calls.

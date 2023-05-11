@@ -1,7 +1,6 @@
 ---
 title: 'kittycad drake'
 excerpt: 'Open a drake meme in your web browser.'
-layout: manual
 ---
 
 Open a drake meme in your web browser.

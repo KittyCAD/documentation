@@ -1,7 +1,6 @@
 ---
 title: 'kittycad user edit'
 excerpt: 'Edit user settings.'
-layout: manual
 ---
 
 Edit user settings.

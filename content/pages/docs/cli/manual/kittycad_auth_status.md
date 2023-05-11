@@ -1,7 +1,6 @@
 ---
 title: 'kittycad auth status'
 excerpt: 'Verifies and displays information about your authentication state.'
-layout: manual
 ---
 
 Verifies and displays information about your authentication state.

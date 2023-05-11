@@ -1,7 +1,6 @@
 ---
 title: 'kittycad update'
 excerpt: 'Update the current running binary to the latest version.'
-layout: manual
 ---
 
 Update the current running binary to the latest version.

@@ -1,7 +1,6 @@
 ---
 title: 'kittycad alias'
 excerpt: 'Create command shortcuts.'
-layout: manual
 ---
 
 Create command shortcuts.

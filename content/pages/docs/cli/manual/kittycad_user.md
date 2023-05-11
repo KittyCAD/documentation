@@ -1,7 +1,6 @@
 ---
 title: 'kittycad user'
 excerpt: 'Edit and view your user.'
-layout: manual
 ---
 
 Edit and view your user.

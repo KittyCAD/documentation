@@ -39,6 +39,12 @@ const Tutorial = defineDocumentType(() => ({
             required: false,
         },
     },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
 }))
 
 const Page = defineDocumentType(() => ({
@@ -56,6 +62,12 @@ const Page = defineDocumentType(() => ({
             description:
                 'The excerpt of the page, for SEO and preview text use.',
             required: true,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
         },
     },
 }))
@@ -83,6 +95,12 @@ const Glossary = defineDocumentType(() => ({
             },
             description: 'Synonyms of the primary term.',
             required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
         },
     },
 }))
@@ -117,7 +135,7 @@ const OgImage = defineNestedType(() => ({
 }))
 
 const BlogPost = defineDocumentType(() => ({
-    name: 'Blog Post',
+    name: 'BlogPost',
     filePathPattern: `posts/*.md*`,
     contentType: 'mdx',
     description:
@@ -159,6 +177,12 @@ const BlogPost = defineDocumentType(() => ({
             required: false,
         },
     },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
 }))
 
 const ChangeLog = defineDocumentType(() => ({
@@ -182,6 +206,12 @@ const ChangeLog = defineDocumentType(() => ({
             type: 'date',
             description: 'The date of the changelog entry.',
             required: true,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
         },
     },
 }))

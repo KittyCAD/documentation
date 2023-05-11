@@ -1,7 +1,6 @@
 ---
 title: 'kittycad auth login'
 excerpt: 'Authenticate with an KittyCAD host.'
-layout: manual
 ---
 
 Authenticate with an KittyCAD host.

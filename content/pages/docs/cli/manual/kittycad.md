@@ -1,7 +1,6 @@
 ---
 title: 'kittycad'
 excerpt: 'Work seamlessly with KittyCAD from the command line'
-layout: manual
 ---
 
 Work seamlessly with KittyCAD from the command line

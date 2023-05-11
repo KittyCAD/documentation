@@ -1,7 +1,6 @@
 ---
 title: 'kittycad generate markdown'
 excerpt: 'Generate markdown documentation.'
-layout: manual
 ---
 
 Generate markdown documentation.

@@ -1,7 +1,6 @@
 ---
 title: 'kittycad alias delete'
 excerpt: 'Delete an alias.'
-layout: manual
 ---
 
 Delete an alias.

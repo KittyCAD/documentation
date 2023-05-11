@@ -1,7 +1,6 @@
 ---
 title: 'kittycad user delete'
 excerpt: 'Delete user.'
-layout: manual
 ---
 
 Delete user.

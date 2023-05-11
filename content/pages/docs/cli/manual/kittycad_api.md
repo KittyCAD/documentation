@@ -1,7 +1,6 @@
 ---
 title: 'kittycad api'
 excerpt: 'Makes an authenticated HTTP request to the KittyCAD API and prints the response.'
-layout: manual
 ---
 
 Makes an authenticated HTTP request to the KittyCAD API and prints the response.

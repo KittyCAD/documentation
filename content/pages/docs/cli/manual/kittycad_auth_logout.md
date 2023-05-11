@@ -1,7 +1,6 @@
 ---
 title: 'kittycad auth logout'
 excerpt: 'Log out of an KittyCAD host.'
-layout: manual
 ---
 
 Log out of an KittyCAD host.

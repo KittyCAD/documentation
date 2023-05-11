@@ -1,7 +1,6 @@
 ---
 title: 'kittycad config'
 excerpt: 'Manage configuration for `kittycad`.'
-layout: manual
 ---
 
 Manage configuration for `kittycad`.

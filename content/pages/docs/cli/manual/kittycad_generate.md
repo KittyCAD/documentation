@@ -1,7 +1,6 @@
 ---
 title: 'kittycad generate'
 excerpt: 'Generate various documentation files for the `kittycad` command line.'
-layout: manual
 ---
 
 Generate various documentation files for the `kittycad` command line.

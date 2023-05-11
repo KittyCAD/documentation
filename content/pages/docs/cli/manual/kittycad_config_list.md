@@ -1,7 +1,6 @@
 ---
 title: 'kittycad config list'
 excerpt: 'Print a list of configuration keys and values.'
-layout: manual
 ---
 
 Print a list of configuration keys and values.

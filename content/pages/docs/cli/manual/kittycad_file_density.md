@@ -1,7 +1,6 @@
 ---
 title: 'kittycad file density'
 excerpt: 'Get the density of an object in a CAD file.'
-layout: manual
 ---
 
 Get the density of an object in a CAD file.

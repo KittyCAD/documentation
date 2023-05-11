@@ -1,6 +1,6 @@
 ---
 title: 'CLI Manual'
-description: 'The command-line interface for KittyCAD.'
+excerpt: 'The command-line interface for KittyCAD.'
 ---
 
 KittyCAD CLI, or `kittycad`, is a command-line interface to KittyCAD for use in your terminal or your scripts.

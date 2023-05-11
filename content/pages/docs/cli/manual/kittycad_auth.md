@@ -1,7 +1,6 @@
 ---
 title: 'kittycad auth'
 excerpt: 'Login, logout, and get the status of your authentication.'
-layout: manual
 ---
 
 Login, logout, and get the status of your authentication.

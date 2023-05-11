@@ -1,7 +1,6 @@
 ---
 title: 'kittycad file convert'
 excerpt: 'Convert a CAD file from one format to another.'
-layout: manual
 ---
 
 Convert a CAD file from one format to another.

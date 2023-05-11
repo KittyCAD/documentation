@@ -1,7 +1,6 @@
 ---
 title: 'kittycad alias list'
 excerpt: 'List your aliases.'
-layout: manual
 ---
 
 List your aliases.

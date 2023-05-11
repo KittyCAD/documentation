@@ -1,7 +1,6 @@
 ---
 title: 'kittycad config set'
 excerpt: 'Update configuration with a value for the given key.'
-layout: manual
 ---
 
 Update configuration with a value for the given key.
