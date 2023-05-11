@@ -1,4 +1,8 @@
-import { makeSource, defineDocumentType, defineNestedType } from '@contentlayer/source-files'
+import {
+    defineDocumentType,
+    defineNestedType,
+    makeSource,
+} from '@contentlayer/source-files'
 
 const Tutorial = defineDocumentType(() => ({
     name: 'Tutorial',
@@ -12,7 +16,8 @@ const Tutorial = defineDocumentType(() => ({
         },
         excerpt: {
             type: 'string',
-            description: 'The excerpt of the tutorial, for SEO and preview text use.',
+            description:
+                'The excerpt of the tutorial, for SEO and preview text use.',
             required: true,
         },
         langs: {
@@ -21,7 +26,8 @@ const Tutorial = defineDocumentType(() => ({
                 type: 'enum',
                 options: ['go', 'ts', 'py', 'rs'],
             },
-            description: 'The programming languages the tutorial is available in.',
+            description:
+                'The programming languages the tutorial is available in.',
             required: false,
         },
         tags: {
@@ -32,7 +38,7 @@ const Tutorial = defineDocumentType(() => ({
             description: 'The tags of the tutorial, for SEO and filtering use.',
             required: false,
         },
-    }
+    },
 }))
 
 const Page = defineDocumentType(() => ({
@@ -47,10 +53,11 @@ const Page = defineDocumentType(() => ({
         },
         excerpt: {
             type: 'string',
-            description: 'The excerpt of the page, for SEO and preview text use.',
+            description:
+                'The excerpt of the page, for SEO and preview text use.',
             required: true,
         },
-    }
+    },
 }))
 
 const Glossary = defineDocumentType(() => ({
@@ -65,7 +72,8 @@ const Glossary = defineDocumentType(() => ({
         },
         excerpt: {
             type: 'string',
-            description: 'The excerpt of the glossary definition, for SEO and preview text use.',
+            description:
+                'The excerpt of the glossary definition, for SEO and preview text use.',
             required: true,
         },
         synonyms: {
@@ -97,7 +105,8 @@ const Author = defineNestedType(() => ({
 
 const OgImage = defineNestedType(() => ({
     name: 'OgImage',
-    description: 'The og:image of the blog post, for SEO and preview image use.',
+    description:
+        'The og:image of the blog post, for SEO and preview image use.',
     fields: {
         url: {
             type: 'string',
@@ -107,12 +116,12 @@ const OgImage = defineNestedType(() => ({
     },
 }))
 
-
 const BlogPost = defineDocumentType(() => ({
     name: 'Blog Post',
     filePathPattern: `posts/*.md*`,
     contentType: 'mdx',
-    description: 'A blog post. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, InlineLitterbox, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    description:
+        'A blog post. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, InlineLitterbox, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
     fields: {
         title: {
             type: 'string',
@@ -121,12 +130,14 @@ const BlogPost = defineDocumentType(() => ({
         },
         excerpt: {
             type: 'string',
-            description: 'The excerpt of the blog post, for SEO and preview text use.',
+            description:
+                'The excerpt of the blog post, for SEO and preview text use.',
             required: true,
         },
         coverImage: {
             type: 'string',
-            description: 'The cover image of the blog post, for SEO and preview image use.',
+            description:
+                'The cover image of the blog post, for SEO and preview image use.',
             required: true,
         },
         date: {
@@ -143,19 +154,39 @@ const BlogPost = defineDocumentType(() => ({
         ogImage: {
             type: 'nested',
             of: OgImage,
-            description: 'The og:image of the blog post, for SEO and preview image use.',
+            description:
+                'The og:image of the blog post, for SEO and preview image use.',
             required: false,
         },
-    }
+    },
 }))
 
+const ChangeLog = defineDocumentType(() => ({
+    name: 'ChangeLog',
+    filePathPattern: `changelog/*.md*`,
+    contentType: 'mdx',
+    fields: {
+        title: {
+            type: 'string',
+            description:
+                'The title of the changelog entry, for SEO and heading use.',
+            required: true,
+        },
+        description: {
+            type: 'string',
+            description:
+                'The description of the changelog entry, for SEO and preview text use.',
+            required: true,
+        },
+        date: {
+            type: 'date',
+            description: 'The date of the changelog entry.',
+            required: true,
+        },
+    },
+}))
 
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [
-        Tutorial,
-        Glossary,
-        BlogPost,
-        Page,
-    ],
+    documentTypes: [Tutorial, ChangeLog, Glossary, BlogPost, Page],
 })
