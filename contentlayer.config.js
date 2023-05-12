@@ -219,4 +219,5 @@ const ChangeLog = defineDocumentType(() => ({
 export default makeSource({
     contentDirPath: 'content',
     documentTypes: [Tutorial, ChangeLog, Glossary, BlogPost, Page],
+    disableImportAliasWarning: true,
 })
