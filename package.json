@@ -1,15 +1,15 @@
 {
-  "name": "documentation",
-  "version": "0.1.0",
-  "private": false,
-  "scripts": {
-    "build": "contentlayer build",
-    "dev": "contentlayer dev"
-  },
-  "dependencies": {
-    "contentlayer": "^0.3.2"
-  },
-  "devDependencies": {
-    "react": "^18.2.0"
-  }
+    "name": "documentation",
+    "version": "0.1.0",
+    "private": false,
+    "scripts": {
+        "build": "contentlayer build",
+        "dev": "contentlayer dev"
+    },
+    "dependencies": {
+        "contentlayer": "^0.3.2"
+    },
+    "devDependencies": {
+        "react": "^18.2.0"
+    }
 }
