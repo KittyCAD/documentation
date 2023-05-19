@@ -1,3 +1,6 @@
 node_modules
 .contentlayer
 .DS_Store
+
+# Obsidian Markdown editor config files
+.obsidian
