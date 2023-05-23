@@ -96,6 +96,18 @@ const Glossary = defineDocumentType(() => ({
             description: 'Synonyms of the primary term.',
             required: false,
         },
+        domains: {
+            type: 'list',
+            of: {
+                type: 'enum',
+                options: [
+                    'software-engineering',
+                    'hardware-engineering',
+                ],
+            },
+            description: 'Subject domain(s) of the primary term.',
+            required: true,
+        }
     },
     computedFields: {
         slug: {
