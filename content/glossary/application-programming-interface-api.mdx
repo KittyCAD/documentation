@@ -1,0 +1,20 @@
+---
+title: API
+excerpt: An interface from one program to another.
+synonyms:
+    - API
+    - application programming interface
+    - APIs
+    - application programming interfaces
+domains:
+    - software-engineering
+---
+
+An API, or application programming interface, is a space where one software (usually called a [client](/docs/glossary/client)) can ask for things from another piece of software (a [host](/docs/glossary/host)), or ask the host to do work on their behalf. Most pieces of software operate this way, especially when connecting over the internet.
+
+You can think of an API like a menu of available options for a client[^1]. The host software curates a menu of things they're willing to provide for clients, or work they're willing to do for them, and then publishes that menu for possible clients to read. The items on this published menu are called [endpoints](/docs/glossary/endpoint). Our API follows the [OpenAPI standard](https://www.openapis.org/) so that as many pieces of software as possible can interface with its endpoints.
+
+One of the revolutionary things[^2] about KittyCAD is that we are making all of the operations and data necessary to do hardware design—from [sketching](/docs/glossary/sketching) to [modeling](/docs/glossary/modeling)—available as API endpoints. If you want to build software with just a little bit of CAD functionality in it, you can call just the endpoints you need; or if you want to build a completely new kind of CAD software by combining operations in a novel way, you can.
+
+[^1]: The restaurant metaphors don't stop there. The computers where the host software lets clients make requests are called "servers".
+[^2]: One of the other things is that these services are ridiculously fast and getting faster 🔥
