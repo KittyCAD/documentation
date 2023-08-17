@@ -1,6 +1,7 @@
 ---
-title: 'kittycad generate man-pages'
-excerpt: 'Generate manual pages.'
+title: "kittycad generate man-pages"
+excerpt: "Generate manual pages."
+layout: manual
 ---
 
 Generate manual pages.
@@ -11,13 +12,14 @@ Generate manual pages.
    <dt><code>-D/--dir</code></dt>
    <dd>Path directory where you want to output the generated files<br/>Default value: <code></code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help</dd>
 </dl>
+
 
 ### See also
 
--   [kittycad generate](./kittycad_generate)
+* [kittycad generate](./kittycad_generate)

@@ -1,39 +1,42 @@
 ---
-title: 'kittycad'
-excerpt: 'Work seamlessly with KittyCAD from the command line'
+title: "kittycad"
+excerpt: "Work seamlessly with KittyCAD from the command line"
+layout: manual
 ---
 
 Work seamlessly with KittyCAD from the command line
 
 ### Subcommands
 
--   [kittycad alias](./kittycad_alias)
--   [kittycad api](./kittycad_api)
--   [kittycad api-call](./kittycad_api-call)
--   [kittycad auth](./kittycad_auth)
--   [kittycad completion](./kittycad_completion)
--   [kittycad config](./kittycad_config)
--   [kittycad drake](./kittycad_drake)
--   [kittycad file](./kittycad_file)
--   [kittycad generate](./kittycad_generate)
--   [kittycad open](./kittycad_open)
--   [kittycad update](./kittycad_update)
--   [kittycad user](./kittycad_user)
--   [kittycad version](./kittycad_version)
--   [kittycad help](./kittycad_help)
+* [kittycad alias](./kittycad_alias)
+* [kittycad api](./kittycad_api)
+* [kittycad api-call](./kittycad_api-call)
+* [kittycad auth](./kittycad_auth)
+* [kittycad completion](./kittycad_completion)
+* [kittycad config](./kittycad_config)
+* [kittycad drake](./kittycad_drake)
+* [kittycad file](./kittycad_file)
+* [kittycad generate](./kittycad_generate)
+* [kittycad say](./kittycad_say)
+* [kittycad open](./kittycad_open)
+* [kittycad update](./kittycad_update)
+* [kittycad user](./kittycad_user)
+* [kittycad version](./kittycad_version)
+* [kittycad help](./kittycad_help)
 
 ### Options
 
 <dl class="flags">
+   <dt><code>-d/--debug</code></dt>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
    <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dd>Print help (see a summary with '-h')</dd>
 
    <dt><code>-V/--version</code></dt>
-   <dd>Print version information</dd>
-
-   <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print version</dd>
 </dl>
+
 
 ### About
 

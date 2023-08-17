@@ -1,6 +1,7 @@
 ---
-title: 'kittycad alias set'
-excerpt: 'Create a shortcut for a `kittycad` command.'
+title: "kittycad alias set"
+excerpt: "Create a shortcut for a `kittycad` command."
+layout: manual
 ---
 
 Create a shortcut for a `kittycad` command.
@@ -15,14 +16,15 @@ Create a shortcut for a `kittycad` command.
    <dd>The expansion of the alias</dd>
 
    <dt><code>-s/--shell</code></dt>
-   <dd>Declare an alias to be passed through a shell interpreter</dd>
-
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dd>Declare an alias to be passed through a shell interpreter<br/>Default value: <code>false</code></dd>
 
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -42,4 +44,4 @@ invoked. This allows for chaining multiple commands via piping and redirection.
 
 ### See also
 
--   [kittycad alias](./kittycad_alias)
+* [kittycad alias](./kittycad_alias)

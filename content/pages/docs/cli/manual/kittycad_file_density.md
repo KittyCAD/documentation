@@ -1,6 +1,7 @@
 ---
-title: 'kittycad file density'
-excerpt: 'Get the density of an object in a CAD file.'
+title: "kittycad file density"
+excerpt: "Get the density of an object in a CAD file."
+layout: manual
 ---
 
 Get the density of an object in a CAD file.
@@ -12,20 +13,27 @@ Get the density of an object in a CAD file.
    <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-s/--src-format</code></dt>
-   <dd>A valid source file format</dd>
+   <dd>A valid source file format<br/>Possible values: <code>gltf | obj | ply | step | stl</code></dd>
 
    <dt><code>-m/--material-mass</code></dt>
-   <dd>Material mass<br/>Default value: <code>1.0</code></dd>
+   <dd>Material mass</dd>
+
+   <dt><code>--material-mass-unit</code></dt>
+   <dd>The unit of the material mass<br/>Possible values: <code>g | kg | lb</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dt><code>-u/--output-unit</code></dt>
+   <dd>Output unit<br/>Possible values: <code>lb-ft3 | kg-m3</code></dd>
 
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -43,4 +51,4 @@ $ cat my-obj.obj | kittycad file density - --src-format=obj
 
 ### See also
 
--   [kittycad file](./kittycad_file)
+* [kittycad file](./kittycad_file)

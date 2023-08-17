@@ -1,6 +1,7 @@
 ---
-title: 'kittycad config get'
-excerpt: 'Print the value of a given configuration key.'
+title: "kittycad config get"
+excerpt: "Print the value of a given configuration key."
+layout: manual
 ---
 
 Print the value of a given configuration key.
@@ -14,13 +15,14 @@ Print the value of a given configuration key.
    <dt><code>-H/--host</code></dt>
    <dd>Get per-host setting<br/>Default value: <code></code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help</dd>
 </dl>
+
 
 ### See also
 
--   [kittycad config](./kittycad_config)
+* [kittycad config](./kittycad_config)

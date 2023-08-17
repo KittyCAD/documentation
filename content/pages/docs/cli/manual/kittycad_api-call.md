@@ -1,24 +1,26 @@
 ---
-title: 'kittycad api-call'
-excerpt: 'Perform operations on CAD files.'
+title: "kittycad api-call"
+excerpt: "Perform operations on CAD files."
+layout: manual
 ---
 
 Perform operations on CAD files.
 
 ### Subcommands
 
--   [kittycad api-call status](./kittycad_api-call_status)
--   [kittycad api-call help](./kittycad_api-call_help)
+* [kittycad api-call status](./kittycad_api-call_status)
+* [kittycad api-call help](./kittycad_api-call_help)
 
 ### Options
 
 <dl class="flags">
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 

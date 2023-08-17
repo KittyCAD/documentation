@@ -1,6 +1,7 @@
 ---
-title: 'kittycad completion'
-excerpt: 'Generate shell completion scripts.'
+title: "kittycad completion"
+excerpt: "Generate shell completion scripts."
+layout: manual
 ---
 
 Generate shell completion scripts.
@@ -11,12 +12,13 @@ Generate shell completion scripts.
    <dt><code>-s/--shell</code></dt>
    <dd>The shell type<br/>Possible values: <code>bash | elvish | fish | powershell | zsh</code><br/>Default value: <code>bash</code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 

@@ -1,6 +1,7 @@
 ---
-title: 'kittycad user edit'
-excerpt: 'Edit user settings.'
+title: "kittycad user edit"
+excerpt: "Edit user settings."
+layout: manual
 ---
 
 Edit user settings.
@@ -26,13 +27,14 @@ Edit user settings.
    <dt><code>-p/--phone</code></dt>
    <dd>The user's phone number<br/>Default value: <code></code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help</dd>
 </dl>
+
 
 ### See also
 
--   [kittycad user](./kittycad_user)
+* [kittycad user](./kittycad_user)
