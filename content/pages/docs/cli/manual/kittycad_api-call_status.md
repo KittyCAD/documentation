@@ -1,6 +1,7 @@
 ---
-title: 'kittycad api-call status'
-excerpt: 'Perform operations for API calls.'
+title: "kittycad api-call status"
+excerpt: "Perform operations for API calls."
+layout: manual
 ---
 
 Perform operations for API calls.
@@ -14,12 +15,13 @@ Perform operations for API calls.
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -30,4 +32,4 @@ $ kittycad api-call status <id>
 
 ### See also
 
--   [kittycad api-call](./kittycad_api-call)
+* [kittycad api-call](./kittycad_api-call)

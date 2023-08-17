@@ -1,6 +1,7 @@
 ---
-title: 'kittycad open'
-excerpt: 'Shortcut to open the KittyCAD documentation or Account in your browser.'
+title: "kittycad open"
+excerpt: "Shortcut to open the KittyCAD documentation or Account in your browser."
+layout: manual
 ---
 
 Shortcut to open the KittyCAD documentation or Account in your browser.
@@ -11,12 +12,13 @@ Shortcut to open the KittyCAD documentation or Account in your browser.
    <dt><code>shortcut</code></dt>
    <dd><br/>Possible values: <code>docs | api-ref | cli-ref | account | discord | store | blog | repo | changelog</code><br/>Default value: <code>docs</code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 

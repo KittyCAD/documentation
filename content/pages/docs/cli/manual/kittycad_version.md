@@ -1,6 +1,7 @@
 ---
-title: 'kittycad version'
-excerpt: 'Prints the version of the program.'
+title: "kittycad version"
+excerpt: "Prints the version of the program."
+layout: manual
 ---
 
 Prints the version of the program.
@@ -9,11 +10,12 @@ Prints the version of the program.
 
 <dl class="flags">
    <dt><code>-w/--web</code></dt>
-   <dd>Open the version in the browser</dd>
-
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dd>Open the version in the browser<br/>Default value: <code>false</code></dd>
 
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help</dd>
 </dl>
+

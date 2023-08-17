@@ -1,20 +1,18 @@
 ---
-title: 'kittycad config help'
-excerpt: 'Print this message or the help of the given subcommand(s)'
+title: "kittycad config help"
+excerpt: "Print this message or the help of the given subcommand(s)"
+layout: manual
 ---
 
 Print this message or the help of the given subcommand(s)
 
-### Options
+### Subcommands
 
-<dl class="flags">
-   <dt><code>subcommand</code></dt>
-   <dd>The subcommand whose help message to display</dd>
-
-   <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
-</dl>
+* [kittycad config help set](./kittycad_config_help_set)
+* [kittycad config help list](./kittycad_config_help_list)
+* [kittycad config help get](./kittycad_config_help_get)
+* [kittycad config help help](./kittycad_config_help_help)
 
 ### See also
 
--   [kittycad config](./kittycad_config)
+* [kittycad config](./kittycad_config)

@@ -1,6 +1,7 @@
 ---
-title: 'kittycad auth login'
-excerpt: 'Authenticate with an KittyCAD host.'
+title: "kittycad auth login"
+excerpt: "Authenticate with an KittyCAD host."
+layout: manual
 ---
 
 Authenticate with an KittyCAD host.
@@ -9,20 +10,21 @@ Authenticate with an KittyCAD host.
 
 <dl class="flags">
    <dt><code>--with-token</code></dt>
-   <dd>Read token from standard input</dd>
+   <dd>Read token from standard input<br/>Default value: <code>false</code></dd>
 
    <dt><code>-H/--host</code></dt>
    <dd>The host of the KittyCAD instance to authenticate with. By default this is api.kittycad.io. This assumes the instance is an `https://` url, if not otherwise specified as `http://`</dd>
 
    <dt><code>-w/--web</code></dt>
-   <dd>Open a browser to authenticate</dd>
-
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dd>Open a browser to authenticate<br/>Default value: <code>false</code></dd>
 
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -44,4 +46,4 @@ $ kittycad auth login --host http://kittycad.internal
 
 ### See also
 
--   [kittycad auth](./kittycad_auth)
+* [kittycad auth](./kittycad_auth)

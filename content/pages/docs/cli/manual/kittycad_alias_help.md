@@ -1,20 +1,18 @@
 ---
-title: 'kittycad alias help'
-excerpt: 'Print this message or the help of the given subcommand(s)'
+title: "kittycad alias help"
+excerpt: "Print this message or the help of the given subcommand(s)"
+layout: manual
 ---
 
 Print this message or the help of the given subcommand(s)
 
-### Options
+### Subcommands
 
-<dl class="flags">
-   <dt><code>subcommand</code></dt>
-   <dd>The subcommand whose help message to display</dd>
-
-   <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
-</dl>
+* [kittycad alias help set](./kittycad_alias_help_set)
+* [kittycad alias help delete](./kittycad_alias_help_delete)
+* [kittycad alias help list](./kittycad_alias_help_list)
+* [kittycad alias help help](./kittycad_alias_help_help)
 
 ### See also
 
--   [kittycad alias](./kittycad_alias)
+* [kittycad alias](./kittycad_alias)

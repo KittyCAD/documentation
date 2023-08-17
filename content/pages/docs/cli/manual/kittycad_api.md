@@ -1,6 +1,7 @@
 ---
-title: 'kittycad api'
-excerpt: 'Makes an authenticated HTTP request to the KittyCAD API and prints the response.'
+title: "kittycad api"
+excerpt: "Makes an authenticated HTTP request to the KittyCAD API and prints the response."
+layout: manual
 ---
 
 Makes an authenticated HTTP request to the KittyCAD API and prints the response.
@@ -15,7 +16,7 @@ Makes an authenticated HTTP request to the KittyCAD API and prints the response.
    <dd>The HTTP method for the request</dd>
 
    <dt><code>--paginate</code></dt>
-   <dd>Make additional HTTP requests to fetch all pages of results</dd>
+   <dd>Make additional HTTP requests to fetch all pages of results<br/>Default value: <code>false</code></dd>
 
    <dt><code>-F/--field</code></dt>
    <dd>Add a typed parameter in key=value format</dd>
@@ -27,17 +28,18 @@ Makes an authenticated HTTP request to the KittyCAD API and prints the response.
    <dd>The file to use as body for the HTTP request (use "-" to read from standard input)<br/>Default value: <code></code></dd>
 
    <dt><code>-i/--include</code></dt>
-   <dd>Include HTTP response headers in the output</dd>
+   <dd>Include HTTP response headers in the output<br/>Default value: <code>false</code></dd>
 
    <dt><code>-H/--header</code></dt>
    <dd>Add a HTTP request header in `key:value` format</dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -54,10 +56,10 @@ request method to POST. To send the parameters as a GET query string instead, us
 
 The `-F/--field` flag has magic type conversion based on the format of the value:
 
--   literal values "true", "false", "null", and integer/float numbers get converted to
-    appropriate JSON types;
--   if the value starts with "@", the rest of the value is interpreted as a
-    filename to read the value from. Pass "-" to read from standard input.
+* literal values "true", "false", "null", and integer/float numbers get converted to
+  appropriate JSON types;
+* if the value starts with "@", the rest of the value is interpreted as a
+  filename to read the value from. Pass "-" to read from standard input.
 
 Raw request body may be passed from the outside via a file specified by `--input`.
 Pass "-" to read from standard input. In this mode, parameters specified via

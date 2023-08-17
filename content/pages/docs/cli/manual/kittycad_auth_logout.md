@@ -1,6 +1,7 @@
 ---
-title: 'kittycad auth logout'
-excerpt: 'Log out of an KittyCAD host.'
+title: "kittycad auth logout"
+excerpt: "Log out of an KittyCAD host."
+layout: manual
 ---
 
 Log out of an KittyCAD host.
@@ -11,12 +12,13 @@ Log out of an KittyCAD host.
    <dt><code>-H/--host</code></dt>
    <dd>The hostname of the KittyCAD instance to log out of</dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -33,4 +35,4 @@ $ kittycad auth logout --host kittycad.internal
 
 ### See also
 
--   [kittycad auth](./kittycad_auth)
+* [kittycad auth](./kittycad_auth)

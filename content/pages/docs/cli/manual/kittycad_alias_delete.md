@@ -1,6 +1,7 @@
 ---
-title: 'kittycad alias delete'
-excerpt: 'Delete an alias.'
+title: "kittycad alias delete"
+excerpt: "Delete an alias."
+layout: manual
 ---
 
 Delete an alias.
@@ -11,13 +12,14 @@ Delete an alias.
    <dt><code>alias</code></dt>
    <dd>The alias to delete</dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help</dd>
 </dl>
+
 
 ### See also
 
--   [kittycad alias](./kittycad_alias)
+* [kittycad alias](./kittycad_alias)

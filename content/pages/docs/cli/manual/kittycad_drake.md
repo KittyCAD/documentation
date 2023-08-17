@@ -1,6 +1,7 @@
 ---
-title: 'kittycad drake'
-excerpt: 'Open a drake meme in your web browser.'
+title: "kittycad drake"
+excerpt: "Open a drake meme in your web browser."
+layout: manual
 ---
 
 Open a drake meme in your web browser.
@@ -8,12 +9,13 @@ Open a drake meme in your web browser.
 ### Options
 
 <dl class="flags">
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 

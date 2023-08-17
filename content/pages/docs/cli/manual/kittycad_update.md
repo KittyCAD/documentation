@@ -1,6 +1,7 @@
 ---
-title: 'kittycad update'
-excerpt: 'Update the current running binary to the latest version.'
+title: "kittycad update"
+excerpt: "Update the current running binary to the latest version."
+layout: manual
 ---
 
 Update the current running binary to the latest version.
@@ -8,12 +9,13 @@ Update the current running binary to the latest version.
 ### Options
 
 <dl class="flags">
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
-
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 

@@ -1,6 +1,7 @@
 ---
-title: 'kittycad file volume'
-excerpt: 'Get the volume of an object in a CAD file.'
+title: "kittycad file volume"
+excerpt: "Get the volume of an object in a CAD file."
+layout: manual
 ---
 
 Get the volume of an object in a CAD file.
@@ -12,17 +13,21 @@ Get the volume of an object in a CAD file.
    <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-s/--src-format</code></dt>
-   <dd>A valid source file format<br/>Possible values: <code>stl | obj | dae | step | fbx</code></dd>
+   <dd>A valid source file format<br/>Possible values: <code>gltf | obj | ply | step | stl</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
-   <dt><code>-h/--help</code></dt>
-   <dd>Print help information</dd>
+   <dt><code>-u/--output-unit</code></dt>
+   <dd>Output unit<br/>Possible values: <code>cm3 | ft3 | in3 | m3 | yd3 | usfloz | usgal | l | ml</code></dd>
 
    <dt><code>-d/--debug</code></dt>
-   <dd>Print debug info</dd>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
+
 
 ### About
 
@@ -40,4 +45,4 @@ $ cat my-obj.obj | kittycad file volume - --src-format=obj
 
 ### See also
 
--   [kittycad file](./kittycad_file)
+* [kittycad file](./kittycad_file)
