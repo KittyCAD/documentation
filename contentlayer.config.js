@@ -63,6 +63,12 @@ const Page = defineDocumentType(() => ({
                 'The excerpt of the page, for SEO and preview text use.',
             required: true,
         },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        }
     },
     computedFields: {
         slug: {
