@@ -31,5 +31,5 @@ Perform operations on CAD files.
 
 ```
 # convert a step file to an obj file
-$ kittycad file convert ./input.step ./output.obj
+$ kittycad file convert --output-format=obj ./input.step ./
 ```

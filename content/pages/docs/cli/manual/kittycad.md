@@ -17,6 +17,7 @@ Work seamlessly with KittyCAD from the command line
 * [kittycad drake](./kittycad_drake)
 * [kittycad file](./kittycad_file)
 * [kittycad generate](./kittycad_generate)
+* [kittycad kcl](./kittycad_kcl)
 * [kittycad say](./kittycad_say)
 * [kittycad open](./kittycad_open)
 * [kittycad update](./kittycad_update)

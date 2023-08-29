@@ -1,10 +1,10 @@
 ---
-title: "kittycad file convert"
-excerpt: "Convert a CAD file from one format to another."
+title: "kittycad kcl export"
+excerpt: "Export a `kcl` file as any other supported CAD file format."
 layout: manual
 ---
 
-Convert a CAD file from one format to another.
+Export a `kcl` file as any other supported CAD file format.
 
 ### Options
 
@@ -14,9 +14,6 @@ Convert a CAD file from one format to another.
 
    <dt><code>output-dir</code></dt>
    <dd>The path to a directory to output the files</dd>
-
-   <dt><code>-s/--src-format</code></dt>
-   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | step | stl</code></dd>
 
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output file format<br/>Possible values: <code>fbx | glb | gltf | obj | ply | step | stl</code></dd>
@@ -34,22 +31,17 @@ Convert a CAD file from one format to another.
 
 ### About
 
-If the file being converted is larger than a certain size it will be
-performed asynchronously, you can then check its status with the
-`kittycad api-call status <id_of_your_operation>` command.
-
 ```
-# convert step to obj
-$ kittycad file convert --output-format=obj my-file.step output_dir
+# convert kcl to obj
+$ kittycad kcl export --output-format=obj my-file.kcl output_dir
 
-# convert obj to step
-$ kittycad file convert --output-format=step my-obj.obj .
+# convert kcl to step
+$ kittycad kcl export --output-format=step my-obj.kcl .
 
 # pass a file to convert from stdin
-# when converting from stdin, the original file type is required
-$ cat my-obj.obj | kittycad file convert --output-format=step - output_dir
+$ cat my-obj.kcl | kittycad kcl export --output-format=step - output_dir
 ```
 
 ### See also
 
-* [kittycad file](./kittycad_file)
+* [kittycad kcl](./kittycad_kcl)
