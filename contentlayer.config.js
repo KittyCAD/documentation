@@ -68,7 +68,7 @@ const Page = defineDocumentType(() => ({
             options: ['manual'],
             description: 'The layout of the page.',
             required: false,
-        }
+        },
     },
     computedFields: {
         slug: {
