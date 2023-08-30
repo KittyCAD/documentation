@@ -9,6 +9,8 @@ Perform actions on `kcl` files.
 ### Subcommands
 
 * [kittycad kcl export](./kittycad_kcl_export)
+* [kittycad kcl snapshot](./kittycad_kcl_snapshot)
+* [kittycad kcl view](./kittycad_kcl_view)
 * [kittycad kcl help](./kittycad_kcl_help)
 
 ### Options
