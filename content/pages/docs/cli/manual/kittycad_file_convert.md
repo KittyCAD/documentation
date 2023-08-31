@@ -16,7 +16,7 @@ Convert a CAD file from one format to another.
    <dd>The path to a directory to output the files</dd>
 
    <dt><code>-s/--src-format</code></dt>
-   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | step | stl</code></dd>
+   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | sldprt | step | stl</code></dd>
 
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output file format<br/>Possible values: <code>fbx | glb | gltf | obj | ply | step | stl</code></dd>
