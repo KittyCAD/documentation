@@ -13,7 +13,7 @@ Get the volume of an object in a CAD file.
    <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-s/--src-format</code></dt>
-   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | step | stl</code></dd>
+   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | sldprt | step | stl</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>

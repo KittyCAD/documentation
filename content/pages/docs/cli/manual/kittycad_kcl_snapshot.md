@@ -12,11 +12,11 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>input</code></dt>
    <dd>The path to the input kcl file to snapshot. If you pass `-` as the path, the file will be read from stdin</dd>
 
-   <dt><code>output-dir</code></dt>
+   <dt><code>output-file</code></dt>
    <dd>The path to a file to output the image</dd>
 
    <dt><code>-t/--output-format</code></dt>
-   <dd>A valid output image format<br/>Possible values: <code>png</code></dd>
+   <dd>A valid output image format<br/>Possible values: <code>png | jpeg</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
