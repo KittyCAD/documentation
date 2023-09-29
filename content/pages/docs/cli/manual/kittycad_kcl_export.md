@@ -18,6 +18,9 @@ Export a `kcl` file as any other supported CAD file format.
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output file format<br/>Possible values: <code>fbx | glb | gltf | obj | ply | step | stl</code></dd>
 
+   <dt><code>-s/--src-unit</code></dt>
+   <dd>The source unit to use for the kcl file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
+
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
