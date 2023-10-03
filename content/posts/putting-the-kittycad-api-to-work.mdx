@@ -1,0 +1,32 @@
+---
+title: 'Putting the KittyCAD API to work'
+excerpt: 'Building hybrid programmable & click-and-point CAD on top of our GPU-optimized CAD engine to bring hardware design out of the dark ages.'
+coverImage: '/kittycad-long.png'
+date: '2023-10-03T1:35:07.322Z'
+author:
+    name: Jessie Frazelle
+    picture: '/jessfraz.jpg'
+ogImage:
+    url: '/meta-images/building-in-public-social.jpg'
+---
+
+Mechanical CAD is in the dark ages. Mechanical CAD engines are decades old, which is great for encompassing lots of knowledge but makes them incredibly slow since they were originally developed for the computers of that time and cannot take advantage of modern hardware. CAD programs are hard to automate into pipelines like software engineers are used to. When you change your models, you should get instant analysis feedback on your new models… interference checks, structural failures, you name it.
+
+The solution is obvious: programmable CAD and a GPU-optimized CAD engine. This is what we’re building at KittyCAD. At the start of this year, Kurt, our first and founding engineer, showed off an internal demo of a groundbreaking tool he was developing. Today, we are going to share that with you. Together as a team, we have prepared a special alpha release of a new mechanical CAD GUI we have been building on top of our [Design API](/design-api).
+
+The [KittyCAD Modeling App (KCMA)](/modeling-app) is now [open source](https://github.com/KittyCAD/modeling-app). You can engage with KCMA in various ways: [test it out](https://kittycad.io/modeling-app/download), report issues, participate in discussions, contribute to its development, or even fork it to create your customized CAD GUI. Under the hood, KCMA uses our Design API, leveraging our in-house b-rep[^1] based Geometry Engine running on GPUs. There are two reasons why we would build our own CAD GUI versus just launching our Design API. First, it lets us dogfood[^2] our Design API and make sure we are building something engineers love. Second, it allows us to build the CAD GUI that _needs_ to exist.
+
+A couple years ago, I wrote in an [ACM Queue article](https://queue.acm.org/detail.cfm?id=3469844) about how the ultimate GUI would be both point-and-click and code, with one side updating the other. In this sense, KCMA is unlike any CAD program you have ever used, but familiar enough that you can be productive out of the gate. CAD designers can use a familiar point-and-click UI, but users can also write code to unlock the parametric CAD they’ve always dreamed of. This alpha release is still early and lacking a bunch of CAD primitives (we know, we are getting there!) but we wanted to give you all an early look to see where we are headed.
+
+Open-sourcing KCMA and building it in public lets you watch our progress and participate in development. Our team has a great culture of sharing internal demos of new features we are working on, and we’re very excited to now do that more openly with our community.
+
+We are executing on our vision with urgency. Don’t worry, we will not ask you to be patient, because we are not patient either! The [roadmap](https://github.com/KittyCAD/modeling-app/issues/729) is open to the public with all the CAD primitives you are used to, and all the features we need to reach v1.0.0. I am so proud of what a small team has accomplished in such a short amount of time and we are only just getting started. We’ve laid the groundwork for a bunch of new features to be added to our CAD engine and exposed in KCMA.
+
+We are also [open sourcing](https://github.com/KittyCAD/diff-viewer-extension) and launching another fun tool: our [CAD diff viewer Chrome extension](/diff-viewer) for GitHub, powered by our Design API. Manually looking at changes to CAD files in GitHub is now a thing of the past. Our Chrome extension lets you visually see the changes to a CAD model across pull requests and patches. Or if you want, you can visually inspect the model as-is, on any branch, no diff necessary.
+
+We have a bunch of other very fun, interesting, and obvious projects in the works – stay tuned! The world of mechanical CAD does not yet know what has hit it, but things are about to get very interesting as we continue to execute and build! Join us on [discord](https://discord.gg/JQEpHR7Nt2) or in the [open source repo](https://github.com/KittyCAD/modeling-app) with your ideas and feedback, we’d love to hear from you!
+
+For any software or mechanical engineers in the audience, we hope you try the app, take a look under the hood at the code and get nerd-sniped into [applying for a role](/careers). KCMA and our CAD engine utilize WebRTC, Nvidia Encoder, Vulkan, WASM, Rust, and so many more technologies. We have a world of interesting problems to bite off!
+
+[^1]: B-Rep, or Boundary Representation, succinctly defines 3D objects using surfaces composed of vertices, edges, and faces, outlining their external shape. Unlike implicit modeling, B-Rep provides precise control over the object's geometry and topology, facilitating accurate and efficient design modifications, essential for manufacturing processes where exact dimensions and tolerances are crucial.
+[^2]: "Dogfooding" in software development is the practice where a company uses its own product to test and promote the product. The term is derived from the phrase "eating your own dog food," which implies that developers should use the software products they create to better understand the user experience and identify any potential issues.
