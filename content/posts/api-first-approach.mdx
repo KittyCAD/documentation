@@ -1,0 +1,71 @@
+---
+title: 'Why we’re building APIs first'
+excerpt: |
+    An introduction to why KittyCAD isn't a hardware design company, but rather a software infrastructure company for hardware design
+coverImage: 'documentation-assets/api-first-approach.jpg'
+date: '2023-10-30T12:28:40Z'
+author:
+    name: Frank Noirot
+    picture: '/documentation-assets/franknoirot.jpg'
+ogImage:
+    url: 'documentation-assets/api-first-approach.jpg'
+---
+If you've come to find the "KittyCAD design tool" and you only find us talking about Application Programming Interfaces (APIs) and Software Development Kits (SDKs) you might be wondering, are we a hardware design company or not?
+
+We're not! We're actually a software infrastructure company for hardware design.
+
+Our products aren't 3D modeling software suites. We make tools that allow any software developer to build hardware design tools with modern features, and we have built systems to make sure that software will run anywhere and scale. We're building a system to support thousands of hardware design tools.
+
+To support any application big or small, KittyCAD's functionality is broken up into many individual services, called endpoints. This is our API, and it allows developers to build in only the functionality they need, and leave out whatever they don’t.
+
+You may build a file converter app just using our [convert](https://kittycad.io/docs/api/convert-cad-file) API endpoint, while someone building a full-featured CAD suite may use our [design endpoints](https://kittycad.io/docs/api/open-a-websocket-which-accepts-modeling-commands) to let their users generate 3D models through a traditional user interface. Both these developers got only the features they needed, and both haven't had to think about the complexities of CAD file formats, [rendering engines](https://kittycad.io/geometry-engine), or most of the other thorny problems of building hardware design tools. That's what KittyCAD is for.
+
+
+## The problem with selling a user interface
+
+We experience hardware design tools like [Solidworks](https://www.solidworks.com/) and [Nx](https://plm.sw.siemens.com/en-US/nx/) as user interfaces, but as we've seen, there is a lot of infrastructure supporting these tools that Dassault and Siemens have to maintain and innovate on. A mountain of incredible innovation went into building businesses around these complex pieces of software.
+
+The trouble comes when software engineering advances over the decades.
+
+If you've ever maintained the same piece of software for more than a couple years, you'll understand how hard it is to pivot already-finished tools to learn from paradigm shifts in the industry. Even if you try your hardest, it's very easy for the old way of doing things to be woven throughout your codebase as assumptions.
+
+As [Jess mentioned in her first post](https://kittycad.io/blog/mechanical-cad-yesterday-today-and-tomorrow), this is why most CAD software is not extensible. Most of them have assumptions about software that were true in 1990 but aren't anymore: that the internet doesn't exist; that GPUs don't exist; that clicking is easier than typing for most user interactions[^1].
+
+
+## Adding an infrastructure layer to hardware design
+
+We think the hardware design industry needs a new layer of people who focus on those underlying assumptions and keep them up-to-date as the industry finds new and better ways of making software.
+
+KittyCAD has assembled experts in software infrastructure to deal with all the complexity of making flexible tools for hardware design, so that software developers can focus on just building good user experiences. Like [Docker](https://www.docker.com/) did for devops and like [AWS](https://aws.amazon.com/) and [Vercel](https://vercel.com/) have done for web development, we are opening up an area of software development that has been inaccessible to most teams by handling the bottom of the software stack for you.
+
+If you want to get started building hardware design tools, we have everything you need. You can call our API directly over HTTPS just like any web service, or use one of our SDKs to build tools in the programming language you love to use (we love Rust ourselves!).
+
+Or if you want a starting point to jump off of, use one of our open-source tools to see how easy it is to incorporate KittyCAD into an application and unlock new CAD capabilities.
+
+
+## KittyCAD eats its own dogfood
+
+We are an infrastructure-first company, but we are building several end-user applications as we go in order to “[dogfood](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)” our Geometry Engine and API infrastructure. [KittyCAD Modeling App](https://kittycad.io/modeling-app) is where most of our engineering efforts are going now, but we are also building our [Diff Viewer Extension](https://kittycad.io/diff-viewer) and other similarly niche tools in parallel[^2]. 
+
+These applications will all be open-source. This build-in-the-open approach does several things:
+
+
+
+1. They show the hardware design industry what is possible to build when you reimagine the foundation the tools are built on, widening [the adjacent possible](https://link.springer.com/referenceworkentry/10.1007/978-3-319-98390-5_100-1).
+2. They provide us with more users today to load test our API and find bugs early, before someone builds a business-critical functionality on top of us.
+3. By being open-source, they provide users the option to either contribute back to the project, or use our code as a starting point for their new idea.
+
+This development model is table stakes for the software industry, and we are proving that it can work for hardware design tool companies too. We have been thrilled to see community members already contributing improvements to the Modeling App, as well as ideas and feedback on our roadmap. I can’t wait to see a specialized modeling app get made based on KCMA: if you’re building one, tag me on GitHub with any UX questions!
+
+
+## Imagining is the hard part
+
+Building an API-first offering allows our team to focus on solving the irreducibly hard problems in crafting hardware design tools and getting those solutions into the hands of software developers. Dogfooding our infrastructure by building our own open-source tools helps us validate our approach as we build services, and we hope gives engineers solid starting points to build their own tools and companies on our infrastructure.
+
+We believe we’ve validated our thesis that a modern reimagining of the hardware design industry can and should be done. What we have yet to do is imagine all the new kinds of tools that are made possible by taking an API-first approach. That’s where you come in.
+
+My role as a Design Engineer is to help build these new interfaces, and to make onboarding into this new paradigm for hardware design as easy as possible. I’m excited to see what you build with KittyCAD, and the rest of the team and I here to help you do it!
+
+[^1]: and of course that Y2K will doom us all.
+[^2]:
+    we’ve also decided as a team that we’re going to keep giving all our groundbreaking tools the most boring names possible.
