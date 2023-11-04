@@ -1,0 +1,143 @@
+---
+title: 'Fixing an H.264 encoding bug in the KittyCAD API'
+excerpt: |
+    Let's go through a bug deep within our WebRTC stream we solved this week!
+coverImage: 'meta-images/paultag-post-social.jpg'
+date: '2023-11-03T20:00:00Z'
+author:
+    name: Paul Tagliamonte
+    picture: '/paultag.jpg'
+ogImage:
+    url: 'meta-images/paultag-post-social.jpg'
+---
+
+Deep underneath the abstraction layers, somewhere just above silicon lies the
+H.264 video codec. H.264 is so ubiquitous you can find it encoding video on
+Blu-ray, the streams you watch through Netflix, Hulu, YouTube, or even the
+broadcast HDTV stream from a nearby TV antenna. While newer, and patent-free
+codecs like AV1 or VP9 are being deployed and are no doubt the future of video
+encoding, we’ve opted to target H.264 as our video stream codec due to the
+widespread hardware acceleration support and compatibility.
+
+Recently, we’ve tracked down and deployed a fix for an intermittent issue
+impacting Safari on OSX. We’ve been hard at work over the last few months
+instrumenting the stream and adding resilience to critical components, making
+sure the KittyCAD Modeling Application (KMCA) runs reliably and smoothly on our
+supported platforms. This latest bugfix is a bit unique as it’s buried fairly
+deep in the weeds of a few specific implementation details – and we figured
+this would be a great chance to share some of the work we’re doing within
+KittyCAD and what goes on behind the scenes to render your parts.
+
+The KittyCAD Modeling API [uses WebRTC](https://kittycad.io/blog/cad-webrtc) in
+addition to the API connection during interactive modeling sessions, which
+facilitates the video stream between the KittyCAD API Client (such as the
+KittyCAD Modeling Application), and our Engine, which uses cloud GPUs to do the
+bulk of the heavy lifting when users are interactively modeling parts.
+
+![](/documentation-assets/h264/client-engine.png)
+
+The WebRTC connection contains two streams – one Client-to-Engine unreliable
+data channel (unreliable being a technical
+[term of art](https://datatracker.ietf.org/doc/html/rfc8831#section-3.1)
+describing semantics regarding detecting and retrying lost data – in practice
+it’s fairly reliable!), which we use for real-time mouse-drag movements or
+other high frequency events, and one Engine-to-Client RTP media stream (an
+H.264 encoded video stream from the engine). We’re going to focus on just that
+video stream inside the WebRTC connection.
+
+Our H.264 stream is made up of a series of messages from the encoder that
+listening decoders can use to render the stream back to an image on a display.
+Each of these messages is called a NALU, or Network Abstraction Layer (NAL)
+Unit. We’re using RTP, which 
+[defines the way that NALUs are sent](https://datatracker.ietf.org/doc/html/rfc6184)
+across the
+network– but the gist is that each NAL unit contains a fixed length type field,
+followed by the type-specific unit data, not unlike other protocol encoding
+schemes like as OpenSSH, ASN.1 or protobuf.
+
+![](/documentation-assets/h264/nalu.png)
+
+H.264 encodes videos, at a high level, by sending a full image (in the form of
+a keyframe), then encoding changes relative to that full image for successive
+frames. For broadcast TV, keyframes are sent fairly frequently (every second or
+so) so that TVs just tuning in can display the picture quickly, but within
+KittyCAD’s Modeling API, we only send them as needed – we generate them
+on-demand when we receive an 
+[RTCP PLI (Picture Loss Indication)](https://datatracker.ietf.org/doc/html/rfc4585#section-6.3.1)
+from the
+client.
+
+We’re going to focus on four specific NALU types in this post – SPS, PPS, IDR
+picture, and a non-IDR picture. The first two are SPS and PPS units, which
+contain information about the stream itself – things like the width/height of
+the video, area within the stream to crop, H.264 level or profile information.
+They’re filled with critical metadata about the H.264 stream itself. Next is
+the IDR picture NALU type, which is a special type of I-Frame (full-picture
+frame) which contains both an I-Frame, as well as a special marker that
+indicates no frame after the IDR may use any frame before the IDR – think of it
+like a full keyframe and entry-point into the stream, and the only spot where
+unsynchronized decoders are guaranteed to be able to start decoding video from.
+All IDR frames are I-Frames, but not all I-Frames are IDR frames. Lastly, a
+non-IDR picture NALU is a video frame (actually, a number of different frame
+types, such as I-Frame, B-Frame or P-Frame) that may be coded relative to
+frames that came since the last IDR frame. It’s possible to have a non-IDR
+I-Frame, which is a full picture sent for coding optimization purposes, not
+synchronization purposes.
+
+**NAL-ing down the bug**
+
+With all that background in place now, let’s get into our bug when running on Safari.
+
+Historically, KittyCAD’s Engine worked by sending the SPS, PPS and IDR NALUs
+when the stream starts up, and continues streaming non-IDR picture frames until
+the user disconnects, or until the client sends a Picture Loss Indication,
+requesting a new IDR keyframe – which we happily and dutifully sent along to
+the client. However, we kept seeing one specific failure mode in the wild,
+which was most likely to trigger when using Safari (or our Tauri app on OSX,
+which uses Safari under the hood) on initial connection to our Engine. We’d see
+the client send a PLI, we’d respond with a new keyframe, and the client would
+send another PLI. The client and the Engine would exchange keyframes and PLIs
+until one of the two gave up. The WebRTC metrics showed thousands of received
+frames, but none would ever render or be marked as decoded. After adding some
+additional logging, we were able to confirm that the Engine successfully
+encoded and sent an IDR keyframe to the client in response to the PLI when this
+happened.
+
+We sat with the symptoms, understood it was non-deterministic or racy, and
+started to think through places where we have a single-point-of-failure during
+setup. Off that, on a hunch, we changed the Engine’s behavior to add the SPS
+and PPS NALUs when we generate the IDR NALU in response to a PLI, on the theory
+that Safari has somehow missed the SPS and PPS information at the beginning of
+the stream due to timing differences during the WebRTC handshake that don’t
+present as often on subsequent requests, or when using Chrome. As a result,
+we’ve observed a steep dropoff in instances of this bug, and it looks like the
+PLIs we’re receiving now go away after receiving the new keyframe. We’re still
+working to root-cause exactly why the SPS/PPS information is being lost with
+Safari, but given the non-deterministic presentation, we’re investigating races
+between the stream starting and the client being truly ready. In the meantime,
+this change is likely to fix any actual instances of this bug for our users.
+
+
+(Note the logarithmic Y axis) - our change was deployed on Oct 31, at 5PM EDT.
+
+We’ll be continuing to instrument and monitor for codec related bugs like this,
+and use our metrics to drive and confirm bug fixes, as well as enable us to
+make targeted changes based on performance data as time goes on. As an example,
+the video codec community appears to be split on the wisdom of in-band H.264
+SPS/PPS signaling vs out-of-band (for instance, sending the SPS/PPS via the
+WebRTC SDP over the established WebSocket). We’re opting to add this
+information in-band to help reduce failure modes with third-party clients and
+ensure the widest spread of interoperability we can, as well as trying to
+design around being able to dynamically change stream quality or size as the
+client requests it. We’re looking forward to running some experiments with our
+video codecs and parameter exchanges, and plan to continue to use testing
+cycles to determine which approaches work best for our users.
+
+![](/documentation-assets/h264/pli-count.png)
+
+If you’ve found this bug interesting, you would fit right in at KittyCAD! Come
+[join us](https://kittycad.io/careers), or
+[build something great](https://kittycad.io/build-with-us) using the
+KittyCAD API – we’re building the future of hardware design by tackling the
+hardest infrastructure problems facing the industry today so hardware teams can
+focus on designing the next big thing – not fighting with their tools.
