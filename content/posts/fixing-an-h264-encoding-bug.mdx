@@ -118,7 +118,8 @@ between the stream starting and the client being truly ready. In the meantime,
 this change is likely to fix any actual instances of this bug for our users.
 
 
-(Note the logarithmic Y axis) - our change was deployed on Oct 31, at 5PM EDT.
+![](/documentation-assets/h264/pli-count.png)
+(*Note the logarithmic Y axis*) - our change was deployed on Oct 31, at 5PM EDT.
 
 We’ll be continuing to instrument and monitor for codec related bugs like this,
 and use our metrics to drive and confirm bug fixes, as well as enable us to
@@ -132,8 +133,6 @@ design around being able to dynamically change stream quality or size as the
 client requests it. We’re looking forward to running some experiments with our
 video codecs and parameter exchanges, and plan to continue to use testing
 cycles to determine which approaches work best for our users.
-
-![](/documentation-assets/h264/pli-count.png)
 
 If you’ve found this bug interesting, you would fit right in at KittyCAD! Come
 [join us](https://kittycad.io/careers), or
