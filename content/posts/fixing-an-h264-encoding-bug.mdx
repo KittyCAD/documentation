@@ -34,7 +34,7 @@ facilitates the video stream between the KittyCAD API Client (such as the
 KittyCAD Modeling Application), and our Engine, which uses cloud GPUs to do the
 bulk of the heavy lifting when users are interactively modeling parts.
 
-![](/documentation-assets/h264/client-engine.png)
+![A diagram of the client/server relationship to the engine. The "Client" box on the left connects to a large "KittyCAD infrastructure" area via two entrypoints: "STUN" which connects with lines labeled "WebRTC", and "API" which connects with lines labeled "WebSocket". These two lines pass through and both lead to an "Engine" element.](/documentation-assets/h264/client-engine.png)
 
 The WebRTC connection contains two streams – one Client-to-Engine unreliable
 data channel (unreliable being a technical
@@ -55,7 +55,7 @@ network– but the gist is that each NAL unit contains a fixed length type field
 followed by the type-specific unit data, not unlike other protocol encoding
 schemes like as OpenSSH, ASN.1 or protobuf.
 
-![](/documentation-assets/h264/nalu.png)
+![A diagram of NALU type's relationships as nested definition areas. An RTP Packet contains an NAL Unit, which is made up of a short NALU type followed by the NALU data.](/documentation-assets/h264/nalu.png)
 
 H.264 encodes videos, at a high level, by sending a full image (in the form of
 a keyframe), then encoding changes relative to that full image for successive
@@ -118,7 +118,7 @@ between the stream starting and the client being truly ready. In the meantime,
 this change is likely to fix any actual instances of this bug for our users.
 
 
-![](/documentation-assets/h264/pli-count.png)
+![A logarithmic histogram from 17:00 October 27, 2023 to 12:00 November 3, 2023. There are anywhere from 10 to nearly 100,000 incidents per hour before 17:00 October 31, and no more than 30 per hour afterward.](/documentation-assets/h264/pli-count.png)
 (*Note the logarithmic Y axis*) - our change was deployed on Oct 31, at 5PM EDT.
 
 We’ll be continuing to instrument and monitor for codec related bugs like this,
