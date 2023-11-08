@@ -11,15 +11,15 @@ ogImage:
     url: '/kittycad.png'
 ---
 
-We're building a flipin' Graphical-User-Interface. (which I'll mostly refer to as UI)
+We're building a flipin' Graphical-User-Interface. (which I'll mostly refer to as GUI)
 
 <Video speed={16} src="/documentation-assets/why-kcma-blog/abstraction-demo.mp4" />
 
-For the record, deciding to build the UI was not made in haste. We have a stead-fast commitment to code-first, and believe that automation has to be a first-class citizen with any of our products, and code is the way to do that. In this sense, a GUI is an unintuitive move for us.
+For the record, deciding to build the GUI was not made in haste. We have a stead-fast commitment to code-first, and believe that automation has to be a first-class citizen with any of our products, and code is the way to do that. In this sense, a GUI is an unintuitive move for us.
 
 If, dear reader, you don't have a background in software development, you may not share our conviction relating to code. And while [we have elaborated](/blog/code-first) previously, for the purposes of this post, I kindly ask you to suspend any disbelief and I'll circle back.
 
-The reason why a GUI does make sense for us, is we are not giving up on code, in fact, we’re doing the opposite. We're using UI to enhance the code-authoring experience. We're combining the two.
+The reason why a GUI does make sense for us, is we are not giving up on code, in fact, we’re doing the opposite. We're using a GUI to enhance the code-authoring experience. We're combining the two.
 
 Integrating code seamlessly into an application is no small feat. There are three compelling reasons why we believe code plays a pivotal role in CAD, but these benefits may be lost if the integration is subpar:
 
@@ -27,18 +27,18 @@ Integrating code seamlessly into an application is no small feat. There are thre
 2) **Semantic Clarity**: Well-written code serves as a clear, evolving record of the design's intent, making it comprehensible even as complexity increases.
 3) **Abstractions**: Instead of duplicating similar code segments multiple times, your team can abstract these into battle-tested, reliable functions that your team can depend on.
 
-Let's go over some alternative code-ui integrations and KittyCAD's to compare. In each case, the GUI must support some kind of API for programmatic access to the software, otherwise any code integration isn't possible. In CAD, all of the user's interactions essentially translate into data creation. The series of clicks and key-presses of the user, along with the software's logic, builds up more and more data internally. User's are able to do something useful with that at the end by exporting (be it drawing, STEP, BOM etc).
+Let's go over some alternative code-GUI integrations and KittyCAD's to compare. In each case, the GUI must support some kind of API for programmatic access to the software, otherwise any code integration isn't possible. In CAD, all of the user's interactions essentially translate into data creation. The series of clicks and key-presses of the user, along with the software's logic, builds up more and more data internally. User's are able to do something useful with that at the end by exporting (be it drawing, STEP, BOM etc).
 
 ### Poor code integration 1: Export a script
-This approach imposes no constraints on UI workflows, as exporting the data, as a script that interacts with the GUI's API is orthogonal to the UI. While this approach does support automated pipelines, it falls short in terms of providing a semantic description to users. The script may not be meaningful to them unless they're well-versed in the API. Updating the script manually is pointless as it's merely an export, not a bidirectional relationship with the software. This makes abstractions pointless too, since you wouldn't edit the script.
+This approach imposes no constraints on GUI workflows, as exporting the data, as a script that interacts with the GUI's API is orthogonal to the GUI. While this approach does support automated pipelines, it falls short in terms of providing a semantic description to users. The script may not be meaningful to them unless they're well-versed in the API. Updating the script manually is pointless as it's merely an export, not a bidirectional relationship with the software. This makes abstractions pointless too, since you wouldn't edit the script.
 
 ### Poor code integration 2: Allow a scripting language within the GUI
 This option offers the advantages of code, but divorces it from the user interface. Users must explicitly opt for scripting, which may not gain wide adoption. Even if used, it can segregate users into two groups: those who use scripting and those who don't, much like regular Excel users and advanced users employing macros and VBA.
 
-### Our code integration: Code generated from UI interactions, i.e. KittyCAD Modeling App (KCMA)
+### Our code integration: Code generated from GUI interactions, i.e. KittyCAD Modeling App (KCMA)
 KCMA is designed to empower users by translating their clicks into code, then it's the code executing that produces the 3d-model.
 
-The code is the file format, making KCMA unique in the CAD world. Users can rely on UI interactions alone, never manually writing a line of code.
+The code is the file format, making KCMA unique in the CAD world. Users can rely on GUI interactions alone, never manually writing a line of code.
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/no-code.mp4" />
 
@@ -46,9 +46,9 @@ The code generated can seamlessly integrate into automated pipelines. Moreover, 
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/edit-after-the-fact.mp4" />
 
-Since users are still in control of the code at every step, any changes that are introduced either with our UI tools will produce meaningful text diffs.
+Since users are still in control of the code at every step, any changes that are introduced either with our GUI tools will produce meaningful text diffs.
 
-Users can also directly modify the code, improving variable names, and creating abstractions without affecting KCMA's ability to understand and allow further UI-based edits.
+Users can also directly modify the code, improving variable names, and creating abstractions without affecting KCMA's ability to understand and allow further GUI-based edits.
 
 
 #### Demo of user defined abstractions co-existing with generated code
