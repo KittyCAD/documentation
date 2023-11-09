@@ -11,42 +11,44 @@ ogImage:
     url: '/kittycad.png'
 ---
 
-We're building a flipin' Graphical-User-Interface. (which I'll mostly refer to as GUI)
+We're building a flippin' Graphical-User-Interface (which I'll mostly refer to as GUI).
 
 <Video speed={16} src="/documentation-assets/why-kcma-blog/abstraction-demo.mp4" />
 
-For the record, deciding to build the GUI was not made in haste. We have a stead-fast commitment to code-first, and believe that automation has to be a first-class citizen with any of our products, and code is the way to do that. In this sense, a GUI is an unintuitive move for us.
+For the record, our decision to build a GUI was not made lightly. We have a steadfast commitment to code-first design. We believe that automation has to be a first-class citizen in any of our products, and code is the way to do that. In that sense, a GUI is a surprising move for us.
 
-If, dear reader, you don't have a background in software development, you may not share our conviction relating to code. And while [we have elaborated](/blog/code-first) previously, for the purposes of this post, I kindly ask you to suspend any disbelief and I'll circle back.
+If, dear reader, you don't have a background in software development, you may not share our conviction regarding to code-first design. And while [we have elaborated](/blog/code-first) previously, for the purposes of this post, I kindly ask you to suspend any disbelief and I'll circle back later.
 
-The reason why a GUI does make sense for us, is we are not giving up on code, in fact, we’re doing the opposite. We're using a GUI to enhance the code-authoring experience. We're combining the two.
+A GUI does make sense for us because we are _not_ giving up on code, in fact, we’re _doubling down_ on code. We're using a GUI to enhance the code-authoring experience. We're combining the two.
 
 Integrating code seamlessly into an application is no small feat. There are three compelling reasons why we believe code plays a pivotal role in CAD, but these benefits may be lost if the integration is subpar:
 
-1) **Automated pipelines**: Code allows us to ensure consistency between development and production environments. For instance, we can run FEM analyses on the latest design without hiccups.
+1) **Automated pipelines**: Code allows us to ensure consistency between versions of a design. For instance, you can run finite element method analyses every time you change a design, ensuring you never send a design out to clients without automatically testing that it still meets requirements.
 2) **Semantic Clarity**: Well-written code serves as a clear, evolving record of the design's intent, making it comprehensible even as complexity increases.
-3) **Abstractions**: Instead of duplicating similar code segments multiple times, your team can abstract these into battle-tested, reliable functions that your team can depend on.
+3) **Abstractions**: Instead of duplicating similar code segments multiple times, your team can abstract these into battle-tested, reusable, reliable functions that your team can depend on.
 
-Let's go over some alternative code-GUI integrations and KittyCAD's to compare. In each case, the GUI must support some kind of API for programmatic access to the software, otherwise any code integration isn't possible. In CAD, all of the user's interactions essentially translate into data creation. The series of clicks and key-presses of the user, along with the software's logic, builds up more and more data internally. Users are able to do something useful with that at the end by exporting (be it drawing, STEP, BOM etc).
+Let's compare KittyCAD's code-GUI integrations with some alternatives. In each case, the GUI must support some kind of API for programmatic access to the software, otherwise it's impossible to integrate code. In CAD, all of the user's interactions are essentially creating data. The series of clicks and key-presses of the user, along with the software's logic, builds up more and more data internally. Users are able to do something useful with their data at the end by exporting it (into a drawing, STEP, BOM etc).
 
 ### Poor code integration 1: Export a script
-This approach imposes no constraints on GUI workflows, as exporting the data, as a script that interacts with the GUI's API is orthogonal to the GUI. While this approach does support automated pipelines, it falls short in terms of providing a semantic description to users. The script may not be meaningful to them unless they're well-versed in the API. Updating the script manually is pointless as it's merely an export, not a bidirectional relationship with the software. This makes abstractions pointless too, since you wouldn't edit the script.
+While this approach does support automated pipelines, the script is designed to be consumed by the GUI API, not by a human engineer. So it might not be meaningful to an engineer unless they're really well-versed in the inner workings of the software's API. Updating the script manually is pointless as it's merely an export, and can't be reimported into the software. This makes abstractions pointless too, since you wouldn't edit the script. One benefit of this approach is that it coexists alongside your familiar GUI workflows -- if you don't want to export the script, you'll never have to. 
 
 ### Poor code integration 2: Allow a scripting language within the GUI
-This option offers the advantages of code, but divorces it from the user interface. Users must explicitly opt for scripting, which may not gain wide adoption. Even if used, it can segregate users into two groups: those who use scripting and those who don't, much like regular Excel users and advanced users employing macros and VBA.
+This option offers the advantages of code, but divorces it from the user interface. Users must explicitly choose to enable scripting, which may not gain wide adoption. Even if used, it can segregate users into two groups: those who use scripting and those who don't, much like regular Excel users and advanced users who use macros and VBA.
 
 ### Our code integration: Code generated from GUI interactions, i.e. KittyCAD Modeling App (KCMA)
-KCMA is designed to empower users by translating their clicks into code, then it's the code executing that produces the 3d-model.
+KCMA is designed to empower users by translating their clicks into code, and that code then produces the 3d model. Users can rely on GUI interactions alone, never manually writing a line of code. But every time you click, you're actually writing code, without ever needing to learn the programming language.
 
-The code is the file format, making KCMA unique in the CAD world. Users can rely on GUI interactions alone, never manually writing a line of code.
+The code is also the file format, so when you export the file you don't lose any data from the GUI or the code view. When you reopen a project (or import it from a coworker), you'll see both the code and GUI just like you remember.
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/no-code.mp4" />
 
-The code generated can seamlessly integrate into automated pipelines. Moreover, the code remains the source of truth, allowing users to edit it again later, still without having to write code manually.
+The generated code can seamlessly integrate into automated pipelines. Moreover, the code remains the source of truth, allowing users to edit it again later, still without having to write code manually.
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/edit-after-the-fact.mp4" />
 
-Since users are still in control of the code at every step, any changes that are introduced with our GUI tools will produce meaningful text diffs.
+If your coworker sends you a new variation of an existing design, it can be hard to tell what's changed. You've probably opened up the new and old versions simultaneously and played "spot the difference" before. But because KittyCAD programs are ultimately just code, you can view changes as a text diff, which highlights exactly what changed. No need to play spot the difference anymore!
+
+[INSERT PICTURE OF TEXT DIFF OF KCL HERE]
 
 Users can also directly modify the code, improving variable names, and creating abstractions without affecting KCMA's ability to understand and allow further GUI-based edits.
 
@@ -62,10 +64,10 @@ KCMA users should never get lost or not know what part of the code is responsibl
 <Video speed={1} autoPlay={false} controls={true} loop={false} muted={false} src="/documentation-assets/why-kcma-blog/editor-scene-link.mp4" />
 
 
-There are some limitations when it comes to heuristics and some workflows. While we are aiming to match typical CAD workflows (sketch and extrude for example), there are a few instances where we have to forge our own path, the modeling workflow will different at times. Typical CAD software uses heuristics to make tiny small decisions on the user's behalf that you may have never noticed, and we can't match all of these because heuristics do not match the exacting nature of code. This should mostly be different, not worse, but I'd be remiss if I didn't mention some drawbacks.
+While we are aiming to match typical CAD workflows (sketch and extrude for example), there are a few instances where our code-GUI integration forces us to do things differently. For example, we can't yet support heuristics or related workflows. Typical CAD software uses heuristics to make tiny  decisions on the user's behalf that you may have never noticed. We can't match all of these, because it's hard to reconcile imprecise nudging heuristics with the mathematical foundations of code. The resulting workflows should mostly be different, not worse, but I'd be remiss if I didn't mention some drawbacks.
 
 To circle back to the non-programmers, we think that you'll greatly benefit by adding code to your toolbelt, and KCMA should make that an easy transition. You should not have to learn any code to implement your designs, but if you want to take advantage of automated pipelines and abstractions, we'll be here to help.
 
-KCMA is in its infancy right now, so there are many modeling features still missing, but please give it a try. There's enough built to show the workflow and make some basic parts. [Download the lastest here](https://kittycad.io/modeling-app)
+KCMA is in its infancy right now, so there are many modeling features still missing, but please give it a try. There's enough built to show the workflow and make some basic parts. [Download the latest version here](https://kittycad.io/modeling-app).
 
-Oh and btw the [GUI is open-source](https://github.com/KittyCAD/modeling-app).
+Oh and by the way, the [GUI is open-source](https://github.com/KittyCAD/modeling-app).
