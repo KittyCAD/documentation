@@ -11,7 +11,7 @@ ogImage:
     url: '/kittycad.png'
 ---
 
-We're building a flippin' Graphical-User-Interface (which I'll mostly refer to as GUI).
+We're building a flippin' Graphical-User-Interface (GUI).
 
 <Video speed={16} src="/documentation-assets/why-kcma-blog/abstraction-demo.mp4" />
 
@@ -42,7 +42,7 @@ The code is also the file format, so when you export the file you don't lose any
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/no-code.mp4" />
 
-The generated code can seamlessly integrate into automated pipelines. Moreover, the code remains the source of truth, allowing users to edit it again later, still without having to write code manually.
+The generated code can seamlessly integrate into automated pipelines[^1]. Moreover, the code remains the source of truth, allowing users to edit it again later, still without having to write code manually.
 
 <Video speed={2.5} src="/documentation-assets/why-kcma-blog/edit-after-the-fact.mp4" />
 
@@ -71,3 +71,5 @@ To circle back to the non-programmers, we think that you'll greatly benefit by a
 KCMA is in its infancy right now, so there are many modeling features still missing, but please give it a try. There's enough built to show the workflow and make some basic parts. [Download the latest version here](https://kittycad.io/modeling-app).
 
 Oh and by the way, the [GUI is open-source](https://github.com/KittyCAD/modeling-app).
+
+[^1]: A good example of this is our [demo PR](https://github.com/KittyCAD/kcl-samples/pull/13) that takes a small change in a KittyCAD-language script and outputs both a STEP file and a image, but in future these pipelines will also encompase automated checks such as FEM.
