@@ -9,6 +9,7 @@ Perform operations on CAD files.
 ### Subcommands
 
 * [kittycad help file convert](./kittycad_help_file_convert)
+* [kittycad help file snapshot](./kittycad_help_file_snapshot)
 * [kittycad help file volume](./kittycad_help_file_volume)
 * [kittycad help file mass](./kittycad_help_file_mass)
 * [kittycad help file center-of-mass](./kittycad_help_file_center-of-mass)
