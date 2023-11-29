@@ -34,7 +34,7 @@ You will see your API token below if you are signed in and have already generate
 
 [Download Here](https://github.com/KittyCAD/tutorial-files-ts/archive/refs/heads/main.zip)
 
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains two files: a 3D model of a gear (gear.obj and a javascript file, convertOBJtoSTEP.js)
+The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains several files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convertOBJtoSTEP.js).
 
 ### Jump to the appropriate tutorial for your setup
 
@@ -51,13 +51,13 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
 
 ```    
-cd ~/Desktop
+cd ~/Desktop/tutorial-files-ts-main
 ```
 
-cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit return, you will be working inside the tutorial-files-ts-main folder. For another example, let's say you put your folder you downloaded in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/KittyCADPractice/tutorial-files-ts-main
 ```
 
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
@@ -66,9 +66,10 @@ You will now be working inside the folder you created called KittyCADPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
 
 ```
-export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn add @kittycad/lib
 npm pkg set type="module"
+node convertOBJtoSTEP.js
 ```
 
 <TokenReplacementNote />
@@ -96,13 +97,13 @@ Congrats! You just made your first successful API command using javascript. We o
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
 ```    
-cd ~/Desktop
+cd ~/Desktop/tutorial-files-ts-main
 ```
 
-cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit return, you will be working inside the tutorial-files-ts-main folder. For another example, let's say you put your folder you downloaded in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/KittyCADPractice/tutorial-files-ts-main
 ```
 
 You will now be working inside the folder you created called KittyCADPractice.
@@ -112,9 +113,10 @@ Another method for changing directories is if you see the folder you want to mov
 * Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
 
 ```
-export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn add @kittycad/lib
 npm pkg set type="module"
+node convertOBJtoSTEP.js
 ```
 
 * You may notice that there were some more files added into the directory (yarn.lock, package.json, etc.). These are needed to run a Typescript (or Javascript) file. 
@@ -145,7 +147,7 @@ Congrats! You just made your first successful API command using Javascript. We o
 cd ~/Desktop
 ```
 
-cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit return, you will be working inside the tutorial-files-ts-main folder. For another example, let's say you put your folder you downloaded in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
 ```
 cd ~/Documents/KittyCADPractice
@@ -157,14 +159,15 @@ You will now be working inside the folder you created called KittyCADPractice.
 * Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
 
 ```
-export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
+export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn add @kittycad/lib
 npm pkg set type="module"
+node convertOBJtoSTEP.js
 ```
 
 <TokenReplacementNote />
 
-As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+As long as everything went smoothly, you will see the following output (Note: your STL file will be called **gear.step** and be placed in the same directory):
 
 ```
 File created successfully.
@@ -181,22 +184,23 @@ import { file } from '@kittycad/lib'
 import fsp from 'fs/promises'
 
 async function convertOBJtoSTEP() {
-  // Use KittyCAD client library to output base64 string from OBJ to STEP
+    // Use KittyCAD client library to output base64 string from OBJ to STEP
     const response = await file.create_file_conversion({
         output_format: 'step',
         src_format: 'obj',
         body: await fsp.readFile('./gear.obj', 'base64'),
     })
-    // Decode the base64 string
-    const decodedSTEPfile = Buffer.from(response.output, "base64").toString("utf-8")
-
-    // Use fs/promises library to write a new STEP file using the decoded base64 string
-    fsp.writeFile('gear.step', decodedSTEPfile, function (err) {
-      if (err) throw err;
-    })
-    if ('error_code' in response) throw response
-    else {
-      console.log('File created successfully.');
+  
+    for (const key in response.outputs) {
+        if (response.outputs.hasOwnProperty(key)) {
+          const output = response.outputs[key];
+          const outputFilePath = "./gear.step";
+        
+          console.log(`Saving output to ${outputFilePath}`);
+        
+          const decodedData = Buffer.from(output, "base64").toString("utf-8");
+          fsp.writeFile(outputFilePath, decodedData);
+        }
     }
 }
 
@@ -215,29 +219,30 @@ import fsp from 'fs/promises'
 The next segment in the code is responsible for the file conversion:
 ```
 async function convertOBJtoSTEP() {
-  // Use KittyCAD client library to output base64 string from OBJ to STEP
+    // Use KittyCAD client library to output base64 string from OBJ to STEP
     const response = await file.create_file_conversion({
         output_format: 'step',
         src_format: 'obj',
         body: await fsp.readFile('./gear.obj', 'base64'),
-})
+    })
 ```
 
 This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **source_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
 
-The next line is a way to decode a base64 string into a readable format.
+The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a singel STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
+
 ```
-const decodedSTEPfile = Buffer.from(response.output, "base64").toString("utf-8")
-```
-The next segment writes the STEP file. 
-```
-fsp.writeFile('gear.step', decodedSTEPfile, function (err) {
-      if (err) throw err;
-    })
-    if ('error_code' in response) throw response
-    else {
-      console.log('File created successfully.');
+for (const key in response.outputs) {
+        if (response.outputs.hasOwnProperty(key)) {
+          const output = response.outputs[key];
+          const outputFilePath = "./gear.step";
+        
+          console.log(`Saving output to ${outputFilePath}`);
+        
+          const decodedData = Buffer.from(output, "base64").toString("utf-8");
+          fsp.writeFile(outputFilePath, decodedData);
+        }
     }
 ```
 
-**fsp.writeFile** takes three parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, decodedSTEPfile has all the information for the STEP file. The last parameter is a function that will throw an error if it didn't work, or a success message on completion.
+**fsp.writeFile** takes three parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, decodedSTEPfile has all the information for the STEP file.
