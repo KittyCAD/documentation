@@ -36,22 +36,9 @@ Again we're going to use python as an example, but if you're comfortable with in
 
 You will need to have Python installed on your machine, this will depend on your operating-system, but instructions can be found on the [Python website](https://www.python.org/about/gettingstarted/).
 
-Create a new folder where you'd like to setup your test project, and add three text files.
+Create a new folder where you'd like to setup your test project.
 
-The first will be called `requirements.txt` and will have the following inside.
-
-<TabbedEditor
-    tabs={[
-        {
-            title: 'requirements.txt',
-            range: [0, 0],
-            lang: 'py',
-            code: `kittycad==0.3.3`,
-        },
-    ]}
-/>
-
-The second will be called `convert.py` and will have the following inside
+We will create our first file, `convert.py` and will have the following inside:
 
 <TabbedEditor tabs={
     [{
@@ -59,114 +46,111 @@ The second will be called `convert.py` and will have the following inside
         range: [0, 0],
         lang: 'py',
         code:`
+from typing import Any, List, Optional, Tuple, Union
+from kittycad.api.file import create_file_conversion
 from kittycad.client import ClientFromEnv
+from kittycad.models import Error, FileConversion
 from kittycad.models.file_export_format import FileExportFormat
 from kittycad.models.file_import_format import FileImportFormat
 from kittycad.models.error import Error
-from kittycad.api.file import create_file_conversion_with_base64_helper
+from kittycad.types import Unset
+from kittycad.models.base64data import Base64Data
+from typing import Dict
 
 # Create a new client with your token parsed from the environment variable:
 #   KITTYCAD_API_TOKEN.
-client = ClientFromEnv(timeout=500, verify_ssl=True)
 
-# Convert a file from OBJ to STL.
-# Read in the contents of the file.
-file = open("./cube.obj", "rb")
-content = file.read()
-file.close()
+def convertCubetoSTL():
+    client = ClientFromEnv(timeout=500, verify_ssl=True)
 
-fc = create_file_conversion_with_base64_helper.sync(
-    client=client,
-    body=content,
-    src_format=FileImportFormat.OBJ,
-    output_format=FileExportFormat.STL)
+    # Convert a file from OBJ to STL.
+    # Read in the contents of the file.
+    file = open("./cube.obj", "rb")
+    content = file.read()
+    file.close()
 
-if isinstance(fc, Error) or fc == None:
-    raise Exception("There was a problem")
+    result: Optional[Union[Error, FileConversion]] = create_file_conversion.sync(
+        client=client,
+        body=content,
+        src_format=FileImportFormat.OBJ,
+        output_format=FileExportFormat.STL,
+    )
 
-print(f"File conversion id: {fc.id}")
-# Try adding your name by changing the text below to
-# "File conversion status for <your-name>":
-print(f"File conversion status: {fc.status}")
+    if isinstance(result, Error) or result == None:
+        raise Exception("There was a problem")
 
-output_file_path = "./output.stl"
-print(f"Saving output to {output_file_path}")
-output_file = open(output_file_path, "wb")
-output_file.write(fc.output)
-output_file.close()
+    body: FileConversion = result
+
+    if isinstance(body.outputs, Unset):
+        raise Exception("Expected outputs to be set")
+
+    outputs: Dict[str, Base64Data] = body.outputs
+        
+    for _, output in outputs.items():
+        output_file_path = "./output.stl"
+        print(f"Saving output to {output_file_path}")
+        output_file = open(output_file_path, "wb")
+        output_file.write(output.get_decoded())
+        output_file.close()
+
+    return body
+
+convertCubetoSTL()
 `
 }]
 } />
 
-Lastly we'll add a very basic `.obj` file called `cube.obj` and add the following contents
+Lastly we'll add a very basic `.obj` file called `cube.obj` and add the following contents:
 
-<TabbedEditor tabs={
-    [{
-        title:'cube.obj',
-        range: [0, 0],
-        lang: 'py',
-        code:`
-# cube.obj
-#
- 
-g cube
- 
-v  0.0  0.0  0.0
-v  0.0  0.0  1.0
-v  0.0  1.0  0.0
-v  0.0  1.0  1.0
-v  1.0  0.0  0.0
-v  1.0  0.0  1.0
-v  1.0  1.0  0.0
-v  1.0  1.0  1.0
+```obj
+# Blender 3.1.0
+# www.blender.org
+o Cube
+v 1.000000 1.000000 -1.000000
+v 1.000000 -1.000000 -1.000000
+v 1.000000 1.000000 1.000000
+v 1.000000 -1.000000 1.000000
+v -1.000000 1.000000 -1.000000
+v -1.000000 -1.000000 -1.000000
+v -1.000000 1.000000 1.000000
+v -1.000000 -1.000000 1.000000
+vn -0.0000 1.0000 -0.0000
+vn -0.0000 -0.0000 1.0000
+vn -1.0000 -0.0000 -0.0000
+vn -0.0000 -1.0000 -0.0000
+vn 1.0000 -0.0000 -0.0000
+vn -0.0000 -0.0000 -1.0000
+vt 0.625000 0.500000
+vt 0.375000 0.500000
+vt 0.625000 0.750000
+vt 0.375000 0.750000
+vt 0.875000 0.500000
+vt 0.625000 0.250000
+vt 0.125000 0.500000
+vt 0.375000 0.250000
+vt 0.875000 0.750000
+vt 0.625000 1.000000
+vt 0.625000 0.000000
+vt 0.375000 1.000000
+vt 0.375000 0.000000
+vt 0.125000 0.750000
+s 0
+```
 
-vn  0.0  0.0  1.0
-vn  0.0  0.0 -1.0
-vn  0.0  1.0  0.0
-vn  0.0 -1.0  0.0
-vn  1.0  0.0  0.0
-vn -1.0  0.0  0.0
- 
-f  1//2  7//2  5//2
-f  1//2  3//2  7//2 
-f  1//6  4//6  3//6 
-f  1//6  2//6  4//6 
-f  3//3  8//3  7//3 
-f  3//3  4//3  8//3 
-f  5//5  7//5  8//5 
-f  5//5  8//5  6//5 
-f  1//4  5//4  6//4 
-f  1//4  6//4  2//4 
-f  2//1  6//1  8//1 
-f  2//1  8//1  4//1 
-`
-}]
-} />
+Then open a PowerShell or Bash terminal depending on your operating-system and navigate to the folder you recently created and run the following (replacing `<your-token-here>` with your API token):
 
-Then open a PowerShell or Bash terminal depending on your operating-system and navigate to the folder you recently created and run the following:
-
-<Token>
-    {(token, platform) =>
-        [
-            platform === 'windows'
-                ? `$env:KITTYCAD_API_TOKEN = '${token}'`
-                : `export KITTYCAD_API_TOKEN="${token}"`,
-            'pip3 install virtualenv',
-            'python3 -m venv venv',
-            platform === 'windows'
-                ? 'venv/Scripts/Activate.ps1'
-                : 'source venv/bin/activate',
-            'pip3 install -r requirements.txt',
-            'python3 convert.py',
-        ].join('\n')
-    }
-</Token>
+```bash 
+export KITTYCAD_API_TOKEN=<your-token-here>
+pip3 install virtualenv
+python3 -m venv venv
+source venv/bin/activate
+pip3 install kittycad
+python3 convert.py
+```
 
 You should see the following message printed in your terminal:
 
 ```
-File conversion id: <your-conversion-id>
-File conversion status: Completed
 Saving output to ./output.stl
 ```
 
