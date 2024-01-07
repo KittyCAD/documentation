@@ -1,11 +1,11 @@
 ---
 title: 'CLI Manual'
-excerpt: 'The command-line interface for KittyCAD.'
+excerpt: 'The command-line interface for Zoo.'
 ---
 
-KittyCAD CLI, or `kittycad`, is a command-line interface to KittyCAD for use in your terminal or your scripts.
+Zoo CLI, or `zoo`, is a command-line interface to Zoo for use in your terminal or your scripts.
 
--   [Available commands](/docs/cli/manual/kittycad)
+-   [Available commands](/docs/cli/manual/zoo)
 
 ## Installation
 
@@ -13,9 +13,9 @@ You can find installation instructions on [the latest release](https://github.co
 
 ## Configuration
 
-Run [`kittycad auth login`](/docs/cli/manual/kittycad_auth_login) to authenticate with your KittyCAD account. Alternatively, `kittycad` will respect the `KITTYCAD_TOKEN` [environment variable](/docs/cli/manual/kittycad#about).
+Run [`zoo auth login`](/docs/cli/manual/zoo_auth_login) to authenticate with your Zoo account. Alternatively, `zoo` will respect the `ZOO_TOKEN` [environment variable](/docs/cli/manual/zoo#about).
 
-Declare your aliases for often-used commands with [`kittycad alias set`](/docs/cli/manual/kittycad_alias_set).
+Declare your aliases for often-used commands with [`zoo alias set`](/docs/cli/manual/zoo_alias_set).
 
 ## Support
 
