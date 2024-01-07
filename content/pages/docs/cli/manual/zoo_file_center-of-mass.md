@@ -1,0 +1,48 @@
+---
+title: "zoo file center-of-mass"
+excerpt: "Get the center of mass of an object in a CAD file."
+layout: manual
+---
+
+Get the center of mass of an object in a CAD file.
+
+### Options
+
+<dl class="flags">
+   <dt><code>input</code></dt>
+   <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
+
+   <dt><code>-s/--src-format</code></dt>
+   <dd>A valid source file format<br/>Possible values: <code>fbx | gltf | obj | ply | sldprt | step | stl</code></dd>
+
+   <dt><code>-f/--format</code></dt>
+   <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
+
+   <dt><code>-u/--output-unit</code></dt>
+   <dd>Output unit<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
+
+   <dt><code>-d/--debug</code></dt>
+   <dd>Print debug info<br/>Default value: <code>false</code></dd>
+
+   <dt><code>-h/--help</code></dt>
+   <dd>Print help (see a summary with '-h')</dd>
+</dl>
+
+
+### About
+
+If the input file is larger than a certain size it will be
+performed asynchronously, you can then check the status with the
+`zoo api-call status <id_of_your_operation>` command.
+
+```
+# get the mass of a file
+$ zoo file center-of-mass my-file.step
+
+# pass a file from stdin, the original file type is required
+$ cat my-obj.obj | zoo file center-of-mass - --src-format=obj
+```
+
+### See also
+
+* [zoo file](./zoo_file)
