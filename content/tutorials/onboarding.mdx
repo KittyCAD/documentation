@@ -1,32 +1,23 @@
 ---
 title: 'Advanced Onboarding'
 excerpt: In this tutorial we'll walk through getting started with the KITTYCAD API
-langs: ['py']
-tags: []
 ---
 
 In this tutorial we'll walk through getting started using the KITTYCAD API
 
-### The Litterbox
+### Getting started
 
 KittyCAD offers client libraries in Python and other languages, and our "Litterbox" below is our mini in-browser editor for demonstrating with code snippets. Try executing the python STL conversion code below. You should see the 3d-file re-appear on the right-hand side along with logs from the execution.
 
-{/* __PRE-FETCH__: tutorials/getting_started/getting_started */}
-
-<InlineLitterbox path="tutorials/getting_started/getting_started" />
+```py data-file="public/litterbox_assets/tutorials/getting_started/getting_started.py"
+```
 
 Now try modifying the code and executing it again. As an example, delete the "#" to the left of `"print(<your-name>, congrats! Your STL conversion was successful):"` and replace `<your-name>` with your first name.
 
-<TabbedEditor
-    tabs={[
-        {
-            title: '',
-            range: [0, 0],
-            lang: 'py',
-            code: `# Try adding your name by changing the text below to \n# print(<your-name>, congrats! Your STL conversion was successful):`,
-        },
-    ]}
-/>
+```py
+  # Try adding your name by changing the text to
+  print(<your-name>, congrats! Your STL conversion was successful):`,
+```
 
 Then execute. If you came to this tutorial from [Account Onboarding Progress](/account?tab=onboarding_progress) than you'll need to modify and execute the code in order for it to count as completing the second task.
 
@@ -40,101 +31,12 @@ Create a new folder where you'd like to setup your test project.
 
 We will create our first file, `convert.py` and will have the following inside:
 
-<TabbedEditor tabs={
-    [{
-        title:'convert.py',
-        range: [0, 0],
-        lang: 'py',
-        code:`
-from typing import Any, List, Optional, Tuple, Union
-from kittycad.api.file import create_file_conversion
-from kittycad.client import ClientFromEnv
-from kittycad.models import Error, FileConversion
-from kittycad.models.file_export_format import FileExportFormat
-from kittycad.models.file_import_format import FileImportFormat
-from kittycad.models.error import Error
-from kittycad.types import Unset
-from kittycad.models.base64data import Base64Data
-from typing import Dict
-
-# Create a new client with your token parsed from the environment variable:
-#   KITTYCAD_API_TOKEN.
-
-def convertCubetoSTL():
-    client = ClientFromEnv(timeout=500, verify_ssl=True)
-
-    # Convert a file from OBJ to STL.
-    # Read in the contents of the file.
-    file = open("./cube.obj", "rb")
-    content = file.read()
-    file.close()
-
-    result: Optional[Union[Error, FileConversion]] = create_file_conversion.sync(
-        client=client,
-        body=content,
-        src_format=FileImportFormat.OBJ,
-        output_format=FileExportFormat.STL,
-    )
-
-    if isinstance(result, Error) or result == None:
-        raise Exception("There was a problem")
-
-    body: FileConversion = result
-
-    if isinstance(body.outputs, Unset):
-        raise Exception("Expected outputs to be set")
-
-    outputs: Dict[str, Base64Data] = body.outputs
-        
-    for _, output in outputs.items():
-        output_file_path = "./output.stl"
-        print(f"Saving output to {output_file_path}")
-        output_file = open(output_file_path, "wb")
-        output_file.write(output.get_decoded())
-        output_file.close()
-
-    return body
-
-convertCubetoSTL()
-`
-}]
-} />
+```py data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.py"
+```
 
 Lastly we'll add a very basic `.obj` file called `cube.obj` and add the following contents:
 
-```obj
-# Blender 3.1.0
-# www.blender.org
-o Cube
-v 1.000000 1.000000 -1.000000
-v 1.000000 -1.000000 -1.000000
-v 1.000000 1.000000 1.000000
-v 1.000000 -1.000000 1.000000
-v -1.000000 1.000000 -1.000000
-v -1.000000 -1.000000 -1.000000
-v -1.000000 1.000000 1.000000
-v -1.000000 -1.000000 1.000000
-vn -0.0000 1.0000 -0.0000
-vn -0.0000 -0.0000 1.0000
-vn -1.0000 -0.0000 -0.0000
-vn -0.0000 -1.0000 -0.0000
-vn 1.0000 -0.0000 -0.0000
-vn -0.0000 -0.0000 -1.0000
-vt 0.625000 0.500000
-vt 0.375000 0.500000
-vt 0.625000 0.750000
-vt 0.375000 0.750000
-vt 0.875000 0.500000
-vt 0.625000 0.250000
-vt 0.125000 0.500000
-vt 0.375000 0.250000
-vt 0.875000 0.750000
-vt 0.625000 1.000000
-vt 0.625000 0.000000
-vt 0.375000 1.000000
-vt 0.375000 0.000000
-vt 0.125000 0.750000
-s 0
+```obj data-file="public/litterbox_assets/tutorials/beginner_tutorial/cube.obj"
 ```
 
 Then open a PowerShell or Bash terminal depending on your operating-system and navigate to the folder you recently created and run the following (replacing `<your-token-here>` with your API token):
@@ -150,7 +52,7 @@ python3 convert.py
 
 You should see the following message printed in your terminal:
 
-```
+```txt
 Saving output to ./output.stl
 ```
 
