@@ -1,0 +1,32 @@
+---
+title: 'Turning on billing for Text-to-CAD'
+excerpt: 'On Friday, January 15th, we will be turning on billing for Text-to-CAD.'
+coverImage: '/kittycad-long.png'
+date: '2023-12-18T15:35:07.322Z'
+author:
+    name: Jessie Frazelle
+    picture: '/jessfraz.jpg'
+ogImage:
+    url: '/meta-images/turning-on-billing-for-text-to-cad.jpg'
+---
+
+On Friday, January 15th, we will be turning on billing for [Text-to-CAD](https://zoo.dev/text-to-cad). Let’s go over a bit about what this means. Our APIs and tools have pay-as-you-go pricing. You get 40 free minutes of API access per month, followed by a cost of $0.50 per minute for additional usage.
+
+Let’s break this down for a common Text-to-CAD workflow. When you generate a model in the [Text-to-CAD UI](https://text-to-cad.zoo.dev), you are paying for the server time it takes to generate that model. The artifacts that come from the initial API call are a STEP file and a glTF file. If you then use the UI to download an STL file (or any other format), you are paying for the server time to convert the file to an STL. While that is essentially two API calls, it’s better to think of it as the server time. For example, if you directly call our [Text-to-CAD API endpoint](https://zoo.dev/docs/api/ai/generate-a-cad-model-from-text?lang=python) and request an STL at that time, it’s a single API call, _BUT_ still the same amount of server time. Therefore, it’s easier to think about it in terms of server time versus the number of API calls. You are not charged for any failed API calls[^1]. Billing also applies to requests made through our Discord bot, since it is authenticated with your Discord account.
+
+For example, my prompt `a brick: 10 in. long 4 in. deep 2 in. tall—with chamfered edges` took just under a minute so that would be $0.50. If I then download an STL (which requires paying for the server time for the conversion), that would be another $0.50. If I download a STEP or glTF file, that does not require an additional charge since those were the artifacts of the initial API call.
+
+Your card will automatically be charged at the end of the month and we will email you an itemized receipt showing all the API calls you made and their prices. Your free credits are then reset on the first of every month. You will be notified via email once you use all your free credits. If you make more than 250 billable API calls in a month, you will be charged and emailed a receipt before the end of the month, right after the 250th API call. This is merely due to a limit in invoice items per invoice, we need to bill you to start a new invoice for any future charges[^2].
+
+If you do not input a payment method after using all your free credits, your access to the API will be cut off, and you will receive an email notifying you of this. Errors will also appear in the API/UI letting you know that you need to input a payment method.
+
+While the initial billing model is pay-as-you-go, we are considering adding a subscription model. If you are interested in a subscription for Text-to-CAD, please [fill out this form](https://docs.google.com/forms/d/e/1FAIpQLSde3sssPMj6nGchv6xOvlVqmPuq6HGbZQdXd6eqF9A0nG8s8g/viewform). Your feedback means a lot to us and will help us come up with the best pricing model possible.
+
+As an additional note, [Zoo Modeling App](https://zoo.dev/modeling-app) is still free to try until [we hit 1.0](https://github.com/KittyCAD/modeling-app/issues/729) and we will release our pricing model for that at that time. If you use Zoo Modeling App, you will see on your invoice 100% discounted charges for those API calls. These API calls _DO NOT_ come out of your free credits. Do not be scared by these line items, they are merely there for transparency.
+
+We are looking forward to what you build with Text-to-CAD and any revenue generated from the initial implementation will only help make it better in the future!
+
+
+[^1]: These are API calls that do not return a 2xx status code.
+[^2]: If you happen to make **A LOT** of API calls resulting in a huge bill, keep this limitation in mind. Let’s say each API call is $0.50, if we bill you after 250 API calls _always_, then you will be getting emails in intervals of ~$125.0 each time we bill you. These notifications should serve as a warning for any excess usage that might be due to faulty `loop`s in your code etc. If one of these bills fails to collect a payment, your usage will be cut off automatically. Lastly, in the off chance you miss _every_ email from us and all your payments succeed and you rack up a million dollars (or whatever) worth of damage in a short amount of time, we will try to do the right thing for you. Also in the future we will let you configure limits for your account. 
+ 
