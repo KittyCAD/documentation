@@ -33,7 +33,7 @@ You will see your API token below if you are signed in and have already generate
 
 * First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
 
-[Download Here](https://github.com/KittyCAD/tutorial-files-ts/archive/refs/heads/main.zip)
+[Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
 
 The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains several files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convertOBJtoSTEP.js).
 
@@ -52,13 +52,13 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
 
 ```    
-cd ~/Desktop/tutorial-files-js-main
+cd ~/Desktop/litterbox-main
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the tutorial-files-js-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice/tutorial-files-js-main
+cd ~/Documents/KittyCADPractice/litterbox-main
 ```
 
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
@@ -68,9 +68,8 @@ You will now be working inside the folder you created called KittyCADPractice.
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
-yarn add @kittycad/lib
-npm pkg set type="module"
-node convertOBJtoSTEP.js
+yarn install
+node tutorials/beginner_tutorial/convert.js
 ```
 
 <TokenReplacementNote />
@@ -100,13 +99,13 @@ Congrats! You just made your first successful API command using javascript. We o
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
 ```    
-cd ~/Desktop/tutorial-files-js-main
+cd ~/Desktop/litterbox-main
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the tutorial-files-js-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice/tutorial-files-js-main
+cd ~/Documents/KittyCADPractice/litterbox-main
 ```
 
 You will now be working inside the folder you created called KittyCADPractice.
@@ -117,9 +116,8 @@ Another method for changing directories is if you see the folder you want to mov
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
-yarn add @kittycad/lib
-npm pkg set type="module"
-node convertOBJtoSTEP.js
+yarn install
+node tutorials/beginner_tutorial/convert.js
 ```
 
 * You may notice that there were some more files added into the directory (yarn.lock, package.json, etc.). These are needed to run a Typescript (or Javascript) file. 
@@ -152,7 +150,7 @@ Congrats! You just made your first successful API command using Javascript. We o
 cd ~/Desktop
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the `tutorial-files-js-main` folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the `litterbox-main` folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
 
 ```
 cd ~/Documents/KittyCADPractice
@@ -165,9 +163,8 @@ You will now be working inside the folder you created called KittyCADPractice.
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
-yarn add @kittycad/lib
-npm pkg set type="module"
-node convertOBJtoSTEP.js
+yarn install
+node tutorials/beginner_tutorial/convert.js
 ```
 
 <TokenReplacementNote />
