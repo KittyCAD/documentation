@@ -1,7 +1,6 @@
 ---
 title: 'Python Beginner Tutorial'
 excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API
-langs: ['py']
 ---
 
 Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
@@ -28,26 +27,19 @@ You will see your API token below if you are signed in and have already generate
 
 <MarkDownAPITokens />
 
-## The Litterbox
+## A quick overview
 
-Below is what we call our "Litterbox" (other sites tend to refer to it as a "Sandbox"). Essentially, this is an area in which you can try out code without any additional steps. Below is an example of a Python script that uses KittyCAD's API to convert an OBJ file to an STL file. Press the "Execute" to test the code snippet. 
+Here's the full Python code that does a file conversion from `obj` to `stl`:
 
-{/* __PRE-FETCH__: tutorials/getting_started/getting_started */}
-
-<InlineLitterbox path="tutorials/getting_started/getting_started" />
+```py data-file="public/litterbox_assets/tutorials/getting_started/getting_started.py"
+```
 
 Now try modifying the code and executing it again. As an example, delete the "#" to the left of `"print(<your-name>, congrats! Your STL conversion was successful):"` and replace `<your-name>` with your first name.
 
-<TabbedEditor
-    tabs={[
-        {
-            title: '',
-            range: [0, 0],
-            lang: 'py',
-            code: `# Try adding your name by changing the text below to \n# print(<your-name>, congrats! Your STL conversion was successful):`,
-        },
-    ]}
-/>
+```py
+  # Try adding your name by changing the text to
+  print(<your-name>, congrats! Your STL conversion was successful):`,
+```
 
 Then execute. If you came to this tutorial from [Account Onboarding Progress](/account?tab=onboarding_progress) then you'll need to modify and execute the code for it to count as completing the second task.
 
@@ -80,13 +72,13 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
     * Go to your **Applications/Utilities** folder. Double-click **Terminal**
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
-```    
+```sh
 cd ~/Desktop
 ```
 
 cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
-```
+```sh
 cd ~/Documents/KittyCADPractice
 ```
 
@@ -96,7 +88,7 @@ Another method for changing directories is if you see the folder you want to mov
 
 * Once inside the correct folder, input the following command into **Terminal**. Simply copy and paste the following
 
-```
+```sh
 export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
@@ -129,13 +121,13 @@ Congrats! You just made your first successful API command using a Python script.
 * Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
 
-```    
+```sh
 cd ~/Desktop
 ```
 
 cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
-```
+```sh
 cd ~/Documents/KittyCADPractice
 ```
 
@@ -144,7 +136,7 @@ Another method for changing directories is if you see the folder you want to mov
 You will now be working inside the folder you created called KittyCADPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
-```
+```sh
 export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
@@ -179,13 +171,13 @@ Congrats! You just made your first successful API command using a Python script.
     * Click the **Terminal** icon amongst the list of all apps. 
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
 
-```    
+```sh
 cd ~/Desktop
 ```
 
 cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
 
-```
+```sh
 cd ~/Documents/KittyCADPractice
 ```
 
@@ -194,7 +186,7 @@ Another method for changing directories is if you see the folder you want to mov
 You will now be working inside the folder you created called KittyCADPractice.
 * Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below).    Simply copy and paste the following:
 
-```
+```sh
 export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
