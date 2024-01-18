@@ -1,6 +1,6 @@
 ---
 title: 'JavaScript Beginner Tutorial'
-excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API with Javascript
+excerpt: In this tutorial we'll walk through the basics of Zoo and using the API with Javascript
 ---
 
 Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
@@ -197,7 +197,7 @@ This is a quick look inside the `convert.js` file. Here we will go through the c
 ```js data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.js"
 ```
 
-The first two lines are importing the KittyCAD library, as well as the fs/promises library.
+The first two lines are importing the Zoo (KittyCAD) library, as well as the fs/promises library.
 
 ```js
 import { file } from '@kittycad/lib'
@@ -219,7 +219,7 @@ async function convertOBJtoSTEP() {
     })
 ```
 
-This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **src_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
+This is where the oo API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **src_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/ZooPractice/gear.obj)
 
 The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a single STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
 
