@@ -1,9 +1,9 @@
 ---
 title: 'Python Beginner Tutorial'
-excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API
+excerpt: In this tutorial we'll walk through the basics of Zoo and using the API
 ---
 
-Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
+Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
 
 Welcome to our Python beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
 
@@ -18,7 +18,7 @@ API's are powerful. Let's take the Uber example above. It would take a lot of ti
 
 ## Let's Get Started
 
-For you to communicate with KittyCAD's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
+For you to communicate with Zoo's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
 
 You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
 * Create an account. If you haven't already, you can [create an account here](/account)
@@ -27,22 +27,6 @@ You will see your API token below if you are signed in and have already generate
 
 <MarkDownAPITokens />
 
-## A quick overview
-
-Here's the full Python code that does a file conversion from `obj` to `stl`:
-
-```py data-file="public/litterbox_assets/tutorials/getting_started/getting_started.py"
-```
-
-Now try modifying the code and executing it again. As an example, delete the "#" to the left of `"print(<your-name>, congrats! Your STL conversion was successful):"` and replace `<your-name>` with your first name.
-
-```py
-  # Try adding your name by changing the text to
-  print(<your-name>, congrats! Your STL conversion was successful):`,
-```
-
-Then execute. If you came to this tutorial from [Account Onboarding Progress](/account?tab=onboarding_progress) then you'll need to modify and execute the code for it to count as completing the second task.
-
 ## Executing From Your Computer
 Once you have executed an API command from the litterbox, it is time for you to execute a command directly from your computer. 
 
@@ -50,7 +34,7 @@ Once you have executed an API command from the litterbox, it is time for you to 
 
 [Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
 
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains three files: a model (dodecahedron.obj), a python script (convert.py), and a text file (requirements.txt).
+The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains many files, but there are  two files that we will be working with: a 3D model (dodecahedron.obj) and a python script (convert.py).
 
 ### Jump to the appropriate tutorial for your setup
 
@@ -62,27 +46,26 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
 
 <h5 id="Mac"></h5>
 
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder with all the contents into your directory. 
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
 * Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
     * **make sure you download the correct version for Mac**
 * Once you download Python, you will need to open your **Terminal**. You can open **Terminal** in a few ways:
     * Press "cmd" + "space" and type in "Terminal" and hit "return"
-    * Press the magnifying glass icon on the top-right of your screen, type "Terminal" in the search box, and hit "return"
-    <img src="/dock-screenshot.png" />
+    * Press the magnifying glass icon <img src="/mac-spotlight.png" style={{ width: '20px', height: 'auto'}}/> on the top-right of your screen, type "Terminal" in the search box, and hit "return".
     * Go to your **Applications/Utilities** folder. Double-click **Terminal**
-* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
+* Once the **Terminal** is open, you will need to navigate to the folder you downloaded. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
 ```sh
-cd ~/Desktop
+cd ~/Desktop/litterbox-main
 ```
 
-cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
 ```sh
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/ZooPractice/litterbox-main
 ```
 
-You will now be working inside the folder you created called KittyCADPractice.
+You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
 
 Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
 
@@ -93,7 +76,7 @@ export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install kittycad
 python3 tutorials/beginner_tutorial/convert.py
 ```
 
@@ -109,31 +92,36 @@ Saving output to ./output.stl
 
 **Note:** depending on the version of Python you have installed, the "Python3" command might differ.
 
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
+Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api).
+
+Click on the button below to see the script we ran.
+##### [convert.py script](#rundown)
 
 ### Windows
 
 <h5 id="Windows"></h5>
 
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
 * Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
     * **make sure you download the correct version for Windows**
 * Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
 
 ```sh
-cd ~/Desktop
+cd ~/Desktop/litterbox-main
 ```
 
-cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
 ```sh
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/ZooPractice/litterbox-main
 ```
+
+You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
 
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then just drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Just hit "enter". 
 
-You will now be working inside the folder you created called KittyCADPractice.
+You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
 ```sh
@@ -141,7 +129,7 @@ export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install kittycad
 python3 tutorials/beginner_tutorial/convert.py
 ```
 
@@ -157,13 +145,16 @@ Saving output to ./output.stl
 
 **Note:** depending on the version of Python you have installed, the "Python3" command might differ.
 
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
+Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api).
+
+Click on the button below to see the script we ran.
+##### [convert.py script](#rundown)
 
 ### Linux
 
 <h5 id="Linux"></h5>
 
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
+* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
 * Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
     * **make sure you download the correct version for Linux**
 * Once you download Python, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
@@ -172,18 +163,20 @@ Congrats! You just made your first successful API command using a Python script.
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
 
 ```sh
-cd ~/Desktop
+cd ~/Desktop/litterbox-main
 ```
 
-cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called KittyCADPractice within the Documents folder. This would look like so:
+cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
 ```sh
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/ZooPractice/litterbox-main
 ```
+
+You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
 
 Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
 
-You will now be working inside the folder you created called KittyCADPractice.
+You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below).    Simply copy and paste the following:
 
 ```sh
@@ -191,7 +184,7 @@ export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip3 install kittycad
 python3 tutorials/beginner_tutorial/convert.py
 ```
 
@@ -207,4 +200,10 @@ Saving output to ./output.stl
 
 **Note:** depending on the version of Python you have installed, the "python3" and "pip3" command might differ.
 
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api) 
+Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api). 
+
+<h5 id="rundown">convert.py script</h5>
+
+```py data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.py"
+```
+

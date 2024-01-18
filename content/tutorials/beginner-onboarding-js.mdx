@@ -1,9 +1,9 @@
 ---
 title: 'JavaScript Beginner Tutorial'
-excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API with Javascript
+excerpt: In this tutorial we'll walk through the basics of Zoo and using the API with Javascript
 ---
 
-Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
+Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
 
 Welcome to our JavaScript beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
 
@@ -19,7 +19,7 @@ API's are powerful. Let's take the Uber example above. It would take a lot of ti
 
 ## Let's Get Started
 
-For you to communicate with KittyCAD's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
+For you to communicate with Zoo's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
 
 You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
 
@@ -31,11 +31,11 @@ You will see your API token below if you are signed in and have already generate
 
 ## Executing From Your Computer
 
-* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
+* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the Zoo repository:
 
 [Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
 
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains several files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convertOBJtoSTEP.js).
+The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains plenty of files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convert.js).
 
 ### Jump to the appropriate tutorial for your setup
 
@@ -55,24 +55,29 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
 cd ~/Desktop/litterbox-main
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice/litterbox-main
+cd ~/Documents/ZooPractice/litterbox-main
 ```
 
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
 
-You will now be working inside the folder you created called KittyCADPractice.
-* Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+You will now be working inside the folder you created called ZooPractice.
+* Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the Zoo Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn install
-node tutorials/beginner_tutorial/convert.js
 ```
 
 <TokenReplacementNote />
+
+This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file:
+
+```sh
+node tutorials/beginner_tutorial/convert.js
+```
 
 As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
 
@@ -80,9 +85,9 @@ As long as everything went smoothly, you will see the following output (Note: yo
 File created successfully.
 ```
 
-Curious how to write your own script? Click the button below for a step by step look into the `convertOBJtoSTEP.js` file.
+Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
 
-### [Code Rundown](#rundown)
+##### [Code Rundown](#rundown)
 
 Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
 
@@ -93,8 +98,7 @@ Congrats! You just made your first successful API command using javascript. We o
     * **make sure you download the correct version for Mac**
 * Once you download Node.js, you will need to open your **Terminal**. You can open **Terminal** in a few ways:
     * Press "cmd" + "space" and type in "Terminal" and hit "return"
-    * Press the magnifying glass icon on the top-right of your screen, type "Terminal" in the search box, and hit "return"
-    <img src="/dock-screenshot.png" />
+    * Press the magnifying glass icon <img src="/mac-spotlight.png" style={{ width: '20px', height: 'auto'}}/> on the top-right of your screen, type "Terminal" in the search box, and hit "return"
     * Go to your **Applications/Utilities** folder. Double-click **Terminal**
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
@@ -102,37 +106,40 @@ Congrats! You just made your first successful API command using javascript. We o
 cd ~/Desktop/litterbox-main
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice/litterbox-main
+cd ~/Documents/ZooPractice/litterbox-main
 ```
 
-You will now be working inside the folder you created called KittyCADPractice.
+You will now be working inside the folder you created called ZooPractice.
 
 Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
 
-* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the Zoo Typescript API.
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn install
-node tutorials/beginner_tutorial/convert.js
 ```
-
-* You may notice that there were some more files added into the directory (yarn.lock, package.json, etc.). These are needed to run a Typescript (or Javascript) file. 
 
 <TokenReplacementNote />
 
-As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory. This may take 15 to 20 seconds):
+This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file (**note**: this may take 15 to 20 seconds due to the size and complexity of the gear.obj file):
+
+```sh
+node tutorials/beginner_tutorial/convert.js
+```
+
+As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
 
 ```
 File created successfully.
 ```
 
-Curious how to write your own script? Click the button below for a step by step look into the convertOBJtoSTEP.js file.
+Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
 
-### [Code Rundown](#rundown)
+##### [Code Rundown](#rundown)
 
 Congrats! You just made your first successful API command using Javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
 
@@ -150,42 +157,47 @@ Congrats! You just made your first successful API command using Javascript. We o
 cd ~/Desktop
 ```
 
-`cd` stands for change directory. Once you hit return, you will be working inside the `litterbox-main` folder. For another example, let's say you put your folder you downloaded in a folder called `KittyCADPractice` within the `Documents` folder. This would look like so:
+`cd` stands for change directory. Once you hit return, you will be working inside the `litterbox-main` folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/KittyCADPractice
+cd ~/Documents/ZooPractice
 ```
 
 Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
 
-You will now be working inside the folder you created called KittyCADPractice.
-* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the KittyCAD Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
+You will now be working inside the folder you created called ZooPractice.
+* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the Zoo Typescript API.
 
 ```sh
 export KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn install
-node tutorials/beginner_tutorial/convert.js
 ```
 
 <TokenReplacementNote />
 
-As long as everything went smoothly, you will see the following output (Note: your STL file will be called **gear.step** and be placed in the same directory):
+This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file (**note**: this may take 15 to 20 seconds due to the size and complexity of the gear.obj file):
+
+```sh
+node tutorials/beginner_tutorial/convert.js
+```
+
+As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
 
 ```
 File created successfully.
 ```
-Curious how to write your own script? Look down below for a step by step look into the convertOBJtoSTEP.js file.
+Curious how to write your own script? Look down below for a step by step look into the convert.js file.
 
 Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api). 
 
 <h3 id="rundown">Code Rundown</h3>
 
-This is a quick look inside the `convertOBJtoSTEP.js` file. Here we will go through the code line by line and explain what's happening, so you can create your own code! First, a look at the entire code:
+This is a quick look inside the `convert.js` file. Here we will go through the code line by line and explain what's happening, so you can create your own code! First, a look at the entire code:
 
 ```js data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.js"
 ```
 
-The first two lines are importing the KittyCAD library, as well as the fs/promises library.
+The first two lines are importing the Zoo (KittyCAD) library, as well as the fs/promises library.
 
 ```js
 import { file } from '@kittycad/lib'
@@ -207,9 +219,9 @@ async function convertOBJtoSTEP() {
     })
 ```
 
-This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **source_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
+This is where the oo API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **src_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/ZooPractice/gear.obj)
 
-The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a singel STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
+The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a single STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
 
 ```js
 for (const key in response.outputs) {
@@ -225,4 +237,5 @@ for (const key in response.outputs) {
     }
 ```
 
-`fsp.writeFile` takes three parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, decodedSTEPfile has all the information for the STEP file.
+`fsp.writeFile` takes two parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, `decodedData` has all the information for the STEP file.
+
