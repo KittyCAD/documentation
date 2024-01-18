@@ -3,7 +3,7 @@ title: 'JavaScript Beginner Tutorial'
 excerpt: In this tutorial we'll walk through the basics of KittyCAD and using the API with Javascript
 ---
 
-Welcome to KittyCAD. We are building tools to be the backbone infrastructure for hardware tools. 
+Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
 
 Welcome to our JavaScript beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
 
@@ -31,11 +31,11 @@ You will see your API token below if you are signed in and have already generate
 
 ## Executing From Your Computer
 
-* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
+* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the Zoo repository:
 
 [Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
 
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains several files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convertOBJtoSTEP.js).
+The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains plenty of files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convert.js).
 
 ### Jump to the appropriate tutorial for your setup
 
@@ -80,7 +80,7 @@ As long as everything went smoothly, you will see the following output (Note: yo
 File created successfully.
 ```
 
-Curious how to write your own script? Click the button below for a step by step look into the `convertOBJtoSTEP.js` file.
+Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
 
 ### [Code Rundown](#rundown)
 
@@ -130,7 +130,7 @@ As long as everything went smoothly, you will see the following output (Note: yo
 File created successfully.
 ```
 
-Curious how to write your own script? Click the button below for a step by step look into the convertOBJtoSTEP.js file.
+Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
 
 ### [Code Rundown](#rundown)
 
@@ -207,9 +207,9 @@ async function convertOBJtoSTEP() {
     })
 ```
 
-This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **source_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
+This is where the KittyCAD API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **src_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/KittyCADPractice/gear.obj)
 
-The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a singel STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
+The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a single STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
 
 ```js
 for (const key in response.outputs) {
@@ -225,4 +225,5 @@ for (const key in response.outputs) {
     }
 ```
 
-`fsp.writeFile` takes three parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, decodedSTEPfile has all the information for the STEP file.
+`fsp.writeFile` takes two parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, `decodedData` has all the information for the STEP file.
+
