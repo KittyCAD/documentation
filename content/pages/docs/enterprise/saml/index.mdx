@@ -3,7 +3,7 @@ title: 'SAML configuration reference'
 excerpt: 'View SAML metadata for your organization or enterprise on Zoo, and you can learn more about available SAML attributes and response requirements.'
 ---
 
-### About SAML configuration
+## About SAML configuration
 
 To use SAML single sign-on (SSO) for authentication to Zoo, you must configure
 both your external SAML identity provider (IdP) and your enterprise or
@@ -17,14 +17,14 @@ OASIS website.
 You must enter unique values from your SAML IdP when configuring SAML SSO for 
 Zoo, and you must also enter unique values from Zoo on your IdP.  
 
-### SAML metadata
+## SAML metadata
 
 The SP metadata for Zoo is available for either organizations or enterprises
 with SAML SSO. Zoo uses the `urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST` binding.
 
 ### Organizations
 
-You can configure SAML SSO for an individual organization in your enterprise. 
+You can configure SAML SSO for an individual organization. 
 
 The SP metadata for an organization on zoo.dev is available at
 [`/org/saml/idp`](https://zoo.dev/docs/api/orgs/get-the-saml-identity-provider).
@@ -41,7 +41,7 @@ When you enter your email into https://zoo.dev/signin it will automatically
 redirect you to the SP Single Sign-On URL as denoted above. This way you do not
 need to remember it every time you login.
 
-### SAML attributes
+## SAML attributes
 
 The following SAML attributes are available for Zoo.
 
@@ -56,7 +56,7 @@ The following SAML attributes are available for Zoo.
 
 > Note: It's important to use a human-readable, persistent identifier for `NameID`. Using a transient identifier format like urn:oasis:names:tc:SAML:2.0:nameid-format:transient will result in re-linking of accounts on every sign-in, which can be detrimental to authorization management. 
 
-### SAML response requirements
+## SAML response requirements
 
 Zoo requires that the response message from your IdP fulfill the following requirements.
 
@@ -86,7 +86,7 @@ Zoo requires that the response message from your IdP fulfill the following requi
 
 
 
-### Session duration and timeout
+## Session duration and timeout
 
 To prevent a person from authenticating with your IdP and staying authorized 
 indefinitely, Zoo periodically invalidates the session for each user account 
