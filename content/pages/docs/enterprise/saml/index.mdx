@@ -34,6 +34,7 @@ The SP metadata for an organization on zoo.dev is available at
 | SP Entity ID | SP URL, audience restriction | The UUID for this SAML identity provider |
 | SP Assertion Consumer Service (ACS) URL |	Reply, recipient, or destination URL |	URL where IdP sends SAML responses	`POST https://api.zoo.dev/auth/saml/providers/{entity_id}/login`, where the Entity ID is the same as above |
 | SP Single Sign-On (SSO) URL	|	URL where IdP begins SSO |	`GET https://api.zoo.dev/auth/saml/providers/{entity_id}/login`, where the Entity ID is the same as above |
+| SP Single Log-Out (SLO) URL | URL where a user is logged out | `GET https://api.zoo.dev/logout`. This will expire the current session for the authenticated user. |
 
 
 When you enter your email into https://zoo.dev/signin it will automatically
