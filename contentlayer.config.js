@@ -203,39 +203,8 @@ const BlogPost = defineDocumentType(() => ({
     },
 }))
 
-const ChangeLog = defineDocumentType(() => ({
-    name: 'ChangeLog',
-    filePathPattern: `changelog/*.md*`,
-    contentType: 'mdx',
-    fields: {
-        title: {
-            type: 'string',
-            description:
-                'The title of the changelog entry, for SEO and heading use.',
-            required: true,
-        },
-        description: {
-            type: 'string',
-            description:
-                'The description of the changelog entry, for SEO and preview text use.',
-            required: true,
-        },
-        date: {
-            type: 'date',
-            description: 'The date of the changelog entry.',
-            required: true,
-        },
-    },
-    computedFields: {
-        slug: {
-            type: 'string',
-            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
-        },
-    },
-}))
-
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, ChangeLog, Glossary, BlogPost, Page],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page],
     disableImportAliasWarning: true,
 })
