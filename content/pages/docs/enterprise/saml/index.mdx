@@ -1,0 +1,112 @@
+---
+title: 'SAML configuration reference'
+excerpt: 'View SAML metadata for your organization or enterprise on Zoo, and you can learn more about available SAML attributes and response requirements.'
+---
+
+## About SAML configuration
+
+To use SAML single sign-on (SSO) for authentication to Zoo, you must configure
+both your external SAML identity provider (IdP) and your enterprise or
+organization on zoo.dev. In a SAML configuration, Zoo functions as a SAML service
+provider (SP). 
+
+Zoo provides integration according to the SAML 2.0 specification. For more 
+information, see the [SAML Wiki](https://wiki.oasis-open.org/security) on the 
+OASIS website.
+
+You must enter unique values from your SAML IdP when configuring SAML SSO for 
+Zoo, and you must also enter unique values from Zoo on your IdP.  
+
+## SAML metadata
+
+The SP metadata for Zoo is available for either organizations or enterprises
+with SAML SSO. Zoo uses the urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST binding.
+
+### Organizations
+
+You can configure SAML SSO for an individual organization in your enterprise. 
+
+The SP metadata for an organization on zoo.dev is available at
+[`/org/saml/idp`](https://zoo.dev/docs/api/orgs/get-the-saml-identity-provider).
+
+| Value | Other names | Description	Example |
+|-------|-------------|---------------------|
+| SP Entity ID | SP URL, audience restriction | The UUID for this SAML identity provider |
+| SP Assertion Consumer Service (ACS) URL |	Reply, recipient, or destination URL |	URL where IdP sends SAML responses	`POST https://api.zoo.dev/auth/saml/providers/{entity_id}/login`, where the Entity ID is the same as above |
+| SP Single Sign-On (SSO) URL	|	URL where IdP begins SSO |	`GET https://api.zoo.dev/auth/saml/providers/{entity_id}/login`, where the Entity ID is the same as above |
+
+
+When you enter your email into https://zoo.dev/signin it will automatically
+redirect you to the SP Single Sign-On URL as denoted above. This way you do not
+need to remember it every time you login.
+
+## SAML attributes
+
+The following SAML attributes are available for Zoo.
+
+
+| Name |	Required |	Description |
+|------|-----------|---------------|
+| `NameID`| ✔		|	A persistent user identifier. Any persistent name identifier format may be used. |
+| `email`	|	✔		| The email address for the user. | 
+| `first_name` | ✔	| The first name of the user. | 
+| `last_name` | ✔	 | The last name of the user. |
+| `SessionNotOnOrAfter` | ✘ |		The date that Zoo invalidates the associated session. After invalidation, the person must authenticate once again to access your enterprise's resources. For more information, see "Session duration and timeout." |
+
+> Note: It's important to use a human-readable, persistent identifier for `NameID`. Using a transient identifier format like urn:oasis:names:tc:SAML:2.0:nameid-format:transient will result in re-linking of accounts on every sign-in, which can be detrimental to authorization management. 
+
+## SAML response requirements
+
+Zoo requires that the response message from your IdP fulfill the following requirements.
+
+- Your IdP must protect each assertion in the response with a digital signature. You can accomplish this by signing each individual `<Assertion>` element or by
+  signing the `<Response>` element.
+- Your IdP must provide a `<NameID>` element as part of the `<Subject>` element. 
+  You may use any persistent name identifier format.
+- Your IdP must include the `Recipient` attribute, which must be set to the ACS URL. The following example demonstrates the attribute.
+
+      <samlp:Response ...>
+        <saml:Assertion ...>
+          <saml:Subject>
+            <saml:NameID ...>...</saml:NameID>
+            <saml:SubjectConfirmation ...>
+              <saml:SubjectConfirmationData Recipient="https://api.zoo.dev/auth/saml/providers/{entity_id}/login" .../>
+            </saml:SubjectConfirmation>
+          </saml:Subject>
+          <saml:AttributeStatement>
+            <saml:Attribute FriendlyName="USERNAME-ATTRIBUTE" ...>
+              <saml:AttributeValue>monalisa</saml:AttributeValue>
+            </saml:Attribute>
+          </saml:AttributeStatement>
+        </saml:Assertion>
+      </samlp:Response>
+
+
+
+## Session duration and timeout
+
+To prevent a person from authenticating with your IdP and staying authorized 
+indefinitely, Zoo periodically invalidates the session for each user account 
+with access to your enterprise's resources. After invalidation, the person must 
+authenticate with your IdP once again.
+
+By default, if your IdP does not assert a value for the `SessionNotOnOrAfter` 
+attribute, Zoo invalidates a session 24 hours after successful authentication
+with your IdP.
+
+Zoo will support a customized session duration if your IdP
+provides the option to configure a `SessionNotOnOrAfter` attribute and value.
+
+If you define a customized session duration value less than 24 hours,
+Zoo may prompt people to authenticate every time Zoo
+initiates a redirect.
+
+To prevent authentication errors, we recommend a minimum session duration 
+of 4 hours. 
+
+> Notes:
+>
+> - For Azure AD, the configurable lifetime policy for SAML tokens does not control
+>   session timeout for Zoo.
+> - Okta does not currently send the `SessionNotOnOrAfter` attribute during 
+>   SAML authentication with Zoo. For more information, contact Okta.
