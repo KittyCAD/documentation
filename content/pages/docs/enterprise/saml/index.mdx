@@ -66,21 +66,23 @@ Zoo requires that the response message from your IdP fulfill the following requi
   You may use any persistent name identifier format.
 - Your IdP must include the `Recipient` attribute, which must be set to the ACS URL. The following example demonstrates the attribute.
 
-      <samlp:Response ...>
-        <saml:Assertion ...>
-          <saml:Subject>
-            <saml:NameID ...>...</saml:NameID>
-            <saml:SubjectConfirmation ...>
-              <saml:SubjectConfirmationData Recipient="https://api.zoo.dev/auth/saml/providers/{entity_id}/login" .../>
-            </saml:SubjectConfirmation>
-          </saml:Subject>
-          <saml:AttributeStatement>
-            <saml:Attribute FriendlyName="USERNAME-ATTRIBUTE" ...>
-              <saml:AttributeValue>monalisa</saml:AttributeValue>
-            </saml:Attribute>
-          </saml:AttributeStatement>
-        </saml:Assertion>
-      </samlp:Response>
+    ```
+    <samlp:Response ...>
+    <saml:Assertion ...>
+        <saml:Subject>
+        <saml:NameID ...>...</saml:NameID>
+        <saml:SubjectConfirmation ...>
+            <saml:SubjectConfirmationData Recipient="https://api.zoo.dev/auth/saml/providers/{entity_id}/login" .../>
+        </saml:SubjectConfirmation>
+        </saml:Subject>
+        <saml:AttributeStatement>
+        <saml:Attribute FriendlyName="USERNAME-ATTRIBUTE" ...>
+            <saml:AttributeValue>monalisa</saml:AttributeValue>
+        </saml:Attribute>
+        </saml:AttributeStatement>
+    </saml:Assertion>
+    </samlp:Response>
+    ```
 
 
 
