@@ -52,7 +52,7 @@ The following SAML attributes are available for Zoo.
 | `email`	|	✔		| The email address for the user. | 
 | `first_name` | ✔	| The first name of the user. | 
 | `last_name` | ✔	 | The last name of the user. |
-| `SessionNotOnOrAfter` | ✘ |		The date that Zoo invalidates the associated session. After invalidation, the person must authenticate once again to access your enterprise's resources. For more information, see "Session duration and timeout." |
+| `SessionNotOnOrAfter` | ✘ |		The date that Zoo invalidates the associated session. After invalidation, the person must authenticate once again to access your enterprise's resources. |
 
 > Note: It's important to use a human-readable, persistent identifier for `NameID`. Using a transient identifier format like urn:oasis:names:tc:SAML:2.0:nameid-format:transient will result in re-linking of accounts on every sign-in, which can be detrimental to authorization management. 
 
