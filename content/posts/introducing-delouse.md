@@ -30,7 +30,7 @@ down on their own after the WebSocket closed because they collectively
 maintained ownership of enough objects to not drop their peer’s channel
 handles. This issue went unnoticed for months because async tasks (like many
 other green threads) are inexpensive in terms of CPU – they don’t wake up all
-that often and in our case, we didn't see OOMs or excessive RAM usage due to
+that often and in our case, we didn't see excessive RAM usage due to
 implementation specifics of how we structured our handlers.
 
 Where to go from there? That is a bit more complicated. As a first step,
@@ -142,13 +142,13 @@ possible or configured. For example, the `tokio` stacktrace support is only
 implemented upstream for Linux on `aarch64`, `x86` and `x86_64`. In addition to
 OS support, the `tokio` stacktrace endpoint requires that the `tokio_unstable`
 and `tokio_taskdump` config options are set -- which means adding some flags to
-your project’s `.cargo/config.toml` -- the `README` has some `cargo`-cultable
-examples. More than anything, though, the `delouse` hooks are designed to be
-helpful when you’re having a bad day, and fail in a way that still attempts to
-be as helpful as possible, but we’d love to find ways to make it even more
-helpful! Feel free to file issues, discuss possible features or send in fixes.
-We’re excited to help save everyone some debugging time and contribute back to
-the ecosystem that we've wholeheartedly adopted within Zoo!
+your project’s `.cargo/config.toml` -- the `README` has some examples. More
+than anything, though, the `delouse` hooks are designed to be helpful when
+you’re having a bad day, and fail in a way that still attempts to be as helpful
+as possible, but we’d love to find ways to make it even more helpful! Feel free
+to file issues, discuss possible features or send in fixes.  We’re excited to
+help save everyone some debugging time and contribute back to the ecosystem
+that we've wholeheartedly adopted within Zoo!
 
 If you’ve found this post interesting, you would fit right in at Zoo!
 [Come join us](https://zoo.dev/careers), or build something great using any of
