@@ -3,7 +3,7 @@ title: 'Introducing delouse'
 excerpt: |
     Introduction post on our internal rust tokio async debugging tool, delouse!
 coverImage: 'documentation-assets/introducing-delouse.jpg'
-date: '2024-01-08T15:00:00Z'
+date: '2024-02-08T15:00:00Z'
 author:
     name: Paul Tagliamonte
     picture: '/documentation-assets/paultag.jpg'
