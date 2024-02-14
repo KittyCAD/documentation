@@ -5,130 +5,122 @@ excerpt: In this tutorial we'll walk through how to use our Text-to-CAD API endp
 
 This tutorial will walk you through how to use our Text-to-CAD API endpoint from your own Python script. Text-to-CAD is a powerful tool that allows you to generate CAD models from text prompts. We recommend trying out our [Text-to-CAD UI](https://text-to-cad.zoo.dev/dashboard) before starting this tutorial.
 
-## Let's Get Started
+## Objectives
 
-Before you can use our ML-ephant API, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
+Our objective is to use the API to:
+
+* Give a text prompt
+* Receive a CAD file in response
+* Save the CAD file to our local machine
+
+## Let's get started
+
+Before you can use our API, you must have an API key. When you send an API command, you will pass this API key along with your command, so that we can verify it's you.
 
 You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
+
 * Create an account. If you haven't already, you can [create an account here](/account)
-* Sign in. Once you've signed up for an account, make sure you are signed in. 
+* Sign in. Once you've signed up for an account, make sure you are signed in.
 * Generate an API key. You can either go into your [account settings](/account?tab=api_tokens) to generate an API key, or you can press the button below and we will take care of it for you!
 
 <MarkDownAPITokens />
 
-## Creating a Script
+## Python setup
 
-We will be using the Zoo Python library for this tutorial. If you don't have Python installed, you can download it [here](https://www.python.org/downloads/).
+We will be using Zoo's KittyCAD Python package for this tutorial. If you don't have Python installed, you can download it [here](https://www.python.org/downloads/).
 
-## Objectives
-
-Our objective is to use the ML-ephant API to:
-
-- Give a text prompt
-- Receive a CAD file in response
-- Save the CAD file to our local machine
-
-## Script Building
-
-Let's start building the script.
-
-First, we need to import the necessary libraries. You can reference our AI API documentation [here](https://zoo.dev/docs/api/ai?lang=python).
-
-There's two API calls that we are going to make. 
-1. [Generate a CAD model from text](https://zoo.dev/docs/api/ai/generate-a-cad-model-from-text?lang=python)
-2. [List Text-to-CAD models you've generated](https://zoo.dev/docs/api/ai/list-text-to-cad-models-you've-generated?lang=python)
+In your terminal, use the command `pip install kittycad` to install the `kittycad` package in your Python environment.
 
 ## Imports
 
-When you look at the documentation for these two API calls, you'll find that we need the following imports:
+Let's start building the script. Create a new file with the `.py` extension and open it in your preferred editor.
+
+First, we need to import the necessary libraries. You can reference our AI API documentation [here](https://zoo.dev/docs/api/ai?lang=python).
+
+There are two API calls that we are going to make.
+
+1. [Generate a CAD model from text](https://zoo.dev/docs/api/ai/generate-a-cad-model-from-text?lang=python)
+2. [List Text-to-CAD models you've generated](https://zoo.dev/docs/api/ai/list-text-to-cad-models-you've-generated?lang=python)
+
+Import the libraries necessary to create and retrieve models with Text-to-CAD:
 
 ```py
 import time
-from typing import Any, List, Optional, Union
 
 from kittycad.api.ai import create_text_to_cad, get_text_to_cad_model_for_user
 from kittycad.client import ClientFromEnv
-from kittycad.models import Error, TextToCad
+from kittycad.models.api_call_status import ApiCallStatus
 from kittycad.models.file_export_format import FileExportFormat
 from kittycad.models.text_to_cad_create_body import TextToCadCreateBody
 ```
 
-## Building our Function
+## Initialize the client
 
-let's start building our function. This is where we are going to do our API call to generate a CAD model from text. Since this is done asynchronously, we will need to check the status of the model until it is complete.
-
-First, we have to create the client. We do this by calling `ClientFromEnv()`. This will look for the `KITTYCAD_API_TOKEN` environment variable and use that as the API key. Make sure that you have set this environment variable before running the script.
-
-After that, we will use the `create_text_to_cad.sync` function to make the API call. This function takes in the client, the output format, and the body of the request. The body of the request is a `TextToCadCreateBody` object. This object takes in the prompt that you want to use to generate the CAD model. In the example below, we wrote "design a 40 tooth gear" as the prompt, but you can replace this with whatever you would like. 
+To use the API, we need to instantiate a client with your API key. We do this by calling `ClientFromEnv()`. This will look for the `KITTYCAD_API_TOKEN` environment variable and use that as the API key. Make sure that you have set this environment variable before running the script.
 
 ```py
-def text_to_cad_gen():
-
-    # Create our client.
-    client = ClientFromEnv()
-
-    # Call the ML-ephant API to generate a 3D model from text.
-    result: Optional[Union[TextToCad, Error]] = create_text_to_cad.sync(
-        client=client,
-        output_format=FileExportFormat.GLTF,
-        body=TextToCadCreateBody(
-            prompt="design a 40 tooth gear", # The prompt to use for generating the model
-        ),
-    )
-
-    # Check if the response is an error
-    if isinstance(result, Error) or result == None:
-        print(result)
-        raise Exception("Error in response")
-
-    # Print the response
-    body: TextToCad = result
-    print(body)
- 
-    # Get the ID from the response
-    task_id = body.id
+# Create our client.
+client = ClientFromEnv()
 ```
 
-## Checking the Status
+## Submit the prompt
 
-Now that we have made the API call, we need to check the status of the model. We can do this by using the `get_text_to_cad_model_for_user.sync` function. This function takes in the client and the ID of the model that we want to check the status of (the reason we added the line `task_id = body.id` in the previous snippet). We give a time of five seconds before polling again to check the status of the model.
+We will use the `create_text_to_cad.sync()` function to submit our prompt. This function takes in the client, the output format, and the body of the request. Text-to-CAD will always return a GLTF and STEP file by default, but you can specify any other supported file format here. The body of the request is a `TextToCadCreateBody` object. This object takes in the prompt that you want to use to generate the CAD model. In the example below, we wrote "Design a gear with 40 teeth" as the prompt, but you can replace this with whatever you would like.
 
 ```py
-    # Polling to check if the task is complete
-    while True:
-        # Check the status of the task
-        check_result: Optional[
-            Union[TextToCad, Error]
-        ] = get_text_to_cad_model_for_user.sync(
-        client=client,
-        id=task_id,
-    )
-
-        if isinstance(check_result, Error):
-            print(check_result)
-            raise Exception("Error checking task status")
-
-        if check_result.completed_at != None:  # Check to see if completed_at is not None (meaning, it's done)
-            break
-
-        # Wait for 5 seconds before checking again
-        time.sleep(5) 
+# Prompt the API to generate a 3D model from text.
+response = create_text_to_cad.sync(
+    client=client,
+    output_format=FileExportFormat.STEP,
+    body=TextToCadCreateBody(
+        prompt="Design a gear with 40 teeth",
+    ),
+)
 ```
 
-Finally, we can retrieve the final result and save it to our local machine. We first grab the GLTF file from the output using `check_result.outputs["source.gltf"]`. Then we write the GLTF information to a file called `text-to-cad-output.gltf`. The output comes as a base64 encoded string, so we use the `get_decoded()` function to decode it. Lastly, execute our function by adding the line,  `text_to_cad_gen()`
+## Checking the status
+
+Now that we have made the API call, we need to check the status of the model. We can do this by using the `get_text_to_cad_model_for_user.sync()` function. This function takes in the client and the ID of the request that we want to check the status. keep in mind that more complex prompts will take more time to process. In this example, we check the status every 5 seconds until the original request is complete.
 
 ```py
-    # Retrieve the final result
-    final_result = check_result.outputs["source.gltf"] # Get the GLTF file from the outputs
+# Polling to check if the task is complete
+while response.completed_at is None:
+    # Wait for 5 seconds before checking again
+    time.sleep(5)
 
-    output_file_path = "./text-to-cad-output.gltf"
-    print(f"Saving output to {output_file_path}")
-    output_file = open(output_file_path, "wb") 
+    # Check the status of the task
+    response = get_text_to_cad_model_for_user.sync(
+        client=client,
+        id=response.id,
+    )
+```
 
-    output_file.write(final_result.get_decoded()) # Write the GLTF information to the text-to-cad-output.gltf file
-    output_file.close()
+## Save the final result
 
-text_to_cad_gen()
+Once our request is complete, we can check the status one more time to see if it was successful. Then, we can save the generated CAD model to our local machine.
+
+Sometimes, Text-to-CAD will fail to generate a model. In this case, we recommend adjusting your prompt and trying again. For example, you may recieve the error message `400 / Bad Request / The prompt must clearly describe a CAD model`. If you receive this error, try to be more specific with your prompt.
+
+In our script, if Text-to-CAD returns an error, we want to print the error message. If it succeeds, then we print the available file formats of the generated CAD model.
+
+In this example, we will save the STEP file to our file system. The API returns a base64 encoded string, so we decode it to plain text and save it as a `.step` file.
+
+```py
+if response.status == ApiCallStatus.FAILED:
+    # Print out the error message
+    print(f"Text-to-CAD failed: {response.error}")
+
+elif response.status == ApiCallStatus.COMPLETED:
+    # Print out the names of the generated files
+    print(f"Text-to-CAD completed and returned {len(response.outputs)} files:")
+    for name in response.outputs:
+        print(f"  * {name}")
+
+    # Save the STEP data as text-to-cad-output.step
+    final_result = response.outputs["source.step"]
+    with open("text-to-cad-output.step", "w", encoding="utf-8") as output_file:
+        output_file.write(final_result.get_decoded().decode("utf-8"))
+        print(f"Saved output to {output_file.name}")
 ```
 
 Feel free to reference or copy the full script below:
