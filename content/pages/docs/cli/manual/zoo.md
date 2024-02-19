@@ -18,6 +18,7 @@ Work seamlessly with Zoo from the command line
 * [zoo file](./zoo_file)
 * [zoo generate](./zoo_generate)
 * [zoo kcl](./zoo_kcl)
+* [zoo ml](./zoo_ml)
 * [zoo say](./zoo_say)
 * [zoo open](./zoo_open)
 * [zoo update](./zoo_update)
