@@ -18,6 +18,9 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output image format<br/>Possible values: <code>png | jpeg</code></dd>
 
+   <dt><code>-s/--src-unit</code></dt>
+   <dd>The source unit to use for the kcl file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code><br/>Default value: <code>mm</code></dd>
+
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
