@@ -21,6 +21,9 @@ Edit user settings.
    <dt><code>-g/--github</code></dt>
    <dd>The user's GitHub handle</dd>
 
+   <dt><code>-i/--image</code></dt>
+   <dd>The image URL for the user. NOTE: If the user uses an OAuth2 provider, this will be overwritten by the provider's image URL when the user logs in next</dd>
+
    <dt><code>-l/--last-name</code></dt>
    <dd>The user's last name</dd>
 
