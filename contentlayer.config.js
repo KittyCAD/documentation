@@ -203,8 +203,41 @@ const BlogPost = defineDocumentType(() => ({
     },
 }))
 
+const Kcl = defineDocumentType(() => ({
+    name: 'Kcl',
+    filePathPattern: `pages/docs/kcl/*.md*`,
+    contentType: 'mdx',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
+}))
+
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page, Kcl],
     disableImportAliasWarning: true,
 })
