@@ -4,3 +4,6 @@ node_modules
 
 # Obsidian Markdown editor config files
 .obsidian
+
+# Pycharm editor settings
+.idea/
