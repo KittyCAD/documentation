@@ -11,6 +11,7 @@ Work seamlessly with Zoo from the command line
 * [zoo alias](./zoo_alias)
 * [zoo api](./zoo_api)
 * [zoo api-call](./zoo_api-call)
+* [zoo app](./zoo_app)
 * [zoo auth](./zoo_auth)
 * [zoo completion](./zoo_completion)
 * [zoo config](./zoo_config)
