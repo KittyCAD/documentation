@@ -54,13 +54,13 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
     * Go to your **Applications/Utilities** folder. Double-click **Terminal**
 * Once the **Terminal** is open, you will need to navigate to the folder you downloaded. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
-```sh
+```bash
 cd ~/Desktop/litterbox-main
 ```
 
 cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
-```sh
+```bash
 cd ~/Documents/ZooPractice/litterbox-main
 ```
 
@@ -70,7 +70,7 @@ Another method for changing directories is if you see the folder you want to mov
 
 * Once inside the correct folder, input the following command into **Terminal**. Simply copy and paste the following
 
-```sh
+```bash
 export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
@@ -83,7 +83,7 @@ python3 tutorials/beginner_tutorial/convert.py
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
-```
+```bash
 File conversion id: <your-conversion-id>
 File conversion status: Completed
 Saving output to ./output.stl
@@ -107,14 +107,14 @@ Click on the button below to see the script we ran.
 * Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
 
-```sh
-cd ~/Desktop/litterbox-main
+```bash
+cd $HOME/Desktop/litterbox-main
 ```
 
-cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
+`cd` stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
-```sh
-cd ~/Documents/ZooPractice/litterbox-main
+```bash
+cd $HOME/Documents/ZooPractice/litterbox-main
 ```
 
 You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
@@ -124,7 +124,7 @@ Another method for changing directories is if you see the folder you want to mov
 You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
-```sh
+```bash
 $env:KITTYCAD_API_TOKEN = "YOUR-API-TOKEN"
 pip install virtualenv
 python -m venv venv
@@ -137,7 +137,7 @@ python .\tutorials\beginner_tutorial\convert.py
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
-```
+```bash
 File conversion id: <your-conversion-id>
 File conversion status: Completed
 Saving output to ./output.stl
@@ -162,13 +162,13 @@ Click on the button below to see the script we ran.
     * Click the **Terminal** icon amongst the list of all apps. 
 * Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
 
-```sh
+```bash
 cd ~/Desktop/litterbox-main
 ```
 
 cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
 
-```sh
+```bash
 cd ~/Documents/ZooPractice/litterbox-main
 ```
 
@@ -179,7 +179,7 @@ Another method for changing directories is if you see the folder you want to mov
 You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below).    Simply copy and paste the following:
 
-```sh
+```bash
 export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
 pip3 install virtualenv
 python3 -m venv venv
@@ -192,7 +192,7 @@ python3 tutorials/beginner_tutorial/convert.py
 
 As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
 
-```
+```bash
 File conversion id: <your-conversion-id>
 File conversion status: Completed
 Saving output to ./output.stl
@@ -206,4 +206,3 @@ Congrats! You just made your first successful API command using a Python script.
 
 ```py data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.py"
 ```
-
