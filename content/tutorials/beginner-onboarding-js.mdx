@@ -49,16 +49,22 @@ The link will have you download a zip file. Place this zip file in an easy-to-ac
 * Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
     * **make sure you download the correct version for Windows**
 * Once you download node.js, you will need to open **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
-* Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
+* Once **Powershell** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Powershell** and hitting enter:
+
+```sh
+npm install -g yarn
+```
+
+* Now, navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
 
 ```    
-cd ~/Desktop/litterbox-main
+cd $HOME/Desktop/litterbox-main
 ```
 
 `cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
 
 ```
-cd ~/Documents/ZooPractice/litterbox-main
+cd $HOME/Documents/ZooPractice/litterbox-main
 ```
 
 Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
@@ -67,7 +73,7 @@ You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the Zoo Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
 
 ```sh
-export KITTYCAD_TOKEN="YOUR-API-TOKEN"
+$env:KITTYCAD_TOKEN="YOUR-API-TOKEN"
 yarn install
 ```
 
@@ -100,7 +106,13 @@ Congrats! You just made your first successful API command using javascript. We o
     * Press "cmd" + "space" and type in "Terminal" and hit "return"
     * Press the magnifying glass icon <img src="/mac-spotlight.png" style={{ width: '20px', height: 'auto'}}/> on the top-right of your screen, type "Terminal" in the search box, and hit "return"
     * Go to your **Applications/Utilities** folder. Double-click **Terminal**
-* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
+* Once **Terminal** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Terminal** and hitting enter:
+
+```sh
+npm install -g yarn
+```
+
+* Now, navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
 
 ```    
 cd ~/Desktop/litterbox-main
@@ -151,7 +163,13 @@ Congrats! You just made your first successful API command using Javascript. We o
 * Once you download node.js, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
     * Press "CTRL" + "ALT" + "T"
     * Click the **Terminal** icon amongst the list of all apps. 
-* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
+* Once **Terminal** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Terminal** and hitting enter:
+
+```sh
+npm install -g yarn
+```
+
+* Now, navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
 
 ```    
 cd ~/Desktop
@@ -238,4 +256,3 @@ for (const key in response.outputs) {
 ```
 
 `fsp.writeFile` takes two parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, `decodedData` has all the information for the STEP file.
-
