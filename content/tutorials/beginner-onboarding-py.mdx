@@ -28,7 +28,6 @@ You will see your API token below if you are signed in and have already generate
 <MarkDownAPITokens />
 
 ## Executing From Your Computer
-Once you have executed an API command from the litterbox, it is time for you to execute a command directly from your computer. 
 
 * First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
 
@@ -104,6 +103,7 @@ Click on the button below to see the script we ran.
 * Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
 * Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
     * **make sure you download the correct version for Windows**
+    * Note: if you see a checkbox to **Add python [ver] to PATH**, make sure you check this box.
 * Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
 * Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
 
@@ -125,12 +125,12 @@ You will now be working inside the folder you created called ZooPractice.
 * Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
 
 ```sh
-export KITTYCAD_API_TOKEN="YOUR-API-TOKEN"
-pip3 install virtualenv
-python3 -m venv venv
-source venv/bin/activate
-pip3 install kittycad
-python3 tutorials/beginner_tutorial/convert.py
+$env:KITTYCAD_API_TOKEN = "YOUR-API-TOKEN"
+pip install virtualenv
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install kittycad
+python .\tutorials\beginner_tutorial\convert.py
 ```
 
 <TokenReplacementNote />
