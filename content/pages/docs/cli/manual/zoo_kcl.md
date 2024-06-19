@@ -9,6 +9,7 @@ Perform actions on `kcl` files.
 ### Subcommands
 
 * [zoo kcl export](./zoo_kcl_export)
+* [zoo kcl format](./zoo_kcl_format)
 * [zoo kcl snapshot](./zoo_kcl_snapshot)
 * [zoo kcl view](./zoo_kcl_view)
 * [zoo kcl volume](./zoo_kcl_volume)

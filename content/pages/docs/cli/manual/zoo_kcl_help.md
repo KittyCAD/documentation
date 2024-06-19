@@ -9,6 +9,7 @@ Print this message or the help of the given subcommand(s)
 ### Subcommands
 
 * [zoo kcl help export](./zoo_kcl_help_export)
+* [zoo kcl help format](./zoo_kcl_help_format)
 * [zoo kcl help snapshot](./zoo_kcl_help_snapshot)
 * [zoo kcl help view](./zoo_kcl_help_view)
 * [zoo kcl help volume](./zoo_kcl_help_volume)
