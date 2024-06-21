@@ -24,6 +24,9 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
+   <dt><code>--session</code></dt>
+   <dd>If given, this command will reuse an existing KittyCAD modeling session. You can start the session via `zoo session-start --listen-on 0.0.0.0:3333` in this CLI</dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
