@@ -22,7 +22,7 @@ widespread hardware acceleration support and compatibility.
 Recently, we’ve tracked down and deployed a fix for an intermittent issue
 impacting Safari on OSX. We’ve been hard at work over the last few months
 instrumenting the stream and adding resilience to critical components, making
-sure the KittyCAD Modeling Application (KMCA) runs reliably and smoothly on our
+sure the Zoo Modeling Application (ZMA) runs reliably and smoothly on our
 supported platforms. This latest bugfix is a bit unique as it’s buried fairly
 deep in the weeds of a few specific implementation details – and we figured
 this would be a great chance to share some of the work we’re doing within
@@ -31,7 +31,7 @@ KittyCAD and what goes on behind the scenes to render your parts.
 The KittyCAD Modeling API [uses WebRTC](https://kittycad.io/blog/cad-webrtc) in
 addition to the API connection during interactive modeling sessions, which
 facilitates the video stream between the KittyCAD API Client (such as the
-KittyCAD Modeling Application), and our Engine, which uses cloud GPUs to do the
+Zoo Modeling Application), and our Engine, which uses cloud GPUs to do the
 bulk of the heavy lifting when users are interactively modeling parts.
 
 ![A diagram of the client/server relationship to the engine. The "Client" box on the left connects to a large "KittyCAD infrastructure" area via two entrypoints: "STUN" which connects with lines labeled "WebRTC", and "API" which connects with lines labeled "WebSocket". These two lines pass through and both lead to an "Engine" element.](/documentation-assets/h264/client-engine.png)
