@@ -18,7 +18,7 @@ Our products aren't 3D modeling software suites. We make tools that allow any so
 
 To support any application big or small, KittyCAD's functionality is broken up into many individual services, called endpoints. This is our API, and it allows developers to build in only the functionality they need, and leave out whatever they don’t.
 
-You may build a file converter app just using our [convert](https://kittycad.io/docs/api/file/convert-cad-file-with-defaults) API endpoint, while someone building a full-featured CAD suite may use our [design endpoints](https://kittycad.io/docs/api/modeling/open-a-websocket-which-accepts-modeling-commands) to let their users generate 3D models through a traditional user interface. Both these developers got only the features they needed, and both haven't had to think about the complexities of CAD file formats, [rendering engines](https://kittycad.io/geometry-engine), or most of the other thorny problems of building hardware design tools. That's what KittyCAD is for.
+You may build a file converter app just using our [convert](https://zoo.dev/docs/api/file/convert-cad-file-with-defaults) API endpoint, while someone building a full-featured CAD suite may use our [design endpoints](https://zoo.dev/docs/api/modeling/open-a-websocket-which-accepts-modeling-commands) to let their users generate 3D models through a traditional user interface. Both these developers got only the features they needed, and both haven't had to think about the complexities of CAD file formats, [rendering engines](https://zoo.dev/geometry-engine), or most of the other thorny problems of building hardware design tools. That's what KittyCAD is for.
 
 
 ## The problem with selling a user interface
@@ -29,7 +29,7 @@ The trouble comes when software engineering advances over the decades.
 
 If you've ever maintained the same piece of software for more than a couple years, you'll understand how hard it is to pivot already-finished tools to learn from paradigm shifts in the industry. Even if you try your hardest, it's very easy for the old way of doing things to be woven throughout your codebase as assumptions.
 
-As [Jess mentioned in her first post](https://kittycad.io/blog/mechanical-cad-yesterday-today-and-tomorrow), this is why most CAD software is not extensible. Most of them have assumptions about software that were true in 1990 but aren't anymore: that the internet doesn't exist; that GPUs don't exist; that clicking is easier than typing for most user interactions[^1].
+As [Jess mentioned in her first post](https://zoo.dev/blog/mechanical-cad-yesterday-today-and-tomorrow), this is why most CAD software is not extensible. Most of them have assumptions about software that were true in 1990 but aren't anymore: that the internet doesn't exist; that GPUs don't exist; that clicking is easier than typing for most user interactions[^1].
 
 Even more importantly perhaps, the assumptions *about users* have completely changed since then. Assumptions such as: how readily someone could author extensions to software; how well they might understand keyboard shortcuts; even how well a user could type, have all shifted dramatically in the last 30 years. And those assumptions about what users can do and what they want from their software influence architectural decisions in the software itself, which can be very hard to change later.
 
@@ -47,7 +47,7 @@ Or if you want a starting point to jump off of, use one of our open-source tools
 
 ## KittyCAD eats its own dogfood
 
-We are an infrastructure-first company, but we are building several end-user applications as we go in order to “[dogfood](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)” our Geometry Engine and API infrastructure. [Zoo Modeling App](https://zoo.dev/modeling-app) is where most of our engineering efforts are going now, but we are also building our [Diff Viewer Extension](https://kittycad.io/diff-viewer) and other similarly niche tools in parallel[^2]. 
+We are an infrastructure-first company, but we are building several end-user applications as we go in order to “[dogfood](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)” our Geometry Engine and API infrastructure. [Zoo Modeling App](https://zoo.dev/modeling-app) is where most of our engineering efforts are going now, but we are also building our [Diff Viewer Extension](https://zoo.dev/diff-viewer) and other similarly niche tools in parallel[^2]. 
 
 These applications will all be open-source. This build-in-the-open approach does several things:
 
