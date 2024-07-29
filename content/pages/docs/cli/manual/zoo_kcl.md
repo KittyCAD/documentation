@@ -17,6 +17,7 @@ Perform actions on `kcl` files.
 * [zoo kcl center-of-mass](./zoo_kcl_center-of-mass)
 * [zoo kcl density](./zoo_kcl_density)
 * [zoo kcl surface-area](./zoo_kcl_surface-area)
+* [zoo kcl lint](./zoo_kcl_lint)
 * [zoo kcl help](./zoo_kcl_help)
 
 ### Options

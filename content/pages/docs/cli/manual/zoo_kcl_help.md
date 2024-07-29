@@ -17,6 +17,7 @@ Print this message or the help of the given subcommand(s)
 * [zoo kcl help center-of-mass](./zoo_kcl_help_center-of-mass)
 * [zoo kcl help density](./zoo_kcl_help_density)
 * [zoo kcl help surface-area](./zoo_kcl_help_surface-area)
+* [zoo kcl help lint](./zoo_kcl_help_lint)
 * [zoo kcl help help](./zoo_kcl_help_help)
 
 ### See also
