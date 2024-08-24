@@ -27,6 +27,9 @@ Get the density of objects in a kcl file.
    <dt><code>-u/--output-unit</code></dt>
    <dd>Output unit<br/>Possible values: <code>lb-ft3 | kg-m3</code></dd>
 
+   <dt><code>--show-trace</code></dt>
+   <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 

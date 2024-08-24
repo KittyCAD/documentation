@@ -27,6 +27,9 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>--session</code></dt>
    <dd>If given, this command will reuse an existing KittyCAD modeling session. You can start the session via `zoo session-start --listen-on 0.0.0.0:3333` in this CLI</dd>
 
+   <dt><code>--show-trace</code></dt>
+   <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
