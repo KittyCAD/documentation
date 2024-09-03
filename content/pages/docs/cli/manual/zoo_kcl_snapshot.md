@@ -30,6 +30,9 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
 
+   <dt><code>--replay</code></dt>
+   <dd>If true, tell engine to store a replay<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
