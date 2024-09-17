@@ -24,6 +24,9 @@ Convert a CAD file from one format to another.
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
+   <dt><code>--deterministic</code></dt>
+   <dd>If true, the output file should be deterministic, meaning any date or time information will be replaced with a fixed value. This is useful for when pushing to version control<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
