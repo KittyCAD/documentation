@@ -13,7 +13,7 @@ Get the center of mass of objects in a kcl file.
    <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-s/--src-unit</code></dt>
-   <dd>The source unit to use for the kcl file. This defaults to millimeters, if not set and there is no project.toml file in the same directory as the input file. If there is a project.toml file, the default unit will be the one set in the project.toml file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
+   <dd>The source unit to use for the kcl file. This defaults to millimeters, if not set and there is no project.toml. If there is a project.toml file, the default unit will be the one set in the project.toml file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
@@ -36,11 +36,17 @@ Get the center of mass of objects in a kcl file.
 
 ```
 # get the mass of a file
-$ zoo kcl center-of-mass --src_unit=m my-file.kcl
+$ zoo kcl center-of-mass --src-unit=m my-file.kcl
 
 # pass a file from stdin
-$ cat my-file.kcl | zoo kcl center-of-mass --src_unit=m
+$ cat my-file.kcl | zoo kcl center-of-mass --src-unit=m
 ```
+
+By default, this will search the input path for a `project.toml` file to determine the source
+unit and any specific execution settings. If no `project.toml` file is found, in the directory
+of the input path OR any parent directories above that, the default
+source unit will be millimeters. You can also specify the source unit with the
+`--src-unit`/`-s` command line flag.
 
 ### See also
 
