@@ -19,7 +19,7 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dd>A valid output image format<br/>Possible values: <code>png | jpeg</code></dd>
 
    <dt><code>-s/--src-unit</code></dt>
-   <dd>The source unit to use for the kcl file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code><br/>Default value: <code>mm</code></dd>
+   <dd>The source unit to use for the kcl file. This defaults to millimeters, if not set and there is no project.toml file in the same directory as the input file. If there is a project.toml file, the default unit will be the one set in the project.toml file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
