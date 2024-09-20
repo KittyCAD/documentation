@@ -16,7 +16,7 @@ Run a Text-to-CAD prompt and export it as any other supported CAD file format.
    <dd>The path to a directory to output the files. If not set this will be the current directory</dd>
 
    <dt><code>-t/--output-format</code></dt>
-   <dd>A valid output file format<br/>Possible values: <code>fbx | glb | gltf | obj | ply | step | stl</code></dd>
+   <dd>A valid output file format</dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
