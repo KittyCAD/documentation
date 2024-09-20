@@ -16,7 +16,7 @@ Snapshot a render of a Text-to-CAD prompt as any supported image format.
    <dd>The path to a directory to output the files. If not set this will be the current directory</dd>
 
    <dt><code>-t/--output-format</code></dt>
-   <dd>A valid output image format<br/>Possible values: <code>png | jpeg</code><br/>Default value: <code>png</code></dd>
+   <dd>A valid output image format<br/>Default value: <code>png</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
