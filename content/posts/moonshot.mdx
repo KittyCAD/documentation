@@ -1,0 +1,104 @@
+---
+title: 'Moonshot'
+excerpt: |
+    Let's build a telescope!
+coverImage: 'documentation-assets/moonshot.jpg'
+date: '2024-09-23T15:00:00Z'
+author:
+    name: Paul Tagliamonte
+    picture: '/documentation-assets/paultag.jpg'
+ogImage:
+    url: 'documentation-assets/moonshot.jpg'
+---
+
+At Zoo we aren’t afraid of a moonshot. We’ve repeatedly made decisions that
+seem, to the outside observer, like a moonshot. Our vision for the future was
+limited by existing platforms and tools, and we’ve taken on massive technical
+undertakings – making our vision real – unlocking that future. When you think
+about it, that’s the trick, isn’t it – going after problems through persistent,
+steady and clear-eyed focus on the goal. There’s no substitute for persistent,
+hard work.
+
+We’ve been busy at work getting the Zoo Modeling App ready for increasingly
+complex workloads over the last year, step by step. We’ve been landing critical
+features to our CAD Engine, developing KCL language features, and polishing the
+UI/UX for real customer workflows. As we get closer to stabilizing our 1.0
+release, it was the perfect time to start up a “Hardware startup inside a
+software startup” – a small team focused on using ZMA to produce real hardware.
+A perfect chance to build hardware while leaning into KCL best practices,
+conventions and idioms. We found ourselves in need of a large, fairly complex
+project to stress test new features, internally drive development on blocking
+issues our users would reasonably have, have something to demo in the app to
+show off our more complex features, and finally, to push us to think through
+what happens when we go to manufacture designed parts “beyond the engine”.
+
+Almost immediately, I got the idea to build a refractor Telescope – going for a
+literal shot of the moon –  in my head and kept coming back to it. It’s well
+understood science, just the right amount of complexity (in terms of spacings,
+tolerances, gears), Astronomy has a really cool amateur DIY scene, and a
+telescope is something satisfying you can hold and use in the real world. Only
+hiccup – I don’t know anything about telescopes (in particular), optics (in
+general), or even how to CAD something. That’s right, I’d never so much as
+opened a CAD program until starting at Zoo – and the only CAD software I’ve
+used to date is the Zoo Modeling App. Throughout my first year at Zoo, I’ve
+mostly been working on deep [backend](https://zoo.dev/blog/introducing-delouse)
+or [infrastructural](https://zoo.dev/blog/fixing-an-h264-encoding-bug) bugs
+that generally haven’t required any knowledge of how to actually use the CAD
+software beyond making a cube or two. I figured it was high time to change
+that.
+
+I got right to it, reading astronomy papers, amateur astronomy blogs, websites,
+videos, and lurking a few communities. After all that, I got to work, starting
+on paper (ok, “paper” – actually an e-reader), moving to ZMA to model a part at
+a time. It took a few hours of making parts that looked good in the App, and a
+coworker was nice enough to use their 3D printer to build them, and ship me a
+few parts (thanks, Adam!). A few weeks of iteration (and one purchased 3D
+printer later!) and I wound up with a working telescope using 3-D printed
+parts, a 2mm metal rod, a 3” PVC tube, and a 2.5” plastic tube.
+
+![Picture of the 3D printed telescope. It has a pink spray-painted Zoo logo across the top](/documentation-assets/moonshot/scope.jpg)
+
+I’m hoping to spend some time building these parts using more professional
+materials next, but given we were able to demonstrate a working prototype, this
+blog post is going up well in advance of our final version.
+
+This was nice and all, but it used an off-the-shelf eyepiece – a very nice
+lens, but a lens that wasn’t one we modeled or built. I didn’t like the idea of
+us calling it quits while using an off-the-shelf eyepiece – so I got down to
+work building a simple Plössl-style eyepiece that works with the IMX477-based
+Raspberry Pi HQ camera. This means that I can – in true Zoo fashion – do my
+Astronomy via Software, streaming lower resolution video for interactive use
+(focusing and centering objects of interest), and taking 4K full-resolution
+photographs after the field of view is dialed in.
+
+![A Raspberry Pi camera module attached to a 3D printed Plossl style lens, fitting the typical 1 1/4" telescope eyepiece](/documentation-assets/moonshot/plossl.jpg)
+
+I got all this done JUST time for the “Super Blue Moon” – only to be foiled by
+cloud cover. I think this is why all the Amateur Astronomy folks sign off with
+“Clear Skies” – sometimes you’re just plain at the mercy of the weather.
+
+Thankfully, the weather let up the next day, giving me a perfect night to see
+the almost-Super Blue Moon. After processing the images, I’ve noticed a few
+fairly obvious problems with the system – such as the Refractor’s collimation
+is very far off – that I’m hoping to fix for the next version. That being said,
+the photos this Telescope produced vastly exceeded my expectations, which I’m
+very proud of. I can’t wait to continue to iterate on this design, and see if I
+can get rid of all of the obvious optical aberrations enough to take a quality
+photo in a nice dark area. All in all, not bad for a very simple Telescope in
+the middle of a light polluted city!
+
+![Picture of the moon! You can make out craters on the lefthand side of the image.](/documentation-assets/moonshot/moonshot.jpg)
+
+With that we’re also planning on pushing the KCL in-progress up to our GitHub
+once the last features land, which we’ll continue to iterate on, and maintain –
+to serve as an idiomatic project and adopter of new features as they get
+released. More on that soon!
+
+If you’ve found this post interesting, you would fit right in at Zoo! Come join
+us, or build something great using any of the Zoo APIs – while we don’t do
+professional Astronomy, we are building the future of hardware design by
+tackling the hardest infrastructure problems facing the industry today so
+hardware teams can focus on designing the next big thing – not fighting with
+their tools.
+
+Clear Skies!
