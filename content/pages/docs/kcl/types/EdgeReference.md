@@ -1,20 +1,19 @@
 ---
-title: "FaceTag"
-excerpt: "A tag for a face."
+title: "EdgeReference"
+excerpt: "A tag or a uuid of an edge."
 layout: manual
 ---
 
-A tag for a face.
+A tag or a uuid of an edge.
 
 
 
 
 **This schema accepts any of the following:**
 
-A tag for a face.
+A uuid of an edge.
 
-[`StartOrEnd`](/docs/kcl/types/StartOrEnd)
-
+**Type:** `string` (`uuid`)
 
 
 
@@ -23,7 +22,7 @@ A tag for a face.
 
 
 ----
-A tag for the face.
+A tag of an edge.
 
 [`TagIdentifier`](/docs/kcl/types#tag-identifier)
 
