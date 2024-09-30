@@ -6,10 +6,10 @@
         "build": "contentlayer build",
         "dev": "contentlayer dev"
     },
-    "dependencies": {    
+    "dependencies": {
+        "contentlayer": "^0.3.4"
     },
     "devDependencies": {
-        "contentlayer": "^0.3.4",
         "react": "^18.3.1"
     }
 }
