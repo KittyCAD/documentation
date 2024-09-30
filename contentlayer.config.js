@@ -206,7 +206,7 @@ const BlogPost = defineDocumentType(() => ({
 const Kcl = defineDocumentType(() => ({
     name: 'Kcl',
     filePathPattern: `pages/docs/kcl/*.md`,
-    contentType: 'md',
+    contentType: 'markdown',
     fields: {
         title: {
             type: 'string',
@@ -245,7 +245,7 @@ const Kcl = defineDocumentType(() => ({
 const KclType = defineDocumentType(() => ({
     name: 'KclType',
     filePathPattern: `pages/docs/kcl/types/*.md`,
-    contentType: 'md',
+    contentType: 'markdown',
     fields: {
         title: {
             type: 'string',
@@ -285,7 +285,7 @@ const KclType = defineDocumentType(() => ({
 const Cli = defineDocumentType(() => ({
     name: 'Cli',
     filePathPattern: `pages/docs/cli/**/*.md`,
-    contentType: 'md',
+    contentType: 'markdown',
     fields: {
         title: {
             type: 'string',
