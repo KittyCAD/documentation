@@ -283,7 +283,7 @@ const KclType = defineDocumentType(() => ({
 
 
 const Cli = defineDocumentType(() => ({
-    name: 'KclType',
+    name: 'Cli',
     filePathPattern: `pages/docs/cli/**/*.md`,
     contentType: 'md',
     fields: {
