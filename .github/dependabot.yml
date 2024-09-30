@@ -9,7 +9,19 @@ updates:
       directory: '/' # Location of package manifests
       schedule:
           interval: 'daily'
-    - package-ecosystem: 'yarn' # See documentation for possible values
+      reviewers:
+          - 'franknoirot'
+          - 'Irev-Dev'
+          - 'jgomez720'
+          - 'jessfraz'
+          - 'adamchalmers'
+    - package-ecosystem: 'npm' # See documentation for possible values
       directory: '/' # Location of package manifests
       schedule:
           interval: 'daily'
+      reviewers:
+          - 'franknoirot'
+          - 'Irev-Dev'
+          - 'jgomez720'
+          - 'jessfraz'
+          - 'adamchalmers'
