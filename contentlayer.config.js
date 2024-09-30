@@ -49,7 +49,7 @@ const Tutorial = defineDocumentType(() => ({
 
 const Page = defineDocumentType(() => ({
     name: 'Page',
-    filePathPattern: `pages/**/*.md*`,
+    filePathPattern: `pages/**/*.mdx`,
     contentType: 'mdx',
     fields: {
         title: {
@@ -205,8 +205,8 @@ const BlogPost = defineDocumentType(() => ({
 
 const Kcl = defineDocumentType(() => ({
     name: 'Kcl',
-    filePathPattern: `pages/docs/kcl/*.md*`,
-    contentType: 'mdx',
+    filePathPattern: `pages/docs/kcl/*.md`,
+    contentType: 'md',
     fields: {
         title: {
             type: 'string',
@@ -227,17 +227,102 @@ const Kcl = defineDocumentType(() => ({
             description: 'The tags of the docs, for SEO and filtering use.',
             required: false,
         },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
     },
     computedFields: {
         slug: {
             type: 'string',
-            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
+const KclType = defineDocumentType(() => ({
+    name: 'KclType',
+    filePathPattern: `pages/docs/kcl/types/*.md`,
+    contentType: 'md',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
+
+const Cli = defineDocumentType(() => ({
+    name: 'KclType',
+    filePathPattern: `pages/docs/cli/**/*.md`,
+    contentType: 'md',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
         },
     },
 }))
 
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, Kcl],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page, Kcl, KclType, Cli],
     disableImportAliasWarning: true,
 })
