@@ -203,8 +203,8 @@ const BlogPost = defineDocumentType(() => ({
     },
 }))
 
-const Kcl = defineDocumentType(() => ({
-    name: 'Kcl',
+const KclDoc = defineDocumentType(() => ({
+    name: 'KclDoc',
     filePathPattern: `pages/docs/kcl/*.md`,
     contentType: 'markdown',
     fields: {
@@ -282,8 +282,8 @@ const KclType = defineDocumentType(() => ({
 }))
 
 
-const Cli = defineDocumentType(() => ({
-    name: 'Cli',
+const CliDoc = defineDocumentType(() => ({
+    name: 'CliDoc',
     filePathPattern: `pages/docs/cli/**/*.md`,
     contentType: 'markdown',
     fields: {
@@ -323,6 +323,6 @@ const Cli = defineDocumentType(() => ({
 
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, Kcl, KclType, Cli],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, CliDoc],
     disableImportAliasWarning: true,
 })
