@@ -9,7 +9,6 @@ Perform operations on CAD files.
 ### Subcommands
 
 * [zoo api-call status](./zoo_api-call_status)
-* [zoo api-call help](./zoo_api-call_help)
 
 ### Options
 

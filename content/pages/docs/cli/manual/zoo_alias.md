@@ -11,7 +11,6 @@ Create command shortcuts.
 * [zoo alias set](./zoo_alias_set)
 * [zoo alias delete](./zoo_alias_delete)
 * [zoo alias list](./zoo_alias_list)
-* [zoo alias help](./zoo_alias_help)
 
 ### Options
 

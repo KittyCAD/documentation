@@ -1,10 +1,10 @@
 ---
 title: "zoo start-session"
-excerpt: "Starts a modeling session"
+excerpt: "Starts a modeling session."
 layout: manual
 ---
 
-Starts a modeling session
+Starts a modeling session.
 
 ### Options
 
@@ -19,6 +19,17 @@ Starts a modeling session
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
    <dt><code>-h/--help</code></dt>
-   <dd>Print help</dd>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
 
+
+### About
+
+This command starts a server on localhost (on the configurable interface), and
+waits to receive KCL programs over that server. It also connects to the KittyCAD
+API and keeps the connection alive until this process is stopped. When it receives
+a KCL program over the local server, it executes it using the long-lived KittyCAD
+connection.
+
+This subcommand is designed to be used with `zoo kcl snapshot --session localhost:3333`,
+which will reuse the existing connection started by `zoo start-session localhost:3333`.
