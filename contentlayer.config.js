@@ -285,7 +285,7 @@ const KclType = defineDocumentType(() => ({
 const CliDoc = defineDocumentType(() => ({
     name: 'CliDoc',
     filePathPattern: `pages/docs/cli/**/*.md`,
-    contentType: 'markdown',
+    contentType: 'mdx',
     fields: {
         title: {
             type: 'string',
