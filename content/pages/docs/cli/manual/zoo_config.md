@@ -11,7 +11,6 @@ Manage configuration for `zoo`.
 * [zoo config set](./zoo_config_set)
 * [zoo config list](./zoo_config_list)
 * [zoo config get](./zoo_config_get)
-* [zoo config help](./zoo_config_help)
 
 ### Options
 

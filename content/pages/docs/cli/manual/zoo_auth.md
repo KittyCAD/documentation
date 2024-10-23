@@ -11,7 +11,6 @@ Login, logout, and get the status of your authentication.
 * [zoo auth login](./zoo_auth_login)
 * [zoo auth logout](./zoo_auth_logout)
 * [zoo auth status](./zoo_auth_status)
-* [zoo auth help](./zoo_auth_help)
 
 ### Options
 

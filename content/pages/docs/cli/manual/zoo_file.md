@@ -15,7 +15,6 @@ Perform operations on CAD files.
 * [zoo file center-of-mass](./zoo_file_center-of-mass)
 * [zoo file density](./zoo_file_density)
 * [zoo file surface-area](./zoo_file_surface-area)
-* [zoo file help](./zoo_file_help)
 
 ### Options
 

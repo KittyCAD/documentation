@@ -26,7 +26,6 @@ Work seamlessly with Zoo from the command line
 * [zoo update](./zoo_update)
 * [zoo user](./zoo_user)
 * [zoo version](./zoo_version)
-* [zoo help](./zoo_help)
 
 ### Options
 

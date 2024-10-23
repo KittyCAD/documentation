@@ -9,7 +9,6 @@ Generate various documentation files for the `zoo` command line.
 ### Subcommands
 
 * [zoo generate markdown](./zoo_generate_markdown)
-* [zoo generate help](./zoo_generate_help)
 
 ### Options
 

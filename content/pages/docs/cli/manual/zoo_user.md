@@ -11,7 +11,6 @@ Edit and view your user.
 * [zoo user view](./zoo_user_view)
 * [zoo user edit](./zoo_user_edit)
 * [zoo user delete](./zoo_user_delete)
-* [zoo user help](./zoo_user_help)
 
 ### Options
 
