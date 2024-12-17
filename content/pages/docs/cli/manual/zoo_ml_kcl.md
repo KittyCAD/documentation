@@ -1,15 +1,14 @@
 ---
-title: "zoo ml"
-excerpt: "Perform machine learning (ML-Ephant) commands."
+title: "zoo ml kcl"
+excerpt: "Edit a KCL file with machine learning."
 layout: manual
 ---
 
-Perform machine learning (ML-Ephant) commands.
+Edit a KCL file with machine learning.
 
 ### Subcommands
 
-* [zoo ml text-to-cad](./zoo_ml_text-to-cad)
-* [zoo ml kcl](./zoo_ml_kcl)
+* [zoo ml kcl edit](./zoo_ml_kcl_edit)
 
 ### Options
 
@@ -21,3 +20,7 @@ Perform machine learning (ML-Ephant) commands.
    <dd>Print help</dd>
 </dl>
 
+
+### See also
+
+* [zoo ml](./zoo_ml)
