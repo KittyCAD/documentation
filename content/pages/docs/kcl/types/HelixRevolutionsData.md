@@ -1,10 +1,10 @@
 ---
-title: "HelixData"
-excerpt: "Data for a helix."
+title: "HelixRevolutionsData"
+excerpt: "Data for helix revolutions."
 layout: manual
 ---
 
-Data for a helix.
+Data for helix revolutions.
 
 **Type:** `object`
 
@@ -19,8 +19,6 @@ Data for a helix.
 | `revolutions` |`number`| Number of revolutions. | No |
 | `angleStart` |`number`| Start angle (in degrees). | No |
 | `ccw` |`boolean`| Is the helix rotation counter clockwise? The default is `false`. | No |
-| `length` |`number`| Length of the helix. | No |
-| `radius` |`number`| Radius of the helix. | No |
-| `axis` |[`Axis3dOrEdgeReference`](/docs/kcl/types/Axis3dOrEdgeReference)| Axis to use as mirror. | No |
+| `length` |`number`| Length of the helix. If this argument is not provided, the height of the solid is used. | No |
 
 
