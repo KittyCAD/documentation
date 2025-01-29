@@ -10,7 +10,7 @@ Lint a KCL file for style issues.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input file. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>--descriptions</code></dt>
    <dd>Print a long-form description of what the issue is, and the rational behind why<br/>Default value: <code>false</code></dd>

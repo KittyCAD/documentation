@@ -10,7 +10,7 @@ Get the volume of an object in a kcl file.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input file. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
