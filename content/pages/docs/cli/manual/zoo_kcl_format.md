@@ -10,7 +10,7 @@ Format a `kcl` file.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input kcl file to format. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input kcl file to format. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-w/--write</code></dt>
    <dd>Write the output back to the original file. This will fail if the input is from stdin<br/>Default value: <code>false</code></dd>

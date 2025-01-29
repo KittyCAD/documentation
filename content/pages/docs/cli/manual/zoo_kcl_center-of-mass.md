@@ -10,7 +10,7 @@ Get the center of mass of objects in a kcl file.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input file. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>-s/--src-unit</code></dt>
    <dd>The source unit to use for the kcl file. This defaults to millimeters, if not set and there is no project.toml. If there is a project.toml file, the default unit will be the one set in the project.toml file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>

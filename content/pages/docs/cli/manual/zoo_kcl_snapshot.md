@@ -10,7 +10,7 @@ Snapshot a render of a `kcl` file as any supported image format.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input kcl file to snapshot. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input kcl file to snapshot. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>output-file</code></dt>
    <dd>The path to a file to output the image</dd>

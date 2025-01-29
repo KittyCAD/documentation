@@ -10,7 +10,7 @@ Export a `kcl` file as any other supported CAD file format.
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input kcl file to export. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input kcl file to export. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>output-dir</code></dt>
    <dd>The path to a directory to output the files</dd>
