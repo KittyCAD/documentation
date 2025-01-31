@@ -18,9 +18,6 @@ Get the mass of objects in a kcl file.
    <dt><code>--material-density-unit</code></dt>
    <dd>Material density unit<br/>Possible values: <code>lb-ft3 | kg-m3</code></dd>
 
-   <dt><code>-s/--src-unit</code></dt>
-   <dd>The source unit to use for the kcl file. This defaults to millimeters, if not set and there is no project.toml. If there is a project.toml file, the default unit will be the one set in the project.toml file<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
-
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
@@ -42,17 +39,13 @@ Get the mass of objects in a kcl file.
 
 ```
 # get the mass of a file
-$ zoo kcl mass --src-unit=m my-file.kcl
+$ zoo kcl mass my-file.kcl
 
 # pass a file from stdin
-$ cat my-file.kcl | zoo kcl mass --src-unit=m
+$ cat my-file.kcl | zoo kcl mass
 ```
 
-By default, this will search the input path for a `project.toml` file to determine the source
-unit and any specific execution settings. If no `project.toml` file is found, in the directory
-of the input path OR any parent directories above that, the default
-source unit will be millimeters. You can also specify the source unit with the
-`--src-unit`/`-s` command line flag.
+By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
 ### See also
 
