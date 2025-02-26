@@ -6,10 +6,20 @@ layout: manual
 
 ## Table of Contents
 
-* [Types](kcl/types)
-* [Modules](kcl/modules)
-* [Known Issues](kcl/KNOWN-ISSUES)
+### Language
+
+* [`Types`](kcl/types)
+* [`Modules`](kcl/modules)
+* [`Settings`](kcl/settings)
+* [`Known Issues`](kcl/known-issues)
+
+### Standard library
+
 * **`std`**
+  * [`HALF_TURN`](kcl/const_std-HALF_TURN)
+  * [`QUARTER_TURN`](kcl/const_std-QUARTER_TURN)
+  * [`THREE_QUARTER_TURN`](kcl/const_std-THREE_QUARTER_TURN)
+  * [`ZERO`](kcl/const_std-ZERO)
   * [`abs`](kcl/abs)
   * [`acos`](kcl/acos)
   * [`angleToMatchLengthX`](kcl/angleToMatchLengthX)
@@ -118,8 +128,3 @@ layout: manual
   * [`cos`](kcl/std-math-cos)
   * [`sin`](kcl/std-math-sin)
   * [`tan`](kcl/std-math-tan)
-* **`std::prelude`**
-  * [`HALF_TURN`](kcl/const_std-prelude-HALF_TURN)
-  * [`QUARTER_TURN`](kcl/const_std-prelude-QUARTER_TURN)
-  * [`THREE_QUARTER_TURN`](kcl/const_std-prelude-THREE_QUARTER_TURN)
-  * [`ZERO`](kcl/const_std-prelude-ZERO)
