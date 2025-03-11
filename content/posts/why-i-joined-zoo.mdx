@@ -129,7 +129,7 @@ I did not study Computer Science and have no formal training in computational ge
 
 - For B-reps, some common tasks in a CAD system are 'embarrassingly parallel', e.g., sampling curves, performing intersection checks. Others require largely sequential processing, e.g., graph-based operations on topology structures.
 - For [NURBS](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline), evaluation of points and patches is amenable to parallelism, while [knot insertion](https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS-knot-insert.html) and [degree elevation](https://pages.mtu.edu/~shene/COURSES/cs3621/LAB/surface/elevation.html) is not.
-  - Finding the intersection of NURBS surfaces computationally expensive, and would require surfaces to be broken into patches then merged if intersection tests were to be parallelized.
+  - Finding the intersection of NURBS surfaces is computationally expensive, and would require surfaces to be broken into patches then merged if intersection tests were to be parallelized.
 - For constructive solid geometry (CSG), where we need to perform repeated Boolean ops across a tree data structure, there is some opportunity to parallelize 'bounding volume hierarchies', but the speedup is likely to be bounded by the topological merge required to assemble a final boundary representation.
 
 That is not nothing; while the overhead involved in moving data between CPU and GPU should not be ignored, some large portions of the CAD kernel's responsibilities do seem to be amenable to rearrangement to suit modern computer architectures.
