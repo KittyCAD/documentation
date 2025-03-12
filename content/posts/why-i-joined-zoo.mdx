@@ -51,13 +51,53 @@ The post-war period, however, tells a different story. Driven by the semiconduct
 
 By the 1990s, new releases had slowed, with SolidWorks probably the most influential new arrival of the time. The 90s and 2000s saw a glut of [acquisition and consolidation activity](https://blog.fastwayengineering.com/cad-cae-timeline-history), with Siemens, Autodesk, and Dassault Systèmes scooping up many of the smaller players.
 
-Through the 2010s, the most influential new products were probably Onshape and nTop. Onshape brought a modern, collaborative paradigm to the space, while nTop is the most prominent [implicit modelling](https://www.ntop.com/resources/blog/understanding-the-basics-of-b-reps-and-implicits/) system that I'm aware of. This period also saw the foundation of [shapr3d](https://www.shapr3d.com/), a much-lauded, modern CAD system that addresses the long-standing user hostility of incumbent CAD systems, while continuing to build on the Parasolid kernel's foundations.
+Through the 2010s, the most influential new products were probably Onshape and nTop. Onshape brought a modern, collaborative paradigm to the space, while nTop is the most prominent [implicit modeling](https://www.ntop.com/resources/blog/understanding-the-basics-of-b-reps-and-implicits/) system that I'm aware of. This period also saw the foundation of [Shapr3D](https://www.shapr3d.com/), a much-lauded, modern CAD system that addresses the long-standing user hostility of incumbent CAD systems, while continuing to build on the Parasolid kernel's foundations.
 
 ![timeline-decade](/documentation-assets/why-i-joined-zoo/engineering_tools_by_decade.png)
 
-Having traced the development of design tools, I think it's worth touching on the workflows these tools replaced...
+### A note on modeling paradigms
+
+This is a nuanced point that I feel is often glossed over by those who are not deeply involved in the space, but while on the topic of CAD system history, it is worth providing some context on the modeling paradigms available to us.
+
+#### Geometry representation schemes
+
+Before we touch on how a designer would actually compose anything with extrudes and sweeps and lofts, we first need to iron out a mechanism for describing the geometry of an object. To represent a shape in three dimensions, there are three methods I think are relevant here:
+
+- [Boundary representation, or B-rep](https://en.wikipedia.org/wiki/Boundary_representation).
+- [Implicit representation](https://en.wikipedia.org/wiki/Function_representation).
+- [Polygonal surface mesh](https://en.wikipedia.org/wiki/Polygon_mesh).
+
+**Boundary representation** is a mathematical description of an object that defines its boundaries using curves and surfaces. It explicitly defines object geometries using mathematical descriptors of their surface boundaries—faces, edges, and vertices—which collectively represent a precise description of the object's shape. A B-rep stores both the topology—the connectivity of faces, edges, and vertices—and geometry—the exact spatial positions, dimensions, and shape definitions—of each element. They can incorporate multiple geometric primitives, including planar surfaces, analytical shapes (like spheres or cylinders), and parametric curves and surfaces such as [NURBS](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline). The inclusion of NURBS within B-rep models is particularly significant, as it enables smooth and precisely controllable representation of curved surfaces and edges. This broad precision makes B-reps valuable for applications where geometric accuracy and manufacturing precision are important. Every major mechanical CAD system employs a B-rep kernel.
+
+**Implicit representations** differ significantly, as geometry is described through implicit mathematical equations, rather than explicitly through boundary surfaces. In practice, this involves evaluating points in three-dimensional space to determine whether they're 'inside' or 'outside' the defined shape. Implicits are well suited to representing highly complex, computationally derived shapes, and are naturally suited to employment in highly iterative workflows, e.g., when included within an optimization loop. However, implicits may require computationally intensive conversion into alternate representations before detailed design edits or manufacturing become feasible.
+
+**Polygonal meshes** define geometry through collections of simple polygonal facets—most commonly triangles or quadrilaterals. This representation is computationally efficient, universally supported, and ideal for visualization. Mesh formats are also commonly used in 3D printing. However, in the context of mechanical design workflows where [limits and fits](https://en.wikipedia.org/wiki/Engineering_fit) matter, and where geometry must be tightly controlled, meshes lack precision and any element of parametric editability. As a result, they are largely unsuitable for engineering workflows where precise specification of design intent is critical. To edit a mesh, you cannot directly adjust a diameter or a length; you have to adjust vertex and edge locations in a 'dumb' sampling of the shape in Cartesian space.
+
+Practically, these distinctions mean that boundary representations are effectively a hard requirement for real-world engineering of almost all mechanical systems. B-reps offer the combination of precision, robustness, and parametric control needed to actually describe a piston or a shaft or a gear.
+
+Implicit models offer powerful methods for exploring highly optimized, organic shapes in applications such as high-performance heat exchangers and other lattice structures. They are also well suited to the generation of complex, generative designs, where the shape of the object is driven by ambitious performance criteria—like in [some hypercars](https://www.czinger.com/).
+
+Meshes are for visualization and for feeding to 3D printers. They contain no depth of information about the geometry they represent, lack direct, dimension-driven editing capabilities crucial for precise engineering workflows, and are broadly irrelevant to the design of complex mechanical systems.
+
+#### Direct vs. parametric modeling
+
+Now that we have a handle on how we might represent the geometry of an object, we can consider how an engineer might actually assemble that object in their CAD system. There are two primary paradigms for this: _direct modeling_ and _parametric modeling_.
+
+Mentioned in passing above, parametric modeling is the dominant approach to mechanical design where you have clear requirements and need to specify strict manufacturing critera. If you know that you need a shaft of a certain length, with a certain diameter, and with a certain style of keyway, you can define numerical descriptions—parameters—for each of those features in your CAD system and then use those parameters to drive the geometry of your part. Down the road, if you find your shaft isn't stiff enough, your new design doesn't have to be started from scratch; you can duplicate your original CAD model, adjust a length or a diameter value, and then the rest of the part's geometry will update accordingly. This approach is ideally suited to the design of machinery, where the engineer must integrate bearings, gears, and other components into a single, coherent system; parametric patterns allow multiple interdependent features to retain the desired relationships during modifications.
+
+Direct modeling is more like working with clay. You can draw some primitives, then push them and pull them to build up the shape that you want. This approach is well suited to more aesthetically driven design, and perhaps in the earlier stages of machine development where concepts are being loosely explored, but it embeds no design intent in the model. If you need to change the diameter of a hole, you have to manually adjust every instance of that hole in your model—there is no ability to propagate related changes through the model based on a central set of parameters.
+
+
+#### Parametric B-reps, please
+
+For practical mechanical engineering workflows, parametric modeling with boundary representation is effectively mandatory. 
+
+Mechanical components almost always have strict requirements—precise tolerances, standardized fits, and clearly defined geometric relationships; exactly what parametric B-rep modeling is designed for. By explicitly encoding both geometric precision and design intent, parametric B-rep models enable engineers to reliably ideate, develop, and communicate design details. Their explicit topological and parametric precision ensures consistency and accuracy throughout the design and manufacturing cycle, supporting everything from generating production-ready drawings to providing clean, well-defined input for downstream simulation... even if most simulation techniques will involve generating a mesh of their own!
+
 
 ### From paper, linen, and film...
+
+Having traced the development of design tools and discussed some foundational aspects of their operation, I think it's worth touching on the workflows these tools replaced... 
 
 Prior to the 1970s and the rise of CAD and CAE, 'design' really meant two things:
 
@@ -178,11 +218,23 @@ With three input modes, the design bottleneck may no longer lie in getting desig
 
 Further, to do a good job with natural language driven input, the generated geometry needs to 'look' as if it were created by a person; we want a part that has a full feature tree and that can be interactively modified. In this way, we can use natural language input as a means of accelerating human-guided product development; not as a pipe-dream promise of automating the design process.
 
+## The case for a new kernel
+
+I touched on this above, but are some exceptions to this rule, with products from Autodesk, Dassault Systèmes, and PTC making use of their own modeling kernel, but nevertheless, the majority of the western world's systems make use of Parasolid (first released as Romulus in 1978) or ACIS (first released in 1989).
+
+![software-syste-kernels](/documentation-assets/why-i-joined-zoo/software_system_kernels.png)
+
+-----
+# STILL WRITING HERE
+-----
+
 ## Why I'm excited about Zoo
 
 ### Hard problems and smart people
 
-This is a statement of the obvious, but building a new CAD system is hard. There is a good reason that most commercial CAD systems are built on Parasolid or ACIS. However, to achieve Zoo's goals, I think there is legitimate need to build a new kernel. We might be choosing the hard path here, but when hard problems are actually worth attacking, this is a good thing. Hard problems are how you keep the brightest minds engaged.
+This is a statement of the obvious, but building a new CAD system is hard. There is a good reason that most commercial CAD systems are built on Parasolid or ACIS. 
+
+However, to achieve Zoo's goals, I think there is legitimate need to build a new kernel. We might be choosing the hard path here, but when hard problems are actually worth attacking, this is a good thing. Hard problems are how you keep the brightest minds engaged.
 
 The team is also stacked with smart people. I am not a credentialist, but it is comforting to see names like Silicon Graphics, Google, Microsoft, Cloudflare, Ansys, Northrop Grumman—and The White House—amongst the backgrounds of your colleagues. Thankfully, my experience with the team so far has routinely left me feeling like the dumbest person in the room, providing all the supporting evidence I need that these people are legit.
 
