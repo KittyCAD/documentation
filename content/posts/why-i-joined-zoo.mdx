@@ -159,22 +159,37 @@ In contrast, in CAD land, the entire process is effectively bound by [user I/O](
 ----
 <sup>†</sup> Technically, you could trace the origins of the finite element method back to the early 1940s, but I really mean something akin to 'before finite element tools for structural simulation were commonplace in engineering'.
 
+## Kernel panic
+
+The term 'kernel' appears in this post a few times—but we still haven't really explained what we mean by it. For the uninitiated, a [geometry kernel](https://en.wikipedia.org/wiki/Geometric_modeling_kernel) is the core computational engine within a CAD package; the program responsible for doing all the heavy B-rep lifting described [above](#a-note-on-modeling-paradigms). 
+
+Today, the majority of the western world's CAD and CAE systems are built on either Parasolid or ACIS, though some major products from Autodesk, PTC, and Dassault Systèmes do break the mold<sup>†</sup>.
+
+
+![software-system-kernels](/documentation-assets/why-i-joined-zoo/software_system_kernels.png)
+
+As the visualization shows, the kernel market is highly concentrated—but it's also largely static. Both Parasolid and ACIS were first release decades ago, and while this is not a problem in and of itself, it does mean that these systems come with some practical constraints.
+
+----
+
+<sup>†</sup> A parallel universe of Russian tools also exists, but these are completely alien to me.
+
 ### Mathematics doesn't rust... but the world around us has changed
 
-I have no desire to disrespect the foundations of modern engineering software. Engineering software packages are tools, and the mathematics that underpins them does not rust. A boundary representation ([B-rep](https://en.wikipedia.org/wiki/Boundary_representation)) method does not become less useful because it was written in FORTRAN, or because it uses a programming paradigm we now consider old fashioned.
+I have no desire to disrespect the foundations of modern engineering software. Engineering software packages are tools, and the mathematics that underpins them does not rust. A B-rep method does not become less useful because it was written in FORTRAN, or because it uses a programming paradigm we now consider old fashioned.
 
 However, the way in which we use computers has changed dramatically since the 1970s. Each of us now has several machines, each of which is capable of sharing vast quantities of information with the other. Computer architecture itself has also changed. A typical CAD workstation today might have a 20 core CPU running at more than 5GHz, alongside a GPU that, although nominally intended for graphics, excels at performing large numbers of calculations in parallel. We use these machines to run software that was written for single-core, CPU-only systems.
 
 I did not study Computer Science and have no formal training in computational geometry, so no warranty express or implied here, but my understanding is this:
 
 - For B-reps, some common tasks in a CAD system are 'embarrassingly parallel', e.g., sampling curves, performing intersection checks. Others require largely sequential processing, e.g., graph-based operations on topology structures.
-- For [NURBS](https://en.wikipedia.org/wiki/Non-uniform_rational_B-spline), evaluation of points and patches is amenable to parallelism, while [knot insertion](https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS-knot-insert.html) and [degree elevation](https://pages.mtu.edu/~shene/COURSES/cs3621/LAB/surface/elevation.html) is not.
+- For NURBS, evaluation of points and patches is amenable to parallelism, while [knot insertion](https://pages.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/NURBS-knot-insert.html) and [degree elevation](https://pages.mtu.edu/~shene/COURSES/cs3621/LAB/surface/elevation.html) is not.
   - Finding the intersection of NURBS surfaces is computationally expensive, and would require surfaces to be broken into patches then merged if intersection tests were to be parallelized.
 - For constructive solid geometry (CSG), where we need to perform repeated Boolean ops across a tree data structure, there is some opportunity to parallelize 'bounding volume hierarchies', but the speedup is likely to be bounded by the topological merge required to assemble a final boundary representation.
 
 That is not nothing; while the overhead involved in moving data between CPU and GPU should not be ignored, some large portions of the CAD kernel's responsibilities do seem to be amenable to rearrangement to suit modern computer architectures.
 
-#### On collaboration, file formats, and API access
+### On collaboration, file formats, and API access
 
 The evolution of our surroundings is not limited to compute hardware.  There are three other areas I think we must improve, each of them related to the others.
 
@@ -184,7 +199,7 @@ Proprietary file formats—perhaps by design—hinder automation, make elegant v
 
 Adoption of open file formats and improved API access would foster innovation in the space, allowing engineers to more readily develop and make use of new tools and automations.
 
-### On bandwidth, input modes, and... 
+### Bandwidth, input modalities, and...
 
 So we have compute hardware that may allow for significant speed-up in core CAD operations. Unfortunately, that speedup is not much use if the speed of new geometry creation is typically limited by the user's ability to point and click fast enough. The bottleneck tends to lie in extracting design intent from the designer's brain, not in asking the CAD system to represent their geometry.
 
@@ -192,23 +207,22 @@ This is a problem of input bandwidth. At present, most CAD systems have only one
 
 However, if I think of some simple geometry I might have frequently created during my stint as a designer, I am convinced that, for example, the point and click approach to creating a circle would be significantly slower than I could type `circle(x, y, radius)`. So which do you pick? Well, tools like [OpenSCAD](https://openscad.org/) exist for people who want purely programmatic geometry creation; everybody else has to point and click.
 
-But what if you could have both? What if you could almost duplicitously interact with your geometry via a UI and a code editor? If the system was able to relate the underlying representation of an edge or a face to both a line in your code and the projection of that element on your screen. This would be the best of both worlds; we could point and click when that's the fastest method, and program when that's the fastest method, and by representing our geometry with code, we could build composable blocks that could be more than just a representation of geometry; they could be functional. We could build and share both our parts and functional macros in a file format you could open with any text editor, and which can be read by humans... *and machines*.
+But what if you could have both? What if you could almost duplicitously interact with your geometry via a UI and a code editor? If the system was able to relate the underlying representation of an edge or a face to both a line in your code and the projection of that element on your screen? This would be the best of both worlds; we could point and click when that's the fastest method, and program when that's the fastest method, and by representing our geometry with code, we could build composable blocks that could be more than just a representation of geometry; they could be functional. We could build and share both our parts and functional macros in a file format you could open with any text editor, and which can be read by humans... *and machines*.
 
-###  *The big pile of linear algebra*
 
-In this instance, when I say machines, I mean the big pile of linear algebra:
+### *The big pile of linear algebra*
+
+I am not convinced that LLMs are the path to artificial superintelligence, but they are capable of providing some impressive shortcuts in 'knowledge work'. For example, an LLM generated the skeleton code for the timeline visualization at the top of this article, and it did that in a fraction of the time it would take me to write that code manually. I was tweaking a functional baseline python script within ~60s, eliminating maybe 45 minutes of dull work pulling together some boilerplate plot code.
+
+I think of this as effectively another input mode for interacting with the computer—I can give explicit instructions via commands and with my cursor, or I can give woolly commands to an LLM and ask it to fill in the blanks. This output would be utterly, and I mean _utterly_ useless if I were not able to go back and edit the code it had generated to fit my needs, but I can.
+
+So, with code-based CAD and some appropriately knowledgeable folks steering the LLM, we can buy ourselves another input mode.
 
 ![linear-algebra](/documentation-assets/why-i-joined-zoo/machine_learning.png)
 
 ```
 Source: XKCD, https://xkcd.com/1838/
 ```
-
-I am not convinced that LLMs are the path to artificial superintelligence, but they are capable of providing some impressive shortcuts in 'knowledge work'. For example, an LLM generated the skeleton code for the timeline visualization at the top of this article, and it did that in a fraction of the time it would take me to write that code manually. I was tweaking a functional baseline python script within ~60s, eliminating maybe 45 minutes of dull work pulling together some boilerplate plot code.
-
-I think of this as effectively another input mode for interacting with the computer—I can give explicit instructions via commands and with my cursor, or I can give woolly commands to an LLM and ask it to fill in the blanks. This output would be utterly, and I mean _utterly_ useless if I were not able to go back and edit the code it had generated to fit my needs, but I can.
-
-So, with code-based CAD and some appropriately knowledgeable folks steering the LLM, we can buy ourselves another input mode. We now have three:
 
 - GUI.
 - Code.
@@ -217,16 +231,6 @@ So, with code-based CAD and some appropriately knowledgeable folks steering the 
 With three input modes, the design bottleneck may no longer lie in getting design intent from the user. If that bottleneck can be eliminated, or even reduced, then, all of a sudden, the time domain performance of your CAD kernel becomes very important. 
 
 Further, to do a good job with natural language driven input, the generated geometry needs to 'look' as if it were created by a person; we want a part that has a full feature tree and that can be interactively modified. In this way, we can use natural language input as a means of accelerating human-guided product development; not as a pipe-dream promise of automating the design process.
-
-## The case for a new kernel
-
-I touched on this above, but are some exceptions to this rule, with products from Autodesk, Dassault Systèmes, and PTC making use of their own modeling kernel, but nevertheless, the majority of the western world's systems make use of Parasolid (first released as Romulus in 1978) or ACIS (first released in 1989).
-
-![software-syste-kernels](/documentation-assets/why-i-joined-zoo/software_system_kernels.png)
-
------
-# STILL WRITING HERE
------
 
 ## Why I'm excited about Zoo
 
