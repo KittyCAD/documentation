@@ -212,17 +212,33 @@ But what if you could have both? What if you could almost duplicitously interact
 
 ### *The big pile of linear algebra*
 
-I am not convinced that LLMs are the path to artificial superintelligence, but they are capable of providing some impressive shortcuts in 'knowledge work'. For example, an LLM generated the skeleton code for the timeline visualization at the top of this article, and it did that in a fraction of the time it would take me to write that code manually. I was tweaking a functional baseline python script within ~60s, eliminating maybe 45 minutes of dull work pulling together some boilerplate plot code.
-
-I think of this as effectively another input mode for interacting with the computer—I can give explicit instructions via commands and with my cursor, or I can give woolly commands to an LLM and ask it to fill in the blanks. This output would be utterly, and I mean _utterly_ useless if I were not able to go back and edit the code it had generated to fit my needs, but I can.
-
-So, with code-based CAD and some appropriately knowledgeable folks steering the LLM, we can buy ourselves another input mode.
-
 ![linear-algebra](/documentation-assets/why-i-joined-zoo/machine_learning.png)
 
 ```
 Source: XKCD, https://xkcd.com/1838/
 ```
+
+I think the role of AI in engineering is still being written. For better or for worse, I think the nature of the discipline will make it more resistant to wholesale automation than many other fields.
+
+When I think about typical design and development processes, it strikes me that engineering data is hard to work with. It tends to be wholly unstructured; fragmented and siloed, and in many different formats. You may have CAD data, spreadseets, supplier datasheets, model files, simulation results, and test data, all held in different formats—some of them proprietary—and all stored in different places. Description of intent is often poorly captured, if at all. It may perhaps be found, indirectly, in reports and meeting notes and e-mail chains, but it is rarely held in a form that can be easily consumed by a model wishing to infer the rationale behind a given decision.
+
+Even if one finds a readily accessible source of that information, there remains a clear disconnect between design intent and the geometry that has resulted from it. A CAD file may describe the shape of an object or a feature very accurately, but it has no means by which it can tell you you _why_ it's shaped that way. Did your colleague up the OD on that shaft because something failed? Perhaps it's easier to make like this, or maybe they saw some evidence of resonance and wanted to move the natural frequency. 
+
+Until we have models—the machine learning variety—that can ingest and understand the intent behind the geometry, I don't think we'll see any end-to-end automation. However, what may be possible is the use of machine learning models to accelerate the design process, to provide useful shortcuts, better automations, and a new, high-bandwidth method for interacting with design systems.
+
+
+
+#### An anecdote from the next discipline over
+
+As an example of how useful this sort of partial automation can sometimes be for people who write code for a living, look at the timeline visualization at the top of this post. An LLM generated the skeleton code for that, and it did that in a fraction of the time it would take me to write that code myself. I was tweaking a functional python script within ~60s, eliminating maybe 45 minutes of dull work pulling together some boilerplate plot code. Likewise for the CAD kernel plot, which is obscure enough matplotlib code that that would have taken me a while to write by hand.
+
+I think of this as effectively being another input mode for interacting with the computer—I can give explicit instructions via commands and with my cursor, or I can give woolly commands to an LLM and ask it to fill in the blanks. This output would be utterly, and I mean _utterly_ useless if I were not able to go back and edit the code it had generated to fit my needs, but I can.
+
+#### Code CAD, multimodal input, and the design bottleneck
+
+----
+# STILL WRITING HERE
+----
 
 - GUI.
 - Code.
@@ -246,14 +262,14 @@ The team is also stacked with smart people. I am not a credentialist, but it is 
 
 I touched on this a little above, but the both the generative AI and the 'hardware' spaces are foamy targets for investors right now. Unfortunately, many of the companies I've seen move into this space seem to have fairly rudimentary understanding of its vast, complex, and relatively high-capability nature. Companies promising that they can generate CAD from natural language, but whose products produce polygonal mesh by tying an open source project to an OpenAI endpoint, either simply do not understand the requirements of real engineering teams—or they're cynically riding a hype cycle with no legitimate desire to address customer need.
 
-At the risk of sounding combative, an STL file is not really CAD: it can't be driven parametrically, and it can't be used to produce manufacturing drawings. For your product to have any prospect of being useful to real engineers who engage with real manufacturing techniques, where engineers are actually providing real GD&T and real drawings, your system must be capable of generating a B-rep<sup>†</sup> format one way or another.
+At the risk of both repeating myself and sounding combative, an STL file is not really CAD: it can't be driven parametrically, and it can't be used to produce manufacturing drawings. For your product to have any prospect of being useful to real engineers who engage with real manufacturing techniques, where engineers are actually providing real GD&T and real drawings, your system must be capable of generating a B-rep<sup>†</sup> format one way or another.
 
 Because the team at Zoo has real, lived experience of design and manufacture in-house, this sort of thing is understood throughout the company. In the few weeks I've been with team, I have seen software teams not only battle with the structure of the universe, fighting some of the hardest problems in computational geometry, but also corral the mechanical engineers we have on staff and press them for feedback, seeking understanding of thought patterns, workflows, and common frustrations with their former CAD systems of choice.
 
 They get it.
 
 ----
-<sup>†</sup>I appreciate that implicits appear to be legitimately useful, but I haven't seen mesh to solid model conversion. I don't actually know how you would deal with something like a bearing pocket that exists in an implicit model.
+<sup>†</sup>Work on implicits is exciting, but I'm yet to see an implicit-based system that can meet all of our needs.
 
 ### Work worth doing
 
