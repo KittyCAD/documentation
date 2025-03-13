@@ -73,6 +73,16 @@ Before we touch on how a designer would actually compose anything with extrudes 
 
 **Polygonal meshes** define geometry through collections of simple polygonal facets—most commonly triangles or quadrilaterals. This representation is computationally efficient, universally supported, and ideal for visualization. Mesh formats are also commonly used in 3D printing. However, in the context of mechanical design workflows where [limits and fits](https://en.wikipedia.org/wiki/Engineering_fit) matter, and where geometry must be tightly controlled, meshes lack precision and any element of parametric editability. As a result, they are largely unsuitable for engineering workflows where precise specification of design intent is critical. To edit a mesh, you cannot directly adjust a diameter or a length; you have to adjust vertex and edge locations in a 'dumb' sampling of the shape in Cartesian space.
 
+To give some idea of how these work in practice, here are three representations of a circle.
+
+![circle-representations](/documentation-assets/why-i-joined-zoo/circle_uniform_triangular_mesh.png)
+
+The first is broadly how a B-rep would work. It's an accurate mathematical description of the circle. The second is an implicit representation, where we evaluate a function whose result gets further from zero the further we move from the circle's perimeter. The third is a polygonal mesh, where we've sampled the circle around its boundary, and approximated the shape with a set of triangles.
+
+Note that the mesh example here is somewhat forced; it's trying to create a surface while the others are simply defining boundaries—but if you imagine this example as a sphere in 3D instead of a circle 2D, you can see how both B-rep and implicit representations could be used to define the sphere's surface analytically, while the mesh will always be a discrete approximation.
+
+#### Which is most appropriate?
+
 Practically, these distinctions mean that boundary representations are effectively a hard requirement for real-world engineering of almost all mechanical systems. B-reps offer the combination of precision, robustness, and parametric control needed to actually describe a piston or a shaft or a gear.
 
 Implicit models offer powerful methods for exploring highly optimized, organic shapes in applications such as high-performance heat exchangers and other lattice structures. They are also well suited to the generation of complex, generative designs, where the shape of the object is driven by ambitious performance criteria—like in [some hypercars](https://www.czinger.com/).
