@@ -13,14 +13,79 @@ ogImage:
 
 ## Why a Morse key?
 
-Honestly, I don't even know how I got here. I was looking for a silly project to use as
-a vehicle for developing some procedure and documentation templates, and when I
-discovered one of our colleagues is a ham radio aficionado, I thought a simple Morse key
-would be fun reintroduction to some mechanical engineering workload after the guts of a
-decade building software systems for a living.
+I was looking for a simple project to use as an excuse to develop some procedure and
+documentation templates, and when I discovered one of our colleagues is a ham radio
+aficionado, I thought a simple Morse key would be a fun reintroduction to some mechanical
+engineering workload. Given that I've now spent most of the last decade exclusively 
+working on software systems of one sort or another, a gentle introduction like this
+seemed perfect.
+
+The Morse key would give me the opportunity to do a bunch of things I was keen to get
+on top of, like:
+- Building my familiarity with the Zoo modelling app.
+- Ironing out a neat workflow for using FEA tools with geometry built in Zoo.
+- Stress testing my thinking on documentation and reporting.
+- Getting to grips with my new Bambu printer.
+
+On top of that, it would give me an excuse to play with a microcontroller for the first
+time since I built a MIDI drum sequencer some years ago... and hopefully I could pick
+up some Morse code along the way too.
 
 ## The mechanical bit
+
+This project is a bit 'Mickey Mouse' from a mechanical perspective: it's a single part,
+3D printed, subject to basically no load. The actual geometry of the part that I ended
+up hooking up to the Arduino is shown below... complete with the sort of external corner
+radii that were broadly illegal when I was designing things that had to be machined.
+
+![morse-key](/documentation-assets/signal-sidequest-morse-key/MorseKey.png)
+
+But before I got there via some rapid (and undocumented) iteration, I did actually
+work through a proper design process, and I have written up both the design work
+and experimental validation of this thing. In both cases, that documentation
+follows what I think is a good basis for a document-centric engineering workflow.
+
+
+### Finite elements, infinite limitations
+
+The list of limitations related to the FEA approach is almost as long as the rest of the
+report, but here is the 'Product Design Document' for the part:
+<embed src="/documentation-assets/signal-sidequest-morse-key/25P01-R01V01-InitialDesignDocumentation.pdf"
+width="100%" height="1000px"
+ type="application/pdf"/>
+
+### M12s and MDF
+
+Then the following document describes the experimental validation. The last time I did
+anything this, I had spent several weeks developing a prototype suspension system concept
+for an F1 car, and was in the process of running through a test programme I'd assembled
+to try and validate my hand-coded models. In that scenario, I had the luxury of several
+Servotest load frames to choose from, but this time... I made do with an M12 bolt and
+some kitchen scales:
+
+<embed src="/documentation-assets/signal-sidequest-morse-key/25P01-R02V01-ExperimentalDesignValidation.pdf"
+width="100%" height="1000px"
+ type="application/pdf"/>
+
+
 
 ## To the microcontroller
 
 ## Introducing Morsdle
+
+![morsdle](/documentation-assets/signal-sidequest-morse-key/MorsdleOG.png)
+
+At this point, I'd designed, printed, and tested the part. I'd also written the code required
+to make an Arduino interpret the signal and feed that to my computer as a keystroke. I
+could successfully send an 'A' or a 'B' and watch it appear in my text editor of choice,
+but I still didn't actually know Morse code.
+
+Sat on a train from Belfast to Dublin, I spent a bit of time looking for web pages that
+offered some kind of Morse code practice, and generally didn't find anything quite right.
+This formed an opportunity and an interesting challenge: could I build a relatively
+entertaining mechanism for teaching myself Morse code?
+
+Feeding an LLM my Arduino code and some specific preferences with respect to frontend
+stack, I was able to hustle together the first version of
+[morsdle.com](https://www.morsdle.com) within a few hours. The website was live the next
+day.
