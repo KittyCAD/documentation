@@ -1,7 +1,7 @@
 ---
 title: 'Signal sidequest'
 excerpt: |
-    Making a one-part Morse key your computer can understand.
+    Engineering documentation and making a one-part Morse key your computer can understand.
 coverImage: '/documentation-assets/zoo-banner.png'
 date: '2025-04-02'
 author:
@@ -57,7 +57,7 @@ a template that has been iterated on and proven out will also help less experien
 build a mental model of what 'good' looks like.
 
 In the case of the Morse key, the list of limitations related to the FEA approach is
-almost as long as the rest of the report—but the structure of the document is really
+almost as long as the rest of the report, but the structure of the document is really
 what I was trying to work on here.
 
 <embed src="/documentation-assets/signal-sidequest-morse-key/25P01-R01V01-InitialDesignDocumentation.pdf"
@@ -102,7 +102,7 @@ src
 
 The body of the logic is handled by the `MorseTranslator` class, which handles the
 closed circuit detection and the translation of the signal into a keystroke. The
-other files really just exist to support that—defining parameters and controlling
+other files really just exist to support that; defining parameters and controlling
 the onboard LED.
 
 In terms of how it actually works:
@@ -151,6 +151,23 @@ constexpr int MAX_BUFFER_SIZE = 20;
 #endif
 ```
 
+As assembled, including electrical war crimes, this is what it looked like:
+
+![morse-key-assembled](/documentation-assets/signal-sidequest-morse-key/arduino.jpg)
+
+<video 
+  width="100%" 
+  controls
+  muted
+  loop
+>
+  <source src="/documentation-assets/signal-sidequest-morse-key/arduino.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+In the video, the `HI` message is being sent into Notepad... so you can actually
+(sort of) use it as an input device. 
+
 
 ## Introducing Morsdle
 
@@ -170,3 +187,10 @@ Feeding an LLM my Arduino code and some specific preferences with respect to fro
 stack, I was able to hustle together the first version of
 [morsdle.com](https://www.morsdle.com) within a few hours. The website was live the next
 day.
+
+## STOP
+
+This was a small and simple project, but it gave me a chance to exercise some engineering
+workflow: design, simulation, testing, embedded code development, and documenting
+the process. Plus, if you consider Morsdle to meet the definition of a game, that's
+also the first game I've ever built.
