@@ -81,6 +81,77 @@ width="100%" height="1000px"
 
 ## To the microcontroller
 
+The microcontroller aspect was pretty straightforward. I just needed to detect a
+closed circuit when the key was pressed, then come up with some mechanism for
+differentiating dots from dashes.
+
+Wanting to structure the code in a somewhat flexible way, I went with
+[PlatformIO](https://platformio.org/) and VSCode over the Arduino IDE, and settled on
+a project layout like this:
+
+```
+src
+├── LedManager.cpp
+├── LedManager.h
+├── MorseTranslator.cpp
+├── MorseTranslator.h
+├── constants.h
+├── main.cpp
+└── morse_table.h
+```
+
+The body of the logic is handled by the `MorseTranslator` class, which handles the
+closed circuit detection and the translation of the signal into a keystroke. The
+other files really just exist to support that—defining parameters and controlling
+the onboard LED.
+
+In terms of how it actually works:
+- The Morse key's contacts are connected to a digital input pin.
+- When the key is pressed, the pin is pulled low, and current time recorded.
+- When the key is released, the duration is compared to a threshold to classify it as 
+  either a dot or a dash.
+- Each dot or dash is appended to a buffer, which represents a single Morse character.
+- After a short gap, the buffer is matched against a lookup table and the corresponding
+  character is written out as a keystroke using `Keyboard.write()`.
+
+We also have a buzzer that beeps when the key is pressed, and an LED that both blinks
+to indicate the program is running, and lights up when the key is pressed. 
+
+The parameterisation, given in `constants.h`, is as follows:
+
+```cpp
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+namespace Constants {
+// Serial.
+constexpr int SERIAL_BAUD = 9600;
+
+// Pin assignments.
+constexpr int ID_PIN_READ = 7; // Leonardo.
+constexpr int ID_PIN_LED  = LED_BUILTIN;
+constexpr int ID_PIN_BUZZER = 3; // PWM pin, Leonardo.
+
+// Buzzer freq.
+constexpr int BUZZER_FREQ = 600; // Hz.
+
+// Timing parameters, milliseconds.
+constexpr unsigned long DURATION_DOT     = 100;
+constexpr unsigned long DURATION_DASH    = DURATION_DOT * 3;
+constexpr unsigned long GAP_INTER_LETTER = DURATION_DOT * 3;
+constexpr unsigned long GAP_INTER_WORD   = DURATION_DOT * 7;
+
+// Debounce parameters.
+constexpr unsigned long DEBOUNCE_DELAY = 20;
+
+// Buffer limits.
+constexpr int MAX_BUFFER_SIZE = 20;
+} // namespace Constants
+
+#endif
+```
+
+
 ## Introducing Morsdle
 
 ![morsdle](/documentation-assets/signal-sidequest-morse-key/MorsdleOG.png)
