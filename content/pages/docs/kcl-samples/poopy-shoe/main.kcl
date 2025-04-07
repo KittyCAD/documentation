@@ -4,6 +4,7 @@
 // Set units
 @settings(defaultLengthUnit = in)
 
+// Define parameters
 wallThickness = 0.125
 wallsWidth = 3
 height = 5.125
@@ -12,7 +13,8 @@ backLength = 6
 exitHeight = 1
 frontLength = 7
 
-sketch001 = startSketchOn("-YZ")
+// Create the curved portion that catches the printer poop
+sketch001 = startSketchOn(-YZ)
   |> startProfileAt([wallsWidth / 2, 0], %)
   |> xLine(length = wallThickness / 2)
   |> angledLineToX({ angle = 60, to = wallsWidth }, %, $seg01)
@@ -30,17 +32,16 @@ sketch001 = startSketchOn("-YZ")
   |> yLine(endAbsolute = segEndY(seg01))
   |> angledLineToY({ angle = 180 - 60, to = 0 }, %)
   |> close()
-part001 = revolve({
+part001 = revolve(
+  sketch001,
   angle = 90,
   axis = {
-    custom = {
-      axis = [1.0, 0.0],
-      origin = [0.0, height + .0001]
-    }
-  }
-}, sketch001)
+    direction = [1.0, 0.0],
+    origin = [0.0, height + .0001]
+  },
+)
 
-sketch002 = startSketchOn('-YZ')
+sketch002 = startSketchOn(-YZ)
   |> startProfileAt([wallsWidth / 2, 0], %)
   |> xLine(length = wallThickness / 2)
   |> angledLineToX({ angle = 60, to = wallsWidth }, %, $seg02)
@@ -79,6 +80,7 @@ sketch003 = startSketchOn(customPlane)
   |> close()
   |> extrude(length = wallThickness)
 
+// Create the right side wall of the tub
 sketch004 = startSketchOn(sketch002, 'END')
   |> startProfileAt([0, 0], %)
   |> yLine(endAbsolute = height)
