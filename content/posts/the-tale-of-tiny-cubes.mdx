@@ -94,9 +94,19 @@ Don't worry. For history's sake (and because evil is sometimes fun), we're immor
 
 ```
 // tinycubes.kcl
-for i in range(0, 10000) {
-    cube(size=0.0001)
-}
+
+reduce([1..1000000], 1, fn(i, result_so_far) {
+    center = [i % 100, i / 100]
+    size = 0.01
+    startSketchOn(XY)
+        |> startProfileAt([center[0] - size, center[1] - size], %)
+        |> line(endAbsolute = [center[0] + size, center[1] - size])
+        |> line(endAbsolute = [center[0] + size, center[1] + size])
+        |> line(endAbsolute = [center[0] - size, center[1] + size])
+        |> close()
+        |> extrude(length = size) 
+    return result_so_far + 1
+})
 
 // no export, purely evil intentions
 ```
