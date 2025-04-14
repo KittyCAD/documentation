@@ -1,0 +1,110 @@
+---
+title: 'Tiny Cubes and the CNC Injection Vulnerability: A Cautionary Tale in KCL Design'
+excerpt: |
+    A humorous yet serious tale of the "CNC Injection Vulnerability" that
+    emerged from a late-night discussion at Zoo.
+coverImage: '/documentation-assets/zoo-banner.png'
+date: '2025-03-18'
+author:
+    name: Jessie Frazelle 
+    picture: '/jessfraz.jpg'
+ogImage:
+    url: 'documentation-assets/tale-of-tiny-cubes.png'
+---
+
+You know what's the absolute worst? Surprises. Especially when they're tiny cubes multiplying silently in your 3D models, like some evil nano-scale gremlins. But hey, that's what we inadvertently _almost_ allowed in our KCL library design. Enter the "CNC Injection Vulnerability"—a term we proudly coined after discovering the absolute horror of what might happen if we didn't design our library system correctly.
+
+### How the Heck Did We Get Here?
+
+It started innocently enough:
+
+```
+// coolshape.kcl
+cube(size=10)
+
+export fn foo() {
+  // some totally innocent function
+}
+```
+
+Then in another file:
+
+```
+import { foo } from "coolshape.kcl"
+// Do something with foo
+```
+
+The burning question: **does the cube render or nah?**
+
+Lee was open to allowing immediate rendering upon import, whereas Jon strongly preferred zero rendering without explicit calls—wanting clear separation and purity. I was in agreement with Lee, it should render. 
+
+In a moment of levity, I joked, "Lees going to make the library that just adds infinitely tiny cubes to the background of models unseen by the naked eye but when they go to send to manufacturers they are like wtf are these small ass cubes."
+
+
+### So What's the Problem?
+
+Turns out, allowing stuff to execute at import time is like inviting chaos to your party. Imagine writing a harmless-looking library, which secretly populates your beautiful models with millions of microscopic cubes. Your engineer friends try to manufacture the thing, and suddenly:
+
+```
+Your model            CNC Machine
++-------------+      +----------------+
+| tiny cube   |----> | WTF is this?   |
+| infestation |      | A billion cubes|
++-------------+      +----------------+
+```
+
+Now you're drowning in support tickets asking why tiny invisible cubes are appearing everywhere. Congrats, you've created the **left-pad of CAD**.
+
+### Enter: CNC Injection Vulnerability
+
+We dubbed this "CNC Injection Vulnerability" because it felt exactly like a "command injection" but for CNC machines:
+
+```
+User imports innocent_lib.kcl
+    |
+    +--> Library silently injects 10,000 cubes
+            |
+            +--> User sends to CNC
+                    |
+                    +--> Manufacturer: "bruh, WTF?"
+```
+
+Not cool. In fact, very evil.
+
+### Our Grand Solution: Pure Libraries 
+
+Inspired by Go's philosophy of avoiding hidden side effects (because seriously, hidden side effects are the devil's playground), we decided on pure libraries:
+
+- **Zero rendering or execution at import time.**
+- You explicitly invoke rendering. If you don't call it, it doesn’t happen.
+
+This avoids sneaky surprises and keeps your libraries pure and beautiful—no gremlin cubes allowed.
+
+### But Jess, What About Tiny Cubes?
+
+Don't worry. For history's sake (and because evil is sometimes fun), we're immortalizing this chaos in our infamous Tiny Cubes Library:
+
+```
+// tinycubes.kcl
+for i in range(0, 10000) {
+    cube(size=0.0001)
+}
+
+// no export, purely evil intentions
+```
+
+Imagine the user warning:
+
+```
+⚠️ WARNING: Importing 'tinycubes.kcl' injects 10,000 microscopic cubes into your model. Proceed at your own peril.
+```
+
+### Final Words
+
+At the end of the day, our goal is clarity and safety (and to avoid waking up to a tsunami of support tickets). So, say goodbye to CNC Injection Vulnerabilities, and hello to a sane, secure KCL library system. But hey, at least we got a sweet blog post out of it.
+
+You’re welcome,
+
+Jess, Jon, Lee, and the Tiny Cubes Liberation Front
+
+
