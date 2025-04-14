@@ -80,6 +80,14 @@ Inspired by Go's philosophy of avoiding hidden side effects (because seriously, 
 
 This avoids sneaky surprises and keeps your libraries pure and beautiful—no gremlin cubes allowed.
 
+Now, of course, you can still have a library thats says a function does one
+thing and it does another. But at least you are explicitly calling said
+function. 
+
+We are thinking about ways to catch at runtime if a function is doing something
+unexpected. But that is a future problem. In any language you want to make 
+sure that libraries you import are doing what you expect.
+
 ### But Jess, What About Tiny Cubes?
 
 Don't worry. For history's sake (and because evil is sometimes fun), we're immortalizing this chaos in our infamous Tiny Cubes Library:
