@@ -90,23 +90,38 @@ sure that libraries you import are doing what you expect.
 
 ### But Jess, What About Tiny Cubes?
 
-Don't worry. For history's sake (and because evil is sometimes fun), we're immortalizing this chaos in our infamous Tiny Cubes Library:
+Don't worry. For history's sake (and because evil is sometimes fun), we're immortalizing this chaos in our infamous Tiny Cubes Library:[^3]
 
 ```
 // tinycubes.kcl
 
-reduce([1..100000], 1, fn(i, result_so_far) {
-    center = [i % 100, i / 100]
-    size = 0.01
-    startSketchOn(XY)
-        |> startProfileAt([center[0] - size, center[1] - size], %)
-        |> line(endAbsolute = [center[0] + size, center[1] - size])
-        |> line(endAbsolute = [center[0] + size, center[1] + size])
-        |> line(endAbsolute = [center[0] - size, center[1] + size])
-        |> close()
-        |> extrude(length = size) 
-    return result_so_far + 1
-})
+// This gives the cubes maximum amount of chance to
+// be free and have a long life
+fn random(i) {
+  x = 0.123456789
+  return reduce([1..i], x, fn(i, acc) {
+    r = 3.9999
+    return r * acc * (1 - acc)
+  })
+}
+
+fn liberateTheCubes() {
+  return reduce([1..20], 1, fn(i, result_so_far) {
+      center = [i % 100 + (random(i + 1) * 100), i / 100 + (random(i) * 100)]
+      size = 0.01
+      startSketchOn(XY)
+          |> startProfileAt([center[0] - size, center[1] - size], %)
+          |> line(endAbsolute = [center[0] + size, center[1] - size])
+          |> line(endAbsolute = [center[0] + size, center[1] + size])
+          |> line(endAbsolute = [center[0] - size, center[1] + size])
+          |> close()
+          |> extrude(length = size) 
+      return result_so_far + 1
+  })
+}
+
+// Get to work gang
+liberateTheCubes()
 
 // no export, purely evil intentions
 ```
@@ -123,8 +138,9 @@ At the end of the day, our goal is clarity and safety (and to avoid waking up to
 
 You’re welcome,
 
-Jess, Jon, Lee, and the Tiny Cubes Liberation Front[^3]
+Jess, Jon, Lee, and the Tiny Cubes Liberation Front[^4]
 
 [^1]: Jon dubbed the term officially.
 [^2]: This was at 10PM on a Friday night mind you. 
-[^3]: TINY CUBES, MORTY! They're everywhere, Morty! Invisible, insidious, multiplying in the background! You think you're safe, Morty? You're not! It's a cube apocalypse, Morty! Tiny cubes—*burp*—taking over your precious CAD models! 
+[^3]: If you run this code it will be indistingishable from dirt on your screen. 
+[^4]: TINY CUBES, MORTY! They're everywhere, Morty! Invisible, insidious, multiplying in the background! You think you're safe, Morty? You're not! It's a cube apocalypse, Morty! Tiny cubes—*burp*—taking over your precious CAD models! 
