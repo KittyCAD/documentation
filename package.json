@@ -7,7 +7,10 @@
         "dev": "contentlayer dev"
     },
     "dependencies": {
-        "contentlayer": "^0.3.4"
+        "contentlayer": "^0.3.4",
+        "rehype-katex": "^7.0.1",
+        "remark-gfm": "^4.0.1",
+        "remark-math": "^4.0.0"
     },
     "devDependencies": {
         "react": "^19.1.0"
