@@ -208,15 +208,8 @@ Where:
 
 To be usable in a CAD engine, $S(u, v)$ must be computable in NURBS form[^1]:
 
-
-{/* $$
-S(u, v) = \frac{
-        \sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mathbf{P}_{i,j}
-    }
-    {
-        \sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j}
-    }
-$$ */}
+{/* Have to do math on a single line because of remarkMath/rehypeKatex being annoying */}
+$$S(u, v) = \frac{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mathbf{P}_{i,j}}{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j}}$$
 
 Where:
 
