@@ -1,14 +1,14 @@
 ---
-title: "A Practical Overview of CAD File Formats"
+title: 'A Practical Overview of CAD File Formats'
 excerpt: |
-  A brief summary of common CAD formats: visual, intermediate, kernel, and authoring.
-coverImage: "/documentation-assets/zoo-banner.png"
-date: "2025-05-01"
+    A brief summary of common CAD formats: visual, intermediate, kernel, and authoring.
+coverImage: '/documentation-assets/zoo-banner.png'
+date: '2025-05-01'
 author:
-  name: Katie Macaulay
-  picture: ""
+    name: Katie Macaulay
+    picture: ''
 ogImage:
-  url: ""
+    url: ''
 ---
 
 # A Practical Overview of CAD File Formats
@@ -24,8 +24,13 @@ with the observer suitably far away, mesh representations of smooth shapes will 
 smooth. This is, however, merely an illusion; zooming in will reveal the faceted surface.
 
 <figure>
-  <img src="./stanford-bunny.png" alt="Stanford Bunny Model"/>
-  <figcaption>Figure 1: Stanford Bunny With Faceted Surface Highlighting</figcaption>
+    <img
+        src="/documentation-assets/research/a-practical-overview-of-cad-file-formats/stanford-bunny.png"
+        alt="Stanford Bunny Model"
+    />
+    <figcaption>
+        Figure 1: Stanford Bunny With Faceted Surface Highlighting
+    </figcaption>
 </figure>
 
 The most common choice of polygon is the triangle. This is because a triangle sits in a plane
@@ -33,8 +38,13 @@ unambiguously. The same cannot be said about quadrilaterals since they can have 
 configurations if their four points do not lie in a plane.
 
 <figure>
-  <img src="./quad-folds.png" alt="Ambiguous Quadrilateral Folds"/>
-  <figcaption>Figure 2: Non-Planar Quadrilateral and Its Two Possible Triangulations</figcaption>
+    <img
+        src="/documentation-assets/research/a-practical-overview-of-cad-file-formats/quad-folds.png"
+        alt="Ambiguous Quadrilateral Folds"
+    />
+    <figcaption>
+        Figure 2: Non-Planar Quadrilateral and Its Two Possible Triangulations
+    </figcaption>
 </figure>
 
 The minimal amount of information required to represent a mesh is an ordered set of points plus a
@@ -46,8 +56,14 @@ order. The winding order is often used in CAD applications to determine whether 
 toward or away from its observer.
 
 <figure>
-  <img src="./winding-order.png" alt="Winding Order"/>
-  <figcaption>Figure 3: Winding Order of Front-Facing (Left) Versus Rear-Facing (Right) Triangles</figcaption>
+    <img
+        src="/documentation-assets/research/a-practical-overview-of-cad-file-formats/winding-order.png"
+        alt="Winding Order"
+    />
+    <figcaption>
+        Figure 3: Winding Order of Front-Facing (Left) Versus Rear-Facing
+        (Right) Triangles
+    </figcaption>
 </figure>
 
 Triangle lists are represented in STL as follows:
@@ -101,8 +117,14 @@ illusion of smoothness. OBJ allows normals to be specified per vertex whereas ST
 normals to be specified per facet.
 
 <figure>
-  <img src="./normal-comparison.png" alt="Normal Comparison"/>
-  <figcaption>Figure 4: Per-Facet Normals (Left) Versus Averaged Per-Vertex Normals (Right)</figcaption>
+    <img
+        src="/documentation-assets/research/a-practical-overview-of-cad-file-formats/normal-comparison.png"
+        alt="Normal Comparison"
+    />
+    <figcaption>
+        Figure 4: Per-Facet Normals (Left) Versus Averaged Per-Vertex Normals
+        (Right)
+    </figcaption>
 </figure>
 
 The `vn` element provides vertex normal information in OBJ:
@@ -187,8 +209,11 @@ face (essentially, the type of polygon) is variable and therefore unpredictable.
 importers to split polygons with more than three vertices into multiple triangles.
 
 <figure>
-  <img src="./polygon-decomp.png" alt="Polygon Decomposition"/>
-  <figcaption>Figure 5: Decomposition of Polygon to Triangle Fan</figcaption>
+    <img
+        src="/documentation-assets/research/a-practical-overview-of-cad-file-formats/polygon-decomp.png"
+        alt="Polygon Decomposition"
+    />
+    <figcaption>Figure 5: Decomposition of Polygon to Triangle Fan</figcaption>
 </figure>
 
 The naming and ordering of elements and properties is also variable. For example, use of the
@@ -438,19 +463,19 @@ cartesian_point (1)
 
 Common curve entities include:
 
-- `b_spline_surface`
-- `conical_surface`
-- `cylindrical_surface`
-- `plane`
-- `spherical_surface`
-- `toroidal_surface`
+-   `b_spline_surface`
+-   `conical_surface`
+-   `cylindrical_surface`
+-   `plane`
+-   `spherical_surface`
+-   `toroidal_surface`
 
 Common surface entities include:
 
-- `b_spline_curve`
-- `circle`
-- `line`
-- `surface_curve`
+-   `b_spline_curve`
+-   `circle`
+-   `line`
+-   `surface_curve`
 
 Zoo is developing an extension to glTF that allows for solids to be described as polygonal meshes
 and parametric boundary representations mutually. This combines the benefits of each representation
@@ -591,11 +616,11 @@ what is needed from the export.
 
 Requirements a user might consider from an export could include:
 
-- Precision of data exchange
-- Ability to modify exchanged models
-- Software compatibility
-- Protection of intellectual property
-- Speed of data exchange
+-   Precision of data exchange
+-   Ability to modify exchanged models
+-   Software compatibility
+-   Protection of intellectual property
+-   Speed of data exchange
 
 The introduction described four broad categories of formats: visual, intermediate, modelling kernel,
 and authoring. This categorisation produces a hierarchy of detail, where each format contains more
@@ -652,9 +677,12 @@ formats include glTF, STL, PLY, OBJ, and FBX.
 
 ### Footnotes
 
-[^1]: Compressing (‘zipping’) a plaintext file will reduce its size but not necessarily its
-processing time.
+[^1]:
+    Compressing (‘zipping’) a plaintext file will reduce its size but not necessarily its
+    processing time.
 
-[^2]: A boundary representation is technically any representation that distinguishes ‘inside’ from ‘outside’ areas, which would include polygonal meshes, but the term ‘B-rep’ is understood
-colloquially to refer to the noted form specifically.
+[^2]:
+    A boundary representation is technically any representation that distinguishes ‘inside’ from ‘outside’ areas, which would include polygonal meshes, but the term ‘B-rep’ is understood
+    colloquially to refer to the noted form specifically.
+
 [^3]: Non-manifold B-reps are beyond the scope of this page. Nonetheless, for the curious reader, Klein bottles and Möbius strips are examples of non-manifold solids and surfaces respectively.
