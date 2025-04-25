@@ -11,7 +11,7 @@ ogImage:
   url: ""
 ---
 
-## 1. Introducing KCL
+## 1 Introducing KCL
 
 The KittyCAD Programming Language (or just KCL) is a programming language, but a very unusual one.
 Most languages define digital artifacts like software. This language defines real-world artifacts,
@@ -32,7 +32,7 @@ keyboard) and view a simplified 3D representation of it on your screen. Zoo is d
 the fundamental model underpinning Zoo. If you want to know what the software truly knows about your
 model, just read the KCL. There’s no hidden information. It’s all there in the KCL.
 
-## 2. Advantages of Text: Readability, Collaboration, and Automation
+## 2 Advantages of Text: Readability, Collaboration, and Automation
 
 Existing CAD systems store their model as complex algebraic data that can’t be read by humans – not
 easily, and sometimes not at all, because it’s stored in binary instead of text. We knew we wanted
@@ -73,7 +73,7 @@ So, we felt confident that Zoo fundamentally needed to use text as its model. Bu
 text formats that aren’t full programming languages. Why must Zoo store its model specifically as
 code?
 
-## 3. Advantages of Code: Parametricity and Reusability
+## 3 Advantages of Code: Parametricity and Reusability
 
 Code solves two big problems with traditional CAD suites: representing parametricity and reusing
 common components.
@@ -132,7 +132,7 @@ By storing Zoo files as text, Zoo enables engineers to collaborate and understan
 actually are. Programmable code lets you break down complicated models into smaller, simpler parts
 and reuse them efficiently. This is why we built KCL.
 
-## 4. Current Implementation and Workflow
+## 4 Current Implementation and Workflow
 
 KCL is available now in our Zoo app and our command-line tool. You can use KCL to define geometry
 for your models. The typical workflow is:
@@ -154,7 +154,7 @@ and love from normal programming, so you don’t need a calculator open in anoth
 calculations can be written in KCL. To check your work, view each constant’s value in the Variables
 pane, or use an `assert` statement to ensure an error gets printed if your math was wrong.
 
-## 5. Core Design Principles
+## 5 Core Design Principles
 
 KCL is a functional programming language because we believe existing programming languages are
 ill-suited to representing 3D geometry. Rather than reacting to changes or slowly updating a model
@@ -164,7 +164,7 @@ powerful IDE features (like clicking on an edge in your 3D viewer to highlight t
 the code that defined that edge). In the future, it will allow us to efficiently reuse calculations
 instead of redoing them.
 
-## 6. Current Limitations and Future Direction
+## 6 Current Limitations and Future Direction
 
 KCL has several conflicting goals. It has to be easy and intuitive for mechanical engineers who
 haven’t coded much. But it has to be powerful enough to express complicated ideas from advanced

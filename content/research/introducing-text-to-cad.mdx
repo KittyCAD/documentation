@@ -11,7 +11,7 @@ ogImage:
   url: ""
 ---
 
-## 1. Introduction
+## 1 Introduction
 
 This article introduces Zoo's Text-to-CAD system. It also provides relevant background, outlines the
 underlying methodology, offers usage guidelines, and discusses the system's current limitations and
@@ -31,7 +31,7 @@ or sending it directly to manufacturing.
 
 It’s CAD, but faster and more intuitive.
 
-## 2. Background: The Need for Accessible Parametric Modeling
+## 2 Background: The Need for Accessible Parametric Modeling
 
 Why did we build this? Aren’t CAD tools already powerful? Yes, but traditional CAD is often hampered
 by complexity. Most tools expect users to be fluent in specific workflows, menus, and mouse clicks.
@@ -46,7 +46,7 @@ that. By turning natural language into code, and subsequently into geometry, we'
 barrier to entry and potentially speeding up workflows for everyone, from seasoned engineers to
 total beginners.
 
-## 3. Technical Context: Boundary Representation (B-Rep) for Engineering Applications
+## 3 Technical Context: Boundary Representation (B-Rep) for Engineering Applications
 
 Many people, particularly those from outside the physical engineering disciplines, associate the
 phrase "3D model" with a polygonal mesh—essentially, a collection of connected triangles. While
@@ -74,7 +74,7 @@ stuff_.
   <figcaption>Figure 1: A Comparison of Geometry Representation Schemes</figcaption>
 </figure>
 
-## 4. The Text-to-CAD System: Approach and Methodology
+## 4 The Text-to-CAD System: Approach and Methodology
 
 Text-to-CAD leverages several of Zoo’s internal tools to generate an editable, water-tight solid
 model based on user input. The process involves several steps:
@@ -90,7 +90,7 @@ model based on user input. The process involves several steps:
 - **File export**: In addition to returning the generated KCL code, Text-to-CAD provides the model
   geometry in the standardized B-Rep or mesh format selected by the user.
 
-## 5. Implementation and Usage
+## 5 Implementation and Usage
 
 Whether you are a designer, developer, or simply curious about AI and 3D design, Text-to-CAD offers
 a straightforward interface to turn ideas into precise models, regardless of expertise level.
@@ -163,7 +163,7 @@ Here are a few tips for effectively using Text-to-CAD:
   components like flanges, plates, brackets, supports, gears, and bolts. However, feel free to
   experiment with other prompts – for instance, try _“a spatula”_ or _“a fun mascot”_.
 
-## 6. Current Status, Limitations, and Future Work
+## 6 Current Status, Limitations, and Future Work
 
 It's important to understand the current state of Text-to-CAD:
 
@@ -176,7 +176,7 @@ It's important to understand the current state of Text-to-CAD:
 - **Non-determinism**: Submitting the same prompt multiple times may produce different results.
   Occasionally, a prompt that initially fails might succeed on a subsequent attempt, and vice versa.
 
-### 6.1. Future Work
+### 6.1 Future Work
 
 We view Text-to-CAD as being in its early stages and have significant plans to expand its
 capabilities:
@@ -192,8 +192,6 @@ capabilities:
 Follow us [insert links/signup here] to stay updated and be the first to try new features,
 integrations, and updates as we continue to advance AI-driven design with Text-to-CAD.
 
-## 7 Footnotes
+## Footnotes
 
-[^A]:
-    It's worth noting that a mesh is technically a form of boundary representation, but its boundary
-    provides an imprecise approximation, particularly for curved geometry.
+[^A]: It's worth noting that a mesh is technically a form of boundary representation, but its boundary provides an imprecise approximation, particularly for curved geometry.

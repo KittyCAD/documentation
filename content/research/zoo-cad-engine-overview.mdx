@@ -13,7 +13,7 @@ ogImage:
 
 {/* TODO: Remove any unused images from corresponding asset dir. */}
 
-## 1. Introduction
+## 1 Introduction
 
 A CAD engine (often called a CAD kernel) is responsible for representing the model geometry such as
 B-rep, NURBS, CSG etc., and for executing the common operations performed by CAD software such as
@@ -98,7 +98,7 @@ our customers with surgical precision that the rest of the industry lacks.
 
 {/* Note that i’ve made some of these arguments before (almost verbatim) on our discord, but i doubt ppl will notice or care. */}
 
-### 1.2: A Comparson Between CAD and Game Engines
+### 1.2 A Comparson Between CAD and Game Engines
 
 What could a CAD engine possibly have to do with a game engine? As the late 90’s came to a close,
 hardware accelerator cards, driven by chips today better known as GPUs, began to become widely
@@ -141,9 +141,9 @@ that degrade the user experience to the point of frustration.
 {/* This section isn’t done. */}
 {/* Also need to have others review and scrutinize this, make sure i’m not talking out of my ass here. */}
 
-## 2. Core Design Principles and Methodology
+## 2 Core Design Principles and Methodology
 
-### 2.1: CAD-as-a-Service
+### 2.1 CAD-as-a-Service
 
 Most CAD as a service systems are built around the idea of retrofitting legacy CAD systems to be
 consumable from an API across the web. While this idea certainly can work, we have the added benefit
@@ -183,7 +183,7 @@ the limited resource of GPU memory needed to run these types of algorithms quick
     <figcaption>Figure 3: Zoo Design Studio—A B-Rep System</figcaption>
 </figure>
 
-## 3. Implementation of Key Features
+## 3 Implementation of Key Features
 
 ### 3.1 Sweeps
 
@@ -401,7 +401,7 @@ instancing patterned geometry, producing one render call to limit the time and m
 during the transfer from CPU to GPU. This means that the perceived runtime of patterning geometry
 stays fairly consistent, even with large adjustments to the number of duplicates rendered.
 
-## 4. Case Study: GPU-Accelerated Surface-Surface Intersection (SSI)
+## 4 Case Study: GPU-Accelerated Surface-Surface Intersection (SSI)
 
 ### 4.1 Introduction to SSI
 
@@ -863,7 +863,7 @@ NURBS using GPUs.
     </figcaption>
 </figure>
 
-## 5. References
+## 5 References
 
 [^1]: L. Piegl and W. Tiller, The NURBS Book. Berlin: Springer-Verlag, 1997.
 
