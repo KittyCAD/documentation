@@ -3,6 +3,8 @@ import {
     defineNestedType,
     makeSource,
 } from '@contentlayer/source-files'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 
 const Tutorial = defineDocumentType(() => ({
     name: 'Tutorial',
@@ -454,5 +456,15 @@ export default makeSource({
     contentDirPath: 'content',
     documentTypes: [Tutorial, Glossary, BlogPost, ResearchPage, Page, KclDoc, KclType, KclSetting, KclConst, CliDoc],
     disableImportAliasWarning: true,
-    contentDirExclude: ['**/README.md', '**/manifest.json']
+    contentDirExclude: ['**/README.md', '**/manifest.json'],
+
+    mdx: {
+        remarkPlugins: [
+            remarkMath, // Parses $...$ and $$...$$.
+        ],
+        rehypePlugins: [
+            [rehypeKatex, { output: 'htmlAndMathml' }], 
+                                              
+        ],
+    },
 })
