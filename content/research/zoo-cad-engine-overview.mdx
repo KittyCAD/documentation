@@ -1,0 +1,887 @@
+---
+title: 'Zoo CAD Engine Overview'
+excerpt: |
+    An summary of the motivations and methodologies behind the Zoo CAD Engine.
+coverImage: '/documentation-assets/research/zoo-banner.png'
+date: '2025-05-01'
+author:
+    name: Mike Farrell & Alyn Rockwood
+    picture: ''
+ogImage:
+    url: ''
+---
+
+{/* TODO: Remove any unused images from corresponding asset dir. */}
+
+## 1. Introduction
+
+A CAD engine (often called a CAD kernel) is responsible for representing the model geometry such as
+B-rep, NURBS, CSG etc., and for executing the common operations performed by CAD software such as
+extrusion, revolution, lofting, etc. CAD engines come in many different flavors, depending mostly on
+the application domain.
+
+SketchUp, for example, grew out of the architectural design community who appreciated the
+easy-to-learn, intuitive interface. Architects could quickly ‘sketch up’ an idea and access a
+variety of rendering modes suited to their needs. In order to achieve such a flexible and easily
+understandable user interface, SketchUp relied on polygons as geometric primitives. Precision,
+complex surfacing, full solid modeling (knowing inside from outside) were not supported initially.
+Most building designs did not require such tools. Even boolean operations of union, intersection and
+difference had minimal (polygonal) support and lacked robustness.
+
+{/* TODO: Lockheed -> McDonnel Douglas, See: https://en.wikipedia.org/wiki/Siemens_NX */}
+
+In contrast, Siemens NX had roots in aerospace (Lockheed). Sophisticated curved surfaces geometries
+like airfoils or turbine blades were fundamental and were often the start point for design.
+Precision could mean the difference between success or failure. Robust solid modeling underpinned
+critical mass properties and physics simulations. The user interface was, as a result, much deeper
+and more intricate, often requiring years to fully master. (The user license was, as a consequence,
+far more expensive).
+
+<figure>
+    <img
+        alt="SketchUp"
+        src="/documentation-assets/research/zoo-cad-engine-overview/sketch-up.jpeg"
+        title=""
+    />
+    <figcaption>
+        Figure 1: SketchUp. A user-friendly, conceptual tool with polygon-based
+        modeling.
+        <br />
+        <a href="https://forums.sketchup.com/t/show-us-the-way-you-have-sketchup-set-up-on-your-computer-right-now/12513/195?page=3">
+            Credit: SketchUp Forums
+        </a>
+    </figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Siemens NX o"
+        src="/documentation-assets/research/zoo-cad-engine-overview/siemens-nx.jpg"
+        title=""
+    />
+    <figcaption>
+        Figure 2: Siemens NX. A precision engineering tool with NURBS-based
+        modeling.
+        <br />
+        <a href="https://plm.sw.siemens.com/en-US/nx/manufacturing/additive-manufacturing/am-design/">
+            Credit: Siemens Digital Industries Software
+        </a>
+    </figcaption>
+</figure>
+
+Over the years both modelers have migrated towards each other; SketchUp has added limited surfaces
+and some aspects of solid modeling, while Siemens have improved UI and visualization tools. There is
+only so much that can be done, however, with fundamentally different mathematical algorithms and
+code bases. Also the expectations of the user communities vary wildly, driven by years of training
+and use.
+
+We have highlighted only two modelers; the entire landscape of modeling is huge, diverse, and
+application focussed.
+
+### 1.1 Motivation: Why Build a CAD Engine?
+
+Traditionally, so many people look up at a mountain and say "that's too tall, and it has already
+been climbed, so why bother?" It is difficult to gain additional insight about how to solve existing
+problems differently if one lacks the perspective from the journey to and from the top of that
+mountain. Perhaps the established route of ascent is crumbling. Is there a more efficient way to the
+top that has only recently been discovered? Are there new technologies that have been recently
+invented to aid in the climb?
+
+Shying away from difficult problems often leads us to be stuck with the same situations without
+learning from our past. Remaining flexible about where bottlenecks or other problems lie is equally
+important. We are pretty determined to solve these problems with traditional CAD engines. Currently,
+we are opting to solve as many problems as we possibly can with our _own_ CAD engine. This provides
+us the benefits of perspective on CAD engine design, alongside the flexibility to solve problems for
+our customers with surgical precision that the rest of the industry lacks.
+
+{/* TODO: Address Mike's comment. */}
+
+{/* Note that i’ve made some of these arguments before (almost verbatim) on our discord, but i doubt ppl will notice or care. */}
+
+### 1.2: A Comparson Between CAD and Game Engines
+
+What could a CAD engine possibly have to do with a game engine? As the late 90’s came to a close,
+hardware accelerator cards, driven by chips today better known as GPUs, began to become widely
+available to PC consumers. These magical little devices allowed PC software to render far more 3D
+polygons than previously possible at interactive speeds. This paradigm shift in technology occurred
+_well over a decade_ after most of the CAD kernel software that we still use today has been written.
+A few years later, graphics hardware manufacturers began allowing general purpose programming on
+GPUs (GPGPU). It turns out, many of the geometric operations needed by CAD algorithms lend
+themselves naturally to the massively parallel nature of GPU computing. Furthermore, it turns out
+that the techniques needed to _render_ the CAD display are identical to the techniques used by 3D
+video game engines to render the game world. Additionally, the low-level mechanics of managing
+compute shaders to do complex work on the GPU are fundamentally the same between CAD software, 3D
+modeling software, and game engine software. While over the last several decades, gaming has pushed
+the state of the art in 3D graphics rendering alongside GPU computing, CAD software has not.
+
+Most existing CAD programs today allow you to quickly create more content than they can efficiently
+render in a few steps. Ask any engineer who has driven their CAD program too hard, and they’ll share
+their stories of frustration. At Zoo, we believe the GPU has been under-leveraged on _both sides_ of
+the CAD engine pipeline: The geometry engine and the rendering engine. If either of these systems
+are bottlenecked, the user experience is going to suffer. Our research is centered around employing
+modern techniques from _all_ fields of computer science, to design a more performant CAD engine.
+
+### 1.3 CAD Software Performance
+
+Ever wondered specifically what makes CAD software slow? This is a complicated question, but it
+generally boils down to a combination of software bloat, resource constraints, and legacy. A 3D
+authoring tool is only as fast as the sum of its components. If any of those components are slow,
+then the software is slow. Generally, modern CAD software is a combination of legacy CAD kernels
+wrapped by programming languages and frameworks that are liberal with compute resource usage. For
+example, if every 3D edge in your model requires the creation of a C# object to store its ID, then
+the software is now using up more significantly memory than is required to efficiently store that
+information.
+
+This type of systemic bloat often results in simple CAD operations using far more computational
+resources than are actually required to perform its task (word this better). Running all of this
+software on a single low-end (word this better) computer can be a recipe for performance problems
+that degrade the user experience to the point of frustration.
+
+{/* TODO: Address Mike's comment. */}
+{/* This section isn’t done. */}
+{/* Also need to have others review and scrutinize this, make sure i’m not talking out of my ass here. */}
+
+## 2. Core Design Principles and Methodology
+
+### 2.1: CAD-as-a-Service
+
+Most CAD as a service systems are built around the idea of retrofitting legacy CAD systems to be
+consumable from an API across the web. While this idea certainly can work, we have the added benefit
+of designing our CAD engine to be directly interoperable with our CAD API. This affords us
+opportunities for optimization such as batch processing, parallelization of independent CAD
+workflows, pre-emptive resource allocations and more!
+
+{/* TODO: Address Mike's comment. */}
+{/* _More on this needed. Possibly tag in Adam C here._ */}
+
+### 2.2 Modelling Paradigms
+
+Being that B-Rep is a standard starting ground for CAD representations. They offer parametric,
+concise descriptions of surfaces that can be easily recreated by engineers who understand basic
+geometry. Implicit/sdf-based solutions like those driven by dual-contouring algorithms are extremely
+impressive, but do have their own drawbacks for simple (common CAD workflow) shapes and surfaces. To
+extract a perfect B-Rep representation from an implicit surface, the software essentially must work
+its way backwards from a densely tesselated structure of faceted faces through complex topology
+optimization. This is a costly operation that can result in inaccuracies with needlessly complex
+results.
+
+Additionally, Implicit modeling usually requires a large 3D compute space. This is usually in the
+form of a 3D grid or spatial tree data structure in which the amount of sheer compute work grows
+polynomially (N^3) with the size of the structure you're working on. While various compute-space
+optimizations help mitigate this problem, ultimately SDF has a scaling problem that runs up against
+the limited resource of GPU memory needed to run these types of algorithms quickly.
+
+{/* TODO: Address Mike's comment. */}
+
+{/* Have others review and scrutinize this. Certain ppl will argue against certain points here pretty hard. */}
+
+<figure>
+    <img
+        alt="Zoo Design Studio: A B-Rep system"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image31.png"
+    />
+    <figcaption>Figure 3: Zoo Design Studio—A B-Rep System</figcaption>
+</figure>
+
+## 3. Implementation of Key Features
+
+### 3.1 Sweeps
+
+Sweeping a shape about a general trajectory curve is a commonly performed CAD operation. It is no
+trivial task to implement general sweeps for CAD. However it can be helpful to break it down into
+individual steps as a window into how such a feature is implemented within the KittyCAD engine.
+
+{/* GENERAL CASE */}
+
+Generally speaking a Sweep is a general extrusion of a section curve about a general trajectory
+curve[^1].
+
+$$S(u, v) = T(v) + M(v)C(u)$$
+
+Where:
+
+-   $C(u)$ is the closed profile curve.
+-   $T(v)$ is a general trajectory curve.
+-   $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
+    the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
+    quaternion.
+
+To be usable in a CAD engine, $S(u, v)$ must be computable in NURBS form[^1]:
+
+
+{/* $$
+S(u, v) = \frac{
+        \sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mathbf{P}_{i,j}
+    }
+    {
+        \sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j}
+    }
+$$ */}
+
+Where:
+
+-   $P_{i,j} = T_j + Q_i$.
+-   $w_{i,j} = w_{i}^C w_j^T$
+
+As an example, consider constructing a semi-circular profile curve. This curve can be described
+programmatically as follows:
+
+```cpp
+center = { 0, 0, 0 };
+path->moveTo(center);
+path->addArc(center, sz / 3.0, 270, 450);
+path->close();
+```
+
+Which yields:
+
+<figure>
+    <img
+        alt="Profile Curve Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image17.png"
+        title=""
+    />
+    <figcaption>
+        Figure 4 - A semi-circular profile curve, suitable as a sweep section.
+    </figcaption>
+</figure>
+
+{/* SIMPLIFIED CASES */}
+
+If $T(v)$ is a perpendicular straight line, then $S(u,v)$ simplifies to an extrusion surface with
+$M(v)=i$ for all $v$. Similarly, if $T(v)$ is an arc, then $S(u,v)$ will be the surface of
+revolution.
+
+Figure 5 and Figure 6 illustrate the case where a sweep simplifies to an extrusion.
+
+<figure>
+    <img
+        alt="Extrusion Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image32.png"
+        title=""
+    />
+    <figcaption>
+        Figure 5: Sweep profile and perpendicular trajectory curve.
+    </figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Extrusion Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image18.png"
+        title=""
+    />
+    <figcaption>Figure 6: Completed sweep (extrusion).</figcaption>
+</figure>
+
+{/* MORE COMPLEX CASES */}
+
+In the case where $T(v)$ is curved and general, the swept surface can be constructed by a skinned
+interpolation of cross sections.
+
+This can be described programmatically:
+
+```cpp
+path->moveTo( { 0, 0, 0 } );
+path->lineTo( { 0, 25, 0 } );
+path->tangentialArcTo( { 25, 50, 0 } );
+path->tangentialArcTo( { 50, 75, 0 } );
+path->lineTo( { 50, 100, 0 } );
+```
+
+Figure 7 and Figure 8 show the transformed (re-oriented) section instances, while Figure 9 shows the
+resulting solid that is yielded by performing a loft operation on the transformed sections.
+
+<figure>
+    <img
+        alt="General Trajectory Curve"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image29.png"
+        title=""
+    />
+    <figcaption>Figure 7: General trajectory curve.</figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Transformed Sections Along Trajectory"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image35.png"
+        title=""
+    />
+    <figcaption>Figure 8: Transformed sections along trajectory.</figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Resulting Swept Solid"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image25.png"
+        title=""
+    />
+    <figcaption>Figure 9: Resulting swept solid.</figcaption>
+</figure>
+
+The astute reader might notice that the trajectory curve from figure 3b can be decomposed into a
+series of straight lines and arcs. Thus, in cases where higher-order surface continuity is not
+globally required, this sweep can be re-expressed as a combination of extrusion and revolutions with
+much less computational work.
+
+It is worth noting that individual swept surfaces must be combined topologically to form a valid
+B-rep that is usable for CAD applications. This is an important step in the sweeping algorithm as it
+reduces the global complexity of any individual B-rep face. Essentially, each discrete path
+component of the decomposed section curve source $C(u)$ is individually swept by each individual
+discrete path component of the decomposed trajectory curve $T(v)$. This produces $A \times B$
+separate surfaces where $A$ is the number of path components of the section curve (2 in our example)
+and $B$ is the number of path components in the trajectory (4 in our example). These faces are
+trivially converted to untrimmed square B-rep faces with edges that lie on the boundaries of their
+respective evaluated surfaces. For open trajectory curves, two additional end-cap faces are added
+which correspond to the oriented section instances at the very beginning and very end of the sweep
+trajectory. Finally, all of these separate faces are combined to a solid manifold B-rep via a join
+algorithm which merges all faces with coincident edges.
+
+<figure>
+    <img
+        alt="Swept Solid B-rep from Extrudes/Revolves"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image24.png"
+        title=""
+    />
+    <figcaption>
+        Figure 10 - The swept solid B-rep formed as a combination of extrudes
+        and revolves as a join of 10 separate faces
+    </figcaption>
+</figure>
+
+Another issue with sweeps along the trajectory is that of managing the curvature of the trajectory
+curve. If the curve turns too abruptly it can undesirably cause the surface to self intersect, that
+is, to overlap with itself. This can be controlled by limiting the curve’s maximum curvature where
+the curvature _k_ is given by
+
+{/* TODO: Add formula */}
+{/* (formula here) */}
+
+For specific applications it is helpful to segment the trajectory curve such that each piece does
+not exceed the max curvature chosen on the max size of the sweep cross section. In this way
+intermediate interpolation stages are placed at segment endpoints which guarantees no foldovers of
+the sweep. The figure below shows a curve segmented into different colors by a given max curvature.
+
+<figure>
+    <img
+        alt="Curve Segmentation by Max Curvature"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image39.png"
+        title=""
+    />
+    <img
+        alt="Curve Segmentation by Max Curvature"
+        src="/documentation-assets/research/zoo-cad-engine-overview/segmented_s_curve_plotly.png"
+        title=""
+    />
+    <figcaption>
+        Figure 11: Segments computed both analytically and with finite
+        differences. Analytical segments are solid, with finite difference
+        dotted. This shows that the faster finite difference method is very
+        close to the analytical one.
+    </figcaption>
+</figure>
+
+### 3.2 Patterns and Duplication
+
+<figure>
+    <img
+        alt="Examples of Patterns"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image34.png"
+        title=""
+    />
+    <figcaption>
+        Figure 12: Examples of linear, circular, and array patterns.
+    </figcaption>
+</figure>
+
+It’s not unusual for a mechanical design engineer to want to place many duplicates of an object in a
+circle, array, line, or otherwise semi-uniform placement. Hand placement is tedious and often
+inaccurate, hence the need for a more automated way to duplicate geometry uniformly. Since its
+development, Zoo’s patterns have been highly used and many requests for ways to expand the usage of
+patterns have been made - they are just that powerful!
+
+The underlying mathematics of patterns consists of transformation matrices that are produced using
+the user’s inputs. These operations aren’t super costly, with respect to runtime and memory, when
+performed on only a handful of objects. Most practical use cases can be rendered efficiently. Still,
+it’s not in the Zoo spirit to stop at what’s easy! The Zoo engine team has decided to move towards
+instancing patterned geometry, producing one render call to limit the time and memory resources used
+during the transfer from CPU to GPU. This means that the perceived runtime of patterning geometry
+stays fairly consistent, even with large adjustments to the number of duplicates rendered.
+
+## 4. Case Study: GPU-Accelerated Surface-Surface Intersection (SSI)
+
+### 4.1 Introduction to SSI
+
+Surface-surface intersection (SSI) is a critical operation in CAD/CAM (Computer-Aided Design and
+Computer-Aided Manufacturing), which involves determining the curves where two or more surfaces
+meet. This process enables designers to create complex geometries, ensures the accuracy of
+manufacturing processes, and facilitates the analysis of assemblies in engineering applications. The
+challenge lies in the mathematical complexity of accurately computing intersections, especially for
+intricate shapes or when surfaces are defined by parametric equations. Miscalculations can lead to
+manufacturing defects or design flaws. Applications of surface-surface intersection are widespread,
+including in automotive design, aerospace engineering, architectural modeling, and product design,
+where precise fitting and assembly of parts are crucial.
+
+<figure>
+    <img
+        alt="Surface Intersection Curve Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image26.png"
+    />
+    <img
+        alt="Surface Intersection Curve Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/surface_intersection_wireframe_1x3.png"
+    />
+    <figcaption>
+        Figure 13: The meeting of two surfaces creates difficult-to-find
+        intersection curves.
+    </figcaption>
+</figure>
+
+Precise geometric modeling is crucial for industries that require complex surface operations, such
+as aerospace, automotive, and consumer product design. The importance lies in several key areas:
+
+-   Validity.
+    -   Imprecision, especially in SSI, can create fundamental differences between design intent and
+        results Sometimes small inaccuracies result in major differences in topology and design.
+-   Part fit.
+    -   Consistently precise models ensure that components fit together correctly over many version
+        updates, reducing costly manufacturing defects or performance issues.
+-   Simulation and analysis.
+    -   Accurate representations are necessary for usable simulations in fields like fluid dynamics,
+        heat flow, collision detection, and stress analysis.
+-   Customization and flexibility.
+    -   Industries often require specialized designs; precise modeling enables customization while
+        maintaining general structural integrity and aesthetic appeal.
+-   Collaboration.
+    -   In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
+        precise model ensures that everyone is aligned, reduces miscommunication and enhances
+        collaboration across various disciplines.
+
+Overall, consistent precision modeling underpins innovation and efficiency in industries where
+complex surface designs are found..
+
+### 4.2 Background: NURBS and Standard SSI Approaches
+
+#### 4.2.1 Why NURBS?
+
+Non-Uniform Rational B-Splines (NURBS) are a mathematical representation widely used in computer
+graphics, CAD, and modeling for representing curves and surfaces. They provide great flexibility and
+precision in creating complex shapes, NURBS are defined by control points, which enhance design
+flexibility, and enable them to represent both standard geometric shapes (like lines and circles)
+and free-form surfaces. Additionally, their ability to easily scale and modify makes them an
+industry standard in any domain requiring high-quality surface representation. Some popular software
+packages that utilize NURBS for design and modeling include Autodesk Alias, Rhino, Siemens NX, and
+CATIA.
+
+<figure>
+    <img
+        alt="NURBS Surface with Control Points"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image21.png"
+        title=""
+    />
+    <figcaption>
+        Figure 14: Easily manipulated mesh and control points (shown in blue)
+        dictate the shape of a smooth object.
+    </figcaption>
+</figure>
+
+##### Applications of SSI in NURBS
+
+Boolean operations, trimming, blending, stenciling, and cut-away views for design and manufacturing
+all generate SSIs. These operations are illustrated in Figures 15 to 17.
+
+<figure>
+    <img
+        alt="Boolean Operation Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image30.png"
+        title=""
+    />
+    <figcaption>Figure 15: Boolean operations.</figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Trimming Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image36.gif"
+        title=""
+    />
+    <img
+        alt="Trimming Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/trimmed_surfaces_comparison.png"
+        title=""
+    />
+    <figcaption>Figure 16: Trimming.</figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Blending Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image40.jpg"
+        title=""
+    />
+    <figcaption>Figure 17: Blending.</figcaption>
+</figure>
+
+#### 4.2.2 Standard SSI Approaches for NURBS
+
+Intersecting meshes is perhaps the easiest and fastest SSI method for NURBS. It consists of making a
+polygonal mesh out of both surfaces and then using the polygonal approximations to intersect. To
+intersect polygonal meshes, one can use various computational geometry techniques. One common method
+is to bound volume hierarchies (BVH) to quickly eliminate pairs of triangles that do not intersect.
+After identifying potential intersection pairs, one performs more precise intersection tests using
+algorithms like the Möller-Trumbore polygon intersection algorithm. Libraries such as CGAL
+(Computational Geometry Algorithms Library) or the OpenMesh library can also facilitate these
+operations by providing tools to handle mesh data and perform planar intersection tests effectively.
+A disadvantage is the lack of accuracy which occasionally yields erroneous shapes. Polygonal
+intersection algorithms are commonly seen in polygon modelers like Sketchup or MeshLab, but seldom
+used in a higher level engineering CAD modeler.
+
+The most common technique for intersecting the surfaces directly is called marching. As seen in the
+figure below, it starts at a given point on the intersection and then computes the two surface
+normals from the surfaces. The cross product of the two normals produces a tangent along the
+intersection, which gives a direction step for marching and approximation of the intersection. This
+entire process is repeated many times to step out the approximate curve.
+
+<figure>
+    <img
+        alt="Marching Intersection Method"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image27.png"
+        title=""
+    />
+    <img
+        alt="Marching Intersection Method"
+        src="/documentation-assets/research/zoo-cad-engine-overview/marching_edited.png"
+    />
+    <figcaption>
+        Figure 18: “Marching” an intersection between two NURBS.
+    </figcaption>
+</figure>
+
+There are challenges to note with the non-analytic nature of SSI. Standard methods such as marching
+methods, have computational limitations and accuracy issues related to the fact that no general
+algebraic form for the intersection exists. It is a deeper subject, but SSI necessitates algorithms
+that are approximate.
+
+### 4.3 The Zoo GPU-Friendly SSI Methodology
+
+#### 4.3.1 Rationale for GPU Acceleration
+
+Traditional SSI methods are CPU based, ie, they are recursive, sequential and conditional. We aim to
+develop an approach that makes use of the power of modern GPUs. These tend to be brute force with
+simple instructions and massive data. Benefits of using GPU for SSI, include speed, increased
+efficiency and handling higher levels of detail.
+
+#### 4.3.2 Patented Algorithm Overview
+
+For the last year or so we have developed an original approach to SSI that is specifically created
+to leverage a GPU. A patent for this method was recently allowed by the US Patent Office, US patent
+application No. 18/662056
+
+As mentioned the main idea behind the GPU based method is one of brute force, massive data processed
+as much as possible in parallel. As seen in Figure 19, the approach is to densely sample both
+surfaces and compare the resulting point clouds by pairwise point distances, keeping only points
+that are within a given “tolerance” to each other These points will be close to the SSI. We detail
+the algorthm in Figures 20 - 22.
+
+<figure>
+    <img
+        alt="Point Cloud Sampling for SSI"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image28.png"
+        title=""
+    />{' '}
+    -->
+    <img
+        alt="Point Cloud Sampling for SSI"
+        src="/documentation-assets/research/zoo-cad-engine-overview/gpu_method_plotly_wireframe.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud
+        of points.
+    </figcaption>
+</figure>
+
+The sample points are generated as 5 tuples, three xyz object space components, and the two
+associated uv parameters. Figure 20 below shows two cylindrical surfaces juxtaposed at right angles
+(left). Each cylinder is sampled at 400 by 400 resolution. The SSI is then approximated by the
+distance filtered point cloud in object space (right). The cloud spreads out where the intersection
+curves cross on the cylinders because the surfaces lie closer to each other.
+
+<figure>
+    <img
+        alt="Cylinder Intersection Point Cloud"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image23.png"
+        title=""
+    />
+    <img
+        alt="Cylinder Intersection Point Cloud"
+        src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi.png"
+        title=""
+    />
+    <figcaption>
+        Figure 20: Two cylindrical surfaces and their SSI as points.
+    </figcaption>
+</figure>
+
+If the resolution of the SSI point cloud is too small (as at the SSI cross), one can simply increase
+the sample size. A more efficient method, however, is to super-sample and compare distances of pairs
+in smaller, local neighborhoods around the already calculated SSI points, ie, a level of detail
+approach (LOD). Smaller subpatches created near the SSI points are far fewer in number than the
+original sample size. Furthermore, the original resolution can be far smaller since it will be
+refined in the second stage of LOD.
+
+In the figure below the beginning sample size was 40 by 40, producing the red points. The
+sub-samples were sampled at 20 by 20, giving an effective sampling density of 800 by 800. The
+subsequent points near the SSI are displayed in blue for an easy to visualize part of the SSI.
+
+<figure>
+    <img
+        alt="LOD SSI Points for Cylinders"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image20.jpg"
+        title=""
+    />
+    <img
+        alt="LOD SSI Points for Cylinders"
+        src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi_lod_refinement.png"
+        title=""
+    />
+    <figcaption>
+        Figure 21: SSI points at two levels of detail for crossed cylinders.
+    </figcaption>
+</figure>
+
+#### 4.3.3 Parameter Space Processing
+
+At this point, we have not really made an intersection curve, rather we have a set of unorganized
+points, which are close to the intersection. We now focus on the uv components of the points in
+parameter space to do some advanced processing to improve the quality, precision, and usefulness of
+the SSI curve that we're going to ultimately produce.
+
+Consider the green surface and gridded surface in Figure 22. The latter is gridded for visibility.
+This is a more complex intersection than we have yet seen. It will help demonstrate why we need to
+process in parameter space. Figure 23 shows the corresponding 2d uv points in that space.
+
+<figure>
+    <img
+        alt="Complex SSI Points in Object Space"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image15.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 22: SSI points (red) between green and gridded surfaces.
+    </figcaption>
+</figure>
+
+<figure>
+    <img
+        alt="Complex SSI Points in UV Space"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image16.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 23: The uv parameter points of the points in Figure 24.
+    </figcaption>
+</figure>
+
+It’s clear from Figure 23 that the thickened areas need to be thinned down to a curve. A number of
+(image processing) routines exist to do just this such as numpy’s “thinning,” “skeletonize,” or our
+preferred one, the “medial axis transform” (MAT). Figure 24 is the result of applying MAT to
+Figure 23.
+
+<figure>
+    <img
+        alt="Medial Axis Transform Result"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image14.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 24: MAT applied to the point set in Figure 23.
+    </figcaption>
+</figure>
+
+##### Branching
+
+Recall that the point cloud we have been dealing with is an unordered set of points; they do not run
+nicely from beginning to end. One of our tasks is to order them. They also have different branches
+as one sees in the above figure. We must also discover the branch points of these as well as end
+points. Ultimately, we want a simple ordered set of points for each branch. The methods to achieve
+this goal are succinctly captured in the following python code:
+
+```python
+# Create distance and adjacency matrix
+xx, yy = np.where(MAT)
+pnt_type = np.zeros(len(xx)-1)
+dist_mat = ((xx[:, None]-xx[None, :])**2 + (yy[:, None]-yy[None, :])**2)
+adj_mat  = (dist_mat <= 2).astype(int) #print('adj_mat =', adj_mat)
+
+# Joints have more than 2 neighbors; endpoints have only one.
+joints = np.where(adj_mat.sum(1)>3)[0] #print('joints = ',joints)
+ends = np.where(adj_mat.sum(1)==2)[0]  #print('ends = ',ends)
+
+# Determine point type
+pnt_type = np.zeros(len(xx)) #zero indicates regular point
+for j in range (len(joints)-1):
+    pnt_type[joints[j]] = 1 #tag for joints
+for j in range (len(ends)):
+    pnt_type[ends[j]] = 2   #tag for ends
+    jj=ends[j]
+    if xx[jj]==0 or yy[jj]==0 or xx[jj] >= 34 or yy[jj] >= 34: ## num patches-1 times res
+      pnt_type[jj] = 3   #tag for ends on boundaries
+```
+
+This code creates a distance matrix and a connection-adjacency matrix for a set of points derived
+from a binary matrix `MAT`which came from the medial axis transform in Figure 24.
+
+The distance matrix `dist_mat` is based on the squared Euclidean distance between all pairs of
+points. An adjacency matrix `adj_mat` is then created, where a value of 1 indicates that the
+distance between two points is less than or equal to 2 (pixels), meaning they are adjacent. It
+identifies 'joints' (points with more than 3 neighbors) and 'ends' (points with exactly 2
+neighbors).
+
+Hence each point is classified where regular points are marked as 0, joints as 1, ends as 2, and
+ends on boundaries (at the edges of the defined area) as 3. Figure 25 shows a complex SSI in object
+space and its corresponding parameter space after the various joints and endpoints have been
+discovered and categorized.
+
+<figure>
+    <img
+        alt="SSI with Classified Points"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image33.png"
+        title=""
+    />
+    <img
+        alt="SSI with Classified Points"
+        src="/documentation-assets/research/zoo-cad-engine-overview/ssi-branch-edit.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 25: SSI in object space (left) and parameter space uv-points classified
+        by joints (green), end points (red), and simple branch points (black).
+    </figcaption>
+</figure>
+
+#### 4.3.4 Curve Reconstruction and Refinement
+
+Now that the uv-points are divided into simple branches we can begin the final stage of processing,
+that is, to order the points, convolve them, and create the b-spline curves from them. The
+convolution and ordering steps can be combined into one. In image processing, convolution is a
+fundamental operation used for filtering images. It involves applying a filter, also known as a
+kernel, to an image to perform various tasks such as blurring, sharpening, edge detection, and more.
+The kernel is a small matrix of numbers, and convolution works by sliding this kernel over the
+image, calculating the weighted sum of the pixel values covered by the kernel at each position. For
+example, to apply a Gaussian blur, a Gaussian kernel is convolved with the image, which smooths out
+rapid changes in pixel intensity. The result of the convolution is a new image that reflects the
+operations defined by the kernel. Our MAT kernel was chosen to thin out a tracked data set. The next
+convolution now smooths it. Only now can we consider ordering the points, since the notion of an
+ordering made no sense on the thick, wiggly set.
+
+We can start at any of the red endpoints we have discovered and then use the adjacency matrix from
+above method to follow from one point of the branch to the next point, terminating when an endpoint
+or joint is reached; thus properly ordering each branch.
+
+If we take several points in sequence, instead of just one, and then perform a weighted sum on them
+as the replacement value, we have essentially done a convolution known as a weighted average that
+smooths them; thus the convolution becomes an easy extension of the ordering algorithm.
+
+A convolution on an ordered set of points in space is known to have beneficial effects if the points
+were generated with respect to an underlying ground truth such as SSI:
+
+1.  It minimizes outliers. Noise is inherent in any approximation as we see that an SSI must be. The
+    discretization of the original surface grids, the inverse mapping to uv space, distance and
+    adjacency matrix calculations can all add noise to the result Convolution tends to remove (a
+    consequence of the central limit theorem in statistics).
+2.  It fills in gaps caused by undersampling. This follows from the weighted averaging.It depends on
+    the weights and size of the kernel.
+3.  It reduces the number of points, keeping the more desirable ones.
+4.  It conditions the points to generate better b-spline curves both by thinning them and
+    ‘straightening’ them out.
+
+All the previous advantages depend on choosing the convolution parameters judiciously. The kernel
+size and shape affect the value and usability of the final convolved points, that is there is a fair
+amount of engineering to get the best performance. For any given application there will be specific
+heuristics to best choose the parameters.
+
+<figure>
+    <img
+        alt="Convolved UV Points with Spline Fit"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image38.png"
+        title=""
+    />
+    <figcaption>
+        Figure 26: A single branch of uv points which have been convolved with a
+        hat filter, and then fit with a cubic interpolation spline.
+    </figcaption>
+</figure>
+
+Figure 26 represents the final stage of processing in uv-space, which included the mapping from
+object to parameter space, calculating MAT, distance and adjacency matrices, endpoint and joint
+discovery, ordering and convolving, and finally, the b-spline fit.
+
+The final stage in our SSI routine is to map the uv branches back to object space by sampling the
+b-splines and then computing their images in 3d via the user given b-spline functions.Figure 27
+shows the mapping of the b-spline in Figure 26 to object space, the red SSI on the top edge.
+
+<figure>
+    <img
+        alt="Final SSI Curve in Object Space"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image19.png"
+        title=""
+    />
+    <figcaption>
+        {' '}
+        Figure 27. Final step in SSI routine, the red intersection curve on the top.
+    </figcaption>
+</figure>
+
+For someone not familiar with SSI, our routine might seem rather involved. There are several things
+to note in that regard: First, all high end SSI routines are involved; it is a difficult challenge.
+In the marching method, for instance, finding joints for branch points is especially troublesome,
+necessitating analysis of higher order derivatives and repeatedly checking for valid edge loops.
+Extra effort to find start points and link them to the correct topological pieces is also needed.
+Second, many of our steps exist to improve the method such as the level of detail for speed, and
+convolution for accuracy. They are not required. The b-spline fitting benefits downstream operations
+like trimming and blending.
+
+The SSI routine implicitly assumes that one of the surfaces serves as the master in which parameter
+space the uv space operations occur, and where the final SSI curve sits. The choice of this surface
+might depend on features like minimal parameter distortion (as determined by control point
+distribution) or some flatness criteria.
+
+Another option is to create SSI for each surface and then average the result. This should be even
+more accurate. Many tests are still needed.
+
+Finally, it should be noted that the performance of our routine depends critically on the sampling
+of the two surfaces. A separate white paper details the research we have done into the evaluation of
+NURBS using GPUs.
+
+<figure>
+    <img
+        alt="Successful SSI Example"
+        src="/documentation-assets/research/zoo-cad-engine-overview/image13.png"
+        title=""
+    />
+    <figcaption>
+        Figure 28. A good SSI is modest, unassuming, and works!
+    </figcaption>
+</figure>
+
+## 5. References
+
+[^1]: L. Piegl and W. Tiller, The NURBS Book. Berlin: Springer-Verlag, 1997.
+
+{/* TODO: Address Mike's comment. */}
+
+{/* Any references to technical papers, PhD theses (e.g., Adarsh Krishnamurthy’s work), and relevant sources on SSI and GPU processing. */}
+
+{/* ## Acknowledgements */}
+
+{/* TODO: Address Mike's comment. */}
+
+{/* Grateful for many discussions with Mike. Max cast a scrutinizing eye over the entire process. Many others added bits and pieces. You know who you are! */}
+
+{/* TODO: RE-ENABLE */}
