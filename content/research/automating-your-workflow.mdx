@@ -1,69 +1,134 @@
 ---
-title: 'Automating your workflow with KittyCAD'
+title: "Automating Your Workflow"
 excerpt: |
-    What if you could design physical objects by simply describing what you wanted? That’s the idea behind Text-to-CAD. It’s a system that takes your text (“Make a flange with six evenly spaced holes”) and turns it into a fully parametric CAD model, written in KCL, our in-house CAD programming language.
-coverImage: 'documentation-assets/api-first-approach.jpg'
-date: '2025-02-10T12:28:40Z'
+  A vision of mechanical engineering's near-future: real-time testing, automated data extraction, and AI-assisted CAD generation.
+coverImage: "/documentation-assets/zoo-banner.png"
+date: "2025-05-01"
 author:
-    name: Frank Noirot
-    picture: '/documentation-assets/franknoirot.jpg'
+  name: Josh Gomez
+  picture: ""
 ogImage:
-    url: 'documentation-assets/api-first-approach.jpg'
+  url: ""
 ---
-## Geometry Engine In A Nutshell
-What if you could design physical objects by simply describing what you wanted? That’s the idea behind Text-to-CAD. It’s a system that takes your text (“Make a flange with six evenly spaced holes”) and turns it into a fully parametric CAD model, written in KCL, our in-house CAD programming language.
 
-But let’s get one thing straight: this isn’t just about spitting out a mesh for you to admire. Text-to-CAD generates precise, engineering-grade B-Rep geometry. This means you’re getting something real, editable, and ready for the next step – whether that’s tweaking dimensions, running simulations, or sending it straight to a CNC machine.
+## Accelerating Hardware Development
 
-*It’s CAD, but faster. And more intuitive.*
+At first glance, the phrase “Automating Hardware Development” might sound like a punchline. In an
+industry defined by long lead times, rigorous testing, and intricate supply chains, speed has rarely
+been part of the equation. Hardware development has long been hampered by slow, painstaking
+processes—especially compared to the fast-paced world of software. Hardware isn’t software—we can’t
+just deploy a fix or roll back a release. Every change touches the physical world, and with that
+comes a cascade of complexity:
 
-## Why Did We Build This?
+- Supply chain disruptions.
+- Environmental and durability testing.
+- Quality assurance and compliance hurdles.
+- Manufacturing lead times.
 
-Why indeed. Aren’t CAD tools already powerful? Yes, but here’s the thing: CAD is often stuck behind a wall of complexity. Most tools expect you to be fluent in obscure workflows, menus, and mouse clicks. If you’re not, you’re in for a long learning curve (or you’re outsourcing your ideas to someone who is).
+These challenges aren’t going away. But that doesn’t mean we’re doomed to move slowly. In fact,
+there’s enormous untapped potential in how we work. And in an industry that desperately needs to
+move faster, the opportunity to streamline even a portion of the workflow could be transformative.
 
-<Quote title="We thought:">Why can’t people just say what they want?</Quote>
+![Design Feedback Loop](/documentation-assets/research/automating-your-workflow/design-feedback.png)
 
-This isn’t about replacing CAD tools; It’s about making them more accessible. Automation is at the heart of our philosophy, and Text-to-CAD aligns perfectly with that. By turning natural language into code, and then into geometry, we’re lowering the barrier to entry while speeding up workflows for everyone, from seasoned engineers to total beginners.
+## Real-Time Testing
 
-As [Jess mentioned in her first post](https://zoo.dev/blog/mechanical-cad-yesterday-today-and-tomorrow), this is why most CAD software is not extensible. Most of them have assumptions about software that were true in 1990 but aren't anymore: that the internet doesn't exist; that GPUs don't exist; that clicking is easier than typing for most user interactions[^1].
+One of software’s greatest superpowers is its feedback loop. Developers get near-instant
+validation—tests run automatically, alerts fire immediately, and errors are caught before they ever
+reach production. It’s fast, responsive, and iterative. Why shouldn’t hardware design offer the same
+experience?
 
-Even more importantly perhaps, the assumptions *about users* have completely changed since then. Assumptions such as: how readily someone could author extensions to software; how well they might understand keyboard shortcuts; even how well a user could type, have all shifted dramatically in the last 30 years. And those assumptions about what users can do and what they want from their software influence architectural decisions in the software itself, which can be very hard to change later.
+Every CAD model we build is governed by a web of constraints: mass, manufacturability, center of
+gravity, material limits, cost. Today, we often check these constraints after the fact—sometimes
+days or weeks later. But what if constraint validation happened in real time? What if every tweak to
+a part, every sketch, every extrusion was met with immediate feedback?
 
+This isn’t just about speed. It’s about creating a conversation between design and analysis. Your
+CAD model changes, and analysis responds. Your requirements evolve, and the system flags what’s at
+risk. Right now, this back-and-forth between designer and analyst is slow, manual, and siloed.
+Automating it wouldn’t just save time—it would fundamentally change how we work.
 
-## Adding an infrastructure layer to hardware design
+## Automated Data Extraction
 
-We think the hardware design industry needs a new layer of people who focus on those underlying architectural assumptions and keep them up-to-date, even as the industry finds new and better ways of making software.
+If we’re serious about automating our workflow, let’s start with one of the biggest time sinks in
+engineering: manually extracting data from CAD files. Take mass audits, for example. Engineers often
+spend hours tracking down material assignments, recalculating weights, and updating
+spreadsheets—tasks that are tedious, error-prone, and fundamentally automatable. CAD files already
+contains this information. So why aren’t our tools pulling it for us? Imagine a system where:
 
-KittyCAD has assembled experts in software infrastructure to deal with all the complexity of making flexible tools for hardware design, so that software developers can focus on just building good user experiences. Like [Docker](https://www.docker.com/) did for devops and like [AWS](https://aws.amazon.com/) and [Vercel](https://vercel.com/) have done for web development, we are opening up an area of software development that has been inaccessible to most teams by handling the bottom of the software stack for you.
+- Material checks run on parts and assemblies when the file has been changed.
+- Mass is recalculated in real time as the design evolves.
+- Updates flow directly into your PLM—or Git repo—with zero manual input.
+- Compliance checks flag any deviations from spec before they reach review.
 
-If you want to get started building hardware design tools, we have everything you need. You can call our API directly over HTTPS just like any web service, or use one of our SDKs to build tools in the programming language you love to use (we love Rust ourselves!).
+The data is there. The logic is scriptable. What’s missing is automation. And that’s exactly where
+the next evolution of CAD tooling should focus.
 
-Or if you want a starting point to jump off of, use one of our open-source tools to see how easy it is to incorporate KittyCAD into an application and unlock new CAD capabilities.
+## Streamlining Release Cycles
 
+Ask any hardware engineer what happens after a drawing is “done,” and they’ll probably laugh.
+Because the real work often starts after design. Review cycles, redlines, approvals—it’s a gauntlet
+of slow-moving checkpoints. What should take hours can stretch into days or even weeks.
 
-## KittyCAD eats its own dogfood
+Each stage introduces friction:
 
-We are an infrastructure-first company, but we are building several end-user applications as we go in order to “[dogfood](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)” our Geometry Engine and API infrastructure. [Zoo Modeling App](https://zoo.dev/modeling-app) is where most of our engineering efforts are going now, but we are also building our [Diff Viewer Extension](https://zoo.dev/diff-viewer) and other similarly niche tools in parallel[^2]. 
+- CAD review.
+- Lead sign-off.
+- Drawing accuracy checks.
+- Compliance verification.
 
-These applications will all be open-source. This build-in-the-open approach does several things:
+Every one of these steps is critical—but nearly all of them are candidates for automation. Software
+teams are stunned when they hear how long it takes to release a single part. They’re used to
+continuous integration, automated tests, and same-day deployment. Why can’t we bring some of that
+speed to hardware?
 
+Imagine this: the moment a drawing is completed, an automated system verifies GD&T callouts, checks
+dimensioning standards, and flags inconsistencies—issuing a pass/fail or at least a “likely errors”
+report. Even a tool that catches 90% of GD&T issues would be a massive leap forward from today's
+manual, error-prone review loops.
 
+Release cycles don’t need to be a bottleneck. With the right tools, they could become a moment of
+clarity—not chaos.
 
-1. They show the hardware design industry what is possible to build when you reimagine the foundation the tools are built on, widening [the adjacent possible](https://link.springer.com/referenceworkentry/10.1007/978-3-319-98390-5_100-1).
-2. They provide us with more users today to load test our API and find bugs early, before someone builds a business-critical functionality on top of us.
-3. By being open-source, they provide users the option to either contribute back to the project, or use our code as a starting point for their new idea.
+## AI-Powered CAD Generation
 
-This development model is table stakes for the software industry, and we are proving that it can work for hardware design tool companies too. We have been thrilled to see community members already contributing improvements to the Modeling App, as well as ideas and feedback on our roadmap. I can’t wait to see a specialized modeling app get made based on ZCMA (Zoo Modeling App): if you’re building one, tag me on GitHub with any UX questions!
+For many, starting a new CAD model feels like staring at a blank canvas—with a hundred constraints.
+Even experienced engineers can spend considerable time setting up sketches, defining dimensions, and
+reproducing variants of parts they've made dozens of times before. For newcomers, it's even more
+daunting.
 
+But what if CAD didn't require deep expertise to get started? What if you could describe the part
+you need—and get a working model back in seconds?
 
-## Imagining is the hard part
+That’s the promise of Text-to-CAD. By combining natural language prompts with machine learning,
+we’re building tools that can translate a design idea directly into geometry. You type:
 
-Building an API-first offering allows our team to focus on solving the irreducibly hard problems in crafting hardware design tools and getting those solutions into the hands of software developers. Dogfooding our infrastructure by building our own open-source tools helps us validate our approach as we build services, and we hope gives engineers solid starting points to build their own tools and companies on our infrastructure.
+> "A lightweight bracket with mounting holes for M4 bolts, 50mm wide.”
 
-We believe we’ve validated our thesis that a modern reimagining of the hardware design industry can and should be done. What we have yet to do is imagine all the new kinds of tools that are made possible by taking an API-first approach. That’s where you come in.
+And within seconds, you’re have your 3D model.
 
-My role as a Design Engineer is to help build these new interfaces, and to make onboarding into this new paradigm for hardware design as easy as possible. I’m excited to see what you build with KittyCAD, and the rest of the team and I here to help you do it!
+This isn’t just about speed—it’s about freeing up time for real engineering. AI can handle the
+repetitive, the obvious, the already-solved. That means designers can focus on what matters:
+refining the details, exploring new concepts, and solving the hard problems. We’re not replacing
+human creativity—we’re clearing the runway for it.
 
-[^1]: and of course that Y2K will doom us all.
-[^2]:
-    we’ve also decided as a team that we’re going to keep giving all our groundbreaking tools the most boring names possible.
+## Borrowing from Software: Git, Meet Hardware
+
+Software engineering isn’t perfect—but when it comes to collaboration, versioning, and iteration,
+it’s lightyears ahead. One of the tools that makes this possible is Git: a distributed version
+control system that lets developers branch, merge, experiment, and ship—all without stepping on each
+other’s toes.
+
+In hardware, we have PLMs. And while they serve an important role in managing product lifecycles,
+most PLMs were built for compliance—not collaboration.
+
+Branching? Rare. Merging design changes? Painful. Automated validation? Good luck.
+
+Unlike Git, PLMs are often rigid and closed, with limited support for scripting, automation, or
+external tool integration. Syncing a CAD model with an analysis script—or even keeping part metadata
+up to date—can become a manual, multi-step process.
+
+What if we treated hardware like software? What if every part file had a commit history, every
+release had a changelog, and every change triggered a test?
+
+The tools exist. The workflows exist. We just need to connect the dots.
