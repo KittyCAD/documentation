@@ -11,13 +11,15 @@ ogImage:
     url: ''
 ---
 
-# A Practical Overview of CAD File Formats
+# 1 Introduction
 
 This article discusses in brief detail the differences between common CAD formats. The article
 considers four broad categories of formats: visual, intermediate, modelling kernel, and authoring.
 The article summarises with a table of the most common formats and their usages.
 
-## Visual Formats
+# 2 Overview of CAD Formats
+
+## 2.1 Visual Formats
 
 These kinds of formats are almost exclusively based on polygonal meshes. With enough polygons, and
 with the observer suitably far away, mesh representations of smooth shapes will indeed appear
@@ -321,7 +323,7 @@ glTF has three modes of storage for its buffer data: it may be included within t
 same file using the binary glTF (GLB) mode. The GLB mode has an extra small header before the JSON
 portion to identify itself as such.
 
-## Intermediate formats
+## 2.2 Intermediate formats
 
 An important concept underpinning many CAD applications is the idea of a spline surface. A spline
 surface uses familiar vertices as before but, instead of joining them into polygons, a rule for
@@ -585,7 +587,7 @@ loops, and loops are composed of connected edges.
 Edges are defined by parametric curves in 3D space and join at vertices. B-rep vertices are distinct
 from mesh vertices, defined by only their position in 3D space.
 
-## Modelling Kernel Formats
+## 2.3 Modelling Kernel Formats
 
 The collection of algorithms used to compute the geometry for computer aided designs form what is
 known as the modelling kernel. This is a fundamental component of CAD/CAM software and it is often
@@ -600,7 +602,7 @@ kernel exactly. As a contrived example, an intermediate format might represent a
 an angle whereas a modelling kernel might represent a circular arc as three points; these kinds of
 differences introduce potential problems as one representation needs to be converted into another.
 
-## Authoring Formats
+## 2.4 Authoring Formats
 
 This category describes all formats specific to a particular application, for example, a SOLIDWORKS
 part file. These formats are generally proprietary and usually closed, so examples cannot be
@@ -608,7 +610,7 @@ provided here. Additionally, measures are sometimes taken to obfuscate the conte
 files to discourage reverse engineering by other companies. Authoring formats are usually binary
 encoded and sometimes compressed or even encrypted.
 
-## Tradeoffs
+## 2.5 Tradeoffs
 
 Like many things in life, choices are seldom black-and-white but rather present tradeoffs between
 desirable and undesirable qualities. The choice for which format should be chosen will depend on
@@ -643,7 +645,7 @@ KITTYCAD_boundary_representation extension.
 Visual formats are akin to a sketch of the original. Almost all of the details are lost. Popular
 formats include glTF, STL, PLY, OBJ, and FBX.
 
-### Comparison Table
+### 2.5.1 Comparison Table
 
 | Extensions                  | Description                                                  | Category     | Open | Mesh | B-rep          | Text       | Binary    |
 | :-------------------------- | :----------------------------------------------------------- | ------------ | ---- | ---- | -------------- | ---------- | --------- |
@@ -668,7 +670,7 @@ formats include glTF, STL, PLY, OBJ, and FBX.
 | `iges`, `igs`               | ASME Y14.26M Initial Graphics Exchange Specification         | Intermediate | Y    | N    | <sup>[3]</sup> | Y          | N         |
 | `prt` <sup>[4]</sup>        | NX Part                                                      | Authoring    | N    |      |                | N          | Y         |
 
-### Table Notes
+**Table Notes**
 
 1. NURBS surfaces are available without topology but this is rarely used.
 2. B-reps available with KITTYCAD_boundary_representation subject to software support.
@@ -677,12 +679,8 @@ formats include glTF, STL, PLY, OBJ, and FBX.
 
 ### Footnotes
 
-[^1]:
-    Compressing (‘zipping’) a plaintext file will reduce its size but not necessarily its
-    processing time.
+[^1]: Compressing (‘zipping’) a plaintext file will reduce its size but not necessarily its processing time.
 
-[^2]:
-    A boundary representation is technically any representation that distinguishes ‘inside’ from ‘outside’ areas, which would include polygonal meshes, but the term ‘B-rep’ is understood
-    colloquially to refer to the noted form specifically.
+[^2]: A boundary representation is technically any representation that distinguishes ‘inside’ from ‘outside’ areas, which would include polygonal meshes, but the term ‘B-rep’ is understood colloquially to refer to the noted form specifically.
 
 [^3]: Non-manifold B-reps are beyond the scope of this page. Nonetheless, for the curious reader, Klein bottles and Möbius strips are examples of non-manifold solids and surfaces respectively.
