@@ -11,8 +11,6 @@ ogImage:
     url: ''
 ---
 
-{/* TODO: Remove any unused images from corresponding asset dir. */}
-
 ## 1 Introduction
 
 A CAD engine (often called a CAD kernel) is responsible for representing the model geometry such as
@@ -28,9 +26,7 @@ complex surfacing, full solid modeling (knowing inside from outside) were not su
 Most building designs did not require such tools. Even boolean operations of union, intersection and
 difference had minimal (polygonal) support and lacked robustness.
 
-{/* TODO: Lockheed -> McDonnel Douglas, See: https://en.wikipedia.org/wiki/Siemens_NX */}
-
-In contrast, Siemens NX had roots in aerospace (Lockheed). Sophisticated curved surfaces geometries
+In contrast, Siemens NX had roots in aerospace (McDonnell Douglas). Sophisticated curved surfaces geometries
 like airfoils or turbine blades were fundamental and were often the start point for design.
 Precision could mean the difference between success or failure. Robust solid modeling underpinned
 critical mass properties and physics simulations. The user interface was, as a result, much deeper
@@ -94,11 +90,8 @@ we are opting to solve as many problems as we possibly can with our _own_ CAD en
 us the benefits of perspective on CAD engine design, alongside the flexibility to solve problems for
 our customers with surgical precision that the rest of the industry lacks.
 
-{/* TODO: Address Mike's comment. */}
 
-{/* Note that i’ve made some of these arguments before (almost verbatim) on our discord, but i doubt ppl will notice or care. */}
-
-### 1.2 A Comparson Between CAD and Game Engines
+### 1.2 A Comparison Between CAD and Game Engines
 
 What could a CAD engine possibly have to do with a game engine? As the late 90’s came to a close,
 hardware accelerator cards, driven by chips today better known as GPUs, began to become widely
@@ -133,9 +126,9 @@ the software is now using up more significantly memory than is required to effic
 information.
 
 This type of systemic bloat often results in simple CAD operations using far more computational
-resources than are actually required to perform its task (word this better). Running all of this
-software on a single low-end (word this better) computer can be a recipe for performance problems
-that degrade the user experience to the point of frustration.
+resources than are strictly required to perform the task at hand. Running all of this
+software on anything but the highest performance computer hardware can be a recipe for performance 
+problems that significantly degrade the user experience.
 
 {/* TODO: Address Mike's comment. */}
 {/* This section isn’t done. */}
@@ -152,13 +145,13 @@ opportunities for optimization such as batch processing, parallelization of inde
 workflows, pre-emptive resource allocations and more!
 
 {/* TODO: Address Mike's comment. */}
-{/* _More on this needed. Possibly tag in Adam C here._ */}
+{/* More on this needed. Possibly tag in Adam C here. */}
 
 ### 2.2 Modelling Paradigms
 
 Being that B-Rep is a standard starting ground for CAD representations. They offer parametric,
 concise descriptions of surfaces that can be easily recreated by engineers who understand basic
-geometry. Implicit/sdf-based solutions like those driven by dual-contouring algorithms are extremely
+geometry. Implicit/SDF-based solutions like those driven by dual-contouring algorithms are extremely
 impressive, but do have their own drawbacks for simple (common CAD workflow) shapes and surfaces. To
 extract a perfect B-Rep representation from an implicit surface, the software essentially must work
 its way backwards from a densely tesselated structure of faceted faces through complex topology
@@ -167,12 +160,11 @@ results.
 
 Additionally, Implicit modeling usually requires a large 3D compute space. This is usually in the
 form of a 3D grid or spatial tree data structure in which the amount of sheer compute work grows
-polynomially (N^3) with the size of the structure you're working on. While various compute-space
+polynomially ($N^3$) with the size of the structure you're working on. While various compute-space
 optimizations help mitigate this problem, ultimately SDF has a scaling problem that runs up against
 the limited resource of GPU memory needed to run these types of algorithms quickly.
 
 {/* TODO: Address Mike's comment. */}
-
 {/* Have others review and scrutinize this. Certain ppl will argue against certain points here pretty hard. */}
 
 <figure>
@@ -345,10 +337,14 @@ algorithm which merges all faces with coincident edges.
 Another issue with sweeps along the trajectory is that of managing the curvature of the trajectory
 curve. If the curve turns too abruptly it can undesirably cause the surface to self intersect, that
 is, to overlap with itself. This can be controlled by limiting the curve’s maximum curvature where
-the curvature _k_ is given by
+the curvature $\kappa$ is given by
 
-{/* TODO: Add formula */}
-{/* (formula here) */}
+$$\kappa(t) = \frac{|\mathbf{r}'(t) \times \mathbf{r}''(t)|}{|\mathbf{r}'(t)|^3}$$
+
+Where $r(t)$ is a vector-valued function defining a curve in 3D space, and $t$ is the
+parameterization of the curve:
+
+$$r(t) = \langle x(t), y(t), z(t) \rangle$$
 
 For specific applications it is helpful to segment the trajectory curve such that each piece does
 not exceed the max curvature chosen on the max size of the sweep cross section. In this way
@@ -582,7 +578,6 @@ the algorthm in Figures 20 - 22.
         src="/documentation-assets/research/zoo-cad-engine-overview/image28.png"
         title=""
     />{' '}
-    -->
     <img
         alt="Point Cloud Sampling for SSI"
         src="/documentation-assets/research/zoo-cad-engine-overview/gpu_method_plotly_wireframe.png"
