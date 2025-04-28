@@ -26,12 +26,12 @@ complex surfacing, full solid modeling (knowing inside from outside) were not su
 Most building designs did not require such tools. Even boolean operations of union, intersection and
 difference had minimal (polygonal) support and lacked robustness.
 
-In contrast, Siemens NX had roots in aerospace (McDonnell Douglas). Sophisticated curved surfaces geometries
-like airfoils or turbine blades were fundamental and were often the start point for design.
-Precision could mean the difference between success or failure. Robust solid modeling underpinned
-critical mass properties and physics simulations. The user interface was, as a result, much deeper
-and more intricate, often requiring years to fully master. (The user license was, as a consequence,
-far more expensive).
+In contrast, Siemens NX had roots in aerospace (McDonnell Douglas). Sophisticated curved surfaces
+geometries like airfoils or turbine blades were fundamental and were often the start point for
+design. Precision could mean the difference between success or failure. Robust solid modeling
+underpinned critical mass properties and physics simulations. The user interface was, as a result,
+much deeper and more intricate, often requiring years to fully master. (The user license was, as a
+consequence, far more expensive).
 
 <figure>
     <img
@@ -90,7 +90,6 @@ we are opting to solve as many problems as we possibly can with our _own_ CAD en
 us the benefits of perspective on CAD engine design, alongside the flexibility to solve problems for
 our customers with surgical precision that the rest of the industry lacks.
 
-
 ### 1.2 A Comparison Between CAD and Game Engines
 
 What could a CAD engine possibly have to do with a game engine? As the late 90’s came to a close,
@@ -126,9 +125,28 @@ the software is now using up more significantly memory than is required to effic
 information.
 
 This type of systemic bloat often results in simple CAD operations using far more computational
-resources than are strictly required to perform the task at hand. Running all of this
-software on anything but the highest performance computer hardware can be a recipe for performance 
-problems that significantly degrade the user experience.
+resources than are strictly required to perform the task at hand. Running all of this software on
+anything but the highest performance computer hardware can be a recipe for performance problems that
+significantly degrade the user experience.
+
+Another factor contributing to CAD software performance challenges is the 'combinatorial curse'
+introduced by the number of different geometric primitives that many systems support. As CAD systems
+evolve, they often accumulate different representation formats (polygons, NURBS, subdivision
+surfaces, etc.) to accommodate various use cases. This proliferation of primitives means that every
+operation must have multiple implementations: polygon-to-polygon, polygon-to-NURBS, NURBS-to-NURBS,
+and so on. The number of operational combinations grows factorially with each new primitive type
+added to the system. A performance bottleneck then emerges when traversing the B-rep database, as
+the software must first determine which primitives are involved before selecting the appropriate
+operation implementation. Modern CAD software often spends more time walking these data structures
+than performing actual geometric computations. This approach is also inherently unfriendly to GPU
+acceleration, which thrives on uniform operations across consistent data structures.
+
+At Zoo, we aim to address this problem by maintaining a minimal set of geometric primitives. Rather
+than implementing specialized representations for features like fillets, we represent these as
+B-splines with specific constraints. This way, operations only need to handle B-splines, allowing us
+to develop highly optimized, GPU-friendly algorithms like our surface-surface intersection method.
+By avoiding the combinatorial explosion of primitive interactions, we can achieve significant
+performance improvements over existing CAD systems.
 
 {/* TODO: Address Mike's comment. */}
 {/* This section isn’t done. */}
@@ -583,11 +601,7 @@ the algorthm in Figures 20 - 22.
         src="/documentation-assets/research/zoo-cad-engine-overview/gpu_method_plotly_wireframe.png"
         title=""
     />
-    <figcaption>
-        {' '}
-        Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud
-        of points.
-    </figcaption>
+    <figcaption> Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud of points.</figcaption>
 </figure>
 
 The sample points are generated as 5 tuples, three xyz object space components, and the two
