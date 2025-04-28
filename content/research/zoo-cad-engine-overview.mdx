@@ -141,7 +141,7 @@ operation implementation. Modern CAD software often spends more time walking the
 than performing actual geometric computations. This approach is also inherently unfriendly to GPU
 acceleration, which thrives on uniform operations across consistent data structures.
 
-At Zoo, we aim to address this problem by maintaining a minimal set of geometric primitives. Rather
+We aim to address this problem by maintaining a minimal set of geometric primitives. Rather
 than implementing specialized representations for features like fillets, we represent these as
 B-splines with specific constraints. This way, operations only need to handle B-splines, allowing us
 to develop highly optimized, GPU-friendly algorithms like our surface-surface intersection method.
