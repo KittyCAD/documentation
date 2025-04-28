@@ -372,11 +372,6 @@ the sweep. The figure below shows a curve segmented into different colors by a g
 <figure>
     <img
         alt="Curve Segmentation by Max Curvature"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image39.png"
-        title=""
-    />
-    <img
-        alt="Curve Segmentation by Max Curvature"
         src="/documentation-assets/research/zoo-cad-engine-overview/segmented_s_curve_plotly.png"
         title=""
     />
@@ -430,10 +425,6 @@ including in automotive design, aerospace engineering, architectural modeling, a
 where precise fitting and assembly of parts are crucial.
 
 <figure>
-    <img
-        alt="Surface Intersection Curve Example"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image26.png"
-    />
     <img
         alt="Surface Intersection Curve Example"
         src="/documentation-assets/research/zoo-cad-engine-overview/surface_intersection_wireframe_1x3.png"
@@ -509,11 +500,6 @@ all generate SSIs. These operations are illustrated in Figures 15 to 17.
 <figure>
     <img
         alt="Trimming Example"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image36.gif"
-        title=""
-    />
-    <img
-        alt="Trimming Example"
         src="/documentation-assets/research/zoo-cad-engine-overview/trimmed_surfaces_comparison.png"
         title=""
     />
@@ -552,11 +538,6 @@ entire process is repeated many times to step out the approximate curve.
 <figure>
     <img
         alt="Marching Intersection Method"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image27.png"
-        title=""
-    />
-    <img
-        alt="Marching Intersection Method"
         src="/documentation-assets/research/zoo-cad-engine-overview/marching_edited.png"
     />
     <figcaption>
@@ -593,15 +574,13 @@ the algorthm in Figures 20 - 22.
 <figure>
     <img
         alt="Point Cloud Sampling for SSI"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image28.png"
-        title=""
-    />{' '}
-    <img
-        alt="Point Cloud Sampling for SSI"
         src="/documentation-assets/research/zoo-cad-engine-overview/gpu_method_plotly_wireframe.png"
         title=""
     />
-    <figcaption> Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud of points.</figcaption>
+    <figcaption>
+        Figure 19: Two intersecting surfaces, one shown as a densely sampled
+        cloud of points.
+    </figcaption>
 </figure>
 
 The sample points are generated as 5 tuples, three xyz object space components, and the two
@@ -611,11 +590,6 @@ distance filtered point cloud in object space (right). The cloud spreads out whe
 curves cross on the cylinders because the surfaces lie closer to each other.
 
 <figure>
-    <img
-        alt="Cylinder Intersection Point Cloud"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image23.png"
-        title=""
-    />
     <img
         alt="Cylinder Intersection Point Cloud"
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi.png"
@@ -638,11 +612,6 @@ sub-samples were sampled at 20 by 20, giving an effective sampling density of 80
 subsequent points near the SSI are displayed in blue for an easy to visualize part of the SSI.
 
 <figure>
-    <img
-        alt="LOD SSI Points for Cylinders"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image20.jpg"
-        title=""
-    />
     <img
         alt="LOD SSI Points for Cylinders"
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi_lod_refinement.png"
@@ -671,7 +640,6 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         title=""
     />
     <figcaption>
-        {' '}
         Figure 22: SSI points (red) between green and gridded surfaces.
     </figcaption>
 </figure>
@@ -683,7 +651,6 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         title=""
     />
     <figcaption>
-        {' '}
         Figure 23: The uv parameter points of the points in Figure 24.
     </figcaption>
 </figure>
@@ -700,7 +667,6 @@ Figure 23.
         title=""
     />
     <figcaption>
-        {' '}
         Figure 24: MAT applied to the point set in Figure 23.
     </figcaption>
 </figure>
@@ -752,18 +718,13 @@ discovered and categorized.
 <figure>
     <img
         alt="SSI with Classified Points"
-        src="/documentation-assets/research/zoo-cad-engine-overview/image33.png"
-        title=""
-    />
-    <img
-        alt="SSI with Classified Points"
         src="/documentation-assets/research/zoo-cad-engine-overview/ssi-branch-edit.png"
         title=""
     />
     <figcaption>
-        {' '}
-        Figure 25: SSI in object space (left) and parameter space uv-points classified
-        by joints (green), end points (red), and simple branch points (black).
+        Figure 25: SSI in object space (left) and parameter space uv-points
+        classified by joints (green), end points (red), and simple branch points
+        (black).
     </figcaption>
 </figure>
 
@@ -835,8 +796,8 @@ shows the mapping of the b-spline in Figure 26 to object space, the red SSI on t
         title=""
     />
     <figcaption>
-        {' '}
-        Figure 27. Final step in SSI routine, the red intersection curve on the top.
+        Figure 27. Final step in SSI routine, the red intersection curve on the
+        top.
     </figcaption>
 </figure>
 
