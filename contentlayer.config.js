@@ -3,8 +3,8 @@ import {
     defineNestedType,
     makeSource,
 } from '@contentlayer/source-files'
-import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 const Tutorial = defineDocumentType(() => ({
     name: 'Tutorial',
@@ -108,14 +108,11 @@ const Glossary = defineDocumentType(() => ({
             type: 'list',
             of: {
                 type: 'enum',
-                options: [
-                    'software-engineering',
-                    'hardware-engineering',
-                ],
+                options: ['software-engineering', 'hardware-engineering'],
             },
             description: 'Subject domain(s) of the primary term.',
             required: true,
-        }
+        },
     },
     computedFields: {
         slug: {
@@ -205,6 +202,64 @@ const BlogPost = defineDocumentType(() => ({
     },
 }))
 
+const ResearchPage = defineDocumentType(() => ({
+    name: 'ResearchPage',
+    filePathPattern: `research/*.md*`,
+    contentType: 'mdx',
+    description:
+        'A research page. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, InlineLitterbox, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    fields: {
+        title: {
+            type: 'string',
+            description:
+                'The title of the research page, for SEO and heading use.',
+            required: true,
+        },
+        shortTitle: {
+            type: 'string',
+            description:
+                'The short title of the research page, for navigation use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the research page, for SEO and preview text use.',
+            required: true,
+        },
+        coverImage: {
+            type: 'string',
+            description:
+                'The cover image of the research page, for SEO and preview image use.',
+            required: true,
+        },
+        date: {
+            type: 'date',
+            description: 'The date of the research page.',
+            required: true,
+        },
+        author: {
+            type: 'nested',
+            of: Author,
+            description: 'The author of the research page.',
+            required: true,
+        },
+        ogImage: {
+            type: 'nested',
+            of: OgImage,
+            description:
+                'The og:image of the research page, for SEO and preview image use.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
+}))
+
 const KclDoc = defineDocumentType(() => ({
     name: 'KclDoc',
     filePathPattern: `pages/docs/kcl/*.md`,
@@ -282,7 +337,6 @@ const KclType = defineDocumentType(() => ({
         },
     },
 }))
-
 
 const CliDoc = defineDocumentType(() => ({
     name: 'CliDoc',
@@ -403,7 +457,18 @@ const KclConst = defineDocumentType(() => ({
 
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, KclSetting, KclConst, CliDoc],
+    documentTypes: [
+        Tutorial,
+        Glossary,
+        BlogPost,
+        ResearchPage,
+        Page,
+        KclDoc,
+        KclType,
+        KclSetting,
+        KclConst,
+        CliDoc,
+    ],
     disableImportAliasWarning: true,
     contentDirExclude: ['**/README.md', '**/manifest.json'],
 
@@ -411,9 +476,6 @@ export default makeSource({
         remarkPlugins: [
             remarkMath, // Parses $...$ and $$...$$.
         ],
-        rehypePlugins: [
-            [rehypeKatex, { output: 'htmlAndMathml' }], 
-                                              
-        ],
+        rehypePlugins: [[rehypeKatex, { output: 'htmlAndMathml' }]],
     },
 })
