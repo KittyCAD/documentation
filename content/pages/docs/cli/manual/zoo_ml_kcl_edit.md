@@ -1,16 +1,16 @@
 ---
 title: "zoo ml kcl edit"
-excerpt: "Edit a `kcl` file with a prompt."
+excerpt: "Edit `kcl` file(s) with a prompt."
 layout: manual
 ---
 
-Edit a `kcl` file with a prompt.
+Edit `kcl` file(s) with a prompt.
 
 ### Options
 
 <dl class="flags">
    <dt><code>input</code></dt>
-   <dd>The path to the input file. If you pass `-` as the path, the file will be read from stdin</dd>
+   <dd>The path to the input file or directory containing a main.kcl file. We will read in the contents of all the project's `kcl` files. If you pass `-` as the path, the file will be read from stdin</dd>
 
    <dt><code>prompt</code></dt>
    <dd>Your prompt</dd>
@@ -32,7 +32,9 @@ Edit a `kcl` file with a prompt.
 $ zoo ml kcl edit --prompt "Make it blue"
 ```
 
-This command outputs the edited `kcl` file to stdout.
+This command outputs the edited `kcl` files back to the same location.
+We do not output to stdout, because for projects with multiple files,
+it would be difficult to know which file the output corresponds to.
 
 ### See also
 
