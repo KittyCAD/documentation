@@ -15,7 +15,7 @@ ogImage:
 ## 1 Introduction
 
 A CAD engine (often called a CAD kernel) is responsible for representing the model geometry such as
-B-rep, NURBS, CSG etc., and for executing the common operations performed by CAD software such as
+B-Rep, NURBS, CSG etc., and for executing the common operations performed by CAD software such as
 extrusion, revolution, lofting, etc. CAD engines come in many different flavors, depending mostly on
 the application domain.
 
@@ -136,7 +136,7 @@ evolve, they often accumulate different representation formats (polygons, NURBS,
 surfaces, etc.) to accommodate various use cases. This proliferation of primitives means that every
 operation must have multiple implementations: polygon-to-polygon, polygon-to-NURBS, NURBS-to-NURBS,
 and so on. The number of operational combinations grows factorially with each new primitive type
-added to the system. A performance bottleneck then emerges when traversing the B-rep database, as
+added to the system. A performance bottleneck then emerges when traversing the B-Rep database, as
 the software must first determine which primitives are involved before selecting the appropriate
 operation implementation. Modern CAD software often spends more time walking these data structures
 than performing actual geometric computations. This approach is also inherently unfriendly to GPU
@@ -157,7 +157,7 @@ performance improvements over existing CAD systems.
 
 ### 2.1 CAD-as-a-Service
 
-Most CAD as a service systems are built around the idea of retrofitting legacy CAD systems to be
+Most CAD-as-a-Service systems are built around the idea of retrofitting legacy CAD systems to be
 consumable from an API across the web. While this idea certainly can work, we have the added benefit
 of designing our CAD engine to be directly interoperable with our CAD API. This affords us
 opportunities for optimization such as batch processing, parallelization of independent CAD
@@ -329,26 +329,26 @@ globally required, this sweep can be re-expressed as a combination of extrusion 
 much less computational work.
 
 It is worth noting that individual swept surfaces must be combined topologically to form a valid
-B-rep that is usable for CAD applications. This is an important step in the sweeping algorithm as it
-reduces the global complexity of any individual B-rep face. Essentially, each discrete path
+B-Rep that is usable for CAD applications. This is an important step in the sweeping algorithm as it
+reduces the global complexity of any individual B-Rep face. Essentially, each discrete path
 component of the decomposed section curve source $C(u)$ is individually swept by each individual
 discrete path component of the decomposed trajectory curve $T(v)$. This produces $A \times B$
 separate surfaces where $A$ is the number of path components of the section curve (2 in our example)
 and $B$ is the number of path components in the trajectory (4 in our example). These faces are
-trivially converted to untrimmed square B-rep faces with edges that lie on the boundaries of their
+trivially converted to untrimmed square B-Rep faces with edges that lie on the boundaries of their
 respective evaluated surfaces. For open trajectory curves, two additional end-cap faces are added
 which correspond to the oriented section instances at the very beginning and very end of the sweep
-trajectory. Finally, all of these separate faces are combined to a solid manifold B-rep via a join
+trajectory. Finally, all of these separate faces are combined to a solid manifold B-Rep via a join
 algorithm which merges all faces with coincident edges.
 
 <figure>
     <img
-        alt="Swept Solid B-rep from Extrudes/Revolves"
+        alt="Swept Solid B-Rep from Extrudes/Revolves"
         src="/documentation-assets/research/zoo-cad-engine-overview/image24.png"
         title=""
     />
     <figcaption>
-        Figure 10 - The swept solid B-rep formed as a combination of extrudes
+        Figure 10 - The swept solid B-Rep formed as a combination of extrudes
         and revolves as a join of 10 separate faces
     </figcaption>
 </figure>
