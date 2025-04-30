@@ -41,8 +41,7 @@ consequence, far more expensive).
         title=""
     />
     <figcaption>
-        Figure 1: SketchUp. A user-friendly, conceptual tool with polygon-based
-        modeling.
+        Figure 1: SketchUp. A user-friendly, conceptual tool with polygon-based modeling.
         <br />
         <a href="https://forums.sketchup.com/t/show-us-the-way-you-have-sketchup-set-up-on-your-computer-right-now/12513/195?page=3">
             Credit: SketchUp Forums
@@ -57,8 +56,7 @@ consequence, far more expensive).
         title=""
     />
     <figcaption>
-        Figure 2: Siemens NX. A precision engineering tool with NURBS-based
-        modeling.
+        Figure 2: Siemens NX. A precision engineering tool with NURBS-based modeling.
         <br />
         <a href="https://plm.sw.siemens.com/en-US/nx/manufacturing/additive-manufacturing/am-design/">
             Credit: Siemens Digital Industries Software
@@ -142,11 +140,11 @@ operation implementation. Modern CAD software often spends more time walking the
 than performing actual geometric computations. This approach is also inherently unfriendly to GPU
 acceleration, which thrives on uniform operations across consistent data structures.
 
-We aim to address this problem by maintaining a minimal set of geometric primitives. Rather
-than implementing specialized representations for features like fillets, we represent these as
-B-splines with specific constraints. This way, operations only need to handle B-splines, allowing us
-to develop highly optimized, GPU-friendly algorithms like our surface-surface intersection method.
-By avoiding the combinatorial explosion of primitive interactions, we can achieve significant
+We aim to address this problem by maintaining a minimal set of geometric primitives. Rather than
+implementing specialized representations for features like fillets, we represent these as B-splines
+with specific constraints. This way, operations only need to handle B-splines, allowing us to
+develop highly optimized, GPU-friendly algorithms like our surface-surface intersection method. By
+avoiding the combinatorial explosion of primitive interactions, we can achieve significant
 performance improvements over existing CAD systems.
 
 ## 2 Core Design Principles and Methodology
@@ -157,10 +155,15 @@ Most CAD-as-a-Service systems are built around the idea of retrofitting legacy C
 consumable from an API across the web. While this idea certainly can work, we have the added benefit
 of designing our CAD engine to be directly interoperable with our CAD API. This affords us
 opportunities for optimization such as batch processing, parallelization of independent CAD
-workflows, pre-emptive resource allocations and more!
+workflows, pre-emptive resource allocations, and more.
 
-{/* TODO: Address Mike's comment. */}
-{/* More on this needed. Possibly tag in Adam C here. */}
+Beyond these affordances, when you retrofit an API onto existing software, you often only expose a
+subset of your possible software via the API. There is often extra functionality that the
+first-party application can use, which can’t be accessed by the API. This means the first-party app
+has inherent advantages over third-party integrations. By designing Zoo from the ground up to always
+use an API, we ensure that third-party developers always have access to the exact same functionality
+that our employees do. There's no secret fast mode available to the Zoo team but not to external
+developers. When you build on our API, you're using the exact same tools we use to build our app.
 
 ### 2.2 Modelling Paradigms
 
@@ -207,11 +210,11 @@ $$S(u, v) = T(v) + M(v)C(u)$$
 
 Where:
 
--   $C(u)$ is the closed profile curve.
--   $T(v)$ is a general trajectory curve.
--   $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
-    the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
-    quaternion.
+- $C(u)$ is the closed profile curve.
+- $T(v)$ is a general trajectory curve.
+- $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
+  the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
+  quaternion.
 
 To be usable in a CAD engine, $S(u, v)$ must be computable in NURBS form[^1]:
 
@@ -220,8 +223,8 @@ $$S(u, v) = \frac{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mat
 
 Where:
 
--   $P_{i,j} = T_j + Q_i$.
--   $w_{i,j} = w_{i}^C w_j^T$
+- $P_{i,j} = T_j + Q_i$.
+- $w_{i,j} = w_{i}^C w_j^T$
 
 As an example, consider constructing a semi-circular profile curve. This curve can be described
 programmatically as follows:
@@ -241,9 +244,7 @@ Which yields:
         src="/documentation-assets/research/zoo-cad-engine-overview/image17.png"
         title=""
     />
-    <figcaption>
-        Figure 4 - A semi-circular profile curve, suitable as a sweep section.
-    </figcaption>
+    <figcaption>Figure 4 - A semi-circular profile curve, suitable as a sweep section.</figcaption>
 </figure>
 
 {/* SIMPLIFIED CASES */}
@@ -260,9 +261,7 @@ Figure 5 and Figure 6 illustrate the case where a sweep simplifies to an extrusi
         src="/documentation-assets/research/zoo-cad-engine-overview/image32.png"
         title=""
     />
-    <figcaption>
-        Figure 5: Sweep profile and perpendicular trajectory curve.
-    </figcaption>
+    <figcaption>Figure 5: Sweep profile and perpendicular trajectory curve.</figcaption>
 </figure>
 
 <figure>
@@ -344,8 +343,8 @@ algorithm which merges all faces with coincident edges.
         title=""
     />
     <figcaption>
-        Figure 10 - The swept solid B-Rep formed as a combination of extrudes
-        and revolves as a join of 10 separate faces
+        Figure 10 - The swept solid B-Rep formed as a combination of extrudes and revolves as a join
+        of 10 separate faces
     </figcaption>
 </figure>
 
@@ -373,10 +372,9 @@ the sweep. The figure below shows a curve segmented into different colors by a g
         title=""
     />
     <figcaption>
-        Figure 11: Segments computed both analytically and with finite
-        differences. Analytical segments are solid, with finite difference
-        dotted. This shows that the faster finite difference method is very
-        close to the analytical one.
+        Figure 11: Segments computed both analytically and with finite differences. Analytical
+        segments are solid, with finite difference dotted. This shows that the faster finite
+        difference method is very close to the analytical one.
     </figcaption>
 </figure>
 
@@ -388,9 +386,7 @@ the sweep. The figure below shows a curve segmented into different colors by a g
         src="/documentation-assets/research/zoo-cad-engine-overview/image34.png"
         title=""
     />
-    <figcaption>
-        Figure 12: Examples of linear, circular, and array patterns.
-    </figcaption>
+    <figcaption>Figure 12: Examples of linear, circular, and array patterns.</figcaption>
 </figure>
 
 It’s not unusual for a mechanical design engineer to want to place many duplicates of an object in a
@@ -427,30 +423,29 @@ where precise fitting and assembly of parts are crucial.
         src="/documentation-assets/research/zoo-cad-engine-overview/surface_intersection_wireframe_1x3.png"
     />
     <figcaption>
-        Figure 13: The meeting of two surfaces creates difficult-to-find
-        intersection curves.
+        Figure 13: The meeting of two surfaces creates difficult-to-find intersection curves.
     </figcaption>
 </figure>
 
 Precise geometric modeling is crucial for industries that require complex surface operations, such
 as aerospace, automotive, and consumer product design. The importance lies in several key areas:
 
--   Validity.
-    -   Imprecision, especially in SSI, can create fundamental differences between design intent and
-        results Sometimes small inaccuracies result in major differences in topology and design.
--   Part fit.
-    -   Consistently precise models ensure that components fit together correctly over many version
-        updates, reducing costly manufacturing defects or performance issues.
--   Simulation and analysis.
-    -   Accurate representations are necessary for usable simulations in fields like fluid dynamics,
-        heat flow, collision detection, and stress analysis.
--   Customization and flexibility.
-    -   Industries often require specialized designs; precise modeling enables customization while
-        maintaining general structural integrity and aesthetic appeal.
--   Collaboration.
-    -   In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
-        precise model ensures that everyone is aligned, reduces miscommunication and enhances
-        collaboration across various disciplines.
+- Validity.
+    - Imprecision, especially in SSI, can create fundamental differences between design intent and
+      results Sometimes small inaccuracies result in major differences in topology and design.
+- Part fit.
+    - Consistently precise models ensure that components fit together correctly over many version
+      updates, reducing costly manufacturing defects or performance issues.
+- Simulation and analysis.
+    - Accurate representations are necessary for usable simulations in fields like fluid dynamics,
+      heat flow, collision detection, and stress analysis.
+- Customization and flexibility.
+    - Industries often require specialized designs; precise modeling enables customization while
+      maintaining general structural integrity and aesthetic appeal.
+- Collaboration.
+    - In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
+      precise model ensures that everyone is aligned, reduces miscommunication and enhances
+      collaboration across various disciplines.
 
 Overall, consistent precision modeling underpins innovation and efficiency in industries where
 complex surface designs are found..
@@ -475,8 +470,8 @@ CATIA.
         title=""
     />
     <figcaption>
-        Figure 14: Easily manipulated mesh and control points (shown in blue)
-        dictate the shape of a smooth object.
+        Figure 14: Easily manipulated mesh and control points (shown in blue) dictate the shape of a
+        smooth object.
     </figcaption>
 </figure>
 
@@ -537,9 +532,7 @@ entire process is repeated many times to step out the approximate curve.
         alt="Marching Intersection Method"
         src="/documentation-assets/research/zoo-cad-engine-overview/marching_edited.png"
     />
-    <figcaption>
-        Figure 18: “Marching” an intersection between two NURBS.
-    </figcaption>
+    <figcaption>Figure 18: “Marching” an intersection between two NURBS.</figcaption>
 </figure>
 
 There are challenges to note with the non-analytic nature of SSI. Standard methods such as marching
@@ -575,8 +568,7 @@ the algorthm in Figures 20 - 22.
         title=""
     />
     <figcaption>
-        Figure 19: Two intersecting surfaces, one shown as a densely sampled
-        cloud of points.
+        Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud of points.
     </figcaption>
 </figure>
 
@@ -592,9 +584,7 @@ curves cross on the cylinders because the surfaces lie closer to each other.
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi.png"
         title=""
     />
-    <figcaption>
-        Figure 20: Two cylindrical surfaces and their SSI as points.
-    </figcaption>
+    <figcaption>Figure 20: Two cylindrical surfaces and their SSI as points.</figcaption>
 </figure>
 
 If the resolution of the SSI point cloud is too small (as at the SSI cross), one can simply increase
@@ -614,9 +604,7 @@ subsequent points near the SSI are displayed in blue for an easy to visualize pa
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi_lod_refinement.png"
         title=""
     />
-    <figcaption>
-        Figure 21: SSI points at two levels of detail for crossed cylinders.
-    </figcaption>
+    <figcaption>Figure 21: SSI points at two levels of detail for crossed cylinders.</figcaption>
 </figure>
 
 #### 4.3.3 Parameter Space Processing
@@ -636,9 +624,7 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         src="/documentation-assets/research/zoo-cad-engine-overview/image15.png"
         title=""
     />
-    <figcaption>
-        Figure 22: SSI points (red) between green and gridded surfaces.
-    </figcaption>
+    <figcaption>Figure 22: SSI points (red) between green and gridded surfaces.</figcaption>
 </figure>
 
 <figure>
@@ -647,9 +633,7 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         src="/documentation-assets/research/zoo-cad-engine-overview/image16.png"
         title=""
     />
-    <figcaption>
-        Figure 23: The uv parameter points of the points in Figure 24.
-    </figcaption>
+    <figcaption>Figure 23: The uv parameter points of the points in Figure 24.</figcaption>
 </figure>
 
 It’s clear from Figure 23 that the thickened areas need to be thinned down to a curve. A number of
@@ -663,9 +647,7 @@ Figure 23.
         src="/documentation-assets/research/zoo-cad-engine-overview/image14.png"
         title=""
     />
-    <figcaption>
-        Figure 24: MAT applied to the point set in Figure 23.
-    </figcaption>
+    <figcaption>Figure 24: MAT applied to the point set in Figure 23.</figcaption>
 </figure>
 
 ##### Branching
@@ -719,9 +701,8 @@ discovered and categorized.
         title=""
     />
     <figcaption>
-        Figure 25: SSI in object space (left) and parameter space uv-points
-        classified by joints (green), end points (red), and simple branch points
-        (black).
+        Figure 25: SSI in object space (left) and parameter space uv-points classified by joints
+        (green), end points (red), and simple branch points (black).
     </figcaption>
 </figure>
 
@@ -773,8 +754,8 @@ heuristics to best choose the parameters.
         title=""
     />
     <figcaption>
-        Figure 26: A single branch of uv points which have been convolved with a
-        hat filter, and then fit with a cubic interpolation spline.
+        Figure 26: A single branch of uv points which have been convolved with a hat filter, and
+        then fit with a cubic interpolation spline.
     </figcaption>
 </figure>
 
@@ -793,8 +774,7 @@ shows the mapping of the b-spline in Figure 26 to object space, the red SSI on t
         title=""
     />
     <figcaption>
-        Figure 27. Final step in SSI routine, the red intersection curve on the
-        top.
+        Figure 27. Final step in SSI routine, the red intersection curve on the top.
     </figcaption>
 </figure>
 
@@ -825,9 +805,7 @@ NURBS using GPUs.
         src="/documentation-assets/research/zoo-cad-engine-overview/image13.png"
         title=""
     />
-    <figcaption>
-        Figure 28. A good SSI is modest, unassuming, and works!
-    </figcaption>
+    <figcaption>Figure 28. A good SSI is modest, unassuming, and works!</figcaption>
 </figure>
 
 ## 5 References
