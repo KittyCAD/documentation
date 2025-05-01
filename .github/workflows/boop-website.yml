@@ -1,0 +1,29 @@
+name: boop-dependabot-in-website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - .github/workflows/boop-website.yml
+
+jobs:
+  boop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          # required
+          app-id: ${{ secrets.GH_ORG_APP_ID }}
+          private-key: ${{ secrets.GH_ORG_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+      - name: Send repository_dispatch to website
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh api --method POST \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository_owner }}/website/dispatches \
+            -f event_type='run-dependabot'
