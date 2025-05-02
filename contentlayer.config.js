@@ -283,49 +283,9 @@ const KclType = defineDocumentType(() => ({
     },
 }))
 
-
 const CliDoc = defineDocumentType(() => ({
     name: 'CliDoc',
     filePathPattern: `pages/docs/cli/**/*.md`,
-    contentType: 'markdown',
-    fields: {
-        title: {
-            type: 'string',
-            description: 'The title of the docs, for SEO and heading use.',
-            required: true,
-        },
-        excerpt: {
-            type: 'string',
-            description:
-                'The excerpt of the docs, for SEO and preview text use.',
-            required: true,
-        },
-        tags: {
-            type: 'list',
-            of: {
-                type: 'string',
-            },
-            description: 'The tags of the docs, for SEO and filtering use.',
-            required: false,
-        },
-        layout: {
-            type: 'enum',
-            options: ['manual'],
-            description: 'The layout of the page.',
-            required: false,
-        },
-    },
-    computedFields: {
-        slug: {
-            type: 'string',
-            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-        },
-    },
-}))
-
-const KclSetting = defineDocumentType(() => ({
-    name: 'KclSetting',
-    filePathPattern: `pages/docs/kcl/settings/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
@@ -401,9 +361,48 @@ const KclConst = defineDocumentType(() => ({
     },
 }))
 
+const KclFunction = defineDocumentType(() => ({
+    name: 'KclFunction',
+    filePathPattern: `pages/docs/kcl/functions/*.md`,
+    contentType: 'markdown',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, KclSetting, KclConst, CliDoc],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, KclFunction, KclConst, CliDoc],
     disableImportAliasWarning: true,
     contentDirExclude: ['**/README.md', '**/manifest.json'],
 
