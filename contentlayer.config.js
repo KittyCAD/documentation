@@ -3,8 +3,8 @@ import {
     defineNestedType,
     makeSource,
 } from '@contentlayer/source-files'
-import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math'
 
 const Tutorial = defineDocumentType(() => ({
     name: 'Tutorial',
@@ -108,14 +108,11 @@ const Glossary = defineDocumentType(() => ({
             type: 'list',
             of: {
                 type: 'enum',
-                options: [
-                    'software-engineering',
-                    'hardware-engineering',
-                ],
+                options: ['software-engineering', 'hardware-engineering'],
             },
             description: 'Subject domain(s) of the primary term.',
             required: true,
-        }
+        },
     },
     computedFields: {
         slug: {
@@ -400,9 +397,59 @@ const KclFunction = defineDocumentType(() => ({
     },
 }))
 
+const DesignStudioDoc = defineDocumentType(() => ({
+    name: 'DesignStudioDoc',
+    filePathPattern: `pages/docs/zoo-design-studio/*.md`,
+    contentType: 'markdown',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, KclFunction, KclConst, CliDoc],
+    documentTypes: [
+        Tutorial,
+        Glossary,
+        BlogPost,
+        Page,
+        KclDoc,
+        KclType,
+        KclFunction,
+        KclConst,
+        CliDoc,
+        DesignStudioDoc,
+    ],
     disableImportAliasWarning: true,
     contentDirExclude: ['**/README.md', '**/manifest.json'],
 
@@ -410,9 +457,6 @@ export default makeSource({
         remarkPlugins: [
             remarkMath, // Parses $...$ and $$...$$.
         ],
-        rehypePlugins: [
-            [rehypeKatex, { output: 'htmlAndMathml' }], 
-                                              
-        ],
+        rehypePlugins: [[rehypeKatex, { output: 'htmlAndMathml' }]],
     },
 })
