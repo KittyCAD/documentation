@@ -215,6 +215,11 @@ const KclDoc = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -254,6 +259,11 @@ const KclLangDoc = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -292,6 +302,11 @@ const KclType = defineDocumentType(() => ({
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
@@ -371,6 +386,11 @@ const KclConst = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -410,6 +430,11 @@ const KclFunction = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -448,6 +473,11 @@ const KclModule = defineDocumentType(() => ({
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
