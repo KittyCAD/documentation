@@ -14,10 +14,10 @@ ogImage:
 
 ## 1 Accelerating Hardware Development
 
-At first glance, the phrase “Automating Hardware Development” might sound like a punchline. In an
+At first glance, the phrase "Automating Hardware Development" might sound like a punchline. In an
 industry defined by long lead times, rigorous testing, and intricate supply chains, speed has rarely
 been part of the equation. Hardware development has long been hampered by slow, painstaking
-processes—especially compared to the fast-paced world of software. Hardware isn’t software—we can’t
+processes—especially compared to the fast-paced world of software. Hardware isn't software—we can't
 just deploy a fix or roll back a release. Every change touches the physical world, and with that
 comes a cascade of complexity:
 
@@ -26,15 +26,15 @@ comes a cascade of complexity:
 -   Quality assurance and compliance hurdles.
 -   Manufacturing lead times.
 
-These challenges aren’t going away. But that doesn’t mean we’re doomed to move slowly. In fact,
-there’s enormous untapped potential in how we work. And in an industry that desperately needs to
+These challenges aren't going away. But that doesn't mean we're doomed to move slowly. In fact,
+there's enormous untapped potential in how we work. And in an industry that desperately needs to
 move faster, the opportunity to streamline even a portion of the workflow could be transformative.
 
 ## 2 Real-Time Testing
 
-One of software’s greatest superpowers is its feedback loop. Developers get near-instant
+One of software's greatest superpowers is its feedback loop. Developers get near-instant
 validation—tests run automatically, alerts fire immediately, and errors are caught before they ever
-reach production. It’s fast, responsive, and iterative. Why shouldn’t hardware design offer the same
+reach production. It's fast, responsive, and iterative. Why shouldn't hardware design offer the same
 experience?
 
 Every CAD model we build is governed by a web of constraints: mass, manufacturability, center of
@@ -42,33 +42,33 @@ gravity, material limits, cost. Today, we often check these constraints after th
 days or weeks later. But what if constraint validation happened in real time? What if every tweak to
 a part, every sketch, every extrusion was met with immediate feedback?
 
-This isn’t just about speed. It’s about creating a conversation between design and analysis. Your
-CAD model changes, and analysis responds. Your requirements evolve, and the system flags what’s at
+This isn't just about speed. It's about creating a conversation between design and analysis. Your
+CAD model changes, and analysis responds. Your requirements evolve, and the system flags what's at
 risk. Right now, this back-and-forth between designer and analyst is slow, manual, and siloed.
-Automating it wouldn’t just save time—it would fundamentally change how we work.
+Automating it wouldn't just save time—it would fundamentally change how we work.
 
 ![Design Feedback Loop](/documentation-assets/research/automating-your-workflow/design-feedback.png)
 
 ## 3 Automated Data Extraction
 
-If we’re serious about automating our workflow, let’s start with one of the biggest time sinks in
+If we're serious about automating our workflow, let's start with one of the biggest time sinks in
 engineering: manually extracting data from CAD files. Take mass audits, for example. Engineers often
 spend hours tracking down material assignments, recalculating weights, and updating
 spreadsheets—tasks that are tedious, error-prone, and fundamentally automatable. CAD files already
-contains this information. So why aren’t our tools pulling it for us? Imagine a system where:
+contains this information. So why aren't our tools pulling it for us? Imagine a system where:
 
 -   Material checks run on parts and assemblies when the file has been changed.
 -   Mass is recalculated in real time as the design evolves.
 -   Updates flow directly into your PLM—or Git repo—with zero manual input.
 -   Compliance checks flag any deviations from spec before they reach review.
 
-The data is there. The logic is scriptable. What’s missing is automation. And that’s exactly where
+The data is there. The logic is scriptable. What's missing is automation. And that's exactly where
 the next evolution of CAD tooling should focus.
 
 ## 4 Streamlining Release Cycles
 
-Ask any hardware engineer what happens after a drawing is “done,” and they’ll probably laugh.
-Because the real work often starts after design. Review cycles, redlines, approvals—it’s a gauntlet
+Ask any hardware engineer what happens after a drawing is "done," and they'll probably laugh.
+Because the real work often starts after design. Review cycles, redlines, approvals—it's a gauntlet
 of slow-moving checkpoints. What should take hours can stretch into days or even weeks.
 
 Each stage introduces friction:
@@ -79,16 +79,16 @@ Each stage introduces friction:
 -   Compliance verification.
 
 Every one of these steps is critical—but nearly all of them are candidates for automation. Software
-teams are stunned when they hear how long it takes to release a single part. They’re used to
-continuous integration, automated tests, and same-day deployment. Why can’t we bring some of that
+teams are stunned when they hear how long it takes to release a single part. They're used to
+continuous integration, automated tests, and same-day deployment. Why can't we bring some of that
 speed to hardware?
 
 Imagine this: the moment a drawing is completed, an automated system verifies GD&T callouts, checks
-dimensioning standards, and flags inconsistencies—issuing a pass/fail or at least a “likely errors”
+dimensioning standards, and flags inconsistencies—issuing a pass/fail or at least a "likely errors"
 report. Even a tool that catches 90% of GD&T issues would be a massive leap forward from today's
 manual, error-prone review loops.
 
-Release cycles don’t need to be a bottleneck. With the right tools, they could become a moment of
+Release cycles don't need to be a bottleneck. With the right tools, they could become a moment of
 clarity—not chaos.
 
 ## 5 AI-Powered CAD Generation
@@ -101,24 +101,24 @@ daunting.
 But what if CAD didn't require deep expertise to get started? What if you could describe the part
 you need—and get a working model back in seconds?
 
-That’s the promise of Text-to-CAD. By combining natural language prompts with machine learning,
-we’re building tools that can translate a design idea directly into geometry. You type:
+That's the promise of Text-to-CAD. By combining natural language prompts with machine learning,
+we're building tools that can translate a design idea directly into geometry. You type:
 
-> "A lightweight bracket with mounting holes for M4 bolts, 50mm wide.”
+> "A lightweight bracket with mounting holes for M4 bolts, 50mm wide."
 
-And within seconds, you’re have your 3D model.
+And within seconds, you're have your 3D model.
 
-This isn’t just about speed—it’s about freeing up time for real engineering. AI can handle the
+This isn't just about speed—it's about freeing up time for real engineering. AI can handle the
 repetitive, the obvious, the already-solved. That means designers can focus on what matters:
-refining the details, exploring new concepts, and solving the hard problems. We’re not replacing
-human creativity—we’re clearing the runway for it.
+refining the details, exploring new concepts, and solving the hard problems. We're not replacing
+human creativity—we're clearing the runway for it.
 
 ## 6 Borrowing from Software: Git, Meet Hardware
 
-Software engineering isn’t perfect—but when it comes to collaboration, versioning, and iteration,
-it’s lightyears ahead. One of the tools that makes this possible is Git: a distributed version
+Software engineering isn't perfect—but when it comes to collaboration, versioning, and iteration,
+it's lightyears ahead. One of the tools that makes this possible is Git: a distributed version
 control system that lets developers branch, merge, experiment, and ship—all without stepping on each
-other’s toes.
+other's toes.
 
 In hardware, we have PLMs. And while they serve an important role in managing product lifecycles,
 most PLMs were built for compliance—not collaboration.

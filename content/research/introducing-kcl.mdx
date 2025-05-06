@@ -21,49 +21,49 @@ like gears and engines.
 When you design a model in CAD software, clicking on various buttons and drawing out various shapes,
 the CAD software is constantly updating some hidden internal model, represented as a complicated
 series of 3D equations and algebraic relations. You, the user, never get to see or edit that model
-directly. You issue commands with the user interface, e.g. “sketch this square” or “sweep this
-circle along that path”, and the CAD software updates its internal model, then renders that model as
+directly. You issue commands with the user interface, e.g. "sketch this square" or "sweep this
+circle along that path", and the CAD software updates its internal model, then renders that model as
 a 3D visual on your screen. At the end of your session, you save or export your model, and the CAD
 software converts its hidden internal model into some file format that your filesystem can save.
 Maybe that file format can be read by other software, or maybe just by the one specific CAD suite
-you’re using.
+you're using.
 
 Most CAD systems never show you their internal model. You can only change it (with your mouse and
 keyboard) and view a simplified 3D representation of it on your screen. Zoo is different. KCL _is_
 the fundamental model underpinning Zoo. If you want to know what the software truly knows about your
-model, just read the KCL. There’s no hidden information. It’s all there in the KCL.
+model, just read the KCL. There's no hidden information. It's all there in the KCL.
 
 ## 2 Advantages of Text: Readability, Collaboration, and Automation
 
-Existing CAD systems store their model as complex algebraic data that can’t be read by humans – not
-easily, and sometimes not at all, because it’s stored in binary instead of text. We knew we wanted
+Existing CAD systems store their model as complex algebraic data that can't be read by humans - not
+easily, and sometimes not at all, because it's stored in binary instead of text. We knew we wanted
 Zoo to fundamentally store its CAD models as text, for a few reasons.
 
 **Text is readable**. Humans cannot read binary data (except for that one weird kid who always came
 first in your CS program and was immediately hired by an unknown government agency upon graduating).
-People can’t just read a SolidWorks or OBJ file and keep a clear understanding of all the different
+People can't just read a SolidWorks or OBJ file and keep a clear understanding of all the different
 parts being designed. But KCL is readable. Models are represented with human-friendly names like
 `cube = extrude(square, 10)` or `chessboard = gridPattern([8, 8], tile)`. Sure, code can take a
 while to get used to, but this is much more readable than indecipherable binary data like
 02357fa35bbc.
 
-**Text is collaborative**. There’s already a huge ecosystem of software that lets you collaborate on
+**Text is collaborative**. There's already a huge ecosystem of software that lets you collaborate on
 text. You can collaborate in real-time over Google Docs, or asynchronously by sending each other
-Word documents with Track Changes showing revisions. You can add comments to other people’s text.
-And that’s just the beginning. Software engineers have spent decades understanding how to resolve
-conflicts in text editing. There’s a whole ecosystem of powerful tools that track and resolve
-conflicts when the same text is edited by multiple people. Generally these algorithms don’t work on
+Word documents with Track Changes showing revisions. You can add comments to other people's text.
+And that's just the beginning. Software engineers have spent decades understanding how to resolve
+conflicts in text editing. There's a whole ecosystem of powerful tools that track and resolve
+conflicts when the same text is edited by multiple people. Generally these algorithms don't work on
 binary data (or at least, not as well), and their results cannot be audited by humans because humans
-can’t read binary. Using text allows us to hook into the existing suite of text collaboration tools.
+can't read binary. Using text allows us to hook into the existing suite of text collaboration tools.
 
 **Text is machine-readable and machine-produceable**. The LLM and AI economy is all anyone can talk
 about right now, which is not necessarily good. A lot of LLM applications are being massively
 overhyped. Nobody needs an AI-powered mouse or toaster. But behind the hype lies a genuine huge
 advance in text processing algorithms. The research behind LLMs has made it easier than ever to let
-machines read and comprehend human text, and generate their own text in response. You don’t have to
+machines read and comprehend human text, and generate their own text in response. You don't have to
 buy into AI hype to see that computers ability to read and write English has massively advanced over
 the last several years. By representing geometry as text, KCL can reuse the rapidly-growing
-ecosystem of machine text tools – LLMS, summarizers, AI coding assistants, etc. This means LLMs can
+ecosystem of machine text tools - LLMS, summarizers, AI coding assistants, etc. This means LLMs can
 generate KCL from a human prompt, explain the purpose behind some line of code, or improve your KCL
 code for you. Currently AI language models are far, far ahead of AI graphical models, or binary
 models, or specialized models trained on the specifics of other file formats. By storing 3D designs
@@ -71,7 +71,7 @@ as text rather than binary, KCL ironically lets these applications understand ge
 storing it in a traditional 3D file.
 
 So, we felt confident that Zoo fundamentally needed to use text as its model. But there are many
-text formats that aren’t full programming languages. Why must Zoo store its model specifically as
+text formats that aren't full programming languages. Why must Zoo store its model specifically as
 code?
 
 ## 3 Advantages of Code: Parametricity and Reusability
@@ -79,21 +79,21 @@ code?
 Code solves two big problems with traditional CAD suites: representing parametricity and reusing
 common components.
 
-**Code is inherently parametric**. Software engineers don’t just write a program as a big list of
+**Code is inherently parametric**. Software engineers don't just write a program as a big list of
 instructions from top to bottom. They break code into several reusable functions that solve a
-problem. Similarly, top-tier mechanical designers don’t tend to model a gear with its pitch diameter
+problem. Similarly, top-tier mechanical designers don't tend to model a gear with its pitch diameter
 and pressure angle included as static, 'magic' values in their CAD system. Instead, they design a
 gear which is defined by some _parameters_; for example, its module (or diametrical pitch), its
 pressure angle, and its number of teeth. That way, when the system requirements change, the engineer
 can adjust the design parameters and watch as their parameters feed through their parameterized
 calculations, and the rest of their gear design reflows to meet this new constraint.
 
-This is doable but somewhat awkward in existing CAD products. It’s difficult to tell which
-dimensions are driving the design and which are driven by it. It’s hard to know where the model will
+This is doable but somewhat awkward in existing CAD products. It's difficult to tell which
+dimensions are driving the design and which are driven by it. It's hard to know where the model will
 break when parameters are varied. On the other hand, code is a natural fit for parametric design.
-When you break your code into functions, those functions are inherently parametric – that’s why they
+When you break your code into functions, those functions are inherently parametric - that's why they
 accept parameters! A function like `gear(module, nTeeth, aPressure)` obviously declares which
-parameters it accepts. Comments and documentation explain what each parameter is and how it’s used —
+parameters it accepts. Comments and documentation explain what each parameter is and how it's used --
 serving to capture design intent in a way that is not readily achievable with traditional CAD
 workflows. Constants can be defined once, at the top of a file, and used as parameters into many
 different parts. Parametric functions can easily call other parametric functions and pass through
@@ -104,30 +104,30 @@ server rack, and the number of server sleds. Then the height of each server rack
 calculated (i.e. totalHeight / numSleds). The function for designing a single server sled would
 accept this height as a parameter. Then when the total height of the rack changes, or the number of
 sleds changes, the model is easily recalculated. Designers can clearly trace these constants and
-visually follow them throughout the code, seeing where they’re calculated and how they’re used by
+visually follow them throughout the code, seeing where they're calculated and how they're used by
 other functions.
 
 **Code enables efficient reuse**. In the example above, each server rack is a copy of the others. If
 you have 20 servers in a server rack, and each server has 8 memory sticks, and each memory stick has
 8 controllers, then you have 1280 total memory controllers in your model. The more complex your
 model becomes, the slower it is to use. It would be very wasteful for CAD software to just copy this
-controller 1280 times – the user’s computer would need to hold all 1280 copies in its limited GPU,
+controller 1280 times - the user's computer would need to hold all 1280 copies in its limited GPU,
 CPU and memory. Instead, most software would notice that the controller unit is repeated, and only
 store 1 copy of it. It would tag the remaining 1279 as just a copy, and efficiently reuse the
-original. This is called “instancing” and it’s a powerful technique to make large, complex models
-without slowing down the user’s computer.
+original. This is called "instancing" and it's a powerful technique to make large, complex models
+without slowing down the user's computer.
 
-Unfortunately, instancing is difficult. In CAD it’s hard to know when two things are exactly copies
+Unfortunately, instancing is difficult. In CAD it's hard to know when two things are exactly copies
 of each other. Even when CAD software can do instancing properly, usually the file formats you save
-or export to won’t understand instancing. So when you save your file, it has to write out 1280
+or export to won't understand instancing. So when you save your file, it has to write out 1280
 copies of that memory controller, and then load them all back in when you next open the software.
 This frustrates engineers to no end. Waiting an hour for your file to load is unacceptable.
 
-In contrast, in a _functional programming language_ it’s always clear when a calculation can be
+In contrast, in a _functional programming language_ it's always clear when a calculation can be
 reused. Functions called with the same inputs will produce the same outputs. So whenever you call
 server(height), as long as its parameters are the same, the output will be the same. This will allow
-Zoo to efficiently cache and reuse parts of models. Right now we haven’t actually implemented this,
-but we’ve architected it to make it easy in the future.
+Zoo to efficiently cache and reuse parts of models. Right now we haven't actually implemented this,
+but we've architected it to make it easy in the future.
 
 By storing Zoo files as text, Zoo enables engineers to collaborate and understand what their models
 actually are. Programmable code lets you break down complicated models into smaller, simpler parts
@@ -151,8 +151,8 @@ for your models. The typical workflow is:
 
 KCL has a standard library with common geometry tools like various kinds of lines, or operations on
 2D and 3D geometry like Revolve and Fillet and Pattern. It also has the standard math tools you know
-and love from normal programming, so you don’t need a calculator open in another window. All your
-calculations can be written in KCL. To check your work, view each constant’s value in the Variables
+and love from normal programming, so you don't need a calculator open in another window. All your
+calculations can be written in KCL. To check your work, view each constant's value in the Variables
 pane, or use an `assert` statement to ensure an error gets printed if your math was wrong.
 
 ## 5 Core Design Principles
@@ -168,8 +168,8 @@ instead of redoing them.
 ## 6 Current Limitations and Future Direction
 
 KCL has several conflicting goals. It has to be easy and intuitive for mechanical engineers who
-haven’t coded much. But it has to be powerful enough to express complicated ideas from advanced
-programmers too. It’s difficult to serve both beginners and experts. We have a long way to go on
+haven't coded much. But it has to be powerful enough to express complicated ideas from advanced
+programmers too. It's difficult to serve both beginners and experts. We have a long way to go on
 making KCL friendlier to beginners in particular. We are excited to do user testing, find the pain
 points beginners experience, and tackle each one so that beginners have an easier time with KCL.
 

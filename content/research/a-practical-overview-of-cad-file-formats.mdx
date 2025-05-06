@@ -37,7 +37,7 @@ smooth. This is, however, merely an illusion; zooming in will reveal the faceted
 </figure>
 
 The most common choice of polygon is the triangle. This is because a triangle sits in a plane
-unambiguously. The same cannot be said about quadrilaterals since they can have two possible ‘bend’
+unambiguously. The same cannot be said about quadrilaterals since they can have two possible 'bend'
 configurations if their four points do not lie in a plane.
 
 <figure>
@@ -110,9 +110,9 @@ more information contained in a mesh required for rendering. The two most common
 vertex normals and texture coordinates.
 
 On a planar surface, such as a single triangle, the surface normal vector points in the facing
-direction directly ‘away’ from the surface. The same is also true for non-planar surfaces but its
+direction directly 'away' from the surface. The same is also true for non-planar surfaces but its
 normal vector varies as the surface curves. 3D renderers can use surface normals to compute lighting
-per-face; however, this draws attention to the model’s facets, removing the illusion of smoothness.
+per-face; however, this draws attention to the model's facets, removing the illusion of smoothness.
 
 To avoid this problem, 3D renderers compute lighting by considering the average of normal vectors at
 the vertices. The vertex normals are then interpolated across the planar surface to produce the
@@ -142,11 +142,11 @@ f 1//1 2//1 3//1
 f 1//1 3//1 4//1
 ```
 
-It is common for renderers to ‘paint’ models using an image called a texture. The way this works is
+It is common for renderers to 'paint' models using an image called a texture. The way this works is
 the image is given a 2D coordinate space, commonly a unit square, and each 3D vertex coordinate is
-assigned a corresponding ‘texture coordinate’ in this 2D space. The delicate process of choosing a
-texture coordinate for each vertex is known as ‘UV unwrapping’ and is typically performed by the
-model’s creator.
+assigned a corresponding 'texture coordinate' in this 2D space. The delicate process of choosing a
+texture coordinate for each vertex is known as 'UV unwrapping' and is typically performed by the
+model's creator.
 
 The `vt` element provides vertex texture coordinates in OBJ:
 
@@ -290,8 +290,8 @@ scene instantiates a renderable mesh.
 ```
 
 Similar to PLY, the data contained in a polygonal mesh and its layout is variable. These properties
-are called vertex ‘attributes’ in glTF terminology. The location, size, and layout of the
-corresponding attribute data is then described using ‘accessors’ into ‘buffer views’ and buffer
+are called vertex 'attributes' in glTF terminology. The location, size, and layout of the
+corresponding attribute data is then described using 'accessors' into 'buffer views' and buffer
 views into data buffers.
 
 ```json
@@ -320,7 +320,7 @@ views into data buffers.
 ```
 
 glTF has three modes of storage for its buffer data: it may be included within the JSON, using
-‘base64’ encoding, provided as a separate binary file (as demonstrated above), or bundled in the
+'base64' encoding, provided as a separate binary file (as demonstrated above), or bundled in the
 same file using the binary glTF (GLB) mode. The GLB mode has an extra small header before the JSON
 portion to identify itself as such.
 
@@ -380,28 +380,28 @@ example of an intermediate format which had this issue for most of its history.
 
 To remedy the ambiguity problem, boundary curves are used to explicitly define where surfaces should
 join. This combination of surfaces and boundary curves is often referred to as boundary
-representation[^2], or ‘B-rep’ for short.
+representation[^2], or 'B-Rep' for short.
 
 B-reps, by necessity, also carry topological information describing the relationship between each
-surface. In B-rep terminology, bounded surfaces are called ‘faces’, boundary curves correspond to
-‘edges’, and the edges join at the familiar vertices. Note that the vertices themselves are distinct
+surface. In B-Rep terminology, bounded surfaces are called 'faces', boundary curves correspond to
+'edges', and the edges join at the familiar vertices. Note that the vertices themselves are distinct
 coordinates resolving the ambiguity problem of multiple edges meeting at a common point.
 
-STEP is an example of an intermediate format which is able to carry B-rep data, amongst other kinds
+STEP is an example of an intermediate format which is able to carry B-Rep data, amongst other kinds
 of data such as geometric dimensioning and tolerancing information. IGES gained topological
 information as part of its fifth version release in 1991 but has since been superseded largely by
 STEP.
 
-A solid object (a manifold[^3] in B-rep terminology) is a collection of faces which combine such
-that there is a distinct ‘outside’ and ‘inside’ volume.
+A solid object (a manifold[^3] in B-Rep terminology) is a collection of faces which combine such
+that there is a distinct 'outside' and 'inside' volume.
 
-Surfaces, curves, vertices, faces, etc., are all deemed ‘entities’ and are each assigned a unique ID
+Surfaces, curves, vertices, faces, etc., are all deemed 'entities' and are each assigned a unique ID
 number. Entities can, and often do, reference other entities. References can be made to entities
 before they are defined.
 
 ```
-#10 = CARTESIAN_POINT(‘NAME’, 1.2, 3.4, 5.6);
-#11 = VERTEX_POINT(‘’, #10);
+#10 = CARTESIAN_POINT('NAME', 1.2, 3.4, 5.6);
+#11 = VERTEX_POINT('', #10);
 ```
 
 The vertex_point entity represents vertices. A vertex is a topological construct in STEP and must be
@@ -412,7 +412,7 @@ Edges are typically represented using the edge_curve entity. Edges are linked to
 in 3D space.
 
 ```
-#20 = EDGE_CURVE(‘’, #11, #13, #30, .T.);
+#20 = EDGE_CURVE('', #11, #13, #30, .T.);
 ```
 
 The final .T. value (which means true) expresses whether the direction of the curve matches that of
@@ -421,14 +421,14 @@ the edge endpoints.
 Curves are defined in various ways. A common kind of curve, a circle, is expressed as:
 
 ```
-#30 = CIRCLE(‘’, #31, 2.0);
-#31 = AXIS2_PLACEMENT_3D(‘’, #32, #33, #34, $);
-#32 = CARTESIAN_POINT(‘’, 0.0, 1.0, 2.,0);
-#33 = DIRECTION(‘’, 0.0, 0.0, 1.0);
-#34 = DIRECTION(‘’, 1.0, 0.0, 0.0);
+#30 = CIRCLE('', #31, 2.0);
+#31 = AXIS2_PLACEMENT_3D('', #32, #33, #34, $);
+#32 = CARTESIAN_POINT('', 0.0, 1.0, 2.,0);
+#33 = DIRECTION('', 0.0, 0.0, 1.0);
+#34 = DIRECTION('', 1.0, 0.0, 0.0);
 ```
 
-If it isn’t already clear, STEP (or, more precisely, the EXPRESS exchange format) is highly verbose.
+If it isn't already clear, STEP (or, more precisely, the EXPRESS exchange format) is highly verbose.
 Its extensive number of entities make it a double-edged sword, being versatile but complex to
 process for a CAD application.
 
@@ -436,7 +436,7 @@ This complexity means that different applications may treat STEP files slightly 
 other. For example, one CAD program might not support a particular STEP entity, or handle an
 uncommon entity incorrectly.
 
-A typical data hierarchy for a B-rep model in a STEP file is as follows:
+A typical data hierarchy for a B-Rep model in a STEP file is as follows:
 
 ```
 advanced_brep_shape_representation (1+)
@@ -485,7 +485,7 @@ and parametric boundary representations mutually. This combines the benefits of 
 and reduces the need for complex and time-consuming conversion steps. In comparison to STEP, the
 extension continues to be encoded as plaintext as part of the JSON portion but is substantially less
 verbose. The following section walks through an excerpt of a glTF file describing a solid cylinder
-using Zoo’s KITTYCAD_boundary_representation extension.
+using Zoo's KITTYCAD_boundary_representation extension.
 
 ```json
     ...
@@ -510,11 +510,11 @@ using Zoo’s KITTYCAD_boundary_representation extension.
 }
 ```
 
-The majority of the B-rep data extends the root JSON object. A set of solids are defined in terms of
-‘shells’; the former is referenced within the glTF scene hierarchy and the latter references other
-objects within the extension’s own data hierarchy.
+The majority of the B-Rep data extends the root JSON object. A set of solids are defined in terms of
+'shells'; the former is referenced within the glTF scene hierarchy and the latter references other
+objects within the extension's own data hierarchy.
 
-Above, a solid is defined in terms of a single shell in its ‘same’ sense. With the exception of
+Above, a solid is defined in terms of a single shell in its 'same' sense. With the exception of
 vertices, all objects have two orientations which are referred to as same-sense and reverse-sense. A
 specific orientation is selected using ±1 in addition to the index of the referenced item.
 
@@ -585,7 +585,7 @@ loops, and loops are composed of connected edges.
 }, ...
 ```
 
-Edges are defined by parametric curves in 3D space and join at vertices. B-rep vertices are distinct
+Edges are defined by parametric curves in 3D space and join at vertices. B-Rep vertices are distinct
 from mesh vertices, defined by only their position in 3D space.
 
 ## 2.3 Modelling Kernel Formats
@@ -639,8 +639,8 @@ may be less convenient to modify. Software compatibility may still be an issue. 
 found formats from ACIS, Parasolid, Rhino 3D, etc.
 
 Intermediate formats are akin to a mass-produced print of the original. Much of the original details
-such as features are lost but precision still remains in the B-rep representation. The most notable
-formats in this category are STEP, IGES, and glTF when combined with Zoo’s
+such as features are lost but precision still remains in the B-Rep representation. The most notable
+formats in this category are STEP, IGES, and glTF when combined with Zoo's
 KITTYCAD_boundary_representation extension.
 
 Visual formats are akin to a sketch of the original. Almost all of the details are lost. Popular
@@ -648,7 +648,7 @@ formats include glTF, STL, PLY, OBJ, and FBX.
 
 ### 2.5.1 Comparison Table
 
-| Extensions                  | Description                                                  | Category     | Open | Mesh | B-rep          | Text       | Binary    |
+| Extensions                  | Description                                                  | Category     | Open | Mesh | B-Rep          | Text       | Binary    |
 | :-------------------------- | :----------------------------------------------------------- | ------------ | ---- | ---- | -------------- | ---------- | --------- |
 | `obj`, `mtl`                | Wavefront Object                                             | Visual       | Y    | Y    | <sup>[1]</sup> | Y          | N         |
 | `gltf`, `glb`               | Khronos OpenGL Transmission                                  | Visual       | Y    | Y    | <sup>[2]</sup> | Y (`gltf`) | Y (`glb`) |
@@ -680,6 +680,6 @@ formats include glTF, STL, PLY, OBJ, and FBX.
 
 ### Footnotes
 
-[^1]: Compressing (‘zipping’) a plaintext file will reduce its size but not necessarily its processing time.
-[^2]: A boundary representation is technically any representation that distinguishes ‘inside’ from ‘outside’ areas, which would include polygonal meshes, but the term ‘B-rep’ is understood colloquially to refer to the noted form specifically.
-[^3]: Non-manifold B-reps are beyond the scope of this page. Nonetheless, for the curious reader, Klein bottles and Möbius strips are examples of non-manifold solids and surfaces respectively.
+[^1]: Compressing ('zipping') a plaintext file will reduce its size but not necessarily its processing time.
+[^2]: A boundary representation is technically any representation that distinguishes 'inside' from 'outside' areas, which would include polygonal meshes, but the term 'B-Rep' is understood colloquially to refer to the noted form specifically.
+[^3]: Non-manifold B-reps are beyond the scope of this page. Nonetheless, for the curious reader, Klein bottles and Mobius strips are examples of non-manifold solids and surfaces respectively.

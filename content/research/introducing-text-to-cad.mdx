@@ -20,28 +20,28 @@ future direction.
 
 ### 1.1 Motivation
 
-What if you could design physical objects simply by _describing_ what you wanted? That’s the core
-idea behind Text-to-CAD. It’s a system that takes your text (e.g., “Make a flange with six evenly
-spaced holes”) and turns it into a fully parametric CAD model, written in KCL; our in-house CAD
+What if you could design physical objects simply by _describing_ what you wanted? That's the core
+idea behind Text-to-CAD. It's a system that takes your text (e.g., "Make a flange with six evenly
+spaced holes") and turns it into a fully parametric CAD model, written in KCL; our in-house CAD
 programming language.
 
-Crucially, this isn’t just about generating a mesh for visual appreciation. Text-to-CAD produces
+Crucially, this isn't just about generating a mesh for visual appreciation. Text-to-CAD produces
 precise, engineering-grade B-Rep geometry. This means you receive a real, editable model ready for
-the next step in your development process — whether that’s tweaking dimensions, running simulations,
+the next step in your development process — whether that's tweaking dimensions, running simulations,
 or sending it directly to manufacturing.
 
-It’s CAD, but faster and more intuitive.
+It's CAD, but faster and more intuitive.
 
 ## 2 Background: The Need for Accessible Parametric Modeling
 
-Why did we build this? Aren’t CAD tools already powerful? Yes, but traditional CAD is often hampered
+Why did we build this? Aren't CAD tools already powerful? Yes, but traditional CAD is often hampered
 by complexity. Most tools expect users to be fluent in specific workflows, menus, and mouse clicks.
 Without that fluency, users face a steep learning curve, or they might outsource their ideas to
 someone with the requisite skills.
 
 We believe people should be able simply to _say_ what they want to create.
 
-This initiative isn’t about replacing established CAD tools; it’s about making design capabilities
+This initiative isn't about replacing established CAD tools; it's about making design capabilities
 more accessible. Automation is central to our philosophy, and Text-to-CAD aligns perfectly with
 that. By turning natural language into code, and subsequently into geometry, we're lowering the
 barrier to entry and potentially speeding up workflows for everyone, from seasoned engineers to
@@ -57,7 +57,7 @@ editability provided by B-Reps[^A].
 
 There are three key characteristics of B-Rep that make it the preferred choice for CAD applications:
 
--   **Precision**: B-Rep geometry represents surfaces exactly – curves are true curves, not
+-   **Precision**: B-Rep geometry represents surfaces exactly - curves are true curves, not
     approximations formed by tiny straight lines. This is critical for engineering applications where
     high precision is required.
 -   **Editing**: Need to adjust a fillet radius or resize a hole? With B-Rep, it's often as
@@ -82,7 +82,7 @@ stuff_.
 
 ## 4 The Text-to-CAD System: Approach and Methodology
 
-Text-to-CAD leverages several of Zoo’s internal tools to generate an editable, water-tight solid
+Text-to-CAD leverages several of Zoo's internal tools to generate an editable, water-tight solid
 model based on user input. The process involves several steps:
 
 -   **Prompt parsing**: The user's input text is analyzed to identify parameters, constraints, and
@@ -102,9 +102,9 @@ Whether you are a designer, developer, or simply curious about AI and 3D design,
 a straightforward interface to turn ideas into precise models, regardless of expertise level.
 
 -   **In Zoo Design Studio**: Our flagship modeling software is tightly integrated with
-    Text-to-CAD. Click the green `Text-to-CAD` button, type your prompt (try _“A flange with a 50mm diameter, 6 holes,
-    and 10mm thickness”_), and the 3D model appears, along with the generated KCL code. You can then
-    edit the code directly or tweak the model using the app’s GUI.
+    Text-to-CAD. Click the green `Text-to-CAD` button, type your prompt (try _"A flange with a 50mm diameter, 6 holes,
+    and 10mm thickness"_), and the 3D model appears, along with the generated KCL code. You can then
+    edit the code directly or tweak the model using the app's GUI.
 
 <figure>
     <img
@@ -150,7 +150,7 @@ response = create_text_to_cad.sync(
 ```
 
 -   **As a plugin for your favorite application**: Text-to-CAD can potentially be integrated into
-    various software applications. We’ve published a few open-source plugins – for example, for
+    various software applications. We've published a few open-source plugins - for example, for
     Blender and Discord. These can be used as-is, modified, or serve as a starting point for building
     integrations with other 3D modeling tools.
 
@@ -182,7 +182,7 @@ Here are a few tips for effectively using Text-to-CAD:
     take more time to process.
 -   **Focus on mechanical parts**: Text-to-CAD is primarily fine-tuned to generate mechanical
     components like flanges, plates, brackets, supports, gears, and bolts. However, feel free to
-    experiment with other prompts – for instance, try _“a spatula”_ or _“a fun mascot”_.
+    experiment with other prompts - for instance, try _"a spatula"_ or _"a fun mascot"_.
 
 ## 6 Current Status, Limitations, and Future Work
 
