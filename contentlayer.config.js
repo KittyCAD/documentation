@@ -207,7 +207,46 @@ const BlogPost = defineDocumentType(() => ({
 
 const KclDoc = defineDocumentType(() => ({
     name: 'KclDoc',
-    filePathPattern: `pages/docs/kcl/*.md`,
+    filePathPattern: `pages/docs/kcl-std/*.md`,
+    contentType: 'markdown',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
+const KclLangDoc = defineDocumentType(() => ({
+    name: 'KclLangDoc',
+    filePathPattern: `pages/docs/kcl-lang/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
@@ -246,7 +285,7 @@ const KclDoc = defineDocumentType(() => ({
 
 const KclType = defineDocumentType(() => ({
     name: 'KclType',
-    filePathPattern: `pages/docs/kcl/types/*.md`,
+    filePathPattern: `pages/docs/kcl-std/types/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
@@ -324,7 +363,7 @@ const CliDoc = defineDocumentType(() => ({
 
 const KclConst = defineDocumentType(() => ({
     name: 'KclConst',
-    filePathPattern: `pages/docs/kcl/consts/*.md`,
+    filePathPattern: `pages/docs/kcl-std/consts/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
@@ -363,7 +402,46 @@ const KclConst = defineDocumentType(() => ({
 
 const KclFunction = defineDocumentType(() => ({
     name: 'KclFunction',
-    filePathPattern: `pages/docs/kcl/functions/*.md`,
+    filePathPattern: `pages/docs/kcl-std/functions/*.md`,
+    contentType: 'markdown',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        tags: {
+            type: 'list',
+            of: {
+                type: 'string',
+            },
+            description: 'The tags of the docs, for SEO and filtering use.',
+            required: false,
+        },
+        layout: {
+            type: 'enum',
+            options: ['manual'],
+            description: 'The layout of the page.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+        },
+    },
+}))
+
+const KclModule = defineDocumentType(() => ({
+    name: 'KclModule',
+    filePathPattern: `pages/docs/kcl-std/modules/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
@@ -402,7 +480,7 @@ const KclFunction = defineDocumentType(() => ({
 
 export default makeSource({
     contentDirPath: 'content',
-    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclType, KclFunction, KclConst, CliDoc],
+    documentTypes: [Tutorial, Glossary, BlogPost, Page, KclDoc, KclLangDoc, KclType, KclFunction, KclConst, KclModule, CliDoc],
     disableImportAliasWarning: true,
     contentDirExclude: ['**/README.md', '**/manifest.json'],
 
