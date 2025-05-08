@@ -251,7 +251,7 @@ const KclDoc = defineDocumentType(() => ({
 
 const KclLangDoc = defineDocumentType(() => ({
     name: 'KclLangDoc',
-    filePathPattern: `pages/docs/kcl-lang/*.md`,
+    filePathPattern: `pages/docs/kcl-lang/**/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
