@@ -20,7 +20,7 @@ extrusion, revolution, lofting, etc. CAD engines come in many different flavors,
 the application domain.
 
 SketchUp, for example, grew out of the architectural design community who appreciated the
-easy-to-learn, intuitive interface. Architects could quickly ‘sketch up’ an idea and access a
+easy-to-learn, intuitive interface. Architects could quickly 'sketch up' an idea and access a
 variety of rendering modes suited to their needs. In order to achieve such a flexible and easily
 understandable user interface, SketchUp relied on polygons as geometric primitives. Precision,
 complex surfacing, full solid modeling (knowing inside from outside) were not supported initially.
@@ -41,7 +41,8 @@ consequence, far more expensive).
         title=""
     />
     <figcaption>
-        Figure 1: SketchUp. A user-friendly, conceptual tool with polygon-based modeling.
+        Figure 1: SketchUp. A user-friendly, conceptual tool with polygon-based
+        modeling.
         <br />
         <a href="https://forums.sketchup.com/t/show-us-the-way-you-have-sketchup-set-up-on-your-computer-right-now/12513/195?page=3">
             Credit: SketchUp Forums
@@ -56,7 +57,8 @@ consequence, far more expensive).
         title=""
     />
     <figcaption>
-        Figure 2: Siemens NX. A precision engineering tool with NURBS-based modeling.
+        Figure 2: Siemens NX. A precision engineering tool with NURBS-based
+        modeling.
         <br />
         <a href="https://plm.sw.siemens.com/en-US/nx/manufacturing/additive-manufacturing/am-design/">
             Credit: Siemens Digital Industries Software
@@ -91,7 +93,7 @@ our customers with surgical precision that the rest of the industry lacks.
 
 ### 1.2 A Comparison Between CAD and Game Engines
 
-What could a CAD engine possibly have to do with a game engine? As the late 90’s came to a close,
+What could a CAD engine possibly have to do with a game engine? As the late 90's came to a close,
 hardware accelerator cards, driven by chips today better known as GPUs, began to become widely
 available to PC consumers. These magical little devices allowed PC software to render far more 3D
 polygons than previously possible at interactive speeds. This paradigm shift in technology occurred
@@ -106,7 +108,7 @@ modeling software, and game engine software. While over the last several decades
 the state of the art in 3D graphics rendering alongside GPU computing, CAD software has not.
 
 Most existing CAD programs today allow you to quickly create more content than they can efficiently
-render in a few steps. Ask any engineer who has driven their CAD program too hard, and they’ll share
+render in a few steps. Ask any engineer who has driven their CAD program too hard, and they'll share
 their stories of frustration. At Zoo, we believe the GPU has been under-leveraged on _both sides_ of
 the CAD engine pipeline: The geometry engine and the rendering engine. If either of these systems
 are bottlenecked, the user experience is going to suffer. Our research is centered around employing
@@ -159,7 +161,7 @@ workflows, pre-emptive resource allocations, and more.
 
 Beyond these affordances, when you retrofit an API onto existing software, you often only expose a
 subset of your possible software via the API. There is often extra functionality that the
-first-party application can use, which can’t be accessed by the API. This means the first-party app
+first-party application can use, which can't be accessed by the API. This means the first-party app
 has inherent advantages over third-party integrations. By designing Zoo from the ground up to always
 use an API, we ensure that third-party developers always have access to the exact same functionality
 that our employees do. There's no secret fast mode available to the Zoo team but not to external
@@ -210,11 +212,11 @@ $$S(u, v) = T(v) + M(v)C(u)$$
 
 Where:
 
-- $C(u)$ is the closed profile curve.
-- $T(v)$ is a general trajectory curve.
-- $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
-  the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
-  quaternion.
+-   $C(u)$ is the closed profile curve.
+-   $T(v)$ is a general trajectory curve.
+-   $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
+    the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
+    quaternion.
 
 To be usable in a CAD engine, $S(u, v)$ must be computable in NURBS form[^1]:
 
@@ -223,8 +225,8 @@ $$S(u, v) = \frac{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mat
 
 Where:
 
-- $P_{i,j} = T_j + Q_i$.
-- $w_{i,j} = w_{i}^C w_j^T$
+-   $P_{i,j} = T_j + Q_i$.
+-   $w_{i,j} = w_{i}^C w_j^T$
 
 As an example, consider constructing a semi-circular profile curve. This curve can be described
 programmatically as follows:
@@ -244,7 +246,9 @@ Which yields:
         src="/documentation-assets/research/zoo-cad-engine-overview/image17.png"
         title=""
     />
-    <figcaption>Figure 4 - A semi-circular profile curve, suitable as a sweep section.</figcaption>
+    <figcaption>
+        Figure 4 - A semi-circular profile curve, suitable as a sweep section.
+    </figcaption>
 </figure>
 
 {/* SIMPLIFIED CASES */}
@@ -261,7 +265,9 @@ Figure 5 and Figure 6 illustrate the case where a sweep simplifies to an extrusi
         src="/documentation-assets/research/zoo-cad-engine-overview/image32.png"
         title=""
     />
-    <figcaption>Figure 5: Sweep profile and perpendicular trajectory curve.</figcaption>
+    <figcaption>
+        Figure 5: Sweep profile and perpendicular trajectory curve.
+    </figcaption>
 </figure>
 
 <figure>
@@ -343,14 +349,14 @@ algorithm which merges all faces with coincident edges.
         title=""
     />
     <figcaption>
-        Figure 10 - The swept solid B-Rep formed as a combination of extrudes and revolves as a join
-        of 10 separate faces
+        Figure 10 - The swept solid B-Rep formed as a combination of extrudes
+        and revolves as a join of 10 separate faces
     </figcaption>
 </figure>
 
 Another issue with sweeps along the trajectory is that of managing the curvature of the trajectory
 curve. If the curve turns too abruptly it can undesirably cause the surface to self intersect, that
-is, to overlap with itself. This can be controlled by limiting the curve’s maximum curvature where
+is, to overlap with itself. This can be controlled by limiting the curve's maximum curvature where
 the curvature $\kappa$ is given by
 
 $$\kappa(t) = \frac{|\mathbf{r}'(t) \times \mathbf{r}''(t)|}{|\mathbf{r}'(t)|^3}$$
@@ -372,9 +378,10 @@ the sweep. The figure below shows a curve segmented into different colors by a g
         title=""
     />
     <figcaption>
-        Figure 11: Segments computed both analytically and with finite differences. Analytical
-        segments are solid, with finite difference dotted. This shows that the faster finite
-        difference method is very close to the analytical one.
+        Figure 11: Segments computed both analytically and with finite
+        differences. Analytical segments are solid, with finite difference
+        dotted. This shows that the faster finite difference method is very
+        close to the analytical one.
     </figcaption>
 </figure>
 
@@ -386,19 +393,21 @@ the sweep. The figure below shows a curve segmented into different colors by a g
         src="/documentation-assets/research/zoo-cad-engine-overview/image34.png"
         title=""
     />
-    <figcaption>Figure 12: Examples of linear, circular, and array patterns.</figcaption>
+    <figcaption>
+        Figure 12: Examples of linear, circular, and array patterns.
+    </figcaption>
 </figure>
 
-It’s not unusual for a mechanical design engineer to want to place many duplicates of an object in a
+It's not unusual for a mechanical design engineer to want to place many duplicates of an object in a
 circle, array, line, or otherwise semi-uniform placement. Hand placement is tedious and often
 inaccurate, hence the need for a more automated way to duplicate geometry uniformly. Since its
-development, Zoo’s patterns have been highly used and many requests for ways to expand the usage of
+development, Zoo's patterns have been highly used and many requests for ways to expand the usage of
 patterns have been made - they are just that powerful!
 
 The underlying mathematics of patterns consists of transformation matrices that are produced using
-the user’s inputs. These operations aren’t super costly, with respect to runtime and memory, when
+the user's inputs. These operations aren't super costly, with respect to runtime and memory, when
 performed on only a handful of objects. Most practical use cases can be rendered efficiently. Still,
-it’s not in the Zoo spirit to stop at what’s easy! The Zoo engine team has decided to move towards
+it's not in the Zoo spirit to stop at what's easy! The Zoo engine team has decided to move towards
 instancing patterned geometry, producing one render call to limit the time and memory resources used
 during the transfer from CPU to GPU. This means that the perceived runtime of patterning geometry
 stays fairly consistent, even with large adjustments to the number of duplicates rendered.
@@ -423,29 +432,30 @@ where precise fitting and assembly of parts are crucial.
         src="/documentation-assets/research/zoo-cad-engine-overview/surface_intersection_wireframe_1x3.png"
     />
     <figcaption>
-        Figure 13: The meeting of two surfaces creates difficult-to-find intersection curves.
+        Figure 13: The meeting of two surfaces creates difficult-to-find
+        intersection curves.
     </figcaption>
 </figure>
 
 Precise geometric modeling is crucial for industries that require complex surface operations, such
 as aerospace, automotive, and consumer product design. The importance lies in several key areas:
 
-- Validity.
-    - Imprecision, especially in SSI, can create fundamental differences between design intent and
-      results Sometimes small inaccuracies result in major differences in topology and design.
-- Part fit.
-    - Consistently precise models ensure that components fit together correctly over many version
-      updates, reducing costly manufacturing defects or performance issues.
-- Simulation and analysis.
-    - Accurate representations are necessary for usable simulations in fields like fluid dynamics,
-      heat flow, collision detection, and stress analysis.
-- Customization and flexibility.
-    - Industries often require specialized designs; precise modeling enables customization while
-      maintaining general structural integrity and aesthetic appeal.
-- Collaboration.
-    - In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
-      precise model ensures that everyone is aligned, reduces miscommunication and enhances
-      collaboration across various disciplines.
+-   Validity.
+    -   Imprecision, especially in SSI, can create fundamental differences between design intent and
+        results Sometimes small inaccuracies result in major differences in topology and design.
+-   Part fit.
+    -   Consistently precise models ensure that components fit together correctly over many version
+        updates, reducing costly manufacturing defects or performance issues.
+-   Simulation and analysis.
+    -   Accurate representations are necessary for usable simulations in fields like fluid dynamics,
+        heat flow, collision detection, and stress analysis.
+-   Customization and flexibility.
+    -   Industries often require specialized designs; precise modeling enables customization while
+        maintaining general structural integrity and aesthetic appeal.
+-   Collaboration.
+    -   In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
+        precise model ensures that everyone is aligned, reduces miscommunication and enhances
+        collaboration across various disciplines.
 
 Overall, consistent precision modeling underpins innovation and efficiency in industries where
 complex surface designs are found..
@@ -470,8 +480,8 @@ CATIA.
         title=""
     />
     <figcaption>
-        Figure 14: Easily manipulated mesh and control points (shown in blue) dictate the shape of a
-        smooth object.
+        Figure 14: Easily manipulated mesh and control points (shown in blue)
+        dictate the shape of a smooth object.
     </figcaption>
 </figure>
 
@@ -514,7 +524,7 @@ polygonal mesh out of both surfaces and then using the polygonal approximations 
 intersect polygonal meshes, one can use various computational geometry techniques. One common method
 is to bound volume hierarchies (BVH) to quickly eliminate pairs of triangles that do not intersect.
 After identifying potential intersection pairs, one performs more precise intersection tests using
-algorithms like the Möller-Trumbore polygon intersection algorithm. Libraries such as CGAL
+algorithms like the Moller-Trumbore polygon intersection algorithm. Libraries such as CGAL
 (Computational Geometry Algorithms Library) or the OpenMesh library can also facilitate these
 operations by providing tools to handle mesh data and perform planar intersection tests effectively.
 A disadvantage is the lack of accuracy which occasionally yields erroneous shapes. Polygonal
@@ -532,7 +542,9 @@ entire process is repeated many times to step out the approximate curve.
         alt="Marching Intersection Method"
         src="/documentation-assets/research/zoo-cad-engine-overview/marching_edited.png"
     />
-    <figcaption>Figure 18: “Marching” an intersection between two NURBS.</figcaption>
+    <figcaption>
+        Figure 18: "Marching" an intersection between two NURBS.
+    </figcaption>
 </figure>
 
 There are challenges to note with the non-analytic nature of SSI. Standard methods such as marching
@@ -558,7 +570,7 @@ application No. 18/662056
 As mentioned the main idea behind the GPU based method is one of brute force, massive data processed
 as much as possible in parallel. As seen in Figure 19, the approach is to densely sample both
 surfaces and compare the resulting point clouds by pairwise point distances, keeping only points
-that are within a given “tolerance” to each other These points will be close to the SSI. We detail
+that are within a given "tolerance" to each other These points will be close to the SSI. We detail
 the algorthm in Figures 20 - 22.
 
 <figure>
@@ -568,7 +580,8 @@ the algorthm in Figures 20 - 22.
         title=""
     />
     <figcaption>
-        Figure 19: Two intersecting surfaces, one shown as a densely sampled cloud of points.
+        Figure 19: Two intersecting surfaces, one shown as a densely sampled
+        cloud of points.
     </figcaption>
 </figure>
 
@@ -584,7 +597,9 @@ curves cross on the cylinders because the surfaces lie closer to each other.
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi.png"
         title=""
     />
-    <figcaption>Figure 20: Two cylindrical surfaces and their SSI as points.</figcaption>
+    <figcaption>
+        Figure 20: Two cylindrical surfaces and their SSI as points.
+    </figcaption>
 </figure>
 
 If the resolution of the SSI point cloud is too small (as at the SSI cross), one can simply increase
@@ -604,7 +619,9 @@ subsequent points near the SSI are displayed in blue for an easy to visualize pa
         src="/documentation-assets/research/zoo-cad-engine-overview/cylinder_intersection_ssi_lod_refinement.png"
         title=""
     />
-    <figcaption>Figure 21: SSI points at two levels of detail for crossed cylinders.</figcaption>
+    <figcaption>
+        Figure 21: SSI points at two levels of detail for crossed cylinders.
+    </figcaption>
 </figure>
 
 #### 4.3.3 Parameter Space Processing
@@ -624,7 +641,9 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         src="/documentation-assets/research/zoo-cad-engine-overview/image15.png"
         title=""
     />
-    <figcaption>Figure 22: SSI points (red) between green and gridded surfaces.</figcaption>
+    <figcaption>
+        Figure 22: SSI points (red) between green and gridded surfaces.
+    </figcaption>
 </figure>
 
 <figure>
@@ -633,12 +652,14 @@ process in parameter space. Figure 23 shows the corresponding 2d uv points in th
         src="/documentation-assets/research/zoo-cad-engine-overview/image16.png"
         title=""
     />
-    <figcaption>Figure 23: The uv parameter points of the points in Figure 24.</figcaption>
+    <figcaption>
+        Figure 23: The uv parameter points of the points in Figure 24.
+    </figcaption>
 </figure>
 
-It’s clear from Figure 23 that the thickened areas need to be thinned down to a curve. A number of
-(image processing) routines exist to do just this such as numpy’s “thinning,” “skeletonize,” or our
-preferred one, the “medial axis transform” (MAT). Figure 24 is the result of applying MAT to
+It's clear from Figure 23 that the thickened areas need to be thinned down to a curve. A number of
+(image processing) routines exist to do just this such as numpy's "thinning," "skeletonize," or our
+preferred one, the "medial axis transform" (MAT). Figure 24 is the result of applying MAT to
 Figure 23.
 
 <figure>
@@ -647,7 +668,9 @@ Figure 23.
         src="/documentation-assets/research/zoo-cad-engine-overview/image14.png"
         title=""
     />
-    <figcaption>Figure 24: MAT applied to the point set in Figure 23.</figcaption>
+    <figcaption>
+        Figure 24: MAT applied to the point set in Figure 23.
+    </figcaption>
 </figure>
 
 ##### Branching
@@ -701,8 +724,9 @@ discovered and categorized.
         title=""
     />
     <figcaption>
-        Figure 25: SSI in object space (left) and parameter space uv-points classified by joints
-        (green), end points (red), and simple branch points (black).
+        Figure 25: SSI in object space (left) and parameter space uv-points
+        classified by joints (green), end points (red), and simple branch points
+        (black).
     </figcaption>
 </figure>
 
@@ -740,7 +764,7 @@ were generated with respect to an underlying ground truth such as SSI:
     the weights and size of the kernel.
 3.  It reduces the number of points, keeping the more desirable ones.
 4.  It conditions the points to generate better b-spline curves both by thinning them and
-    ‘straightening’ them out.
+    'straightening' them out.
 
 All the previous advantages depend on choosing the convolution parameters judiciously. The kernel
 size and shape affect the value and usability of the final convolved points, that is there is a fair
@@ -754,8 +778,8 @@ heuristics to best choose the parameters.
         title=""
     />
     <figcaption>
-        Figure 26: A single branch of uv points which have been convolved with a hat filter, and
-        then fit with a cubic interpolation spline.
+        Figure 26: A single branch of uv points which have been convolved with a
+        hat filter, and then fit with a cubic interpolation spline.
     </figcaption>
 </figure>
 
@@ -774,7 +798,8 @@ shows the mapping of the b-spline in Figure 26 to object space, the red SSI on t
         title=""
     />
     <figcaption>
-        Figure 27. Final step in SSI routine, the red intersection curve on the top.
+        Figure 27. Final step in SSI routine, the red intersection curve on the
+        top.
     </figcaption>
 </figure>
 
@@ -805,7 +830,9 @@ NURBS using GPUs.
         src="/documentation-assets/research/zoo-cad-engine-overview/image13.png"
         title=""
     />
-    <figcaption>Figure 28. A good SSI is modest, unassuming, and works!</figcaption>
+    <figcaption>
+        Figure 28. A good SSI is modest, unassuming, and works!
+    </figcaption>
 </figure>
 
 ## 5 References
