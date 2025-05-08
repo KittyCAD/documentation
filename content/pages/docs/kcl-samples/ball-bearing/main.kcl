@@ -2,7 +2,7 @@
 // A ball bearing is a type of rolling-element bearing that uses balls to maintain the separation between the bearing races. The primary purpose of a ball bearing is to reduce rotational friction and support radial and axial loads.
 
 // Set units
-@settings(defaultLengthUnit = in)
+@settings(defaultLengthUnit = in, kclVersion = 1.0)
 
 // Define parameters
 outsideDiameter = 1.625
@@ -44,7 +44,7 @@ balls = revolve(ballsSketch, axis = X)
 chainSketch = startSketchOn(XY)
   |> startProfile(at = [
        shaftDia / 2 + wallThickness + sphereDia / 2 - (chainWidth / 2),
-       0.125 * sin(60deg)
+       0.125 * sin(60)
      ])
   |> arc(angleStart = 120, angleEnd = 60, radius = sphereDia / 2)
   |> line(end = [0, chainThickness])
