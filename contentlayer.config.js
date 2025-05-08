@@ -565,8 +565,8 @@ const KclModule = defineDocumentType(() => ({
 
 const DesignStudioDoc = defineDocumentType(() => ({
     name: 'DesignStudioDoc',
-    filePathPattern: `pages/docs/zoo-design-studio/*.md`,
-    contentType: 'markdown',
+    filePathPattern: `pages/docs/zoo-design-studio/*.md*`,
+    contentType: 'mdx',
     fields: {
         title: {
             type: 'string',
@@ -579,37 +579,32 @@ const DesignStudioDoc = defineDocumentType(() => ({
                 'The excerpt of the docs, for SEO and preview text use.',
             required: true,
         },
-        tags: {
-            type: 'list',
-            of: {
-                type: 'string',
-            },
-            description: 'The tags of the docs, for SEO and filtering use.',
-            required: false,
-        },
-        layout: {
-            type: 'enum',
-            options: ['manual'],
-            description: 'The layout of the page.',
+        sidebarPosition: {
+            type: 'number',
+            description:
+                'The position of the doc in the sidebar. The lower the number, the higher the position.',
             required: false,
         },
     },
     computedFields: {
         slug: {
             type: 'string',
-            resolve: doc => doc._raw.sourceFileName.replace(/\.md?$/, ''),
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
         },
     },
 }))
 
 export default makeSource({
     contentDirPath: 'content',
+
+    // Order of these maters because Page is greedy.
     documentTypes: [
         Tutorial,
         Glossary,
         BlogPost,
-        Page,
+        DesignStudioDoc,
         ResearchPage,
+        Page,
         KclDoc,
         KclLangDoc,
         KclType,
@@ -617,7 +612,6 @@ export default makeSource({
         KclConst,
         KclModule,
         CliDoc,
-        DesignStudioDoc,
     ],
     disableImportAliasWarning: true,
     contentDirExclude: ['**/README.md', '**/manifest.json'],
