@@ -202,6 +202,64 @@ const BlogPost = defineDocumentType(() => ({
     },
 }))
 
+const ResearchPage = defineDocumentType(() => ({
+    name: 'ResearchPage',
+    filePathPattern: `research/*.md*`,
+    contentType: 'mdx',
+    description:
+        'A research page. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, InlineLitterbox, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    fields: {
+        title: {
+            type: 'string',
+            description:
+                'The title of the research page, for SEO and heading use.',
+            required: true,
+        },
+        shortTitle: {
+            type: 'string',
+            description:
+                'The short title of the research page, for navigation use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the research page, for SEO and preview text use.',
+            required: true,
+        },
+        coverImage: {
+            type: 'string',
+            description:
+                'The cover image of the research page, for SEO and preview image use.',
+            required: true,
+        },
+        date: {
+            type: 'date',
+            description: 'The date of the research page.',
+            required: true,
+        },
+        author: {
+            type: 'nested',
+            of: Author,
+            description: 'The author of the research page.',
+            required: true,
+        },
+        ogImage: {
+            type: 'nested',
+            of: OgImage,
+            description:
+                'The og:image of the research page, for SEO and preview image use.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
+}))
+
 const KclDoc = defineDocumentType(() => ({
     name: 'KclDoc',
     filePathPattern: `pages/docs/kcl-std/*.md`,
@@ -211,6 +269,11 @@ const KclDoc = defineDocumentType(() => ({
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
@@ -243,13 +306,18 @@ const KclDoc = defineDocumentType(() => ({
 
 const KclLangDoc = defineDocumentType(() => ({
     name: 'KclLangDoc',
-    filePathPattern: `pages/docs/kcl-lang/*.md`,
+    filePathPattern: `pages/docs/kcl-lang/**/*.md`,
     contentType: 'markdown',
     fields: {
         title: {
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
@@ -289,6 +357,11 @@ const KclType = defineDocumentType(() => ({
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
@@ -368,6 +441,11 @@ const KclConst = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -407,6 +485,11 @@ const KclFunction = defineDocumentType(() => ({
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
         },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
+        },
         excerpt: {
             type: 'string',
             description:
@@ -445,6 +528,11 @@ const KclModule = defineDocumentType(() => ({
             type: 'string',
             description: 'The title of the docs, for SEO and heading use.',
             required: true,
+        },
+        subtitle: {
+            type: 'string',
+            description: 'Subtitle for the doc, used in the page body.',
+            required: false,
         },
         excerpt: {
             type: 'string',
@@ -521,6 +609,7 @@ export default makeSource({
         Glossary,
         BlogPost,
         Page,
+        ResearchPage,
         KclDoc,
         KclLangDoc,
         KclType,
