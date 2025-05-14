@@ -24,6 +24,9 @@ Edit user settings.
    <dt><code>-i/--image</code></dt>
    <dd>The image URL for the user. NOTE: If the user uses an OAuth2 provider, this will be overwritten by the provider's image URL when the user logs in next</dd>
 
+   <dt><code>-o/--is-onboarded</code></dt>
+   <dd>If the user is now onboarded<br/>Possible values: <code>true | false</code></dd>
+
    <dt><code>-l/--last-name</code></dt>
    <dd>The user's last name</dd>
 
