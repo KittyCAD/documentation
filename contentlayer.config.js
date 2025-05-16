@@ -563,14 +563,48 @@ const KclModule = defineDocumentType(() => ({
     },
 }))
 
+const DesignStudioDoc = defineDocumentType(() => ({
+    name: 'DesignStudioDoc',
+    filePathPattern: `pages/docs/zoo-design-studio/*.md*`,
+    contentType: 'mdx',
+    fields: {
+        title: {
+            type: 'string',
+            description: 'The title of the docs, for SEO and heading use.',
+            required: true,
+        },
+        excerpt: {
+            type: 'string',
+            description:
+                'The excerpt of the docs, for SEO and preview text use.',
+            required: true,
+        },
+        sidebarPosition: {
+            type: 'number',
+            description:
+                'The position of the doc in the sidebar. The lower the number, the higher the position.',
+            required: false,
+        },
+    },
+    computedFields: {
+        slug: {
+            type: 'string',
+            resolve: doc => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+        },
+    },
+}))
+
 export default makeSource({
     contentDirPath: 'content',
+
+    // Order of these maters because Page is greedy.
     documentTypes: [
         Tutorial,
         Glossary,
         BlogPost,
-        Page,
+        DesignStudioDoc,
         ResearchPage,
+        Page,
         KclDoc,
         KclLangDoc,
         KclType,
