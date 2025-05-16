@@ -15,8 +15,8 @@ It covers the following topics:
 -   [KCL basics](#kcl-basics)
 -   [Importing and exporting files](#importing-and-exporting-files)
 
-More in depth information is provided below, but if you're keen to get started with Zoo, we
-recommend you first take the time to watch this video:
+This page covers the essentials for first-time users. For a quick visual overview of Zoo Design
+Studio before diving into the details below, we recommend watching this introductory video:
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -43,24 +43,43 @@ recommend you first take the time to watch this video:
 Every time you launch Zoo Design Studio, you will be greeted by a project dashboard. This is your
 starting point for creating and managing your design projects.
 
-When you launch Zoo Design Studio for the fisrt time, this dashboard will be empty. To get started,
+When you launch Zoo Design Studio for the first time, this dashboard will be empty. To get started,
 click _Create Project_, enter a name, and press _Enter_ to open a blank scene. Alternatively, select
-_Generate with Text-to-CAD_ to create a model from a prompt (one credit per prompt; free plans
-include 40 credits/month) or _Create from Sample_ to open a pre-built part.
+_Generate with Text-to-CAD_ to create a model from a prompt or _Create from Sample_ to open a
+pre-built example part.
+
+### Navigating the 3D view
+
+Once you have a project open or a model loaded, you'll need to navigate the 3D view. By default, Zoo
+Design Studio uses the following control scheme for navigation:
+
+-   **Orbit:** Hold down the right mouse button and drag.
+-   **Pan:** Hold down the middle mouse button (scroll wheel click) and drag.
+-   **Zoom:** Use the mouse scroll wheel or, while holding control, hold the right mouse button and
+    drag up or down.
+
+Note that you can customize these controls to emulate those employed by other CAD systems. To do
+this, select _File → Preferences → User Settings → Modeling → Mouse Controls_.
 
 ## Settings and preferences
 
-To adjust your settings, click the _Settings_ button that's available from the main menu, and
-indicated by the gear icon. This will allow you to configure:
+To adjust your settings and preferences, select _File → Preferences_ from the main menu.
 
--   _Project directory_: where your projects are saved on your computer.
--   _Telemetry_: whether or not to send metadata to Zoo that will help us improve the product.
--   _Keyboard shortcuts_: keyboard shortcuts for various commands.
--   _Machine API server discovery_: a service which locates 3D printers on your local network to
-    allow printing direct from Zoo Design Studio.
--   _Version_ information: the version of Zoo Design Studio you are currently using.
+Some settings are user-specific, while others are project-specific, with project-scoped settings
+available only when opening the settings dialog from within a project.
 
-You can also adjust your preferences for model navigation mode, theme, and units of measurement.
+Items can be adjusted from within the following categories:
+
+-   **App**: Customize the theme and define the directory where your projects are saved.
+-   **Modeling**: Set your preferred default units (e.g., mm, inches), model navigation mode, and
+    camera behavior.
+-   **Text Editor**: Configure the presentation of KCL code within the text editor.
+
+The following are also available:
+
+-   **Keybindings**: View and customize keyboard shortcuts.
+-   **About**: Available from the User and Project settings menus, this allows users to check their
+    current version of Zoo Design Studio and access release notes.
 
 This video provides a more in-depth overview of the settings and preferences available in Zoo Design
 Studio:
@@ -87,14 +106,25 @@ Studio:
 
 ## Sketch basics
 
-To begin creating geometry, open a project and click the _Start Sketch_ button. This will prompt you
-for a plane on which to sketch, and then you will enter 2D sketching mode. This will allow you to:
+To begin creating geometry, open a project. Before starting your sketch, ensure your desired units
+(e.g., mm, inches) are set.
+
+Once ready, click the _Start Sketch_ button. This will prompt you for a plane on which to sketch,
+and then you will enter 2D sketching mode. This will allow you to:
 
 -   Draw geometric elements such as lines, arcs, and circles on the active workplane.
 -   Add dimensions and constraints to control the size, shape, and position of your geometry.
+    Dimensions can also be based on parametes and formulas, allowing for powerful parametric design.
 -   Use the sketch toolbar to access common operations like mirror.
--   When finished, click _Exit Sketch_ and select a 3D feature such as _Extrude_, _Revolve_, or
-    _Sweep_ from the feature toolbar to create a solid model.
+
+When finished, click _Exit Sketch_ and select a 3D feature such as _Extrude_, _Revolve_, or _Sweep_
+from the feature toolbar to create a solid model.
+
+**Important Note on Creating Holes:** For features like holes within a solid, it's generally best
+practice to extrude the main shape first. Then, create a _new sketch_ on a face of that solid for
+the hole's profile, and use a cutting feature (e.g., an extrude-cut, or a Boolean subtract).
+Sketching a circle inside another closed profile on the _same initial sketch_ may not automatically
+result in a hole when extruded.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -124,13 +154,18 @@ However, you can also write KCL directly, allowing you to create complex models 
 functions. We also store your KCL code in text files with `.kcl` extension—so we refer to these as
 KCL files.
 
+While you can achieve a lot with the graphical interface, directly editing or writing KCL unlocks
+advanced capabilities. This includes creating complex parametric models, automating design tasks
+through scripting, and defining geometries that might be challenging with GUI tools alone. It also
+makes Zoo designs highly portable and readily version-controllable with tools such as
+[git](https://git-scm.com/).
+
 A range of KCL-based sample parts are provided as reference models for use within Zoo Design Studio.
 To access these:
 
 -   Click _Create from Sample_ on the project dashboard to browse available KCL examples.
 -   Select a sample to clone it into your workspace for examination or modification.
 -   Use the feature tree to inspect how the model was constructed.
--   Apply measurement tools to analyze dimensions and geometry.
 -   Modify parameters or features as needed to customize the part for your requirements.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -157,10 +192,11 @@ To access these:
 
 Zoo Design Studio supports various file formats for interoperability with other CAD systems:
 
--   _Importing_: Add external models to your project by either dragging and dropping files directly
-    into the workspace or selecting _File → Import_ from the menu. Supported formats include STEP,
-    IGES, and STL.
--   _Exporting_: Save your designs for use in other applications by choosing _File → Export_ and
+-   **Importing**: Add external models to your project by either dragging and dropping files
+    directly into the workspace or selecting _Insert_ from the top command bar. Supported formats
+    include `STEP`, `.sldprt` and `STL`. For further details see
+    [the KCL docs](https://zoo.dev/docs/kcl-lang/foreign-imports).
+-   **Exporting**: Save your designs for use in other applications by choosing _File → Export_ and
     selecting your desired format: `STEP`, `STL`, `gLTF`, `OBJ`, or `PLY`.
 -   For models created with the Text-to-CAD feature, your generated geometry is automatically saved
     in the project folder and can be exported to any supported format at any time.
