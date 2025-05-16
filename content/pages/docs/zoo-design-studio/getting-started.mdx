@@ -1,19 +1,15 @@
 ---
 title: Getting Started
-excerpt: Getting started with Zoo Design Studio.
+excerpt: Zoo Design Studio quick‑start reference.
 sidebarPosition: 1
 ---
 
-## Introduction
-
-Zoo Design Studio is a CAD application that allows you to create and edit 3D models using a combination of text and visual editing.
+## _Video Tutorial_
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-    <div
-        style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}
-    >
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
         <iframe
-            src="https://www.youtube.com/embed/giU5sSwf6sU"
+            src="https://youtu.be/RztSzq5qCqo"
             allowfullscreen="allowfullscreen"
             mozallowfullscreen="mozallowfullscreen"
             msallowfullscreen="msallowfullscreen"
@@ -29,3 +25,57 @@ Zoo Design Studio is a CAD application that allows you to create and edit 3D mod
         />
     </div>
 </div>
+
+## Introduction
+
+This guide will help you get started with Zoo Design Studio, and is intended for first-time users.
+It covers the following topics:
+
+-   [Getting started](#getting-started)
+-   [Settings and preferences](#settings-and-preferences)
+-   [Sketch basics](#sketch-basics)
+-   [KCL basics](#kcl-basics)
+-   [Importing and exporting files](#importing-and-exporting-files)
+
+## Getting started
+
+Every time you launch Zoo Design Studio, you will be greeted by a project dashboard. This is your
+starting point for creating and managing your design projects.
+
+When you launch Zoo Design Studio for the fisrt time, this dashboard will be empty. To get started,
+click _Create Project_, enter a name, and press _Enter_ to open a blank scene. Alternatively, select
+_Generate with Text‑to‑CAD_ to create a model from a prompt (one credit per prompt; free plans
+include 40 credits/month) or _Create from Sample_ to open a pre‑built part.
+
+## Settings and preferences
+
+To adjust your settings, click the _Settings_ button that's available from the main menu, and
+indicated by the gear icon. This will allow you to configure:
+
+-   _Project directory_: where your projects are saved on your computer.
+-   _Telemetry_: whether or not to send metadata to Zoo that will help us improve the product.
+-   _Keyboard shortcuts_: keyboard shortcuts for various commands.
+-   _Machine API server discovery_: a service which locates 3D printers on your local network to
+    allow printing direct from Zoo Design Studio.
+-   _Version_ information: the version of Zoo Design Studio you are currently using.
+
+## Sketch basics
+
+Inside a project, press _Start Sketch_ to enter 2D mode. Core operations:
+
+-   Draw lines, arcs, and splines on the workplane.
+-   Apply dimensions and constraints for precise control.
+-   Finish the sketch, then apply 3D features such as _Extrude_, _Revolve_, or _Sweep_ from the
+    toolbar.
+
+## KCL basics
+
+KCL parts are provided as reference models. Use _Create from Sample_ on the home screen to clone one
+into your workspace. You can inspect features, measure geometry, or modify the part as needed.
+
+## Importing and exporting files
+
+-   _Import_: drag‑and‑drop or use _File → Import_ to bring in STEP, IGES, or STL files.
+-   _Export_: choose _File → Export_ to generate STEP, IGES, STL, or native ZDS formats.
+-   For Text‑to‑CAD projects, the generated model is saved automatically in the project folder and
+    can be exported at any time.
