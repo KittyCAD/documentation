@@ -9,6 +9,24 @@ sidebarPosition: 2
 Text-to-CAD is a generative AI feature that allows you to create fully editable 3D
 [B-Rep](https://en.wikipedia.org/wiki/Boundary_representation) models from text prompts.
 
+## Usage tips
+
+We recommend that users read the following before using Text-to-CAD:
+
+-   We support a maximum prompt length of a few thousand words. Longer prompts take longer to
+    respond.
+-   Shorter prompts, 1-2 sentences in length, succeed more often than longer prompts.
+-   If your prompt omits important dimensions, Text-to-CAD will make its best guess to fill in
+    missing details based on industry standards.
+-   Traditional, simple mechanical parts work best right now: fasteners, bearings, connectors, etc.
+-   Text-to-CAD returns an error if it fails to generate a valid geometry internally, even if it
+    understands your prompt. We're working on reducing the amount of errors. You can always try
+    again.
+-   The same prompt can generate different results when submitted multiple times. Sometimes a
+    failing prompt will succeed on the next attempt, and vice versa.
+
+The following video provides a quick overview of how to use Text-to-CAD:
+
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
         <iframe
