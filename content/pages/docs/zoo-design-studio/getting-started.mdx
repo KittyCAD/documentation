@@ -1,10 +1,22 @@
 ---
 title: Getting Started
-excerpt: Zoo Design Studio quick‑start reference.
+excerpt: Zoo Design Studio quick-start reference.
 sidebarPosition: 1
 ---
 
-## _Video Tutorial_
+## Introduction
+
+This guide will help you get started with Zoo Design Studio, and is intended for first-time users.
+It covers the following topics:
+
+-   [Getting started](#getting-started)
+-   [Settings and preferences](#settings-and-preferences)
+-   [Sketch basics](#sketch-basics)
+-   [KCL basics](#kcl-basics)
+-   [Importing and exporting files](#importing-and-exporting-files)
+
+More in depth information is provided below, but if you're keen to get started with Zoo, we
+recommend you first take the time to watch this video:
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -26,17 +38,6 @@ sidebarPosition: 1
     </div>
 </div>
 
-## Introduction
-
-This guide will help you get started with Zoo Design Studio, and is intended for first-time users.
-It covers the following topics:
-
--   [Getting started](#getting-started)
--   [Settings and preferences](#settings-and-preferences)
--   [Sketch basics](#sketch-basics)
--   [KCL basics](#kcl-basics)
--   [Importing and exporting files](#importing-and-exporting-files)
-
 ## Getting started
 
 Every time you launch Zoo Design Studio, you will be greeted by a project dashboard. This is your
@@ -44,8 +45,8 @@ starting point for creating and managing your design projects.
 
 When you launch Zoo Design Studio for the fisrt time, this dashboard will be empty. To get started,
 click _Create Project_, enter a name, and press _Enter_ to open a blank scene. Alternatively, select
-_Generate with Text‑to‑CAD_ to create a model from a prompt (one credit per prompt; free plans
-include 40 credits/month) or _Create from Sample_ to open a pre‑built part.
+_Generate with Text-to-CAD_ to create a model from a prompt (one credit per prompt; free plans
+include 40 credits/month) or _Create from Sample_ to open a pre-built part.
 
 ## Settings and preferences
 
@@ -59,23 +60,107 @@ indicated by the gear icon. This will allow you to configure:
     allow printing direct from Zoo Design Studio.
 -   _Version_ information: the version of Zoo Design Studio you are currently using.
 
+You can also adjust your preferences for model navigation mode, theme, and units of measurement.
+
+This video provides a more in-depth overview of the settings and preferences available in Zoo Design
+Studio:
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://youtu.be/5YcvNJKk-T8"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
+
 ## Sketch basics
 
-Inside a project, press _Start Sketch_ to enter 2D mode. Core operations:
+To begin creating geometry, open a project and click the _Start Sketch_ button. This will prompt you
+for a plane on which to sketch, and then you will enter 2D sketching mode. This will allow you to:
 
--   Draw lines, arcs, and splines on the workplane.
--   Apply dimensions and constraints for precise control.
--   Finish the sketch, then apply 3D features such as _Extrude_, _Revolve_, or _Sweep_ from the
-    toolbar.
+-   Draw geometric elements such as lines, arcs, and circles on the active workplane.
+-   Add dimensions and constraints to control the size, shape, and position of your geometry.
+-   Use the sketch toolbar to access common operations like mirror.
+-   When finished, click _Exit Sketch_ and select a 3D feature such as _Extrude_, _Revolve_, or
+    _Sweep_ from the feature toolbar to create a solid model.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://youtu.be/zIgakD3pluk"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
 
 ## KCL basics
 
-KCL parts are provided as reference models. Use _Create from Sample_ on the home screen to clone one
-into your workspace. You can inspect features, measure geometry, or modify the part as needed.
+Zoo Design Studio uses a custom programming language, KCL, for geometry creation. When you use the
+graphical user interface to create geometry by sketching and extruding, our system generates KCL.
+However, you can also write KCL directly, allowing you to create complex models using commands and
+functions. We also store your KCL code in text files with `.kcl` extension—so we refer to these as
+KCL files.
+
+A range of KCL-based sample parts are provided as reference models for use within Zoo Design Studio.
+To access these:
+
+-   Click _Create from Sample_ on the project dashboard to browse available KCL examples.
+-   Select a sample to clone it into your workspace for examination or modification.
+-   Use the feature tree to inspect how the model was constructed.
+-   Apply measurement tools to analyze dimensions and geometry.
+-   Modify parameters or features as needed to customize the part for your requirements.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://youtu.be/aoxBIEbUggA"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
 
 ## Importing and exporting files
 
--   _Import_: drag‑and‑drop or use _File → Import_ to bring in STEP, IGES, or STL files.
--   _Export_: choose _File → Export_ to generate STEP, IGES, STL, or native ZDS formats.
--   For Text‑to‑CAD projects, the generated model is saved automatically in the project folder and
-    can be exported at any time.
+Zoo Design Studio supports various file formats for interoperability with other CAD systems:
+
+-   _Importing_: Add external models to your project by either dragging and dropping files directly
+    into the workspace or selecting _File → Import_ from the menu. Supported formats include STEP,
+    IGES, and STL.
+-   _Exporting_: Save your designs for use in other applications by choosing _File → Export_ and
+    selecting your desired format: `STEP`, `STL`, `gLTF`, `OBJ`, or `PLY`.
+-   For models created with the Text-to-CAD feature, your generated geometry is automatically saved
+    in the project folder and can be exported to any supported format at any time.
