@@ -1,14 +1,14 @@
 ---
-title: 'Introducing delouse'
+title: "Introducing delouse"
 excerpt: |
-    Introduction post on our internal rust tokio async debugging tool, delouse!
-coverImage: 'documentation-assets/introducing-delouse.jpg'
-date: '2024-02-12T15:00:00Z'
+  Introduction post on our internal rust tokio async debugging tool, delouse!
+coverImage: "documentation-assets/introducing-delouse.jpg"
+date: "2024-02-12T15:00:00Z"
 author:
-    name: Paul Tagliamonte
-    picture: '/documentation-assets/paultag.jpg'
+  name: Paul Tagliamonte
+  picture: "/documentation-assets/paultag.jpg"
 ogImage:
-    url: 'documentation-assets/introducing-delouse.jpg'
+  url: "documentation-assets/introducing-delouse.jpg"
 ---
 
 At Zoo, most of our user-facing stack is written in Rust, where we’ve
@@ -42,7 +42,7 @@ quickly hit a dead-end when trying to generate a stack trace for all the
 spawned `tokio` tasks.
 
 Rust has robust internals for generating a stacktrace of all Rust system
-threads (or, even easier – use `gdb` to attach to the process, and run 
+threads (or, even easier – use `gdb` to attach to the process, and run
 `thread apply all bt` to generate a stack trace for all the threads from outside
 the process) -- but this same level of support for `tokio` async tasks via `gdb`
 does not currently exist, and is incredibly tricky to add -- I don’t think it’s
@@ -91,7 +91,7 @@ async fn main() -> Result<()> {
 
 Fairly straightforward so far -- we’ll spawn a task which will loop forever
 printing out "`heartbeat`" once a second, and wait on that task to finish –
-never exiting.  We called `delouse::init()`, which starts up a
+never exiting. We called `delouse::init()`, which starts up a
 [dropshot](https://crates.io/crates/dropshot) server serving requests for
 `localhost` on port `7132` (not currently configurable, but will be eventually),
 which has a few endpoints for debugging a misbehaving process.
@@ -146,13 +146,13 @@ your project’s `.cargo/config.toml` -- the `README` has some examples. More
 than anything, though, the `delouse` hooks are designed to be helpful when
 you’re having a bad day, and fail in a way that still attempts to be as helpful
 as possible, but we’d love to find ways to make it even more helpful! Feel free
-to file issues, discuss possible features or send in fixes.  We’re excited to
+to file issues, discuss possible features or send in fixes. We’re excited to
 help save everyone some debugging time and contribute back to the ecosystem
 that we've wholeheartedly adopted within Zoo!
 
 If you’ve found this post interesting, you would fit right in at Zoo!
 [Come join us](https://zoo.dev/careers), or build something great using any of
-the [Zoo APIs](https://zoo.dev/docs/api) – we’re building the future of hardware
+the [Zoo APIs](https://zoo.dev/docs/developer-tools/api) – we’re building the future of hardware
 design by tackling the hardest infrastructure problems facing the industry
 today so hardware teams can focus on designing the next big thing – not
 fighting with their tools.

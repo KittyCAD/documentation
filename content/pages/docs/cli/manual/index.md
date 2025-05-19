@@ -1,11 +1,11 @@
 ---
-title: 'CLI Manual'
-excerpt: 'The command-line interface for Zoo.'
+title: "CLI Manual"
+excerpt: "The command-line interface for Zoo."
 ---
 
 Zoo CLI, or `zoo`, is a command-line interface to Zoo for use in your terminal or your scripts.
 
--   [Available commands](/docs/cli/manual/zoo)
+- [Available commands](/docs/developer-tools/cli/manual/zoo)
 
 ## Installation
 
@@ -13,9 +13,9 @@ You can find installation instructions on [the latest release](https://github.co
 
 ## Configuration
 
-Run [`zoo auth login`](/docs/cli/manual/zoo_auth_login) to authenticate with your Zoo account. Alternatively, `zoo` will respect the `ZOO_TOKEN` [environment variable](/docs/cli/manual/zoo#about).
+Run [`zoo auth login`](/docs/developer-tools/cli/manual/zoo_auth_login) to authenticate with your Zoo account. Alternatively, `zoo` will respect the `ZOO_TOKEN` [environment variable](/docs/developer-tools/cli/manual/zoo#about).
 
-Declare your aliases for often-used commands with [`zoo alias set`](/docs/cli/manual/zoo_alias_set).
+Declare your aliases for often-used commands with [`zoo alias set`](/docs/developer-tools/cli/manual/zoo_alias_set).
 
 ## Support
 
