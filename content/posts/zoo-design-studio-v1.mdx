@@ -1,0 +1,145 @@
+---
+title: Zoo Design Studio v1: A New Stack for Mechanical CAD
+excerpt: |
+  Building a GUI was a tough decision for us, but we're delivering something truly unique that supports both a productive UI experance and automation as first-class citizens.
+coverImage: /code-first-blog/sandboxbanner.jpeg
+date: 2025-05-21
+author:
+    name: Jessie Frazelle
+    picture: '/jessfraz.jpg'
+ogImage:
+  url: 'documentation-assets/zoo-design-studio-v1.jpg'
+---
+
+*(Spoiler: we wrote our own geometry engine[^1], programming language, ML model, and CAD
+GUI)*
+
+Every generation or so, someone rebuilds the geometric foundation of
+mechanical CAD (MCAD). It happened in 1988 with **Parasolid**[^2], in 1989 with
+**ACIS**[^3], and, until today, the last *major* commercial geometry engine to reach
+mainstream adoption was well over a decade ago. Most modern CAD still runs on
+Siemens’ Parasolid from the late ’80s[^4].
+
+After two years, fewer than 30 engineers, and a fraction of the capital
+poured into earlier efforts, we’re adding a new entry to that list with
+**Zoo Design Studio v1**. Below is the *why*, the *how*, and what you can
+expect on day one.
+
+
+## Why the World Needed One More Geometry Engine
+
+Mechanical CAD’s geometric bedrock hasn’t changed much since Parasolid
+and ACIS defined the market. Even the most recent tools, Solidworks, Onshape and
+Shapr3D, still wrap Parasolid[^5][^6][^7]. Industry analysts routinely talk about
+**“only two major geometry engines”** powering most MCAD software[^7]. Attempts since
+then have stayed niche, proving how high the bar is for robustness and
+adoption.
+
+But our modern roadmap demands real-time ML workflows and sub-second Boolean ops,
+features that don’t fit 1980-era CPU assumptions[^9]. The solution: start fresh.
+
+## What Makes Our CAD App Different
+
+### GPU-Accelerated Surface/Surface Intersection (SSI)
+
+Legacy geometry engines handle SSI with thousands of `if/else` branches. We derived, from first principles, this math as a parallelizable root-finding problem that runs on modern GPUs. We’ll publish detailed benchmarks as further optimizations land. That
+single architectural choice let a team of fewer than 30 engineers close
+decades of feature gap in under two years. We still have plenty of low-hanging
+fruit for further performance improvements and geometric features, both in the engine and in the Zoo Design Studio front-end[^10].
+
+### ML You Can Still Edit
+
+Most AI demos, inside and outside CAD, stop at a frozen artifact you can’t tweak
+(like losing your layers in Photoshop). Other folks claim “Text-to-CAD” but output only a
+mesh. Our CAD app retains [B-rep surfaces](#brep-vs-mesh-innner-link) all throughout the stack: fillet an edge by
+clicking, adjust a dimension in code, or re-prompt with natural language, on
+the exact same model.
+
+We already **fine-tune our ML model for several enterprise customers**. Give us your NX,
+Creo, CATIA, SolidWorks, or Autodesk files, anything with a feature-tree, and we’ll
+convert them to KCL and fine-tune a bespoke model that creates parts that look idiomatic for your organization. Sound interesting? Email [sales@zoo.dev](mailto:sales@zoo.dev) and let’s get started.
+
+### About the ML (and Why I Don’t Say “AI” Yet)
+
+Today’s models learn from feature-tree data; they’ll misfire, and we’ll tune
+them. Our version of **AI** is the day you can type *“Make me a rocket”* and get a nozzle
+off the build plate ready for hot-fire first try. Until then, it’s ML, and it only
+improves with your feedback.
+
+### Code-Backed CAD (KCL)
+
+We spent months refining the KittyCAD Language (KCL) to feel
+intuitive to both mechanical engineers and software developers. Dimensions use
+plain-English units (such as millimeters or inches, which engineers can mix and match as necessary), functions read like a feature tree, and the
+syntax is terse enough for human reviewable version-control diffs. **But, and this is
+important, no mechanical engineer ever has to touch KCL.** You can stay in the
+click-and-point UI, sketch, extrude, and assemble parts exactly as you would
+in any mainstream CAD tool. The code view is there *only* if you want deeper
+parametric control, automation, or to let an LLM refactor your model for you.
+
+
+## B-rep vs Mesh (for the Non-CNC Crowd)
+
+| Aspect      | B-rep Solids                                 | Meshes               |
+|-------------|----------------------------------------------|----------------------|
+| Geometry    | ✅ Exact NURBS & analytic surfaces           | ❌ Triangles only    |
+| Downstream  | ✅ CNC, FEA, detailed drawings               | ❌ Rendering, games  |
+| Editability | ✅ Parametric & feature-based                | ❌ Vertex surgery    |
+| File Size   | ✅ Compact                                   | ❌ Often bloated     |
+
+Serious hardware teams stick with B-rep because sub-millimeter tolerances
+matter[^11]. **Meshes are great for avatars, not turbine blades and optics.**
+
+
+## What Ships in v1
+
+* Primitives, sketch constraints, patterns, shell, helix, extrude/revolve,
+  fillet/chamfer, loft, sweep
+* GPU accelerated constructive solid geometry operations like union, subtract and intersect
+* Assemblies
+* **Text-to-CAD ML:** 40 free credits per month for every user on our Free tier
+* Native app targeting macOS, Windows, and Linux (fully featured)
+* Web client (currently single-file workflows)
+
+**We have a special launch price of 54% off the annual subscription to the Pro tier.** With this you get unlimited Text-to-CAD credits.
+
+
+## Roadmap (High-Impact First)
+
+1. **Constraints 2.0 & Assembly Mates** – define relationships between parts to ensure the final product always fits. We’re seeking feedback with our [spec open for comments](https://github.com/KittyCAD/kcl-experiments/pull/20).
+2. **Engine-side caching** – eliminate full-world rebuilds, and seamlessly restart a previous session without waiting for your part to re-render.
+3. **KCL caching** – cache modules/geometries before even sending new data to the engine.
+4. **Drawings & GD&T** – production-ready 2D output.
+5. **Conversational CAD Copilot** – image-to-CAD, automatic error fixing, parameterization/refactoring.
+6. **Engine features** – enhancements to our constructive solid geometry operations.
+7. **Performance** – faster patterns, and other low level features, making the ML model faster at responding.
+8. **Code completion** – using ML to autocomplete whole chunks of code in KCL.
+9. And lest we forget: working through high-impact issues customers bring to us!
+
+You can join other Zoo users and us over at the [community forum](https://community.zoo.dev/) where people can post their questions, concerns, ideas and suggestions!
+
+## Ready to Try It?
+
+Today **Zoo Design Studio v1** is [live](https://zoo.dev/modeling-app/download).
+
+Download it, model something outrageous, and let us know where it breaks! Owning the entire stack means fixes ship fast, from geometry engine math to the button you click.
+
+**We are merely getting started on our never ending ambition**. Let’s build the next forty years of mechanical CAD!
+
+[^1]: We leveraged open source libraries like OpenNURBS and Vulkan. Thank you to those communities for their hard work, we could not have done it without you!
+[^2]: Parasolid, D-Cubed and Siemens: The Heart of Your CAD Software Belongs
+      to Another – Engineering.com. <https://www.engineering.com/parasolid-d-cubed-and-siemens-the-heart-of-your-cad-software-belongs-to-another/>
+[^3]: ACIS – Wikipedia. <https://en.wikipedia.org/wiki/ACIS>
+[^4]: Parasolid article, noting continued dominance in modern CAD - Engineering.com. <https://www.engineering.com/parasolid-d-cubed-and-siemens-the-heart-of-your-cad-software-belongs-to-another/>
+[^5]: Petition to open the Parasolid source code – Onshape Forum. <https://forum.onshape.com/discussion/27000/petition-to-open-the-parasolid-kernel-source-code>
+[^6]: Engineer with Shapr3D & Siemens Parasolid – Shapr3D product page. <https://www.shapr3d.com/solutions/engineer>
+[^7]: Siemens owns Parasolid, the kernel used by SolidWorks. - Engineering.com.
+<https://www.engineering.com/what-is-a-geometric-modeling-kernel/>
+[^8]: Shaping Up Spatial’s ACIS: Catching Up to Parasolid – Engineering.com. <https://www.engineering.com/shaping-up-spatials-acis-geometric-kernel-catching-up-to-parasolid/>
+[^9]: This blog post was intended for our more mechanically inclined audience. Our geometry engine also has a full modern API and we have SDKs you can use to interact with it in any language. <https://zoo.dev/docs>
+[^10]: Zoo Design Studio (the application layer, not the engine) is open source. <https://github.com/kittycad/modeling-app>
+[^11]: B-rep vs Imported Mesh for Milling Smoothness – Autodesk Fusion forum
+      Thread. <https://forums.autodesk.com/t5/fusion-manufacture/brep-vs-imported-mesh-for-milling-smoothness/td-p/8803359>
+
+
+
