@@ -7,19 +7,19 @@ author:
     name: Jessie Frazelle
     picture: '/jessfraz.jpg'
 ogImage:
-    url: '/meta-images/introducing-text-to-cad.jpg'
+    url: 'documentation-assets/meta-images/zoo-text-to-cad-jess-blog.jpg'
 ---
 
-Today we are excited to share [Text-to-CAD](https://text-to-cad.zoo.dev) with you! 
-This is an alpha launch for us to 
-get feedback and make the underlying model even better. For every seemingly 
+Today we are excited to share [Text-to-CAD](https://text-to-cad.zoo.dev) with you!
+This is an alpha launch for us to
+get feedback and make the underlying model even better. For every seemingly
 obvious prompt that should work and doesn’t, we hope there is a prompt that
 shouldn’t work but does!
 
 There are lots of text-to-3d models that exist for gaming asset use cases but
 there are no Text-to-CAD models. The distinction being that we do not use point
 clouds, we generate B-Rep[^1] surfaces. So you can import a STEP file from Text-to-CAD
-into any existing CAD program and edit it. The existing text-to-3d models 
+into any existing CAD program and edit it. The existing text-to-3d models
 generate meshes so if you were to import that into an existing CAD program,
 it would just be one large amorphous blob and not editable in any useful way.
 
@@ -27,15 +27,15 @@ Generating CAD models is a lot different than generating images or video. Models
 generating 2D images, 2D video, and 3D point clouds are learning from datasets
 with dense, highly descriptive and strict representations of data that each
 have one and only one representation. In contrast, there are multiple valid
-feature trees for each CAD model, so training and validation are not 
+feature trees for each CAD model, so training and validation are not
 straightforward.
 
-We ask that you try different things and use the thumbs up and down buttons 
-to give us feedback. By opening this up for use by the community, we can see 
+We ask that you try different things and use the thumbs up and down buttons
+to give us feedback. By opening this up for use by the community, we can see
 the models you are trying to generate and improve the model for those.
 
-Today, you can take the generated STEP file of any CAD model from Text-to-CAD 
-and import it into an existing CAD program and edit it. Even more exciting, in 
+Today, you can take the generated STEP file of any CAD model from Text-to-CAD
+and import it into an existing CAD program and edit it. Even more exciting, in
 the future, we will give you the generated KCL (KittyCAD Language) code so that
 you can edit it in our [Modeling App](https://zoo.dev/modeling-app/download)!
 Being able to edit code for a CAD model
@@ -71,15 +71,13 @@ Here are some fun models we’ve generated:
 Pro tips: It is better to describe the feature tree of what you want (chamfered edges,
 fillets, etc) versus just saying a noun (car).
 
-We cannot wait to see what you generate! You can use our 
-[discord bot](https://discord.gg/JQEpHR7Nt2) or the 
+We cannot wait to see what you generate! You can use our
+[discord bot](https://discord.gg/JQEpHR7Nt2) or the
 [Text-to-CAD UI](https://text-to-cad.zoo.dev) to try it out today.
-[Both](https://github.com/KittyCAD/text-to-cad-ui) of 
-these [applications](https://github.com/KittyCAD/text-to-cad-discord-bot) are 
-open source so you can see how easy it is to build your 
-own applications on top of our API. Have fun and remember to leave feedback, 
+[Both](https://github.com/KittyCAD/text-to-cad-ui) of
+these [applications](https://github.com/KittyCAD/text-to-cad-discord-bot) are
+open source so you can see how easy it is to build your
+own applications on top of our API. Have fun and remember to leave feedback,
 that will help us tremendously!
-
-
 
 [^1]: B-Rep, or Boundary Representation, succinctly defines 3D objects using surfaces composed of vertices, edges, and faces, outlining their external shape. Unlike implicit modeling, B-Rep provides precise control over the object's geometry and topology, facilitating accurate and efficient design modifications, essential for manufacturing processes where exact dimensions and tolerances are crucial.
