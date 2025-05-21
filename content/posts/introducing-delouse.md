@@ -2,13 +2,13 @@
 title: 'Introducing delouse'
 excerpt: |
     Introduction post on our internal rust tokio async debugging tool, delouse!
-coverImage: 'documentation-assets/introducing-delouse.jpg'
+coverImage: 'documentation-assets/meta-images/introducing-delouse-blog.jpg'
 date: '2024-02-12T15:00:00Z'
 author:
     name: Paul Tagliamonte
     picture: '/documentation-assets/paultag.jpg'
 ogImage:
-    url: 'documentation-assets/introducing-delouse.jpg'
+    url: 'documentation-assets/meta-images/introducing-delouse-blog.jpg'
 ---
 
 At Zoo, most of our user-facing stack is written in Rust, where we’ve

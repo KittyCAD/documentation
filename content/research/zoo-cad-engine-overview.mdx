@@ -9,7 +9,7 @@ author:
     name: Mike Farrell & Alyn Rockwood
     picture: ''
 ogImage:
-    url: ''
+    url: 'documentation-assets/meta-images/zoo-research-geometry-engine.jpg'
 ---
 
 ## 1 Introduction
@@ -203,7 +203,7 @@ Sweeping a shape about a general trajectory curve is a commonly performed CAD op
 trivial task to implement general sweeps for CAD. However it can be helpful to break it down into
 individual steps as a window into how such a feature is implemented within the KittyCAD engine.
 
-{/* GENERAL CASE */}
+{/*GENERAL CASE*/}
 
 Generally speaking a Sweep is a general extrusion of a section curve about a general trajectory
 curve[^1].
@@ -212,21 +212,21 @@ $$S(u, v) = T(v) + M(v)C(u)$$
 
 Where:
 
--   $C(u)$ is the closed profile curve.
--   $T(v)$ is a general trajectory curve.
--   $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
+- $C(u)$ is the closed profile curve.
+- $T(v)$ is a general trajectory curve.
+- $M(v)$ is a general orientation function used to correctly orient the section as it sweeps across
     the trajectory. It is general, and could be valued as either a 3x3 orthonormal matrix or a
     quaternion.
 
 To be usable in a CAD engine, $S(u, v)$ must be computable in NURBS form[^1]:
 
-{/* Have to do math on a single line because of remarkMath/rehypeKatex being annoying */}
+{/*Have to do math on a single line because of remarkMath/rehypeKatex being annoying*/}
 $$S(u, v) = \frac{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j} \mathbf{P}_{i,j}}{\sum_{i=0}^{n} \sum_{j=0}^{m} N_{i,p}(u)N_{j,q}(v)w_{i,j}}$$
 
 Where:
 
--   $P_{i,j} = T_j + Q_i$.
--   $w_{i,j} = w_{i}^C w_j^T$
+- $P_{i,j} = T_j + Q_i$.
+- $w_{i,j} = w_{i}^C w_j^T$
 
 As an example, consider constructing a semi-circular profile curve. This curve can be described
 programmatically as follows:
@@ -251,7 +251,7 @@ Which yields:
     </figcaption>
 </figure>
 
-{/* SIMPLIFIED CASES */}
+{/*SIMPLIFIED CASES*/}
 
 If $T(v)$ is a perpendicular straight line, then $S(u,v)$ simplifies to an extrusion surface with
 $M(v)=i$ for all $v$. Similarly, if $T(v)$ is an arc, then $S(u,v)$ will be the surface of
@@ -279,7 +279,7 @@ Figure 5 and Figure 6 illustrate the case where a sweep simplifies to an extrusi
     <figcaption>Figure 6: Completed sweep (extrusion).</figcaption>
 </figure>
 
-{/* MORE COMPLEX CASES */}
+{/*MORE COMPLEX CASES*/}
 
 In the case where $T(v)$ is curved and general, the swept surface can be constructed by a skinned
 interpolation of cross sections.
@@ -440,20 +440,20 @@ where precise fitting and assembly of parts are crucial.
 Precise geometric modeling is crucial for industries that require complex surface operations, such
 as aerospace, automotive, and consumer product design. The importance lies in several key areas:
 
--   Validity.
-    -   Imprecision, especially in SSI, can create fundamental differences between design intent and
+- Validity.
+  - Imprecision, especially in SSI, can create fundamental differences between design intent and
         results Sometimes small inaccuracies result in major differences in topology and design.
--   Part fit.
-    -   Consistently precise models ensure that components fit together correctly over many version
+- Part fit.
+  - Consistently precise models ensure that components fit together correctly over many version
         updates, reducing costly manufacturing defects or performance issues.
--   Simulation and analysis.
-    -   Accurate representations are necessary for usable simulations in fields like fluid dynamics,
+- Simulation and analysis.
+  - Accurate representations are necessary for usable simulations in fields like fluid dynamics,
         heat flow, collision detection, and stress analysis.
--   Customization and flexibility.
-    -   Industries often require specialized designs; precise modeling enables customization while
+- Customization and flexibility.
+  - Industries often require specialized designs; precise modeling enables customization while
         maintaining general structural integrity and aesthetic appeal.
--   Collaboration.
-    -   In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
+- Collaboration.
+  - In complex projects, teams need to coordinate and work simultaneously. Having a consistent and
         precise model ensures that everyone is aligned, reduces miscommunication and enhances
         collaboration across various disciplines.
 
@@ -756,14 +756,14 @@ smooths them; thus the convolution becomes an easy extension of the ordering alg
 A convolution on an ordered set of points in space is known to have beneficial effects if the points
 were generated with respect to an underlying ground truth such as SSI:
 
-1.  It minimizes outliers. Noise is inherent in any approximation as we see that an SSI must be. The
+1. It minimizes outliers. Noise is inherent in any approximation as we see that an SSI must be. The
     discretization of the original surface grids, the inverse mapping to uv space, distance and
     adjacency matrix calculations can all add noise to the result Convolution tends to remove (a
     consequence of the central limit theorem in statistics).
-2.  It fills in gaps caused by undersampling. This follows from the weighted averaging.It depends on
+2. It fills in gaps caused by undersampling. This follows from the weighted averaging.It depends on
     the weights and size of the kernel.
-3.  It reduces the number of points, keeping the more desirable ones.
-4.  It conditions the points to generate better b-spline curves both by thinning them and
+3. It reduces the number of points, keeping the more desirable ones.
+4. It conditions the points to generate better b-spline curves both by thinning them and
     ‘straightening’ them out.
 
 All the previous advantages depend on choosing the convolution parameters judiciously. The kernel

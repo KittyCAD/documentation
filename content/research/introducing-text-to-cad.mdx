@@ -9,7 +9,7 @@ author:
     name: Greg Sweeney
     picture: ''
 ogImage:
-    url: ''
+    url: 'documentation-assets/meta-images/zoo-research-text-to-cad.jpg'
 ---
 
 ## 1 Introduction
@@ -57,13 +57,13 @@ editability provided by B-Reps[^A].
 
 There are three key characteristics of B-Rep that make it the preferred choice for CAD applications:
 
--   **Precision**: B-Rep geometry represents surfaces exactly – curves are true curves, not
+- **Precision**: B-Rep geometry represents surfaces exactly – curves are true curves, not
     approximations formed by tiny straight lines. This is critical for engineering applications where
     high precision is required.
--   **Editing**: Need to adjust a fillet radius or resize a hole? With B-Rep, it's often as
+- **Editing**: Need to adjust a fillet radius or resize a hole? With B-Rep, it's often as
     straightforward as updating a parameter. Modifying a mesh typically involves manipulating vertices
     directly, which can be complex and error-prone.
--   **Workflow compatibility**: B-Rep is the standard representation for many CAD and CAM tools. For
+- **Workflow compatibility**: B-Rep is the standard representation for many CAD and CAM tools. For
     tasks like running simulations or manufacturing a part, B-Rep data is generally preferred or
     required.
 
@@ -85,15 +85,15 @@ stuff_.
 Text-to-CAD leverages several of Zoo’s internal tools to generate an editable, water-tight solid
 model based on user input. The process involves several steps:
 
--   **Prompt parsing**: The user's input text is analyzed to identify parameters, constraints, and
+- **Prompt parsing**: The user's input text is analyzed to identify parameters, constraints, and
     geometric relationships.
--   **KCL code generation**: A series of machine learning models generate and refine KCL code that
+- **KCL code generation**: A series of machine learning models generate and refine KCL code that
     defines the geometry for the requested object. These models utilize our KCL documentation to
     produce high-quality, idiomatic KCL code.
--   **Geometry validation**: The generated KCL code is executed feature-by-feature in our geometry
+- **Geometry validation**: The generated KCL code is executed feature-by-feature in our geometry
     engine, and the resulting model is tested for validity. Any errors detected are fed back to the ML
     models to further refine the KCL code.
--   **File export**: In addition to returning the generated KCL code, Text-to-CAD provides the model
+- **File export**: In addition to returning the generated KCL code, Text-to-CAD provides the model
     geometry in the standardized B-Rep or mesh format selected by the user.
 
 ## 5 Implementation and Usage
@@ -101,7 +101,7 @@ model based on user input. The process involves several steps:
 Whether you are a designer, developer, or simply curious about AI and 3D design, Text-to-CAD offers
 a straightforward interface to turn ideas into precise models, regardless of expertise level.
 
--   **In Zoo Design Studio**: Our flagship modeling software is tightly integrated with
+- **In Zoo Design Studio**: Our flagship modeling software is tightly integrated with
     Text-to-CAD. Click the green `Text-to-CAD` button, type your prompt (try _“A flange with a 50mm diameter, 6 holes,
     and 10mm thickness”_), and the 3D model appears, along with the generated KCL code. You can then
     edit the code directly or tweak the model using the app’s GUI.
@@ -122,7 +122,7 @@ a straightforward interface to turn ideas into precise models, regardless of exp
     <figcaption>Figure 3: Zoo Design Studio, Text-to-CAD Generation</figcaption>
 </figure>
 
--   **On text-to-cad.zoo.dev**: For a lightweight web interface, visit text-to-cad.zoo.dev, where you
+- **On text-to-cad.zoo.dev**: For a lightweight web interface, visit text-to-cad.zoo.dev, where you
     can experiment with Text-to-CAD directly in your browser with no installation required.
 
 <figure>
@@ -133,7 +133,7 @@ a straightforward interface to turn ideas into precise models, regardless of exp
     <figcaption>Figure 4: Text-to-CAD Web Interface</figcaption>
 </figure>
 
--   **Via our API**: If you're interested in integrating Text-to-CAD into your own tools or workflows,
+- **Via our API**: If you're interested in integrating Text-to-CAD into your own tools or workflows,
     consider the Text-to-CAD API. Our client libraries (available in Python, Rust, Go, and JavaScript)
     facilitate getting started, whether automating part generation or building a plugin for another
     modeling tool.
@@ -149,7 +149,7 @@ response = create_text_to_cad.sync(
 )
 ```
 
--   **As a plugin for your favorite application**: Text-to-CAD can potentially be integrated into
+- **As a plugin for your favorite application**: Text-to-CAD can potentially be integrated into
     various software applications. We’ve published a few open-source plugins – for example, for
     Blender and Discord. These can be used as-is, modified, or serve as a starting point for building
     integrations with other 3D modeling tools.
@@ -174,13 +174,13 @@ response = create_text_to_cad.sync(
 
 Here are a few tips for effectively using Text-to-CAD:
 
--   **Be specific**: Generated models adhere closely to the dimensions and constraints provided. If
+- **Be specific**: Generated models adhere closely to the dimensions and constraints provided. If
     important design elements are omitted, Text-to-CAD will attempt to infer the missing details based
     on its training.
--   **Be concise**: Shorter prompts (typically 1-2 sentences) tend to succeed more often than very
+- **Be concise**: Shorter prompts (typically 1-2 sentences) tend to succeed more often than very
     long ones. The system supports prompts up to a few thousand words, but longer inputs generally
     take more time to process.
--   **Focus on mechanical parts**: Text-to-CAD is primarily fine-tuned to generate mechanical
+- **Focus on mechanical parts**: Text-to-CAD is primarily fine-tuned to generate mechanical
     components like flanges, plates, brackets, supports, gears, and bolts. However, feel free to
     experiment with other prompts – for instance, try _“a spatula”_ or _“a fun mascot”_.
 
@@ -188,13 +188,13 @@ Here are a few tips for effectively using Text-to-CAD:
 
 It's important to understand the current state of Text-to-CAD:
 
--   **Ongoing Development**: Text-to-CAD is actively being developed alongside the KCL language and
+- **Ongoing Development**: Text-to-CAD is actively being developed alongside the KCL language and
     our proprietary geometry engine. Its capabilities are evolving in tandem with these underlying
     technologies. (See our public roadmap for more details).
--   **Potential for Invalid Geometry**: The generated KCL code is validated and executed before being
+- **Potential for Invalid Geometry**: The generated KCL code is validated and executed before being
     returned. However, if our geometry engine fails to construct a valid model from the code, a 422
     error code may be returned instead of geometry.
--   **Non-determinism**: Submitting the same prompt multiple times may produce different results.
+- **Non-determinism**: Submitting the same prompt multiple times may produce different results.
     Occasionally, a prompt that initially fails might succeed on a subsequent attempt, and vice versa.
 
 ### 6.1 Future Work
@@ -202,12 +202,12 @@ It's important to understand the current state of Text-to-CAD:
 We view Text-to-CAD as being in its early stages and have significant plans to expand its
 capabilities:
 
--   **Support more CAD features and assemblies**: As the Zoo ecosystem matures, Text-to-CAD will be
+- **Support more CAD features and assemblies**: As the Zoo ecosystem matures, Text-to-CAD will be
     trained to utilize more advanced modeling techniques, including assembling multiple parts into
     complex designs.
--   **Physics and simulation integration**: We aim to incorporate considerations like stress analysis,
+- **Physics and simulation integration**: We aim to incorporate considerations like stress analysis,
     material constraints, and manufacturability checks directly into the generation process.
--   **Multimodality**: Design concepts are often conveyed using images as well as text. Future
+- **Multimodality**: Design concepts are often conveyed using images as well as text. Future
     versions may incorporate visual input alongside language prompts.
 
 [Follow us](https://x.com/zoodotdev) for updates, or try [Zoo Design Studio](https://zoo.dev/signup)
