@@ -25,7 +25,7 @@ poured into earlier efforts, we’re adding a new entry to that list with
 **Zoo Design Studio v1**. Below is the *why*, the *how*, and what you can
 expect on day one.
 
-## Why the World Needed One More Geometry Engine
+## Why the World Needed [One More Geometry Engine](/research/zoo-cad-engine-overview)
 
 Mechanical CAD’s geometric bedrock hasn’t changed much since Parasolid
 and ACIS defined the market. Even the most recent tools, Solidworks, Onshape and
@@ -54,7 +54,7 @@ mesh. Our CAD app retains [B-rep surfaces](#b-rep-vs-mesh-for-the-non-cnc-crowd)
 clicking, adjust a dimension in code, or re-prompt with natural language, on
 the exact same model.
 
-We already **fine-tune our ML model for several enterprise customers**. Give us your NX,
+We already **fine-tune our [ML model](/research/introducing-text-to-cad) for several enterprise customers**. Give us your NX,
 Creo, CATIA, SolidWorks, or Autodesk files, anything with a feature-tree, and we’ll
 convert them to KCL and fine-tune a bespoke model that creates parts that look idiomatic for your organization. Sound interesting? Email [sales@zoo.dev](mailto:sales@zoo.dev) and let’s get started.
 
@@ -67,7 +67,7 @@ improves with your feedback.
 
 ### Code-Backed CAD (KCL)
 
-We spent months refining the KittyCAD Language (KCL) to feel
+We spent months refining the [KittyCAD Language (KCL)](/research/introducing-kcl) to feel
 intuitive to both mechanical engineers and software developers. Dimensions use
 plain-English units (such as millimeters or inches, which engineers can mix and match as necessary), functions read like a feature tree, and the
 syntax is terse enough for human reviewable version-control diffs. **But, and this is
@@ -94,6 +94,7 @@ matter[^11]. **Meshes are great for avatars, not turbine blades and optics.**
   fillet/chamfer, loft, sweep
 * GPU accelerated constructive solid geometry operations like union, subtract and intersect
 * Assemblies
+* [Export](/research/a-practical-overview-of-cad-file-formats) your models to STEP, glTF, FBX, STL, PLY, and OBJ
 * **Text-to-CAD ML:** 40 free credits per month for every user on our Free tier
 * Native app targeting macOS, Windows, and Linux (fully featured)
 * Web client (currently single-file workflows)
