@@ -169,7 +169,7 @@ developers. When you build on our API, you're using the exact same tools we use 
 
 ### 2.2 Modelling Paradigms
 
-Being that B-Rep is a standard starting ground for CAD representations. They offer parametric,
+B-Reps are a standard starting ground for CAD representations. They offer parametric,
 concise descriptions of surfaces that can be easily recreated by engineers who understand basic
 geometry. Implicit/SDF-based solutions like those driven by dual-contouring algorithms are extremely
 impressive, but do have their own drawbacks for simple (common CAD workflow) shapes and surfaces. To
@@ -294,7 +294,7 @@ path->tangentialArcTo( { 50, 75, 0 } );
 path->lineTo( { 50, 100, 0 } );
 ```
 
-Figure 7 and Figure 8 show the transformed (re-oriented) section instances, while Figure 9 shows the
+Figure 7 shows the trajectory curve, Figure 8 shows the transformed (re-oriented) section instances, and Figure 9 shows the
 resulting solid that is yielded by performing a loft operation on the transformed sections.
 
 <figure>
@@ -324,7 +324,7 @@ resulting solid that is yielded by performing a loft operation on the transforme
     <figcaption>Figure 9: Resulting swept solid.</figcaption>
 </figure>
 
-The astute reader might notice that the trajectory curve from figure 3b can be decomposed into a
+The astute reader might notice that the trajectory curve from figure 7 can be decomposed into a
 series of straight lines and arcs. Thus, in cases where higher-order surface continuity is not
 globally required, this sweep can be re-expressed as a combination of extrusion and revolutions with
 much less computational work.
