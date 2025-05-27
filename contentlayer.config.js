@@ -126,7 +126,7 @@ const Author = defineNestedType(() => ({
     name: 'Author',
     fields: {
         name: {
-            type: 'string',
+            type: 'markdown',
             description: 'The name of the author.',
             required: true,
         },
