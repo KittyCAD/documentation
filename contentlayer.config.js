@@ -244,6 +244,12 @@ const ResearchPage = defineDocumentType(() => ({
             description: 'The author of the research page.',
             required: true,
         },
+        additionalContributors: {
+            type: 'string',
+            description:
+                'Additional contributors to the research page, for attribution purposes.',
+            required: false,
+        },
         ogImage: {
             type: 'nested',
             of: OgImage,
