@@ -4,7 +4,7 @@ excerpt: "Documentation of the KCL language for the Zoo Design Studio."
 layout: manual
 ---
 
-`KCL` allows splitting code up into multiple files. Each file is somewhat
+`KCL` allows splitting code up into multiple files.  Each file is somewhat
 isolated from other files as a separate module.
 
 When you define a function, you can use `export` before it to make it available
@@ -84,13 +84,11 @@ fn cube(center) {
 myCube = cube(center = [0, 0])
 ```
 
-_Pros_
-
+*Pros*
 - Any argument can be a parameter – size, position, appearance, etc.
 - Works great inside loops, arrays, or optimisation sweeps.
 
-_Cons_
-
+*Cons*
 - Every invocation rebuilds the entire feature tree.
 - **Slower** than a straight duplicate – each call is its own render job.
 
@@ -99,19 +97,17 @@ _Cons_
 ```kcl
 sketch001 = startSketchOn(-XZ)
   |> circle(center = [0, 0], radius = 10)
-  |> extrude(length = 5)
+  |> extrude(length = 5) 
   |> appearance(color = "#ff0000", metalness = 90, roughness = 90)
 
 sketch002 = clone(sketch001)  // ✓ instant copy
 ```
 
-_Pros_
-
+*Pros*
 - Roughly an O(1) operation – we just duplicate the underlying engine handle.
 - Perfect when you need ten identical bolts or two copies of the same imported STEP file.
 
-_Cons_
-
+*Cons*
 - **Not parametric** – the clone is exactly the same shape as the source.
 - If you need to tweak dimensions per‑instance, you’re back to a function.
 
@@ -160,7 +156,7 @@ Defining a function inside a module is instantaneous – we just record the byte
 export fn makeBolt(size) { /* … expensive CAD … */ }
 ```
 
-If `main.kcl` waits until the very end to call `makeBolt`, _none_ of that work was parallelised – you’ve pushed the cost back onto the serial tail of your script.
+If `main.kcl` waits until the very end to call `makeBolt`, *none* of that work was parallelised – you’ve pushed the cost back onto the serial tail of your script.
 
 **Better:** call it early or move the invocation into another module.
 
@@ -255,12 +251,12 @@ file represents object(s) in memory. If you import the same file multiple times,
 it will only be rendered once.
 
 If you want to have multiple instances of the same object, you can use the
-[`clone`](/docs/kcl-std/functions/std-clone) function. This will render a new instance of the object in memory.
+[`clone`](/docs/kcl/clone) function. This will render a new instance of the object in memory.
 
 ```norun
 import cube from "cube.kcl"
 
-cube
+cube  
   |> translate(x=10)
 clone(cube)
   |> translate(x=20)
