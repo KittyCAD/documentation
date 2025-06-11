@@ -152,7 +152,7 @@ const BlogPost = defineDocumentType(() => ({
   filePathPattern: `posts/*.md*`,
   contentType: 'mdx',
   description:
-    'A blog post. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    'A blog post. You may use MDX Markdown with any of the following components from the website repo: MarkDownAPITokens, TokenReplacementNote',
   fields: {
     title: {
       type: 'string',
@@ -203,7 +203,7 @@ const ResearchPage = defineDocumentType(() => ({
   filePathPattern: `research/*.md*`,
   contentType: 'mdx',
   description:
-    'A research page. You may use MDX Markdown with any of the following components from the website repo: Token, SamplePreview, TabbedEditor, MarkDownAPITokens, TokenReplacementNote, BasicSnippet',
+    'A research page. You may use MDX Markdown with any of the following components from the website repo: MarkDownAPITokens, TokenReplacementNote',
   fields: {
     title: {
       type: 'string',
