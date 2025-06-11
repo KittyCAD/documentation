@@ -25,10 +25,7 @@ For our engine, we decided to start by standardizing 3 _Descriptor Set Layouts_ 
 
 Below are examples of the 3 set bindings in shader code.
 
-<BasicSnippet
-lang="cpp"
-title="GLSL"
-code={`
+```cpp
 layout(set = 0, binding = 0) uniform Scene
 {
   mat4 viewProjection;
@@ -51,18 +48,14 @@ layout(set = 2, binding = 0) uniform Draw
   mat4 model;
   //...
 } draw;
-`}
-/>
+```
 
 ## One pipeline layout to rule them all
 
 Before the descriptor sets can be bound to a pipeline, they must first be referenced by a _Pipeline Layout_. Pipeline layouts essentially tell the API which descriptor set layouts the shader can expect.
 While the per-set-layout bindings are statically defined, standardizing them across the engine frees us to re-use both the descriptor set layouts and the pipeline layout that reference them for most of our common shader collections. Doing this drastically simplifies the engine design. For OpenGL-like implementations, allocating tons of descriptor sets and copying & rewriting the bindings for every draw call is a common practice. The elegant persistent binding method highlighted in the NVIDIA article was far more preferable to us. This means that having maximally flexible descriptor set layouts is a crucial design goal.
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 VkDescriptorSetLayoutCreateInfo createInfo = {};
 createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 
@@ -107,7 +100,7 @@ for(int i = 0; i < 3; i++)
     &defaultDSLayouts[i])
   );
 }
-`}/>
+```
 
 Note that the usage of "UBO" in various code examples here is a relic of the old OpenGL nomenclature for "Uniform Buffer Object". Essentially "UBO" and "Uniform Buffer" refer to the same concept.
 
@@ -115,10 +108,7 @@ Note that the usage of "UBO" in various code examples here is a relic of the old
 
 Before Vulkan Descriptor Indexing, one had to pre-specify exactly how many texture bindings there could be in a descriptor set. Additionally, each binding had to be set to a valid VkImage resource regardless of whether or not it was used by each shader. This made writing the code for re-usable flexible pipeline layouts both tedious and ugly. Luckily, the Descriptor Indexing feature is core as of Vulkan 1.2. All we have to do is enable the feature during instance creation, and then use it in our code!
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 //...
 bindings[1].push_back({
   1,
@@ -131,7 +121,7 @@ VkDescriptorBindingFlags bindFlags[] = {
   0,
   VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT
 };
-bindingsExtInfo[1].sType = 
+bindingsExtInfo[1].sType =
   VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
 bindingsExtInfo[1].bindingCount = (uint32_t)bindings[1].size();
 bindingsExtInfo[1].pBindingFlags = bindFlags;
@@ -144,12 +134,9 @@ checkVk(vkCreateDescriptorSetLayout(
   nullptr,
   &defaultDSLayouts[i])
 );
-`}/>
+```
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 VkWriteDescriptorSet write = {};
 VkDescriptorImageInfo imageInfo = {};
 
@@ -166,20 +153,17 @@ write.descriptorCount = 1;
 write.pImageInfo = &imageInfo;
 
 vkUpdateDescriptorSets(device, 1, &write, 0, nullptr);
-`}/>
+```
 
 And in our shader:
 
-<BasicSnippet
-lang="cpp"
-title="GLSL"
-code={`
+```cpp
 #define TEX_NORMAL 0
 layout(set = 1, binding = 1) uniform sampler2D textures[];
 
 //...
 vec4 encodedNormal = texture(textures[TEX_NORMAL], va_texcoord);
-`}/>
+```
 
 ## Where things live matters
 
@@ -187,10 +171,7 @@ Once our descriptor set layouts, pipeline layouts, and pipelines were set up, we
 
 For our engine, we decided to go with device-local scene uniform buffers (updated once per frame), device-local material uniform buffers (updated during scene initialization), and host-visible per-draw uniform buffers.
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 sceneUbo = make_unique<Buffer>(
   device,
   gfxQueue,
@@ -209,7 +190,7 @@ drawUbo = make_unique<Buffer>(
   VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
   VMA_MEMORY_USAGE_AUTO_PREFER_HOST
 );
-`}/>
+```
 
 ## Dynamic Draw call UBOs
 
@@ -217,24 +198,20 @@ The last consideration we made was to employ an old solution to an old problem. 
 
 Going back to our descriptor set layout init:
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`//Model/draw-call UBO (set 2)
+```cpp
+//Model/draw-call UBO (set 2)
 bindings[2].push_back({
   0,
   VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC,
   1,
   VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
   nullptr
-});`}/>
+});
+```
 
 and our buffer init:
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 drawUbo = make_unique<Buffer>(
   device,
   gfxQueue,
@@ -245,14 +222,11 @@ drawUbo->setPersistentlyMapped(true);
 
 //1<<20 is a fancy-way to specify 1 MB of memory
 drawUbo->createBuffer(1<<20);
-`}/>
+```
 
 now, we can populate the data each frame:
 
-<BasicSnippet
-lang="cpp"
-title="c++"
-code={`
+```cpp
 void updateDynamicUBO(
   const void \*data,
   size_t len,
@@ -267,7 +241,7 @@ void updateDynamicUBO(
   //make sure we haven't ran off the end of the dynamic UBO
   if(uboOffset+alignedLen < ubo->getSize())
   {
-    uint8_t *uboHostData = 
+    uint8_t *uboHostData =
       (uint8_t *)drawUbo->getPersistentlyMappedData();
     memcpy(uboHostData+uboOffset, data, len);
 
@@ -279,7 +253,7 @@ void updateDynamicUBO(
   }
 
 }
-`}/>
+```
 
 ## Bringing it all back to earth
 
