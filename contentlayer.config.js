@@ -6,43 +6,30 @@ import {
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 
-const Tutorial = defineDocumentType(() => ({
-  name: 'Tutorial',
-  filePathPattern: `tutorials/*.md*`,
-  contentType: 'mdx',
+const Author = defineNestedType(() => ({
+  name: 'Author',
   fields: {
-    title: {
+    name: {
       type: 'string',
-      description: 'The title of the tutorial, for SEO and heading use.',
+      description: 'The name of the author.',
       required: true,
     },
-    excerpt: {
+    picture: {
       type: 'string',
-      description: 'The excerpt of the tutorial, for SEO and preview text use.',
-      required: true,
-    },
-    langs: {
-      type: 'list',
-      of: {
-        type: 'enum',
-        options: ['go', 'ts', 'py', 'rs'],
-      },
-      description: 'The programming languages the tutorial is available in.',
-      required: false,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the tutorial, for SEO and filtering use.',
+      description: 'The picture of the author.',
       required: false,
     },
   },
-  computedFields: {
-    slug: {
+}))
+
+const OgImage = defineNestedType(() => ({
+  name: 'OgImage',
+  description: 'The og:image of the blog post, for SEO and preview image use.',
+  fields: {
+    url: {
       type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+      description: 'The url of the og:image.',
+      required: true,
     },
   },
 }))
@@ -77,21 +64,54 @@ const Page = defineDocumentType(() => ({
   },
 }))
 
-const Glossary = defineDocumentType(() => ({
-  name: 'Glossary',
-  filePathPattern: `glossary/*.md*`,
+const Doc = defineDocumentType(() => ({
+  name: 'Doc',
+  filePathPattern: `pages/docs/**/*.md*`,
   contentType: 'mdx',
   fields: {
     title: {
       type: 'string',
-      description: 'Primary term of the glossary entry.',
+      description: 'The title of the tutorial, for SEO and heading use.',
       required: true,
     },
     excerpt: {
       type: 'string',
-      description:
-        'The excerpt of the glossary definition, for SEO and preview text use.',
+      description: 'The excerpt of the tutorial, for SEO and preview text use.',
       required: true,
+    },
+    langs: {
+      type: 'list',
+      of: {
+        type: 'enum',
+        options: ['go', 'ts', 'py', 'rs'],
+      },
+      description: 'The programming languages the tutorial is available in.',
+      required: false,
+    },
+    tags: {
+      type: 'list',
+      of: {
+        type: 'string',
+      },
+      description: 'The tags of the tutorial, for SEO and filtering use.',
+      required: false,
+    },
+    sidebarPosition: {
+      type: 'number',
+      description:
+        'The position of the doc in the sidebar. The lower the number, the higher the position.',
+      required: false,
+    },
+    subtitle: {
+      type: 'string',
+      description: 'Subtitle for the doc, used in the page body.',
+      required: false,
+    },
+    layout: {
+      type: 'enum',
+      options: ['manual'],
+      description: 'The layout of the page.',
+      required: false,
     },
     synonyms: {
       type: 'list',
@@ -108,41 +128,28 @@ const Glossary = defineDocumentType(() => ({
         options: ['software-engineering', 'hardware-engineering'],
       },
       description: 'Subject domain(s) of the primary term.',
-      required: true,
+      required: false,
     },
   },
   computedFields: {
     slug: {
       type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+      resolve: (doc) => doc._raw.sourceFileName.replace(/\.(?:md|mdx)$/i, ''),
     },
-  },
-}))
+    slugs: {
+      type: 'list',
+      resolve: (doc) => {
+        const paths = doc._raw.sourceFilePath
+          .replace('pages/docs/', '')
+          .replace(/\.(?:md|mdx)$/i, '')
+          .split('/')
 
-const Author = defineNestedType(() => ({
-  name: 'Author',
-  fields: {
-    name: {
-      type: 'string',
-      description: 'The name of the author.',
-      required: true,
-    },
-    picture: {
-      type: 'string',
-      description: 'The picture of the author.',
-      required: false,
-    },
-  },
-}))
-
-const OgImage = defineNestedType(() => ({
-  name: 'OgImage',
-  description: 'The og:image of the blog post, for SEO and preview image use.',
-  fields: {
-    url: {
-      type: 'string',
-      description: 'The url of the og:image.',
-      required: true,
+        // If we end the array on "index", we remove it.
+        if (paths[paths.length - 1] === 'index') {
+          paths.pop()
+        }
+        return paths
+      },
     },
   },
 }))
@@ -260,351 +267,11 @@ const ResearchPage = defineDocumentType(() => ({
   },
 }))
 
-const KclDoc = defineDocumentType(() => ({
-  name: 'KclDoc',
-  filePathPattern: `pages/docs/kcl-std/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const KclLangDoc = defineDocumentType(() => ({
-  name: 'KclLangDoc',
-  filePathPattern: `pages/docs/kcl-lang/**/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const KclType = defineDocumentType(() => ({
-  name: 'KclType',
-  filePathPattern: `pages/docs/kcl-std/types/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const CliDoc = defineDocumentType(() => ({
-  name: 'CliDoc',
-  filePathPattern: `pages/docs/cli/**/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const KclConst = defineDocumentType(() => ({
-  name: 'KclConst',
-  filePathPattern: `pages/docs/kcl-std/consts/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const KclFunction = defineDocumentType(() => ({
-  name: 'KclFunction',
-  filePathPattern: `pages/docs/kcl-std/functions/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const KclModule = defineDocumentType(() => ({
-  name: 'KclModule',
-  filePathPattern: `pages/docs/kcl-std/modules/*.md`,
-  contentType: 'markdown',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    subtitle: {
-      type: 'string',
-      description: 'Subtitle for the doc, used in the page body.',
-      required: false,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    tags: {
-      type: 'list',
-      of: {
-        type: 'string',
-      },
-      description: 'The tags of the docs, for SEO and filtering use.',
-      required: false,
-    },
-    layout: {
-      type: 'enum',
-      options: ['manual'],
-      description: 'The layout of the page.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.md?$/, ''),
-    },
-  },
-}))
-
-const DesignStudioDoc = defineDocumentType(() => ({
-  name: 'DesignStudioDoc',
-  filePathPattern: `pages/docs/zoo-design-studio/*.md*`,
-  contentType: 'mdx',
-  fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the docs, for SEO and heading use.',
-      required: true,
-    },
-    excerpt: {
-      type: 'string',
-      description: 'The excerpt of the docs, for SEO and preview text use.',
-      required: true,
-    },
-    sidebarPosition: {
-      type: 'number',
-      description:
-        'The position of the doc in the sidebar. The lower the number, the higher the position.',
-      required: false,
-    },
-  },
-  computedFields: {
-    slug: {
-      type: 'string',
-      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
-    },
-  },
-}))
-
 export default makeSource({
   contentDirPath: 'content',
 
   // Order of these maters because Page is greedy.
-  documentTypes: [
-    Tutorial,
-    Glossary,
-    BlogPost,
-    DesignStudioDoc,
-    ResearchPage,
-    Page,
-    KclDoc,
-    KclLangDoc,
-    KclType,
-    KclFunction,
-    KclConst,
-    KclModule,
-    CliDoc,
-  ],
+  documentTypes: [BlogPost, Doc, Page, ResearchPage],
   disableImportAliasWarning: true,
   contentDirExclude: ['**/README.md', '**/manifest.json'],
 
