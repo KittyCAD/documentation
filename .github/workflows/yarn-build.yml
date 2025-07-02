@@ -22,7 +22,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
-      - name: Run yarn build
-        run: yarn build
+      - name: Run build
+        run: npm run build
