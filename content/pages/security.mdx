@@ -43,6 +43,16 @@ Depending on the tier customers can opt out manually or are opted out by default
 
 Customers can delete their data at any time using website.
 
+## 3. Authentication
+
+Zoo does not use passwords for authentication.
+Instead, we make use of SSO via OAuth 2.0 and OpenID Connect and magic links that are sent via email.
+
+For enterprise customers we offer SAML 2.0 to further protect user accounts. SAML authentication works on top of the
+regular authentication.
+
+Organizations offer customers to manage their users and permissions.
+
 ## 3. Physical Security
 Zoo's platform infrastructure is hosted on cloud environments provided by CockroachLabs, AWS, and GCP.
 Physical security of data centers is managed by the respective cloud providers.
@@ -87,6 +97,8 @@ Critical updates to Zoo products are communicated to customers after deployment.
 
 Our infrastructure, API, and software are reviewed annually by an independent third-party security firm. Security reviews are
 published on [GitHub](https://github.com/KittyCAD/audits).
+
+Zoo also deploys a Web Application Firewall (WAF) to protect against common web vulnerabilities and attacks.
 
 ## 11. Customer Responsibilities
 Zoo is built with shared responsibility in mind. Customers are expected to implement appropriate controls within their organization to complement the security of the service. These responsibilities include:
