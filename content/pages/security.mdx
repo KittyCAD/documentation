@@ -3,18 +3,94 @@ title: 'Security'
 excerpt: 'Information about how Zoo secures its products.'
 ---
 
-Zoo is built with security in mind from the ground up. We care deeply about
-the security of our product and our customers' information.
 
-If you have discovered a potential security vulnerability in Zoo, 
-review our [security policy](https://github.com/KittyCAD/.github/blob/main/SECURITY.md) and afterwards report the bug. 
+Zoo is committed to delivering high-quality and secure software and services to our customers.
+We maintain internal information security policies and procedures aligned with controls and best practices from the AICPA SOC 2 Trust Services Criteria.
+We are actively in the process of obtaining SOC 2 certification.
 
-If your issue is not security-related, please reach out via our [community support forum](https://community.zoo.dev/).
+This document outlines the key processes and controls Zoo.dev has implemented to protect customer data.
+Any policies that specifically apply to Zoo.dev's platform services are noted where relevant.
 
-### Contact information
+## 1. Responsible Disclosure Policy
 
-Refer to our [security policy](https://github.com/KittyCAD/.github/blob/main/SECURITY.md) to learn how to get in contact with us.
+We encourage security researchers and members of the community to report any identified vulnerabilities through the outlined process, so that we can promptly investigate and remediate any issues.
 
+- If you have discovered a potential security vulnerability in Zoo, review our [security policy](https://github.com/KittyCAD/.github/blob/main/SECURITY.md) and afterwards report the bug through the process described there.
+- If your issue is not security-related, please reach out via our [community support forum](https://community.zoo.dev/).
 
-We’re incredibly grateful for security researchers and users that report vulnerabilities to us. 
+Refer to our [security policy](https://github.com/KittyCAD/.github/blob/main/SECURITY.md) to learn how to get in contact with us for general security inquires.
+
+We're incredibly grateful for security researchers and users that report vulnerabilities to us.
 All reports are thoroughly investigated.
+
+
+## 2. Security Controls Framework
+Zoo follows internal processes and policies designed to protect customer data and related assets against threats to security and availability.
+Our security controls are aligned with the AICPA SOC 2 Trust Services Criteria for security (common criteria).
+We are currently in the process of obtaining SOC 2 certification.
+
+## 2. Customer Data Access
+
+Zoo stores customer data in a globally distributed Cockroach Labs cluster.
+Production services are hosted on Amazon Web Services (AWS) and Google Cloud Platform (GCP).
+A selected number of Zoo employees have access to production systems for maintenance and support purposes.
+
+Zoo is designed to keep the data stored minimal. Manually designed CAD files created using the Zoo Design Studio
+are not persisted in Zoo's systems, but rather in the users' local file system.
+
+If training is enabled, Text-to-CAD responses may be stored in Zoo's systems for the purpose of improving the model.
+Depending on the tier customers can opt out manually or are opted out by default.
+
+Customers can delete their data at any time using website.
+
+## 3. Physical Security
+Zoo's platform infrastructure is hosted on cloud environments provided by CockroachLabs, AWS, and GCP.
+Physical security of data centers is managed by the respective cloud providers.
+
+Zoo's corporate offices do not host any customer compute or storage infrastructure.
+Access to corporate offices is limited to employees, contractors, and authorized vendors.#
+
+## 4. Corporate Security
+Zoo's internal security program incorporates controls across device protection, malware prevention, vulnerability management, staff training, third-party risk management, and policy governance.
+
+## 5. Encryption of Customer Data
+
+All data transmitted between Zoo clients and backend services is encrypted using TLS.
+Zoo enforces TLS 1.2 or higher for all communications over public networks, with TLS 1.3 used where supported.
+TLS encryption is enabled by default and requires no customer-side configuration.
+
+Data at rest is encrypted using the cloud provider's native infrastructure-level disk encryption.
+
+## 6. Incident Response Management
+Zoo has defined processes for identifying and managing security vulnerabilities, threats, and unauthorized access.
+When a security incident is suspected, appropriate personnel are immediately assigned to investigate, assess impact,
+contain, mitigate, and recover from the incident.
+
+## 7. Business Continuity
+Zoo maintains a Business Continuity Plan to ensure service reliability in the event of a disruption.
+All customer data is hosted on cloud infrastructure.
+Our application infrastructure is designed for high availability and leverages data replication across multiple
+availability zones, depending on the customer's selected deployment.
+
+In the event that Zoo's corporate offices become unavailable, customer services remain unaffected.
+Day-to-day support operations are not dependent on any single physical location.
+Zoo employees are primarily working remotely, and business continuity is tested on an annual basis.
+
+## 8. Software Development Lifecycle (SDLC) and Version Management
+Zoo's software development lifecycle emphasizes secure design, development, and deployment.
+It begins with clear requirements gathering and collaboration, followed by adherence to secure coding practices, peer reviews, and comprehensive testing before changes are merged.
+
+Our source code is continuously scanned for vulnerabilities, including those related to third-party dependencies.
+
+Zoo regularly performs version updates and security patching for its cloud-based platform.
+Critical updates to Zoo products are communicated to customers after deployment.
+
+Our infrastructure, API, and software are reviewed annually by an independent third-party security firm. Security reviews are
+published on [GitHub](https://github.com/KittyCAD/audits).
+
+## 11. Customer Responsibilities
+Zoo is built with shared responsibility in mind. Customers are expected to implement appropriate controls within their organization to complement the security of the service. These responsibilities include:
+
+- Managing user accounts, credentials (e.g. API keys), and permissions for the Zoo platform.
+- Identifying authorized points of contact to coordinate with Zoo support.
+- Notifying Zoo of any suspected security incidents in a timely manner.
