@@ -1,0 +1,127 @@
+---
+title: What's New With Zoo, August Edition
+excerpt: All the latest updates from the past month, including better Text-to-CAD, sharper graphics, sketching in more places, and a more powerful parser.
+date: '2025-08-05'
+author:
+    name: Adam Chalmers
+    picture: '/documentation-assets/adamchalmers.jpg'
+--- 
+
+Hi, Zoo users! This is the first of our planned monthly blog posts highlighting all the improvements we’ve made to Zoo each month. We’ve been hard at work fixing bugs, improving performance and adding features since 1.0, and we’re excited to share them with you.
+
+---
+
+## Much improved Text-to-CAD reliability
+
+When we first launched Text-to-CAD in December 2023, it could only create a single CAD file, like a STEP or OBJ file that contained a 2ft wide bookshelf. This was fine, but users kept asking for a more powerful Text-to-CAD that could create parametric models, e.g. a bookshelf with any width. When we launched Zoo Design Studio 1.0 in May, it came with built-in parametric Text-to-CAD. You enter a text prompt, and our model spits out parametric KCL, the KittyCAD programming language. This meant you would get a bookshelf where the bookshelf's width is assigned once to a variable. If you change that variable later, all the bookshelf's other measurements will recalculate themselves using the new width. This is much better than constantly designing the same bookshelf again and again with different measurements.
+
+When we replaced the simple Text-to-CAD model with our new parametric model, we removed the old Text-to-CAD website and instead moved all our ML tooling into Zoo Design Studio. That annoyed a lot of our old users, so we recently put it back. You can now visit text-to-cad.zoo.dev to get the old Text-to-CAD experience back.
+
+Another problem was that our new parametric model was having trouble generating KCL. Although the new model was much more powerful, it wasn't as reliable. Improving its KCL generation has been our #1 priority for the last few months, and we're proud to report that we've reduced the error rate from 50% to 16%. 
+
+
+![Error chart showing errors dropping and success rising](/documentation-assets/whats-new-august/ml_errors.png)
+
+This has been a focus for multiple teams at Zoo, including the ML team, the KCL team, and the engine (CAD kernel) team. We'll be going over some of the specific improvements in a following blog post, and we're hard at work lowering the error rate even further, as well as improving the quality of our successful ML-generated parts. 
+
+## Extrude methods
+
+Since Zoo’s very early beta version, you’ve been able to sketch on the faces of solids. If you then extrude the resulting sketch, you update the original solid, either by pushing the extruded sketch out, or pulling it down. But this isn’t always what you want! Sometimes you might want to create a second solid by extruding, rather than modifying the original. Now you can choose between these two extrude modes, by setting `method = NEW` or `method = MERGE` in the extrude call. This works in both KCL and the point-and-click editor.
+
+To visualize it, consider this KCL program, which sketches a cylinder on the face of a box. If we make the cylinder red (using the `appearance` function), the entire box and cylinder wind up red, because there’s only one solid (the combined box and cylinder).
+
+![Extruded box and cylinder, all red](/documentation-assets/whats-new-august/all_red.png)
+
+On the other hand, if we extrude with the `method = NEW` argument set, then the cylinder is its own solid, so the appearance function only affects that one part.
+
+![Extruded box is silver, cylinder is red](/documentation-assets/whats-new-august/part_red.png)
+
+## Sketch on inner faces
+
+Most solids have “outer” faces, like this extruded triangle. But some solids have “inner” faces too, like this triangle with a hole cut out. In this case, the triangle has a top face, a bottom face, 3 outer faces and 3 inner faces. Previously, Zoo wouldn’t let you select or sketch on the inner faces, only the outer faces. But now that’s been fixed! See [video](https://bsky.app/profile/adamchalmers.com/post/3lu4bjxbhpc2d).
+
+<video width="320" height="240" controls>
+  <source src="/documentation-assets/whats-new-august/inner_faces_video.mp4" type="video/mp4" poster="/documentation-assets/whats-new-august/neg_faces.png"/>
+</video>
+
+## Helix fixes
+
+We had a pretty big bug in our helix support in the Zoo engine. When you want to model a spring, it’s typical that you’d draw a flat circle, then sweep it along a helix (a 3D spiral). Unfortunately, our engine wasn’t tracking the orientation of the swept shape properly, resulting in some pretty hilarious-looking springs, like this:
+
+![Mouse trap with a spring that bulges out weirdly](/documentation-assets/whats-new-august/helix0.png)
+
+Our awesome engineer Austin merged a fix to the engine which makes the circle move properly along the helix, resulting in this much better mouse trap:
+
+![Mouse trap with normal spring](/documentation-assets/whats-new-august/helix1.png)
+
+The root cause of the bug was pretty simple. As the sweep code swept the sketch along the helical path, it would slowly rotate the profile, causing the shape to twist as it moved along the helix. Here’s the old, buggy behavior demonstrating the problem:
+
+![Taper where the two ends meet at an angle](/documentation-assets/whats-new-august/helix2.png)
+/images/text-to-cad//documentation-assets/whats-new-august/gear.png
+And here’s the correct result, which is now live.
+
+![Taper where the two ends meet correctly](/documentation-assets/whats-new-august/helix3.png)
+
+Note that the orientation is correct now. 
+
+## General improvements to 3D booleans
+
+Constructive solid geometry (CSG) is one of the core parts of our CAD engine. CSG handles 3D boolean operations like union, intersection and subtraction. Subtraction is particularly important because it lets you add holes to your models.These CSG operations are powerful, but they’re the most complicated part of our engine. So we often find edge cases – literally, actual cases on the edges of shapes – that need tweaking. For example, subtracting this cylinder from this filletted section didn’t work before:
+
+![Cylinder not being subtracted](/documentation-assets/whats-new-august/sub0.png)
+
+But now it does!
+
+![Cylinder has been subtracted](/documentation-assets/whats-new-august/sub1.png)
+
+Similarly, if a cylinder was perfectly bisected by a box, like this, CSG failed (it worked fine if you cut off a small part of the cylinder, or a lot of it, but failed on exactly half of it).
+
+![Cylinder perfectly bisected by a cube](/documentation-assets/whats-new-august/sub2.png)
+
+But now it works just fine!
+
+![Cylinder perfectly bisected by a cube then subtracted](/documentation-assets/whats-new-august/sub3.png)
+
+## Consistent undo shortcut
+
+One little fix that has a big impact: undoing a change in your model (e.g. by pressing ctrl+z) didn’t work if the code panel was minimized! Now it does. We found this bug quite annoying at Zoo, we can only imagine that our users did too. But now it’s fixed!
+
+## Higher resolution sketch lines
+
+Most of Zoo’s visuals are rendered in 3D by our graphics engine. Sketch mode, however, uses 2D visuals because it’s just drawing lines, arrows and arcs. Before this month, those arrows were somewhat blurry:
+
+![Blurry sketch lines](/documentation-assets/whats-new-august/lines0.png)
+
+We realized that they were drawing at the wrong resolution, and weren’t checking if your display/monitor uses scaling (e.g. the 2x scaling of a Macbook retina screen). Now the arrows look a lot sharper (PR [here](https://github.com/KittyCAD/modeling-app/pull/7742)).
+![Sharp sketch lines](/documentation-assets/whats-new-august/lines1.png)
+
+## Show KCL variables even if there’s an error
+
+When you build a model in Zoo, you can always look at the KCL panel to see the code your model corresponds to. KCL programs have a lot of variables, and you can look at the variables panel to find their value.
+
+![Variables panel](/documentation-assets/whats-new-august/vars0.png)
+
+But we had a problem: if your KCL program encountered an error and had to stop, it wouldn’t populate the variables panel. This was particularly frustrating because when there’s a program error, that’s exactly when it would be most useful to see the value of all the variables.
+
+Now if there’s an error, KCL still reports all the variables declared before that point:
+
+![Variables panel, showing all variables up to the error](/documentation-assets/whats-new-august/vars1.png)
+
+(PR [here](https://github.com/KittyCAD/modeling-app/pull/7762))
+
+## Optional argument support in the command palette
+
+Zoo Design Studio’s command palette had a small redesign to handle optional arguments better. Some commands, like extrude, have optional arguments like a twist angle, or a symmetric boolean. Until now, the command palette had a lot of limitations around how it handled these optional arguments. For example, you couldn't remove an optional argument while using the command palette – if you set the argument, you had to cancel the whole command. In other cases, like the translate command, you had to set all 3 optional arguments x, y and z, even though technically you could have only set just one.
+
+So our engineer Pierre shipped a new command palette, which handles optional arguments much better! You can now choose any optional arguments to set or unset, in whatever order you want. Two example PRs that migrate to this new command palette are [here]() and [here](). Here's a quick demo video:
+
+<video width="320" height="240" controls>
+  <source src="/documentation-assets/whats-new-august/optional_args.mp4" type="video/mp4" poster="/documentation-assets/whats-new-august/optional_args.png"/>
+</video>
+
+
+## Parser improvements
+
+We made the KCL parser more flexible! For example, before, `arr[f(i)]` and `arr[i + 1]` were syntax errors. Now they work as you would expect (here’s the [PR](https://github.com/KittyCAD/modeling-app/pull/7755)). And a lot of syntax errors have been improved. For example, if you left out the `else` block in an if-else expression, you’d get a short, unhelpful error “unexpected token”. Now you’ll get a helpful error reminding you to add the missing `else` block.
+
+
