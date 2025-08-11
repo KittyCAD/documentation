@@ -1,0 +1,26 @@
+---
+title: What's New With Zoo, September Edition
+excerpt: All the latest updates from the past month including foo, bar and baz.
+date: '2025-09-01'
+author:
+    name: Adam Chalmers
+    picture: '/documentation-assets/adamchalmers.jpg'
+ogImage:
+    url: '/documentation-assets/meta-images/whats-new-with-zoo-september-blog.png'
+--- 
+
+Hi, Zoo users! Another month has passed, and we're excited to share a lot of the updates we've made. We’ve been hard at work fixing bugs, improving performance and adding features since August. Here are some of our favorites.
+
+---
+
+## KCL docs have 3D examples
+
+KCL, the KittyCAD programming language, lets you define CAD models as code. KCL's standard library (aka the stdlib) has functions for all your basic CAD needs, e.g. defining paths, extruding sketches, filleting edges, etc etc. Each of these stdlib functions has its own docs page, e.g. [`extrude`](https://zoo.dev/docs/kcl-std/functions/std-sketch-extrude). Each docs page has several examples of how to use the functions, showing some KCL code, and the model it generates. 
+
+When we first launched our docs site, each KCL example would have a 2D image showing the generated model. But sometimes a 2D image isn't very helpful. What if users need to see the back or bottom of a model to really understand what the KCL is doing? We could include images showing several different angles, or users could copy and paste the code into Zoo Design Studio to get an interactive 3D model they can view from every angle. But neither of those seemed great. Instead, we replaced the 2D images with interactive 3D models!
+
+<video width="320" height="240" controls>
+  <source src="/documentation-assets/whats-new-september/docs_3d.mp4" type="video/mp4" poster="/documentation-assets/whats-new-september/docs_3d.png"/>
+</video>
+
+I think the docs page looks really slick now. This uses the same approach I used for [the KCL book](https://zoo.dev/docs/kcl-book/sketch3d.html). When I added 3D examples to that book, I knew I'd eventually upgrade the KCL docs to work the same. I'm excited we've finally brought the docs in line with the book. This is all powered by [modelviewer.dev](https://modelviewer.dev/), a library for displaying GLTF 3D models in-browser. If your browser can't render 3D or has JavaScript disabled, it'll fall back to a 2D image. And the 3D model isn't loaded until you scroll over it, ensuring our docs page will still be quick to load.
