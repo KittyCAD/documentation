@@ -13,6 +13,18 @@ Hi, Zoo users! Another month has passed, and we're excited to share a lot of the
 
 ---
 
+## New panel layouts
+
+Zoo previously displayed your model across the entire window, so you could get the best view of your work. We'd then open expanding panels over this view. We thought this looked very cool and modern when we built it a few years ago, but it's led to a problem: the panels can easily open over key parts of your models, requiring you to manually pan the video feed around a lot.
+
+![The old panel view](/documentation-assets/whats-new-september/old_panels.png)
+
+In [this PR](https://github.com/KittyCAD/modeling-app/pull/7806), Frank redid our panels so they no longer float over the video. Instead, they have their own dedicated space to the left. Opening or closing a panel will move the model view over, so you'll never have the feature tree or KCL code view interrupting your model view again.
+
+![The new panel view](/documentation-assets/whats-new-september/new_panels.png)
+
+You can also adjust each panel's height, which is another long-standing user request.
+
 ## KCL docs have 3D examples
 
 KCL, the KittyCAD programming language, lets you define CAD models as code. KCL's standard library (aka the stdlib) has functions for all your basic CAD needs, e.g. defining paths, extruding sketches, filleting edges, etc etc. Each of these stdlib functions has its own docs page, e.g. [`extrude`](https://zoo.dev/docs/kcl-std/functions/std-sketch-extrude). Each docs page has several examples of how to use the functions, showing some KCL code, and the model it generates. 
