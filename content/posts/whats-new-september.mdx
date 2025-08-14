@@ -36,3 +36,28 @@ When we first launched our docs site, each KCL example would have a 2D image sho
 </video>
 
 I think the docs page looks really slick now. This uses the same approach I used for [the KCL book](https://zoo.dev/docs/kcl-book/sketch3d.html). When I added 3D examples to that book, I knew I'd eventually upgrade the KCL docs to work the same. I'm excited we've finally brought the docs in line with the book. This is all powered by [modelviewer.dev](https://modelviewer.dev/), a library for displaying GLTF 3D models in-browser. If your browser can't render 3D or has JavaScript disabled, it'll fall back to a 2D image. And the 3D model isn't loaded until you scroll over it, ensuring our docs page will still be quick to load.
+
+## Experimental KCL
+
+If your KCL works, it should keep working whenever you update Zoo Design Studio. App updates should _never_ break your existing code. This way you can trust us to keep updating Zoo, and keep auto-updates enabled without any worries. However, this "no breaking old code" policy means that once we add something to the KCL standard library, we have to be very careful changing it in the future. We can never remove an argument, because the code which uses that old argument has to keep working.
+
+But while we're working on new KCL features, we might to experiment a little bit to get them just right. For example, we're working on new KCL functions for conics and ellipses. We'd like to make sure these functions work just right before we release them. The best way to check if these functions are ready is to let real users actually try them out. So here's the dilemma: we want users to try these in-progress KCL functions, and change the functions according to their feedback. But we can't ever make changes that would break old code. These two goals are in tension with each other.
+
+The solution: we're enabling **experimental features** in KCL. To enable experiments, you have to explicitly opt-in by adding `@settings(experimentalFeatures = warn)` or ` = allow`. That way, you know these experimental features are likely to break in the future, and you acknowledge your code might break after a Zoo Design Studio update.
+
+You don't ever have to enable this -- they're really designed for users who want to help us test out new features before they're ready for the general public. If that's you, then go ahead and enable it. We anticipate most users won't ever enable this. In fact, most users will never know this setting exists. But if you want to help us test and develop the future of KCL, this is how.
+
+## Conics and ellipses
+
+As mentioned above, we're adding _experimental_ KCL features. The first experiment is new KCL stdlib functions for conics, ellipses, hyperbolae and other cool curves. The new experimental functions are:
+
+ - [conic](https://zoo.dev/docs/kcl-std/functions/std-sketch-conic)
+ - [elliptic](https://zoo.dev/docs/kcl-std/functions/std-sketch-elliptic)
+ - [ellipticPoint](https://zoo.dev/docs/kcl-std/functions/std-sketch-ellipticPoint)
+ - [ellipse](https://zoo.dev/docs/kcl-std/functions/std-sketch-ellipse)
+ - [hyperbolic](https://zoo.dev/docs/kcl-std/functions/std-sketch-hyperbolic)
+ - [hyperbolicPoint](https://zoo.dev/docs/kcl-std/functions/std-sketch-hyperbolicPoint)
+
+We're excited to see what you make with them. If you find any issues, limitations or bugs, please [let us know here](https://github.com/KittyCAD/modeling-app/issues/8065).
+
+
