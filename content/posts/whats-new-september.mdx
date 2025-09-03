@@ -1,7 +1,7 @@
 ---
 title: What's New With Zoo, September Edition
 excerpt: All the latest updates from the past month including foo, bar and baz.
-date: '2025-09-01'
+date: '2025-09-03'
 author:
     name: Adam Chalmers
     picture: '/documentation-assets/adamchalmers.jpg'
@@ -27,7 +27,7 @@ You can also adjust each panel's height, which is another long-standing user req
 
 ## KCL docs have 3D examples
 
-KCL, the KittyCAD programming language, lets you define CAD models as code. KCL's standard library (aka the stdlib) has functions for all your basic CAD needs, e.g. defining paths, extruding sketches, filleting edges, etc etc. Each of these stdlib functions has its own docs page, e.g. [`extrude`](https://zoo.dev/docs/kcl-std/functions/std-sketch-extrude). Each docs page has several examples of how to use the functions, showing some KCL code, and the model it generates. 
+KCL, the KittyCAD programming language, lets you define CAD models as code. KCL's standard library (aka the stdlib) has functions for all your basic CAD needs, e.g. defining paths, extruding sketches, filleting edges, etc etc. Each of these stdlib functions has its own docs page, e.g. [`extrude`](https://zoo.dev/docs/kcl-std/functions/std-sketch-extrude#examples). Each docs page has several examples of how to use the functions, showing some KCL code, and the model it generates. 
 
 When we first launched our docs site, each KCL example would have a 2D image showing the generated model. But sometimes a 2D image isn't very helpful. What if users need to see the back or bottom of a model to really understand what the KCL is doing? We could include images showing several different angles, or users could copy and paste the code into Zoo Design Studio to get an interactive 3D model they can view from every angle. But neither of those seemed great. Instead, we replaced the 2D images with interactive 3D models!
 
@@ -87,4 +87,6 @@ We've fixed a ton of the cases that caused this with [Lee's great PR](https://gi
 
 ## Tons of small fixes
 
-We've fixed a lot of little bugs and nuisances -- e.g. [improvements](https://github.com/KittyCAD/modeling-app/pull/8001) to the [KCL parser](https://github.com/KittyCAD/modeling-app/pull/8000), or to [helices in the -Z dimension](https://github.com/KittyCAD/modeling-app/issues/8101)
+We've fixed a lot of little bugs and nuisances -- e.g. [improvements](https://github.com/KittyCAD/modeling-app/pull/8001) to the [KCL parser](https://github.com/KittyCAD/modeling-app/pull/8000), or to [helices in the -Z dimension](https://github.com/KittyCAD/modeling-app/issues/8101).
+
+And that's it! We're hard at work on some very big improvements, so make sure you catch next month's update when it's out.
