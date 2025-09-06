@@ -1,0 +1,104 @@
+---
+title: What's New With Zoo, September Edition
+excerpt: All the latest updates from the past month including foo, bar and baz.
+date: '2025-09-03'
+author:
+    name: Adam Chalmers
+    picture: '/documentation-assets/adamchalmers.jpg'
+ogImage:
+    url: '/documentation-assets/meta-images/whats-new-with-zoo-september-blog.png'
+--- 
+
+Hi, Zoo users! Another month has passed, and we're excited to share a lot of the updates we've made. We’ve been hard at work fixing bugs, improving performance and adding features since August. Here are some of our favorites.
+
+---
+
+## New Text-to-CAD reasoning and UI
+
+We've added a reasoning mode to our Text-to-CAD model, and built a new dedicated panel into Zoo Design Studio for it. We think it'll make Text-to-CAD much easier to use:
+
+![The new Text-to-CAD panel](/documentation-assets/whats-new-september/ttc_pane.png)
+
+Now you can see your Text-to-CAD chat history, give the model feedback (thumbs-up when it helps, thumbs-down when it's not useful), and even click to expand its reasoning.
+
+![See the LLM's reasoning](/documentation-assets/whats-new-september/ttc_reasoning_pane.png)
+
+This will be the foundation for a lot of Text-to-CAD improvements we're working on. Text-to-CAD is a big focus for our ML team, and it deserves a dedicated home inside Zoo Design Studio. Try it out and let us know what you think!
+
+## New panel layouts
+
+Zoo previously displayed your model across the entire window, so you could get the best view of your work. We'd then open expanding panels over this view. We thought this looked very cool and modern when we built it a few years ago, but it's led to a problem: the panels can easily open over key parts of your models, requiring you to manually pan the video feed around a lot.
+
+![The old panel view](/documentation-assets/whats-new-september/old_panels.png)
+
+In [this PR](https://github.com/KittyCAD/modeling-app/pull/7806), Frank redid our panels so they no longer float over the video. Instead, they have their own dedicated space to the left. Opening or closing a panel will move the model view over, so you'll never have the feature tree or KCL code view interrupting your model view again.
+
+![The new panel view](/documentation-assets/whats-new-september/new_panels.png)
+
+You can also adjust each panel's height, which is another long-standing user request.
+
+## KCL docs have 3D examples
+
+KCL, the KittyCAD programming language, lets you define CAD models as code. KCL's standard library (aka the stdlib) has functions for all your basic CAD needs, e.g. defining paths, extruding sketches, filleting edges, etc etc. Each of these stdlib functions has its own docs page, e.g. [`extrude`](https://zoo.dev/docs/kcl-std/functions/std-sketch-extrude#examples). Each docs page has several examples of how to use the functions, showing some KCL code, and the model it generates. 
+
+When we first launched our docs site, each KCL example would have a 2D image showing the generated model. But sometimes a 2D image isn't very helpful. What if users need to see the back or bottom of a model to really understand what the KCL is doing? We could include images showing several different angles, or users could copy and paste the code into Zoo Design Studio to get an interactive 3D model they can view from every angle. But neither of those seemed great. Instead, we replaced the 2D images with interactive 3D models!
+
+<video width="320" height="240" controls>
+  <source src="/documentation-assets/whats-new-september/docs_3d.mp4" type="video/mp4" poster="/documentation-assets/whats-new-september/docs_3d.png"/>
+</video>
+
+I think the docs page looks really slick now. This uses the same approach I used for [the KCL book](https://zoo.dev/docs/kcl-book/sketch3d.html). When I added 3D examples to that book, I knew I'd eventually upgrade the KCL docs to work the same. I'm excited we've finally brought the docs in line with the book. This is all powered by [modelviewer.dev](https://modelviewer.dev/), a library for displaying GLTF 3D models in-browser. If your browser can't render 3D or has JavaScript disabled, it'll fall back to a 2D image. And the 3D model isn't loaded until you scroll over it, ensuring our docs page will still be quick to load.
+
+As an added bonus, this means we're now testing every KCL example can be exported. This surfaced a few bugs in our export code, which we've triaged or fixed. For example, importing a 3D file from other CAD software, modifying it, then exporting it would fail, like in the KCL below:
+
+
+```kcl
+ import "cube.sldprt" as cube
+
+ myCube = cube
+
+ clonedCube = clone(myCube)
+    |> translate(x = 1020)
+    |> appearance(
+        color = "#ff0000",
+        metalness = 50,
+        roughness = 50
+    )
+```
+
+But now it works! We now export all these 3D files on every PR to the Zoo Design Studio, so we should quickly detect any future problems in Zoo Design Studio exports.
+
+## Experimental KCL
+
+If your KCL works, it should keep working whenever you update Zoo Design Studio. App updates should _never_ break your existing code. This way you can trust us to keep updating Zoo, and keep auto-updates enabled without any worries. However, this "no breaking old code" policy means that once we add something to the KCL standard library, we have to be very careful changing it in the future. We can never remove an argument, because the code which uses that old argument has to keep working.
+
+But while we're working on new KCL features, we might to experiment a little bit to get them just right. For example, we're working on new KCL functions for conics and ellipses. We'd like to make sure these functions work just right before we release them. The best way to check if these functions are ready is to let real users actually try them out. So here's the dilemma: we want users to try these in-progress KCL functions, and change the functions according to their feedback. But we can't ever make changes that would break old code. These two goals are in tension with each other.
+
+The solution: we're enabling **experimental features** in KCL. To enable experiments, you have to explicitly opt-in by adding `@settings(experimentalFeatures = warn)` or ` = allow`. That way, you know these experimental features are likely to break in the future, and you acknowledge your code might break after a Zoo Design Studio update.
+
+You don't ever have to enable this -- they're really designed for users who want to help us test out new features before they're ready for the general public. If that's you, then go ahead and enable it. We anticipate most users won't ever enable this. In fact, most users will never know this setting exists. But if you want to help us test and develop the future of KCL, this is how.
+
+## Conics and ellipses
+
+As mentioned above, we're adding _experimental_ KCL features. The first experiment is new KCL stdlib functions for conics, ellipses, hyperbolae and other cool curves. The new experimental functions are:
+
+ - [conic](https://zoo.dev/docs/kcl-std/functions/std-sketch-conic)
+ - [elliptic](https://zoo.dev/docs/kcl-std/functions/std-sketch-elliptic)
+ - [ellipticPoint](https://zoo.dev/docs/kcl-std/functions/std-sketch-ellipticPoint)
+ - [ellipse](https://zoo.dev/docs/kcl-std/functions/std-sketch-ellipse)
+ - [hyperbolic](https://zoo.dev/docs/kcl-std/functions/std-sketch-hyperbolic)
+ - [hyperbolicPoint](https://zoo.dev/docs/kcl-std/functions/std-sketch-hyperbolicPoint)
+
+We're excited to see what you make with them. If you find any issues, limitations or bugs, please [let us know here](https://github.com/KittyCAD/modeling-app/issues/8065).
+
+## Recover from idle
+
+If you leave Zoo Design Studio open for several minutes without doing anything, it'll "go idle" and disconnect your session. When you start using ZDS again, it reconnects and your video feed will start running again. This idle mode means we aren't spending our finite supply of GPUs on a user who leaves ZDS open all night without doing anything. Unfortunately, under some circumstances ZDS wasn't resuming from idle properly. Instead it would just show a black screen. The only fix for users was to close and reopen the app.
+
+We've fixed a ton of the cases that caused this with [Lee's great PR](https://github.com/KittyCAD/modeling-app/pull/8128), so you should be seeing that blank black screen a lot less. We're aware it can still happen when [closing and reopening your laptop](https://github.com/KittyCAD/modeling-app/issues/7562). We're actively working on fixing everywhere this issue pops up. Please let us know if you experience it!
+
+## Tons of small fixes
+
+We've fixed a lot of little bugs and nuisances -- e.g. [improvements](https://github.com/KittyCAD/modeling-app/pull/8001) to the [KCL parser](https://github.com/KittyCAD/modeling-app/pull/8000), or to [helices in the -Z dimension](https://github.com/KittyCAD/modeling-app/issues/8101).
+
+And that's it! We're hard at work on some very big improvements, so make sure you catch next month's update when it's out.
