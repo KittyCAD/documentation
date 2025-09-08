@@ -1,19 +1,16 @@
 ---
-title: "zoo api-call status"
-excerpt: "Perform operations for API calls."
+title: "zoo ml kcl copilot"
+excerpt: "Start an interactive Copilot chat for KCL in the current project directory."
 layout: manual
 ---
 
-Perform operations for API calls.
+Start an interactive Copilot chat for KCL in the current project directory.
 
 ### Options
 
 <dl class="flags">
-   <dt><code>id</code></dt>
-   <dd>The ID of the API call</dd>
-
-   <dt><code>-f/--format</code></dt>
-   <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
+   <dt><code>--project-name</code></dt>
+   <dd>Optional project name to associate with messages</dd>
 
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
@@ -28,11 +25,13 @@ Perform operations for API calls.
 
 ### About
 
+Requires the current directory to contain a `main.kcl` file.
+
 ```
-# get the status of an async API call
-$ zoo api-call status <id>
+$ zoo ml kcl copilot
 ```
 
 ### See also
 
-* [zoo api-call](./zoo_api-call)
+* [zoo ml](./zoo_ml)
+* [zoo ml kcl](./zoo_ml_kcl)
