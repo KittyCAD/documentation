@@ -1,10 +1,10 @@
 ---
 title: "zoo app"
-excerpt: "Open a directory or file in the Zoo Modeling App on your desktop."
+excerpt: "Open a directory or file in the Zoo Design Studio on your desktop."
 layout: manual
 ---
 
-Open a directory or file in the Zoo Modeling App on your desktop.
+Open a directory or file in the Zoo Design Studio on your desktop.
 
 ### Options
 
