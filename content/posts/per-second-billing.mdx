@@ -65,7 +65,7 @@ Most users do nothing. If you are **not** on a subscription plan, your invoice l
 No, the **rate is unchanged**. Per-second metering just removes minute-rounding artifacts, so short calls are billed more precisely.
 
 **Why seconds instead of fractional credits?**
-Seconds are concrete and easy to reason about. Also nicer for client code than 13.37 credits.
+Seconds are concrete and easy to reason about. Fractional credits would just mirror the dollar amount, so why juggle two numbers that mean the same thing? Also nicer for client code than 13.37 credits.
 
 **When do short calls start getting billed?**
 Starting **October 13, 2025**, sub-10-second calls are billed per second with the same rounding.
