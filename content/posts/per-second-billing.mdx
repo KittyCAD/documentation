@@ -23,11 +23,11 @@ Per-minute rounding punished short calls. Per-second billing is fair and predict
 * **Rounding:** We compute `elapsed_seconds × $1/120`, then **round Half-Up to the nearest cent per call**. We never round the time itself.
 * **Credits are now in seconds:** Same dollars, different unit so you do not see fractional credits.
 
-  * Free: **$10** monthly credit becomes **1205 seconds** (20 minutes).
-  * Plus: **$50** monthly credit becomes **6024 seconds** (100 minutes). This plan is a steal since it only costs $20/month.
+  * Free: **$10** monthly credit becomes **1205 seconds** (about 20 minutes).[^credit-rounding]
+  * Plus: **$50** monthly credit becomes **6024 seconds** (just over 100 minutes). This plan is a steal since it only costs $20/month.
   * Pro: still unlimited usage through Zoo Design Studio and Text-to-CAD generator.
   * Everything else: unchanged in dollars, unit is seconds.
-* **Short calls policy:** Historically, sub-10-second calls were not billed. Starting **October 9, 2025**, we will bill them per second with the same rate and rounding.
+* **Short calls policy:** Historically, sub-10-second calls were not billed. Starting **October 13, 2025**, we will bill them per second with the same rate and rounding.
 
 ## How the math works (so you can check us)
 
@@ -68,6 +68,8 @@ No, the **rate is unchanged**. Per-second metering just removes minute-rounding 
 Seconds are concrete and easy to reason about. Also nicer for client code than 13.37 credits.
 
 **When do short calls start getting billed?**
-Starting **October 9, 2025**, sub-10-second calls are billed per second with the same rounding.
+Starting **October 13, 2025**, sub-10-second calls are billed per second with the same rounding.
 
 Fair pricing, cleaner counters, less grumpiness. If anything looks off, ping us and we will fix it.
+
+[^credit-rounding]: The UI expresses credits with a rounded $0.0083 per-second constant so the numbers stay friendly. That truncated rate slightly overstates the seconds you see (for example 1205 seconds ≈ $10 and 6024 seconds ≈ $50) compared with the exact $1/120 math. Your invoice still uses the precise rate and Half-Up rounding.
