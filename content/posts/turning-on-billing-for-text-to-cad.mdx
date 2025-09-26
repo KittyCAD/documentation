@@ -10,7 +10,7 @@ ogImage:
     url: 'documentation-assets/meta-images/turning-on-billing-for-text-to-cad-blog.jpg'
 ---
 
-On Monday, January 15th, we will be turning on billing for [Text-to-CAD](https://zoo.dev/text-to-cad). Let’s go over a bit about what this means. Our APIs and tools have pay-as-you-go pricing. You get 40 free minutes of API access per month, followed by a cost of $0.50 per minute for additional usage.
+On Monday, January 15th, we will be turning on billing for [Text-to-CAD](https://zoo.dev/text-to-cad). Let’s go over a bit about what this means. Our APIs and tools have pay-as-you-go pricing. You get 20 free minutes of API access per month, followed by a cost of $0.50 per minute for additional usage.[^2025-billing-update]
 
 Let’s break this down for a common Text-to-CAD workflow. When you generate a model in the [Text-to-CAD UI](https://text-to-cad.zoo.dev), you are paying for the server time it takes to generate that model. The artifacts that come from the initial API call are a STEP file and a glTF file. If you then use the UI to download an STL file (or any other format), you are paying for the server time to convert the file to an STL. While that is essentially two API calls, it’s better to think of it as the server time. For example, if you directly call our [Text-to-CAD API endpoint](https://zoo.dev/docs/developer-tools/api/ml/generate-a-cad-model-from-text) and request an STL at that time, it’s a single API call, _BUT_ still the same amount of server time. Therefore, it’s easier to think about it in terms of server time versus the number of API calls. You are not charged for any failed API calls[^1]. Billing also applies to requests made through our Discord bot, since it is authenticated with your Discord account.
 
@@ -27,6 +27,8 @@ As an additional note, [Zoo Modeling App](https://zoo.dev/modeling-app) is still
 We are looking forward to what you build with Text-to-CAD and any revenue generated from the initial implementation will only help make it better in the future!
 
 
+[^2025-billing-update]: Update September 26, 2025: We now meter by the second at the same $0.50/min rate. Details live in [Per-second billing, same price, fairer math](/blog/per-second-billing).
+
 [^1]: These are API calls that do not return a 2xx status code.
-[^2]: If you happen to make **A LOT** of API calls resulting in a huge bill, keep this limitation in mind. Let’s say each API call is $0.50, if we bill you after 250 API calls _always_, then you will be getting emails in intervals of ~$125.0 each time we bill you. These notifications should serve as a warning for any excess usage that might be due to faulty `loop`s in your code etc. If one of these bills fails to collect a payment, your usage will be cut off automatically. Lastly, in the off chance you miss _every_ email from us and all your payments succeed and you rack up a million dollars (or whatever) worth of damage in a short amount of time, we will try to do the right thing for you. Also in the future we will let you configure limits for your account. 
- 
+[^2]: If you happen to make **A LOT** of API calls resulting in a huge bill, keep this limitation in mind. Let’s say each API call is $0.50, if we bill you after 250 API calls _always_, then you will be getting emails in intervals of ~$125.0 each time we bill you. These notifications should serve as a warning for any excess usage that might be due to faulty `loop`s in your code etc. If one of these bills fails to collect a payment, your usage will be cut off automatically. Lastly, in the off chance you miss _every_ email from us and all your payments succeed and you rack up a million dollars (or whatever) worth of damage in a short amount of time, we will try to do the right thing for you. Also in the future we will let you configure limits for your account.
+
