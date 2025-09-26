@@ -10,7 +10,7 @@ ogImage:
   url: 'documentation-assets/meta-images/blog-per-second-billing.jpg'
 ---
 
-**TL;DR:** We now bill **per second** at the **exact same rate as before**: **$0.50 per minute**, billed per second, which is **$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call**[^half-up-def] after the calculation, we never round your time. Included credit dollars are unchanged, only the unit changes to **seconds**. Two-week notice: starting **October 13, 2025**, calls under 10 seconds will be billed per second as well.
+**TL;DR:** Starting today, **September 29, 2025**, we bill **per second** at the **exact same rate as before**: **$0.50 per minute**, billed per second, which is **$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call**[^half-up-def] after the calculation, we never round your time. Two-week notice: starting **October 13, 2025**, calls under 10 seconds will be billed per second as well. Included credit dollars are unchanged, only the unit changes to **seconds**.
 
 
 ## Why we changed it
@@ -19,6 +19,7 @@ Per-minute rounding punished short calls. Per-second billing is fair and predict
 
 ## What exactly is changing
 
+* **Effective date:** As of **September 29, 2025**, any call lasting 10 seconds or longer is billed per second.
 * **Rate:** Still **$0.50 per minute**, now metered per second. That is **$1/120 per second**.
 * **Rounding:** We compute `elapsed_seconds × $1/120`, then **round Half-Up to the nearest cent per call**. We never round the time itself.
 * **Credits are now in seconds:** Same dollars, different unit so you do not see fractional credits.
@@ -68,7 +69,7 @@ No, the **rate is unchanged**. Per-second metering just removes minute-rounding 
 Seconds are concrete and easy to reason about. Fractional credits would just mirror the dollar amount, so why juggle two numbers that mean the same thing? Also nicer for client code than 13.37 credits.
 
 **When do short calls start getting billed?**
-Starting **October 13, 2025**, sub-10-second calls are billed per second with the same rounding.
+Per-second billing for calls **10 seconds and up** started today, **September 29, 2025**. Starting **October 13, 2025**, sub-10-second calls are billed per second with the same rounding.
 
 Fair pricing, cleaner counters, less grumpiness. If anything looks off, ping us and we will fix it.
 
