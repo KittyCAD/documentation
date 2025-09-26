@@ -10,7 +10,7 @@ ogImage:
   url: ''
 ---
 
-**TL;DR:** We now bill **per second** at the **exact same rate as before**: **$0.50 per minute**, billed per second, which is **$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call** after the calculation, we never round your time. Included credit dollars are unchanged, only the unit changes to **seconds**. Two-week notice: starting **October 13, 2025**, calls under 10 seconds will be billed per second as well.
+**TL;DR:** We now bill **per second** at the **exact same rate as before**: **$0.50 per minute**, billed per second, which is **$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call**[^half-up-def] after the calculation, we never round your time. Included credit dollars are unchanged, only the unit changes to **seconds**. Two-week notice: starting **October 13, 2025**, calls under 10 seconds will be billed per second as well.
 
 
 ## Why we changed it
@@ -71,5 +71,7 @@ Seconds are concrete and easy to reason about. Also nicer for client code than 1
 Starting **October 13, 2025**, sub-10-second calls are billed per second with the same rounding.
 
 Fair pricing, cleaner counters, less grumpiness. If anything looks off, ping us and we will fix it.
+
+[^half-up-def]: “Half-Up to the nearest cent” means anything under half a cent stays at the lower cent, and values landing exactly on the half round up to the next cent.
 
 [^credit-rounding]: We surface price-per-second math off a single rounded constant set to $0.0083 so the numbers stay readable. That truncation slightly overstates the seconds you see in your favor (for example 1205 seconds ≈ $10 and 6024 seconds ≈ $50) compared with the exact $1/120 math. Your invoice still uses the precise rate and Half-Up rounding.
