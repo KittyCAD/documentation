@@ -74,4 +74,4 @@ Fair pricing, cleaner counters, less grumpiness. If anything looks off, ping us 
 
 [^half-up-def]: “Half-Up to the nearest cent” means anything under half a cent stays at the lower cent, and values landing exactly on the half round up to the next cent.
 
-[^credit-rounding]: We surface price-per-second math off a single rounded constant set to $0.0083 so the numbers stay readable. That truncation slightly overstates the seconds you see in your favor (for example 1205 seconds ≈ $10 and 6024 seconds ≈ $50) compared with the exact $1/120 math. Your invoice still uses the precise rate and Half-Up rounding.
+[^credit-rounding]: We surface price-per-second math off a single rounded constant set to $0.0083 so the numbers stay readable. That truncation slightly overstates the seconds you see in your favor (for example 1205 seconds ≈ $10 and 6024 seconds ≈ $50) compared with the exact $1/120 math. Invoices run off that same constant and Half-Up rounding, so the tiny bonus sticks with you.
