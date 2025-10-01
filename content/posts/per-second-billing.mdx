@@ -10,7 +10,7 @@ ogImage:
   url: 'documentation-assets/meta-images/blog-per-second-billing.jpg'
 ---
 
-**TL;DR:** Starting today, **September 30, 2025**, we bill **per second** at the **exact same rate as before**: **$0.50 per minute**, billed per second, which is **$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call**[^half-up-def] after the calculation, we never round your time. Two-week notice: starting **October 14, 2025**, calls under 10 seconds will be billed per second as well. Included credit dollars are unchanged, only the unit changes to **seconds**.
+**TL;DR:** Starting today, **September 30, 2025**, we bill **per second** at the **exact same rate as before**: **\$0.50 per minute**, billed per second, which is **\$1/120 per second** (about $0.008333). We **round Half-Up to the nearest cent per call**[^half-up-def] after the calculation, we never round your time. Two-week notice: starting **October 14, 2025**, calls under 10 seconds will be billed per second as well. Included credit dollars are unchanged, only the unit changes to **seconds**.
 
 
 ## Why we changed it
@@ -20,12 +20,12 @@ Per-minute rounding punished short calls. Per-second billing is fair and predict
 ## What exactly is changing
 
 * **Effective date:** As of **September 30, 2025**, any call lasting 10 seconds or longer is billed per second.
-* **Rate:** Still **$0.50 per minute**, now metered per second. That is **$1/120 per second**.
+* **Rate:** Still **\$0.50 per minute**, now metered per second. That is **$1/120 per second**.
 * **Rounding:** We compute `elapsed_seconds × $1/120`, then **round Half-Up to the nearest cent per call**. We never round the time itself.
 * **Credits are now in seconds:** Same dollars, different unit so you do not see fractional credits.
 
   * Free: **$10** monthly credit becomes **1205 seconds** (about 20 minutes).[^credit-rounding]
-  * Plus: **$50** monthly credit becomes **6024 seconds** (just over 100 minutes). This plan is a steal since it only costs $20/month.
+  * Plus: **\$50** monthly credit becomes **6024 seconds** (just over 100 minutes). This plan is a steal since it only costs $20/month.
   * Pro: still unlimited usage through Zoo Design Studio and Text-to-CAD generator.
   * Everything else: unchanged in dollars, unit is seconds.
 * **Short calls policy:** Historically, sub-10-second calls were not billed. Starting **October 14, 2025**, we will bill them per second with the same rate and rounding.
@@ -75,4 +75,4 @@ Fair pricing, cleaner counters, less grumpiness. If anything looks off, ping us 
 
 [^half-up-def]: “Half-Up to the nearest cent” means anything under half a cent stays at the lower cent, and values landing exactly on the half round up to the next cent.
 
-[^credit-rounding]: We surface price-per-second math off a single rounded constant set to $0.0083 so the numbers stay readable. That truncation slightly overstates the seconds you see in your favor (for example 1205 seconds ≈ $10 and 6024 seconds ≈ $50) compared with the exact $1/120 math. Invoices run off that same constant and Half-Up rounding, so the tiny bonus sticks with you.
+[^credit-rounding]: We surface price-per-second math off a single rounded constant set to \$0.0083 so the numbers stay readable. That truncation slightly overstates the seconds you see in your favor (for example 1205 seconds ≈ \$10 and 6024 seconds ≈ \$50) compared with the exact $1/120 math. Invoices run off that same constant and Half-Up rounding, so the tiny bonus sticks with you.
