@@ -15,7 +15,7 @@ Hi, Zoo users! Another month has passed, and we're excited to share a lot of the
 
 ## Preview: Geometric Dimensioning and Tolerancing annotations
 
-We've added experimental support for annotating your CAD geometry with Geometric Dimensioning and Tolerance (GD&T) labels. These help mechanical engineers explain the intent behind their designs, and share important requirements with their partners in testing, manufacturing etc.
+We've added experimental support for annotating your CAD geometry with Geometric Dimensioning and Tolerancing (GD&T) labels. These help mechanical engineers explain the intent behind their designs, and share important requirements with their partners in testing, manufacturing etc.
 
 ![Preview of GDT labels for face flatness](/documentation-assets/whats-new-october/gdt_face_flatness_preview.png)
 
@@ -68,7 +68,7 @@ Maksym has demos of both [circular](https://github.com/KittyCAD/modeling-app/pul
 
 ## Zoo MCP for AI integration
 
-Zoo Design Studio already has a powerful built-in AI modeling assistant, but we don't want to lock down our Text-to-CAD models -- we want them to be easy to integrate with other tools. So we've built an [MCP server for Zoo](https://pypi.org/project/zoo-mcp/). Right now, our MCP grants your AI tools two new capabilities: creating new CAD models, and editing existing ones. This is all powered by the same Text-to-CAD that's in Zoo Design Studio. This is all fully [open-source](https://github.com/KittyCAD/zoo-mcp) so we're excited to see what you build with it.
+Zoo Design Studio already has a powerful built-in AI modeling assistant, but we don't want to lock down our Text-to-CAD models -- we want them to be easy to integrate with other tools. So we've built an [MCP server for Zoo](https://pypi.org/project/zoo-mcp/). Right now, our MCP grants your AI tools two new capabilities: creating new CAD models, and editing existing ones. This is all powered by the same Text-to-CAD that's in Zoo Design Studio. It's fully [open-source](https://github.com/KittyCAD/zoo-mcp) so we're excited to see what you build with it.
 
 ## Export to DXF (2D)
 
@@ -138,12 +138,13 @@ Here's a tiny video demo:
 ## And lots more
 
 We shipped a bunch of small improvements:
- - You can now [press the Delete key to delete a profile](https://github.com/KittyCAD/modeling-app/pull/8233), 
+ - Pressing "delete" on your keyboard now deletes the selected 2D profile
  - Fixing visual distortions when you open and close and reopen panels
  - Tags getting removed from your models
  - Getting stuck in the three-point arc sketch tool
  - Sketch tools getting unequipped when the KCL files changed on disk
  - A better login menu for enterprise environments
+ - Subtracting solids from each other works in more cases (including one very nasty crash that would end your video stream)
 
 Thanks for using Zoo! I really love writing these monthly updates and showing everyone all the improvements they get with our free updates. See you next month!
 
