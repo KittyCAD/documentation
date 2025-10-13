@@ -13,6 +13,6 @@
         "remark-math": "^6.0.0"
     },
     "devDependencies": {
-        "react": "^19.1.0"
+        "react": "^19.2.0"
     }
 }
