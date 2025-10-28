@@ -50,7 +50,7 @@ You've never CAD it so good.
 
 Environment variables that can be used with `zoo`.
 
-ZOO_TOKEN: an authentication token for Zoo API requests. Setting this avoids being prompted to authenticate and takes precedence over previously stored credentials.
+ZOO_API_TOKEN: an authentication token for Zoo API requests. Setting this avoids being prompted to authenticate and takes precedence over previously stored credentials.
 
 ZOO_HOST: specify the Zoo hostname for commands that would otherwise assume the "api.zoo.dev" host.
 
