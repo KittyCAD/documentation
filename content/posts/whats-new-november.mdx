@@ -1,6 +1,6 @@
 ---
 title: What's New With Zoo, November Edition
-excerpt: Product updates from this month, including TODO
+excerpt: Standard holes, extrude to, improved battery, and more!
 date: '2025-11-07'
 author:
     name: Adam Chalmers
@@ -9,7 +9,7 @@ ogImage:
     url: '/documentation-assets/meta-images/whats-new-with-zoo-november-blog.png'
 --- 
 
-Hi, Zoo users! This month we had KittyCAMP, our annual all-hands in Los Angeles. All our employees around the world met each other in-person and we celebrated our launch of Zoo Design Studio 1.0 together. This meant we only had 3 weeks of coding, but we got a LOT done this month! Here's some of the biggest features we've added to our CAD suite this month.
+Hi, Zoo users! This month we had KittyCAMP, our annual all-hands in Los Angeles. All our employees around the world met each other in person and we celebrated our launch of Zoo Design Studio 1.0 together. This meant we only had 3 weeks of coding, but we got a LOT done this month! Here are some of the biggest features we've added to our CAD suite this month.
 
 ---
 
@@ -39,7 +39,7 @@ In KCL you can [extrude to a plane or point](https://zoo.dev/docs/kcl-std/functi
 
 ## Massively reduced battery drain
 
-Zoo Design Studio drained a lot of battery life. This was kind of embarrassing, because a big reason we do all the hardcore 3D rendering in the cloud is to save battery life, and let you do CAD without a big fancy GPU. Well, we realized the app was draining a lot of battery. But Kevin investigated and [fixed this](https://github.com/KittyCAD/modeling-app/pull/8555). This has also made the app snappier and more responsive. Thank you Kevin, and to the annoyed users who reported this! Zoo should no longer show up in your Activity Monitor or Task Manager or htop as using significant energy.
+Zoo Design Studio drained a lot of battery life. This was kind of embarrassing, because a big reason we do all the hardcore 3D rendering in the cloud is to save battery life, and let you do CAD without a big fancy GPU. Well, we realized the app was draining a lot of battery. But Kevin investigated and [fixed this](https://github.com/KittyCAD/modeling-app/pull/8555). This has also made the app snappier and more responsive. A big thank you to Kevin, and to the annoyed users who reported this! Zoo should no longer show up in your Activity Monitor or Task Manager or htop as using significant energy.
 
 ## GDT flatness UI
 
@@ -80,7 +80,7 @@ When you select an edge in Zoo Design Studio, it's highlighted yellow. Until thi
 
 ## Bugfix: smarter selections for solids
 
-Most Zoo tools work by selecting the tool (e.g. the Shell or Fillet or Pattern tool), and then selecting something to appy it to (e.g. a face, an edge, a solid). Generally, if you've already selected something, and then you press the tool, the tool knows you want to use whatever you already selected. For example, if you've selected a face, then you click Shell, it'll assume you want to shell that face.
+Most Zoo tools work by selecting the tool (e.g. the Shell or Fillet or Pattern tool), and then selecting something to apply it to (e.g. a face, an edge, a solid). Generally, if you've already selected something, and then you press the tool, the tool knows you want to use whatever you already selected. For example, if you've selected a face, then you click Shell, it'll assume you want to shell that face.
 
 We had an annoying bug where, if you selected a face, then opened a tool that operates on solids (e.g. Pattern, which duplicates a solid, or Union, which combines multiple solids), the tool would assume you wanted to use it on the selected solids. So far, so good. But then when you got to the end of that tool and pressed OK, you'd get an error, complaining that you had selected a face and not a solid. That was very annoying! The bug is now fixed. If you try this now, Zoo will figure out which solid the face belongs to, and use that solid with the tool. Thanks for [fixing](https://github.com/KittyCAD/modeling-app/pull/8498) this, Max!
 
@@ -88,7 +88,7 @@ We had an annoying bug where, if you selected a face, then opened a tool that op
 
 We shipped a bunch of small improvements:
  - [Faster reconnects](https://github.com/KittyCAD/modeling-app/pull/8792) to Zoo's server when your internet is disrupted
- - Removed some [glitchy lines](https://github.com/KittyCAD/modeling-app/pull/8792) that would occasionally flash for a spit second
+ - Removed some [glitchy lines](https://github.com/KittyCAD/modeling-app/pull/8792) that would occasionally flash for a split second
  - Fixed a [bug](https://github.com/KittyCAD/modeling-app/pull/8788) where only lowercase .step files could be imported, and .STEP files were rejected
  - Sometimes the camera would jump around in sketch mode, but we [fixed it](https://github.com/KittyCAD/modeling-app/pull/8772)
  - More reliable Text-to-CAD
