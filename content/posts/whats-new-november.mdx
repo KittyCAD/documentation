@@ -41,7 +41,6 @@ In KCL you can [extrude to a plane or point](https://zoo.dev/docs/kcl-std/functi
 
 Zoo Design Studio drained a lot of battery life. This was kind of embarrassing, because a big reason we do all the hardcore 3D rendering in the cloud is to save battery life, and let you do CAD without a big fancy GPU. Well, we realized the app was draining a lot of battery. But Kevin investigated and [fixed this](https://github.com/KittyCAD/modeling-app/pull/8555). This has also made the app snappier and more responsive. Thank you Kevin, and to the annoyed users who reported this! Zoo should no longer show up in your Activity Monitor or Task Manager or htop as using significant energy.
 
-
 ## GDT flatness UI
 
 [Last month](https://zoo.dev/blog/whats-new-october) we showed off our initial support for GDT annotations. Initially, you had to open up the code panel and write KCL to add these, but now you can use the normal point-and-click UI. Click a face, then click our new annotation button and you can start adding these GDT annotations, starting with flatness.
@@ -49,6 +48,20 @@ Zoo Design Studio drained a lot of battery life. This was kind of embarrassing, 
 ![The annotation and the wizard for creating it](/documentation-assets/whats-new-november/flatness_wizard.png)
 
 These tools are still experimental, and might change in the future, so you'll need to opt into experiments to enable them. We hope you find them helpful, please give us any feedback if you see anything that can be improved. You can learn more at the [KCL docs](https://zoo.dev/docs/kcl-std/functions/std-gdt-flatness).
+
+## Multi-tool subtract
+
+ZDS lets you subtract one solid (the "tool") from another (the "target"), leaving a 3D gap where the tool used to be. We've always supported removing the same tool from many different targets, but today, you can remove multiple tools from multiple targets. This opens up a lot of new design possibilities! Here's an example.
+
+In this model, we've got two cubes, and four rods.
+
+![Before subtraction](/documentation-assets/whats-new-november/pre_sub.png)
+
+Now we subtract all 4 rods from both of the cubes:
+
+![After subtraction](/documentation-assets/whats-new-november/post_sub.png)
+
+3D subtraction is the most complicated CAD operation our engineers have developed. The math behind it is very complicated! So this is a pretty big milestone for our new CAD kernel. Doing this sort of topological calculation on the GPU took a lot of incredible work from our engine team, especially Mike, Austin and Alyn, whose recent [patent](https://ppubs.uspto.gov/api/pdf/downloadPdf/12229885?requestToken=eyJzdWIiOiIzYmM2ZmU4Mi03ZmUzLTQ5YjEtODg5MS1lNjdiOTM2ZTY1YTMiLCJ2ZXIiOiJmNzY4OTA4YS0yMDc3LTRiZmMtYjliYi04NWFlY2UxYTcxMDkiLCJleHAiOjB9) for GPU-aided topology calculations has been helping us keep our engine speedy on modern hardware.
 
 ## Layout resizing
 
