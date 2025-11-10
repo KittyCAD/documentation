@@ -84,20 +84,6 @@ Most Zoo tools work by selecting the tool (e.g. the Shell or Fillet or Pattern t
 
 We had an annoying bug where, if you selected a face, then opened a tool that operates on solids (e.g. Pattern, which duplicates a solid, or Union, which combines multiple solids), the tool would assume you wanted to use it on the selected solids. So far, so good. But then when you got to the end of that tool and pressed OK, you'd get an error, complaining that you had selected a face and not a solid. That was very annoying! The bug is now fixed. If you try this now, Zoo will figure out which solid the face belongs to, and use that solid with the tool. Thanks for [fixing](https://github.com/KittyCAD/modeling-app/pull/8498) this, Max!
 
-## Zoo acquired SOC 2 Type II
-
-At Zoo, we are passionate about security. Zoo Design Studio is built on secure design choices -- while our core product is cloud-based, CAD source files are stored only on the user's device.
-We also do regular source code audits, review code of dependencies, and report them through coordinated vulnerability disclosure programs. If a bug is found in our software, we also have a [security policy in place](https://zoo.dev/security).
-
-**We are excited to share that we have successfully completed our SOC 2 Type II audit!**
-This report demonstrates our commitment to maintaining the highest standards of security, availability, processing integrity, and confidentiality.
-
-The report allows you to verify that security-relevant policies are in place and are being followed.
-
-More on our policies, controls, and process of acquiring SOC 2 Type II report will be posted in a separate blog post arriving within the next week.
-
-You can download our report at [trust.zoo.dev](https://trust.zoo.dev/) today.
-
 ## And lots more
 
 We shipped a bunch of small improvements:
