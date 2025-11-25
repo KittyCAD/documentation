@@ -1,0 +1,197 @@
+---
+title: 'Zoo is now SOC 2 compliant'
+excerpt: 'We recently finished our SOC 2 Type II audit, demonstrating our commitment to security and data protection.'
+coverImage: '/kittycad-blog-banner.png'
+date: '2025-11-21T13:00:00.000Z'
+author:
+name: Max Ammann
+picture: '/maxammann.jpg'
+ogImage:
+url: '/kittycad.png'
+---
+
+At Zoo, we are passionate about security. Zoo Design Studio is built on secure design choices -- while our core product is cloud-based, the main storage location of CAD files is the user's local machine.
+We also perform regular source code audits, review code of dependencies, and report them through coordinated vulnerability disclosure programs. If a bug is found in our software, we also have a security policy in place.
+
+**TL;DR We are excited to share that we have successfully completed our SOC 2 Type II audit!**
+
+Grab the report at [trust.zoo.dev](https://trust.zoo.dev/)! We decided to make the report publicly available because opening support tickets or emailing sales to get access is painful (Yes, we experienced that ourselves when evaluating our vendors).
+
+## What does this mean? I'm a customer.
+
+SOC 2 is a compliance framework, and essentially it validates that we have implemented our security controls.
+When reading a SOC 2 Type II report you want to go through the stated controls and also see if the auditors noted any exceptions.
+If they don't note any exceptions, it means that they verified that Zoo is following the controls and that they are implemented appropriately.
+Our first report covers 3 months and the next one will cover 6 months.
+
+The bottom line however is that a SOC 2 report is only a weak positive indicator of how well a company is doing security-wise.
+However, we still believe that any SOC 2 report deliver has a net-positive effect on any companies' security. Security is a complex and huge field.
+It ranges from background checks, on- and offboarding, access controls to memory safety and Heap feng shui.
+It is a collaborative practice between HR, IT, engineers and everything else that pops into your mind when you hear the word "company".
+
+## Start to repeat: How to do SOC 2
+
+1. Decide for an auditor.
+2. Go through the readiness assessment. For each proposed control, decide if you already fulfill it or if you need to implement something new.
+You can also decide that the control is harmful like we did with [email phishing tests](https://ieeexplore.ieee.org/abstract/document/11023357) and adapt it.
+3. Implement or adjust processes, technical controls, and policies.
+4. Deliver evidence in form of populations and samples (typically CSV files, screenshots, or documents) to the auditor.
+Auditors will create a selection of population items and will request evidence for those.
+5. Receive the report and repeat! SOC 2 type II cover a certain time frame. So once you have done it, you need to keep up following policies and processes. This is also why technical controls are great - they are harder to forget about.
+
+
+## Which changes did we make?
+
+Zoo is a very fast moving company. With roughly 35 employees we are still small enough that implementing changes is relatively easy.
+We started planning for SOC 2 roughly in February 2025 and had the audit in our hands end of October 2025. The audit window already started 1st of June.
+That means we were able to implement all changes in just 4 months.
+I think this was possible due to 3 main reasons: 1) we are small and 2) we already had done performance reviews and had an up-to-date org chart 3) we were already following best-practices in engineering like IaaC, testing, linting and fully automated deployment (we deploy multiple times a day).
+Yes, those things matter as well for security.
+The report is supposed to measure security related risk, which also includes HR topics like training requirements, an internal whistleblowing form, contract requirements, onboarding, termination, performance reviews, and background check requirements.
+
+**User access and vendor review.** This initial review was one of the most important parts during the SOC 2 implementation. It unlocked the _possibility_ to deploy SSO, performing vendor reviews and focusing on the relevant services and systems.
+We created a `vendors.toml` file that was born out of a previous Markdown vendors list. However, we went further this time, listing all vendors we use (and no longer use) and which employee accounts exist. We also listed which authentication methods are supported (SAML, OIDC, etc.) and which compliance certification exist.
+Today, this handwritten TOML file has **4200 lines of text**. Here is an example of a file entry for AWS:
+
+```toml
+[[vendors]]
+name = "AWS"
+description = "Amazon Web Services - Cloud provider"
+owner = "Adam"
+url = "https://aws.some.url.com"
+how = "Ask the infrastructure team"
+cio = false
+auth = ["saml"]
+level = "Production"
+2fa = true
+audited = "2025-09-10"
+soc2-subservice = true
+
+[vendors.certification-review]
+last_reviewed = "2025-09-10"
+soc_2_report = "https://console.aws.amazon.com/artifact/v2/reports/details/report-9RNhIQWolrSBhJxz"
+noted_non_compliance = "None"
+
+[[vendors.accounts]]
+id = "user1"
+
+[[vendors.accounts]]
+id = "user2"
+```
+
+This file is updated and viewed with every user access review (that's where we validate if listing is valid), vendor review (checking SOC 2 reports and other certifications) and onboarding/offboarding.
+We also parse this file using internal tools to generate overviews. The `audited` flag and Git commits serve as signoffs we present as evidence.
+The goal is to automate generating this file for as many services as possible in the future. So far this method scales well and we can do a full user review within hours.
+
+**SSO.**
+Leaning more into SSO is a huge win for IT and security teams. It's pretty clear that managing employee access at a centralized place is easier than going through each service and revoking access.
+However, reality strikes and not all SaaS vendors support SSO. Our solution is an internal tool that can provision and revoke user access for SaaS services that provide an API. This is kind of a poor-mans SCIM.
+One problem we encountered is the infamous [SSO tax](https://sso.tax/). We noticed a recent push though to make SSO available on non-enterprise tiers.
+In our opinion there is a difference between offering SSO only on expensive enterprise tiers or providing it as a few hundred dollar add-on as Vercel does it. Still not ideal, but better not having any option to have SSO.
+Cloudflare just recently made [SSO available on free tiers](https://developers.cloudflare.com/fundamentals/manage-members/dashboard-sso/)! Thanks for that!
+
+
+**Reviews and GitHub rulesets:** Our SOC 2 controls require us to have a formal review process in place for code changes. We already had branch protection rules in place, but those are not flexible or centralized.
+Also, we want a way to supervise administrator access. Organization administrators or repository admins can edit branch protection rules and bypass protections.
+This might be even wanted in emergency situations. We were looking for a technical solution to supervise merges and also bypasses.
+
+Since 2023 GitHub provides rulesets and has been adding features since then. Rulesets allow to define organization (or enterprise wide) rules for repositories, branches, tags, or pushes.
+The neat thing is that you can define who can bypass the rulesets and GitHub also provides an API to fetch rule violations.
+
+We use the API to alert the security team in case someone performs an emergency merge to follow up with reviews.
+Not everybody on the team can do rule bypasses, but enough can such that we and our auditors saw the need for a technical control.
+
+![](./merge-is-blocked.png)
+
+You probably know the "Merging is blocked" message on GitHub. With our setup you may bypass rules and deal with the consequences. If you are only bypassing due to a failed test, then the security team is alerted, but no further action is required.
+If you bypass without a review, with our configuration, you are expected to explain yourself, raise an incident ticket, and document the reason for the bypass.
+
+**Endpoint security & MDM**
+Endpoint security can be a difficult topic as security teams to cross privacy boundaries of employees. Deploying a firewall won't cause as much skepticism as installing a piece of software on employees laptops.
+That is why transparency is the most important part when it comes to endpoint security. Without [honesty,](https://honest.security/) you won't have the trust of your employees.
+For that reason we decided to deploy [FleetDM](https://fleetdm.com/) and provide the complete endpoint configuration as a Git repository. Any employee can read the documentation of that repository, or actually read the configuration and suggest changes.
+This was the key to getting buy-in from the team.
+
+Getting that buy-in from employees was also straightforward because we deploy two tiers of endpoint configuration. The heavy tier is FleetDM and is required for higher privilege production access. The lightweight one is Google Chrome Endpoint Verification. Not every employee is enforced to enroll into FleetDM.
+The casual developer, who occasionally needs to access logs of production systems, is only required to proof a secure system configuration (patched OS, full-disk-encryption) through Endpoint Verification.
+The managed Google Chrome browser is considered a secure endpoint if it passes endpoint verification. By using SSO we can enforce that only devices that pass endpoint verification can access production data.
+Once we reach a certain size we will likely revisit endpoint security however for the current phase of the company and while implementing SOC 2 this was ideal.
+
+**Vendor reviews.** For us the key was to categorize vendors into those which are relevant for production systems and which not. For instance, Figma does not have access to any production data, so we treat them differently than AWS or Cloudflare.
+Makes sense, right? It is a case by case discussion you should have with your auditors, but for the most part you get to decide what systems are audited and which not.
+The frontmatter or any SOC 2 report will list which services and systems are being audited. Services like GitHub, CockroachDB, AWS, Cloudflare and others might come into contact with production data, so we are reviewing vendor documentation including their SOC2 report.
+We still perform a lightweight vendor review of vendors that serve as tools in our development process, but we do not verify their security controls in depth. I think this is what a lot of companies doing SOC 2 get wrong - they try to review every single vendor in depth which is not feasible and also not advised.
+Focus on the ones that can have a negative impact on YOUR company, product, employees, or service.
+
+**Establishing a policy framework.** One of the most daunting tasks when starting SOC 2 is to create the internal policies and making sure they align with the SOC 2 controls.
+Among other, we created a reasonable password policy, an acceptable use policy, a change management policy, and a vendor review policy. Generally, we are trying to make sure violations of our policies are not possible by enabling technical controls.
+For instance, we setup password complexity requirements in our IDP provider. Furthermore, if services use SSO then there is ideally only a single password employees need to remember and allows us to use our hardware 2FA keys with any SSO-enabled services we use.
+
+**Security awareness training.** Our security partner [NewHarbor](https://newharbor.co/) checked this one off the list for us. They did a great job at delivering the important messages without boring the team.
+
+**Incident response plan.** Another shout out to [NewHarbor](https://newharbor.co/). We started with a template and moved that over to Markdown.
+Documenting processes and policies in Git makes it much easier to explain changes, have a version history, and perform signoffs.
+We also decided to have separate processes for operational and security incidents. Any security incident has major implications, while service outages can be less significant and can go with less process overhead.
+
+**Risk assessment process.** Enumerating risks can be very useful, especially when dealing with security related risks.
+In some sense a any risk assessment practice is similar to threat modeling. By just enumerating risks, you dont eliminate risks, but it can kickstart discussions about thread modeling.
+I personally value thread models a lot. It is the basis for any sane security research. When doing formal analysis, code review or even fuzzing you need to decide for the juiciest targets.
+Sometimes it's obvious what to target, but more often you just _think_ you know.
+
+**Logging and monitoring.** Meeting the SOC 2 goals for logging and monitoring our systems was pretty easy for us. We already have centralized tracing across all our backend services.
+The same is true for logging. For performance metrics and alerting we are using Prometheus. During the readiness phase of SOC 2 we focused primarily on adding security related monitoring and alerting.
+Using existing tools we built ourselves a basic SIEM. Luckily the logging platform we are using calls itself already a SIEM, which makes the compliance people happy.
+
+**Automated security testing.** Since joining Zoo I have been investing into integrating more automated security testing. All containers are scanned using Trivy. Source code changes are audited using Semgrep.
+SBOMs, and potential vulnerability exposure is collected centrally in Dependency-Track and DefectDojo. For now the value of using GitHub Advanced Security was not that great so we decided to connect the open-source tools ourselves.
+I think in the long run this will provide us more flexibility, and we are still using GitHub's regular security features like Dependabot alongside that.
+
+**Independent security reviews and penetration tests**. In 2024, we did an indepth secure code review and threat model with Trail of Bits. 14 findings have been reported and all of them have been fixed.
+The report will actually go public in the next weeks, so once available I'll link it here.
+If you want to get notified once released subscribe our [trust center](https://trust.zoo.dev/). For 2025 we decided to a do a more classic penetration test. For 2026 we already scheduled another secure code review with Trail of Bits -- this time focusing on the new AI capabilities of Zoo.
+
+**Firewalls.** Firewalls can be part of a secure system design. However, if you only open ports you need, there is no need for a firewall.
+WAFs (Web Application Firewalls) can be useful to block common web attacks, and we enabled that through Cloudflare. However, I think this is a case where terminology was created to sell products.
+A WAF is not a firewall in the classical sense. In network security firewalls are primarily used to separate trust zones and to segment the network. Typically, they do routing and manage the traffic.
+A WAF on the other hand is closer related to a reverse proxy than a firewall application. The silver lining here is: If you got a WAF and your auditors want a firewall, they will likely be happy with that.
+
+**Trust center.** The mentioned [trust center](https://trust.zoo.dev/) is also an outcome of our SOC 2 as we need a place to publish the SOC 2 report, security reviews, as well as system diagrams.
+
+**Schedule.** Did I already mention that SOC 2 is not a one-time thing? You need to keep up with it. For that reason we created a schedule that lists all recurring tasks we need to do. For that we set up Slack workflows to keep us on track.
+
+## What we avoided
+
+- MDM manage all endpoints. We found a security model that checks our controls without forcing every employee to enroll into MDM. At the same time we can focus on a small group of employees with sensitive production access.
+- Focusing exclusively on **PENETRATION** tests. We are doing yearly security reviews. Some years it might be a classical penetration test, other years a secure code review and threat model. We dont yet want to box ourselves into a single type of review.
+- Fix any alerts from Dependabot or other automated tools. We decided to triage those alerts on a regular basis, but not every alert needs to be followed up.
+- Overwhelm IT-related teams with a full-blown EDR. We deploy lightweight ClamAV antivirus to our sensitive endpoints.
+  While I do want to have EDR in place eventually, for now fine-tuning EDRs for developers is not something we want to invest time in just now. Once Zoo reaches a certain size we will revisit that decision.
+- Run antivirus on server infrastructure. I don't know precisely why this is still a common thing wanted by some auditors. It does not make sense and our auditors agreed. Servers are not typical endpoints.
+
+If you got good auditors there is no need to bend over backwards to implement controls that do not make sense for your company. Go through the controls and align them with what you already do in your company.
+The auditors will be grateful to get more understand of your company and product. Yes, there are some compliance elements you need to accept, however a lot of them are maybe more flexible than you think!
+
+## Beyond SOC 2
+
+We do a lot more to keep Zoo secure beyond SOC 2 requirements. I wish those were actually part of SOC 2, but so far they are not.
+However, legislation is also catching up like with the Cyber Resilience Act which will address SBOMs and vulnerability disclosure in the EU.
+
+**Coordinated vulnerability disclosure.** We have a [security.txt](https://zoo.dev/.well-known/security.txt) in place that describes how security researchers can report security vulnerabilities to us.
+We are using GitHub security advisories to track and disclose vulnerabilities.
+
+**SBOMs.** We generate SBOMs for all our services and store them in a central location. This makes it easier to track dependencies and their vulnerabilities.
+
+**Use of hardware two-factor authentication.** While SOC 2 requires two-factor authentication, it does not mandate hardware 2FA keys. We decided to enforce hardware 2FA keys for all employees. This eliminates phishing attacks.
+
+**Fuzzing.** We are fuzzing critical components of our system. A blog post with details about our fuzzing setup and on our findings is coming soon!
+
+## What's next?
+
+Prepare for the next SOC 2 Type II audit. We got everything in place, now the goal is to maintain documentation, policies, and processes.
+Also, cleaning up and creating new internal documentation about which processes are in place and how to follow them.
+
+Apart from that the current tools we put in place meet to grow with the company. As we hire more employees, we will have a bigger IT team. Work that is currently done by the security team will be shifted to IT.
+Likely we will also invest in more rigorous alerting and integrate systems into a proper SIEM.
+
+Overall, I'm happy with the outcome of our SOC 2 journey. As expected, preparing for SOC 2 had a (small) net-positive security outcome.
+But I'm also happy about getting back to focusing on other security initiatives beyond SOC 2, like our fuzzing efforts, and improving our secure development lifecycle.
