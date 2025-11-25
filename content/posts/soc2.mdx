@@ -10,11 +10,11 @@ ogImage:
     url: '/kittycad.png'
 ---
 
-At Zoo, we are passionate about security. Zoo Design Studio is built on secure design choices — while our core product is cloud-based, the main storage location for CAD files is the user's local machine.
+At Zoo, we are passionate about security. Zoo Design Studio is built on secure design choices—while our core product is cloud-based, the main storage location for CAD files is the user's local machine.
 We also perform regular source code audits, review the source code of dependencies, and report issues through coordinated vulnerability disclosure programs. If a bug is found in our software, we have a security policy in place to address it.
 
 
-**TL;DR: On top of that we are excited to share that we have successfully completed our SOC 2 Type II audit!**
+**TL;DR: On top of that, we are excited to share that we have successfully completed our SOC 2 Type II audit!**
 
 Grab the report at [trust.zoo.dev](https://trust.zoo.dev/)! We decided to make the report publicly available because opening support tickets or emailing sales to get access is painful. (Yes, we experienced that ourselves when evaluating our vendors.)
 
@@ -37,7 +37,7 @@ You can also decide that the proposed control is inadequate, like we did with [e
 3. Implement or adjust processes, technical controls, and policies.
 4. Deliver evidence in the form of populations and samples (typically CSV files, screenshots, or documents) to the auditor.
 Auditors will create a selection of population items and will request evidence for those.
-5. Receive the report and repeat! SOC 2 Type II covers a certain time frame. So once you have done it, you need to keep up following policies and processes. This is also why technical controls are great — they are harder to forget about.
+5. Receive the report and repeat! SOC 2 Type II covers a certain time frame. So once you have done it, you need to keep up following policies and processes. This is also why technical controls are great—they are harder to forget about.
 
 
 ## Which changes did we make?
@@ -45,11 +45,11 @@ Auditors will create a selection of population items and will request evidence f
 Zoo is a very fast-moving company. With roughly 35 employees, we are still small enough that implementing changes is relatively easy.
 We started planning for SOC 2 in February 2025 and had the audit in our hands by the end of October 2025. The audit window started on June 1st.
 That means we were able to implement all changes in just 4 months.
-I think this was possible due to three main reasons: 1) we are small, 2) we had already had processes around performance reviews, org charts and background checks in place, and 3) we were already following best practices in engineering like IaC, testing, linting, and fully automated deployment (we deploy multiple times a day).
+I think this was possible due to three main reasons: 1) we are small, 2) we already had processes around performance reviews, org charts, and background checks in place, and 3) we were already following best practices in engineering like IaC, testing, linting, and fully automated deployment (we deploy multiple times a day).
 You may wonder why performance reviews matter for a security report: A SOC 2 report is supposed to measure security-related risk, which also includes HR topics like training requirements, an internal whistleblowing form, contract requirements, onboarding, termination, performance reviews, and background check requirements.
 
 **User access and vendor review.** This initial review was one of the most important parts during the SOC 2 implementation. It unlocked the possibility to deploy SSO for many SaaS services, perform vendor reviews, and focus on the relevant services and systems.
-We created a `vendors.toml` file that was born out of a previous Markdown vendors list. However, we went further this time, listing all vendors we use (and no longer use) and which employee accounts exist. We also listed which authentication methods are supported (SAML, OIDC, etc.) and which compliance certifications exist.
+We created a `vendors.toml` file that was born out of a previous Markdown vendor list. However, we went further this time, listing all vendors we use (and no longer use) and which employee accounts exist. We also listed which authentication methods are supported (SAML, OIDC, etc.) and which compliance certifications exist.
 Today, this handwritten TOML file has **4200 lines of text**. Here is an example of a file entry for AWS:
 
 ```ini
@@ -107,7 +107,7 @@ If you bypass without a review, with our configuration, you are expected to expl
 **Endpoint security & MDM**
 Endpoint security can be a difficult topic, as security teams cross privacy boundaries of employees. Deploying a firewall won't cause as much skepticism as installing a piece of software on employees' laptops.
 That is why transparency is the most important part when it comes to endpoint security. Without [honesty,](https://honest.security/) you won't have the trust of your employees.
-For that reason, we decided to deploy [FleetDM](https://fleetdm.com/) and provide the complete endpoint configuration as a Git repository. Any employee can read the documentation of that repository, or actually read the configuration and suggest changes.
+For that reason, we decided to deploy [FleetDM](https://fleetdm.com/) and provide the complete endpoint configuration as a Git repository. Any employee can read the documentation of that repository or actually read the configuration and suggest changes.
 This was the key to getting buy-in from the team.
 
 Getting that buy-in from employees was also straightforward because we deploy two tiers of endpoint configuration. The heavyweight tier is FleetDM and is required for higher privilege production access. The lightweight one is Google Chrome Endpoint Verification. Not every employee is required to enroll in FleetDM.
@@ -115,9 +115,9 @@ The casual developer, who occasionally needs to access logs of production system
 The managed Google Chrome browser is considered a secure endpoint if it passes endpoint verification. By using SSO, we can enforce that only devices that pass endpoint verification can access production data.
 Once we reach a certain size, we will likely revisit endpoint security. However, for the current phase of the company and while implementing SOC 2, this was ideal.
 
-**Vendor reviews.** For us, the key was to categorize vendors into those which are relevant for production systems and those which are not. For instance, Figma does not have access to any production data, so we treat them differently than AWS or Cloudflare.
+**Vendor reviews.** For us, the key was to categorize vendors into those that are relevant for production systems and those that are not. For instance, Figma does not have access to any production data, so we treat them differently than AWS or Cloudflare.
 Makes sense, right? It is a case-by-case discussion you should have with your auditors, but for the most part you get to decide what systems are audited and which are not.
-The frontmatter of any SOC 2 report will list which services and systems are being audited. Services like GitHub, CockroachDB, AWS, Cloudflare and others might come into contact with production data, so we review vendor documentation including their SOC 2 report.
+The front matter of any SOC 2 report will list which services and systems are being audited. Services like GitHub, CockroachDB, AWS, Cloudflare and others might come into contact with production data, so we review vendor documentation, including their SOC 2 report.
 We still perform a lightweight vendor review of vendors that serve as tools in our development process, but we do not verify their security controls in depth. I think this is what a lot of companies doing SOC 2 get wrong—they try to review every single vendor in depth, which is not feasible and also not advised.
 Focus on the ones that can have a negative impact on YOUR company, product, employees, or service.
 
@@ -129,7 +129,7 @@ For instance, we set up password complexity requirements in our IDP provider. Fu
 Documenting processes and policies in Git makes it much easier to explain changes, have a version history, and perform signoffs.
 We also decided to have separate processes for operational and security incidents. Any security incident has major implications, while service outages can be less significant and can go with less process overhead.
 
-**Security awareness training.** Our security partner [NewHarbor](https://newharbor.co/) checked this one off the list for us. They did a great job delivering the important messages without boring the team.
+**Security awareness training.** Our security partner [NewHarbor](https://newharbor.co/), checked this one off the list for us. They did a great job delivering the important messages without boring the team.
 
 **Risk assessment process.** Enumerating risks can be very useful, especially when dealing with security-related risks.
 In some sense, any risk assessment practice is similar to threat modeling. By just enumerating risks, you don't eliminate risks, but it can kickstart discussions about threat modeling.
@@ -145,7 +145,7 @@ SBOMs and potential vulnerability exposure are collected centrally in Dependency
 I think in the long run this will provide us more flexibility, and we are still using GitHub's regular security features like Dependabot alongside that.
 
 **Independent security reviews and penetration tests.** In 2024, we did an in-depth secure code review and threat model with Trail of Bits. Fourteen findings were reported, and all of them have been fixed.
-The report will go public in the next few weeks, so once available I'll link it here.
+The report will go public in the next few weeks, so once available, I'll link it here.
 If you want to get notified once it's released, subscribe to our [trust center](https://trust.zoo.dev/). For 2025, we decided to do a more classic penetration test. For 2026, we have already scheduled another secure code review with Trail of Bits -- this time focusing on the new AI capabilities of Zoo.
 
 **Firewalls.** Firewalls can be part of a secure system design. However, if you only open the ports you need, there is no need for a firewall.
@@ -153,9 +153,9 @@ WAFs (Web Application Firewalls) can be useful to block common web attacks, and 
 A WAF is not a firewall in the classical sense. In network security, firewalls are primarily used to separate trust zones and segment the network. Typically, they do routing and manage the traffic.
 A WAF, on the other hand, is more closely related to a reverse proxy than a firewall application. The silver lining here is: If you have a WAF and your auditors want a firewall, they will likely be happy with that.
 
-**Trust center.** The mentioned [trust center](https://trust.zoo.dev/) is also an outcome of our SOC 2 as we need a place to publish the SOC 2 report, security reviews, as well as system diagrams.
+**Trust center.** The mentioned [trust center](https://trust.zoo.dev/) is also an outcome of our SOC 2, as we need a place to publish the SOC 2 report, security reviews, and system diagrams.
 
-**Schedule.** Did I already mention that SOC 2 is not a one-time thing? You need to keep up with it. For that reason we created a schedule that lists all recurring tasks we need to do. For that we set up Slack workflows to keep us on track.
+**Schedule.** Did I already mention that SOC 2 is not a one-time thing? You need to keep up with it. For that reason we created a schedule that lists all recurring tasks we need to do. For that, we set up Slack workflows to keep us on track.
 
 ## What we avoided
 
@@ -171,7 +171,7 @@ The auditors will be grateful to gain a better understanding of your company and
 ## Beyond SOC 2
 
 We do a lot more to keep Zoo secure beyond SOC 2 requirements. I wish those were actually part of SOC 2, but so far they are not.
-However, legislation is also catching up like with the Cyber Resilience Act which will address SBOMs and vulnerability disclosure in the EU.
+However, legislation is also catching up, like with the Cyber Resilience Act, which will address SBOMs and vulnerability disclosure in the EU.
 
 **Coordinated vulnerability disclosure.** We have a [security.txt](https://zoo.dev/.well-known/security.txt) in place that describes how security researchers can report security vulnerabilities to us.
 We are using GitHub security advisories to track and disclose vulnerabilities.
