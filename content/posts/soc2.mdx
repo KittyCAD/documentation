@@ -13,10 +13,10 @@ ogImage:
 At Zoo, we are passionate about security. Zoo Design Studio is built on secure design choices—while our core product is cloud-based, the main storage location for CAD files is the user's local machine.
 We also perform regular source code audits, review the source code of dependencies, and report issues through coordinated vulnerability disclosure programs. If a bug is found in our software, we have a security policy in place to address it.
 
-
 **TL;DR: On top of that, we are excited to share that we have successfully completed our SOC 2 Type II audit!**
 
 Grab the report at [trust.zoo.dev](https://trust.zoo.dev/)! We decided to make the report publicly available because opening support tickets or emailing sales to get access is painful. (Yes, we experienced that ourselves when evaluating our vendors.)
+Also, checkout our policy [ruleset-policy-bot](https://github.com/KittyCAD/ruleset-policy-bot) which helped us to complete our SOC 2 review.
 
 ## What does this mean? I'm a customer.
 
@@ -103,6 +103,9 @@ Not everybody on the team can do rule bypasses, but enough can that we and our a
 
 You probably know the "Merging is blocked" message on GitHub. With our setup, you may bypass rules and deal with the consequences. If you are only bypassing due to a failed test, then the security team is alerted, but no further action is required.
 If you bypass without a review, with our configuration, you are expected to explain yourself, raise an incident ticket, and document the reason for the bypass.
+
+We open-sourced the implementation of our [ruleset policy bot](https://github.com/KittyCAD/ruleset-policy-bot). If you find yourself in the same need, feel free to grab it!
+Originally, were inspired by Tailscale's [ToBeReviewedBot](https://github.com/tailscale/ToBeReviewedBot) which is also open-source! So feel free to check out their approach as well.
 
 **Endpoint security & MDM**
 Endpoint security can be a difficult topic, as security teams cross privacy boundaries of employees. Deploying a firewall won't cause as much skepticism as installing a piece of software on employees' laptops.
