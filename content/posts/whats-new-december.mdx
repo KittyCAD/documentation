@@ -19,7 +19,7 @@ Our app got two big improvements this month: a new look for planes, and a new or
 
 ![Old look for ZDS](/documentation-assets/whats-new-december/old_zds.png)
 
-![New look for ZDS](/documentation-assets/whats-new-december/new_zds.png)
+![New look for ZDS](/documentation-assets/whats-new-december/new_zds2.png)
 
 Firstly, the default planes look much better! They've got helpful labels now. Each plane is labelled with both a geometry-friendly name like XY, YZ and XZ, and also a human-friendly name like Top, Front and Side. These human-friendly names are also used in our brand-new orientation cube, in the bottom-right! The old orientation gizmo was a bit hard to use, and we think this cube is a massive improvement. Here's a little demo video.
 
@@ -43,6 +43,7 @@ This month we fixed a big problem KCL users have had. Consider a KCL function li
   <source src="/documentation-assets/whats-new-december/kcl_autocomplete.mp4" type="video/mp4"/>
 </video>
 
+Because KCL function calls require giving each argument's label, that's a lot of extra typing. Now autocomplete makes that extra typing mostly unnecessary. It was also hard to remember all the different arguments each KCL function supports (and we're adding more all the time!). Now you don't have to remember as many -- just start typing, and the autocomplete will tell you what the argument's label is, as well as show you its description.
 
 Our LSP autocomplete was built a long time ago, back when KCL functions used _positional_ arguments, not _named_ arguments. Back then, a function like `circle` was called like `circle([0, 0], 4)` instead of `circle(center = [0, 0], radius = 4)`. So our developer tools, like the LSP, were developed without considering argument labels. We're slowly improving our developer tools though, so keep checking back!
 
