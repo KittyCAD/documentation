@@ -1,0 +1,146 @@
+---
+title: Zookeeper
+excerpt: Zookeeper user guide
+sidebarPosition: 2
+draft: true
+---
+
+## Zookeeper, an ML Agent for CAD
+
+Modern CAD work is full of repetition. Engineers redraw the same patterns, rebuild similar features, and make small, mechanical changes over and over—spending time on low-value execution instead of higher-value design decisions.
+
+At Zoo, we’re building **Zookeeper**: an ML-powered agent that uses LLMs to generate and modify CAD models.
+
+> We need a scheme here: engine > language > llm
+
+<img width="1175" height="632" alt="Image" src="/documentation-assets/zookeeper-doc-1" />
+
+LLMs need clear, human-readable code to work well. To have your own code, you need your own kernel. Zoo built both—a readable CAD [language](https://zoo.dev/research/introducing-kcl) and a custom 3D [kernel](https://zoo.dev/research/zoo-cad-engine-overview)—which is why Zookeeper works so well with LLMs. Most other CAD systems rely on legacy kernels with opaque representations that LLMs struggle to work with.
+
+Zookeeper works alongside existing CAD tools rather than replacing them.
+
+## The Agent at a Glance
+
+By combining LLM-based reasoning, conversation, full model context, and selection awareness, Zookeeper supports a range of workflows:
+
+- Reasoning about design intent through conversation  
+- Direct creation and modification of CAD geometry  
+- Access to model-derived information  
+- Awareness of selections and context  
+
+This lets you move from intent to execution, and from execution to evaluation—using the same system throughout.
+
+## Conversation as a Design Interface
+
+Conversation is not just chat—it’s a way to scope, reason about, and coordinate design work before and during modeling.
+
+In Zookeeper, conversation can be used for a wide range of design-adjacent tasks:
+
+- Acting as a domain expert across CAD, manufacturing, and engineering constraints  
+- Scoping work before any geometry is created  
+- Guiding users step by step through a design or modification  
+- Reviewing and approving designs  
+- Reusing and adapting existing designs  
+- Generating summaries of design changes for collaborators
+- Generating work-order drafts for subcontractors
+- Understanding assemblies end-to-end
+- Creating and managing design variants  
+
+The value here is coordination. Conversation captures intent explicitly, instead of forcing it to be inferred later from geometry alone.
+
+<img width="1174" height="809" alt="Image" src="/documentation-assets/zookeeper-doc-2" />
+
+In traditional workflows, much of this context is lost—buried in meeting notes, emails, or institutional memory. By treating conversation as a first-class interface, we can keep intent close to the geometry it informs.
+
+## Text-to-CAD: Turning Intent into Geometry
+
+Conversation alone does not make a part.
+
+**Text-to-CAD** is the execution layer of Zookeeper: it creates and edits real, parametric CAD geometry through **incremental, structured natural language commands**.
+
+Instead of relying on one-shot descriptions of an entire model, designs are built up step by step. Features are created, dimensions are adjusted, and constraints are refined iteratively—mirroring how engineers actually work in CAD.
+
+> we need a scheme with sequence of prompts (should be working ofc)
+
+![Image](/documentation-assets/zookeeper-doc-3)
+
+This process produces real models with a full feature tree and editable parameters, so designs can be inspected, modified, and extended just like hand-built CAD.
+
+You set intent and constraints; text-to-CAD handles the repetitive, low-level edits. It can also generate parametric variants on demand to compare options.
+
+## Model-Aware Tools
+
+Beyond geometry creation, the agent has access to tools that extract quantitative, model-derived information directly from the CAD model.
+
+These tools expose model-derived properties—such as:
+
+- Center of mass
+- Mass
+- Volume
+- Surface area
+
+Traditionally, accessing this information requires breaking focus: switching tools, running separate analyses, or manually inspecting the model. With Zookeeper, these queries become part of the same conversational loop as design and modification.
+
+![Image](/documentation-assets/zookeeper-doc-4)
+
+The goal is to shorten the distance between evaluating a model and deciding what to change next.
+
+## Selection Awareness
+
+A critical detail: the agent is aware of what you have selected.
+
+When you point at a face, an edge, a feature, or a part, the agent understands that context. This allows interactions to be precise without being verbose.
+
+![Image](/documentation-assets/zookeeper-doc-5)
+
+Instead of trying to explain in words exactly where a change should happen, you can simply select the relevant geometry. This reduces friction and keeps interactions grounded in the model itself.
+
+## Internet-Aware Reasoning
+
+Zookeeper can access the internet to pull in external references such as standards, documentation, specifications, and examples.
+
+This allows design decisions to be grounded in real-world constraints without leaving the modeling environment. Instead of switching contexts to search for information, relevant sources can be brought directly into the same conversational loop used for design and modification.
+
+![Image](/documentation-assets/zookeeper-doc-6)
+
+By combining live external information with full model context, the agent can reason about designs not just in isolation, but against the standards and references they need to meet.
+
+## What’s Coming Next
+
+The agent described above is only the beginning. Several upcoming capabilities will extend both its reach and its usefulness.
+
+- **Agent selection**, will allow users to choose the underlying language model and system prompt that define the agent’s behavior.
+
+- **Image-to-CAD** will enable geometry creation and modification from visual references, supporting reverse engineering and inspiration-driven workflows.
+
+- **Sketch-to-CAD** will allow users to sketch directly over models when drawing is faster or clearer than describing an idea in words—combining visual input with conversational intent.
+
+Each of these features expands the bandwidth between the designer’s intent and the system that represents it.
+
+## CAD as Collaboration
+
+Taken together, these capabilities change how CAD systems are used.
+
+Instead of isolated tools that rely on constant manual input, they become collaborative systems—able to reason about intent, suggest next steps, and act alongside the user.
+
+The goal is to give engineers more time to focus on high-value design decisions by removing unnecessary friction from their workflow—enabling faster iteration, clearer intent, better communication, and fewer opportunities for context to be lost.
+
+## Closing Thoughts
+
+Zoo brings conversation, execution, and model context into a single system.
+
+By keeping intent close to geometry—and reducing friction between thinking, editing, and evaluation—it supports faster, clearer engineering work.
+
+# Not implemented yet, add later:
+
+## Parallel Conversations
+
+Zookeeper is not limited to a single, linear interaction.
+
+You can open multiple client windows and run several conversations in parallel—each with its own context, focus, and task. This allows you to explore alternatives, run checks, or work on different parts of a design at the same time, without waiting for a previous interaction to finish.
+
+Instead of serializing your work through one agent, you can treat conversations as independent assistants: one refining geometry, another evaluating properties, and a third exploring variations or constraints.
+
+![Image](/documentation-assets/zookeeper-doc-7)
+
+This makes it easier to compare approaches, keep momentum, and handle design work without constant context switching.

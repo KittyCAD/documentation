@@ -55,6 +55,12 @@ const Page = defineDocumentType(() => ({
       description: 'The layout of the page.',
       required: false,
     },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the page is a draft.',
+      required: false,
+      default: false,
+    }
   },
   computedFields: {
     slug: {
@@ -196,6 +202,12 @@ const BlogPost = defineDocumentType(() => ({
         'The og:image of the blog post, for SEO and preview image use.',
       required: false,
     },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the blog post is a draft.',
+      required: false,
+      default: false,
+    }
   },
   computedFields: {
     slug: {
@@ -258,6 +270,79 @@ const ResearchPage = defineDocumentType(() => ({
         'The og:image of the research page, for SEO and preview image use.',
       required: false,
     },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the research page is a draft.',
+      required: false,
+      default: false,
+    }
+  },
+  computedFields: {
+    slug: {
+      type: 'string',
+      resolve: (doc) => doc._raw.sourceFileName.replace(/\.mdx?$/, ''),
+    },
+  },
+}))
+
+const PressPage = defineDocumentType(() => ({
+  name: 'PressPage',
+  filePathPattern: `press/*.md*`,
+  contentType: 'mdx',
+  description:
+    'A press page. You may use MDX Markdown with any of the following components from the website repo: MarkDownAPITokens, TokenReplacementNote',
+  fields: {
+    title: {
+      type: 'string',
+      description: 'The title of the press page, for SEO and heading use.',
+      required: true,
+    },
+    subTitle: {
+      type: 'string',
+      description: 'The subtitle of the press page, for SEO and heading use.',
+      required: false,
+    },
+    shortTitle: {
+      type: 'string',
+      description: 'The short title of the press page, for navigation use.',
+      required: true,
+    },
+    excerpt: {
+      type: 'string',
+      description:
+        'The excerpt of the press page, for SEO and preview text use.',
+      required: true,
+    },
+    coverImage: {
+      type: 'string',
+      description:
+        'The cover image of the press page, for SEO and preview image use.',
+      required: false,
+    },
+    date: {
+      type: 'date',
+      description: 'The date of the press page.',
+      required: true,
+    },
+    author: {
+      type: 'nested',
+      of: Author,
+      description: 'The author of the press page.',
+      required: true,
+    },
+    ogImage: {
+      type: 'nested',
+      of: OgImage,
+      description:
+        'The og:image of the press page, for SEO and preview image use.',
+      required: false,
+    },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the press page is a draft.',
+      required: false,
+      default: false,
+    }
   },
   computedFields: {
     slug: {
@@ -271,7 +356,7 @@ export default makeSource({
   contentDirPath: 'content',
 
   // Order of these maters because Page is greedy.
-  documentTypes: [BlogPost, Doc, Page, ResearchPage],
+  documentTypes: [BlogPost, Doc, Page, PressPage, ResearchPage],
   disableImportAliasWarning: true,
   contentDirExclude: ['**/README.md', '**/manifest.json'],
 
