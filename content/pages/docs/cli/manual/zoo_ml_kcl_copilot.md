@@ -36,6 +36,7 @@ $ zoo ml kcl copilot
 * `/accept` Apply all pending edits to the checked-out files and clear the diff queue.
 * `/bye` Send the `bye` system directive to the Copilot service.
 * `/exit` Exit the Copilot session immediately (alias of /quit).
+* `/interrupt` Send the `interrupt` system directive to the Copilot service.
 * `/new` Send the `new` system directive to the Copilot service.
 * `/quit` Exit the Copilot session immediately (alias of /exit).
 * `/reject` Discard the current set of pending edits without applying them.
