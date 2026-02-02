@@ -136,6 +136,12 @@ const Doc = defineDocumentType(() => ({
       description: 'Subject domain(s) of the primary term.',
       required: false,
     },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the doc is a draft.',
+      required: false,
+      default: false,
+    }
   },
   computedFields: {
     slug: {
