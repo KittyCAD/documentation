@@ -54,12 +54,6 @@ const Page = defineDocumentType(() => ({
       options: ['manual'],
       description: 'The layout of the page.',
       required: false,
-    },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the page is a draft.',
-      required: false,
-      default: false,
     }
   },
   computedFields: {
@@ -135,12 +129,6 @@ const Doc = defineDocumentType(() => ({
       },
       description: 'Subject domain(s) of the primary term.',
       required: false,
-    },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the doc is a draft.',
-      required: false,
-      default: false,
     }
   },
   computedFields: {
@@ -207,12 +195,6 @@ const BlogPost = defineDocumentType(() => ({
       description:
         'The og:image of the blog post, for SEO and preview image use.',
       required: false,
-    },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the blog post is a draft.',
-      required: false,
-      default: false,
     }
   },
   computedFields: {
@@ -275,12 +257,6 @@ const ResearchPage = defineDocumentType(() => ({
       description:
         'The og:image of the research page, for SEO and preview image use.',
       required: false,
-    },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the research page is a draft.',
-      required: false,
-      default: false,
     }
   },
   computedFields: {
@@ -342,12 +318,6 @@ const PressPage = defineDocumentType(() => ({
       description:
         'The og:image of the press page, for SEO and preview image use.',
       required: false,
-    },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the press page is a draft.',
-      required: false,
-      default: false,
     }
   },
   computedFields: {
