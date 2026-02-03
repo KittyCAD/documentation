@@ -10,8 +10,6 @@ Modern CAD work is full of repetition. Engineers redraw the same patterns, rebui
 
 At Zoo, we’re building **Zookeeper**: an ML-powered agent that uses LLMs to generate and modify CAD models.
 
-> We need a scheme here: engine > language > llm
-
 ![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-1.png)
 
 LLMs need clear, human-readable code to work well. To have your own code, you need your own kernel. Zoo built both—a readable CAD [language](https://zoo.dev/research/introducing-kcl) and a custom 3D [kernel](https://zoo.dev/research/zoo-cad-engine-overview)—which is why Zookeeper works so well with LLMs. Most other CAD systems rely on legacy kernels with opaque representations that LLMs struggle to work with.
@@ -58,8 +56,6 @@ Conversation alone does not make a part.
 **Text-to-CAD** is the execution layer of Zookeeper: it creates and edits real, parametric CAD geometry through **incremental, structured natural language commands**.
 
 Instead of relying on one-shot descriptions of an entire model, designs are built up step by step. Features are created, dimensions are adjusted, and constraints are refined iteratively—mirroring how engineers actually work in CAD.
-
-> we need a scheme with sequence of prompts (should be working ofc)
 
 ![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-3.jpeg)
 
