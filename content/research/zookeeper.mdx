@@ -35,7 +35,7 @@ There are three key characteristics of B-Rep that make it the preferred choice f
 
 In short, meshes are often sufficient for visuals, while B-Rep is designed for building real stuff.
 
-## Research: Why CAD is hard to solve with AI
+## Research: Why is CAD hard to solve with AI
 
 Progress in Generative AI has accelerated rapidly across all domains in recent years. Before the popularity of the [transformer](https://arxiv.org/abs/1706.03762) architecture, early ML models from the mid-2010s could generate rudimentary images via [Variational Autoencoders](https://arxiv.org/abs/1312.6114) (VAEs) and [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661) (GANs), or could generate short snippets of text via [Recurrent Neural Networks](https://www.cs.toronto.edu/~bonner/courses/2014s/csc321/readings/sutskever2011icml.pdf) (RNNs). 3D model generation lagged behind because it requires more compute to process the additional dimension, and because high-quality annotated training data is harder to curate for 3D models, compared to images and text. Early notable examples of generative 3D modeling dealt with point cloud representations, as in [PointFlow](https://arxiv.org/abs/1906.12320) and [Point-E](https://arxiv.org/abs/2212.08751). Later, generative mesh research would be published via [DreamFusion](https://arxiv.org/abs/2209.14988) and [Magic3D](https://arxiv.org/abs/2211.10440). Finally, more recent works have been published to demonstrate direct B-Rep generation via transformers, as in [DeepCAD](https://arxiv.org/abs/2105.09492), and via Graph Neural Networks (GNNs), as in [BRepGen](https://arxiv.org/abs/2305.17462).
 
