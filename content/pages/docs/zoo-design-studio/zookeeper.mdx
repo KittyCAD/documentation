@@ -49,11 +49,11 @@ The value here is coordination. Conversation captures intent explicitly, instead
 
 In traditional workflows, much of this context is lost—buried in meeting notes, emails, or institutional memory. By treating conversation as a first-class interface, we can keep intent close to the geometry it informs.
 
-## Text-to-CAD: Turning Intent into Geometry
+## Turning Intent into Geometry
 
 Conversation alone does not make a part.
 
-**Text-to-CAD** is the execution layer of Zookeeper: it creates and edits real, parametric CAD geometry through **incremental, structured natural language commands**.
+Zookeeper creates and edits real, parametric CAD geometry through **incremental, structured natural language commands**.
 
 Instead of relying on one-shot descriptions of an entire model, designs are built up step by step. Features are created, dimensions are adjusted, and constraints are refined iteratively—mirroring how engineers actually work in CAD.
 
@@ -61,7 +61,7 @@ Instead of relying on one-shot descriptions of an entire model, designs are buil
 
 This process produces real models with a full feature tree and editable parameters, so designs can be inspected, modified, and extended just like hand-built CAD.
 
-You set intent and constraints; text-to-CAD handles the repetitive, low-level edits. It can also generate parametric variants on demand to compare options.
+You set intent and constraints; Zookeeper handles the repetitive, low-level edits. It can also generate parametric variants on demand to compare options.
 
 ## Model-Aware Tools
 
@@ -100,7 +100,13 @@ This allows design decisions to be grounded in real-world constraints without le
 
 By combining live external information with full model context, the agent can reason about designs not just in isolation, but against the standards and references they need to meet.
 
-## What’s Coming Next
+## Agent Modes
+
+Zookeeper runs in two modes: Thoughtful and Fast. Thoughtful mode is slower, but it consistently produces higher‑quality results on complex modeling and multi‑step workflows, so it’s generally the best default for CAD work.
+
+Fast mode trades some depth for speed. It works well for simpler geometry changes, quick iterations, and is more than sufficient for tasks like web search, documentation lookup, and conversational reasoning around a design.
+
+## What's Coming Next
 
 The agent described above is only the beginning. Several upcoming capabilities will extend both its reach and its usefulness.
 
@@ -109,6 +115,8 @@ The agent described above is only the beginning. Several upcoming capabilities w
 - **Image-to-CAD** will enable geometry creation and modification from visual references, supporting reverse engineering and inspiration-driven workflows.
 
 - **Sketch-to-CAD** will allow users to sketch directly over models when drawing is faster or clearer than describing an idea in words—combining visual input with conversational intent.
+
+- **Fleets of agents** will make it possible to manage a team of Zookeeper agents working concurrently. Agents can be assigned to different features, components, or projects in parallel, or coordinate to complete a single task faster.
 
 Each of these features expands the bandwidth between the designer’s intent and the system that represents it.
 
