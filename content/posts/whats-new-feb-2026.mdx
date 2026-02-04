@@ -21,15 +21,15 @@ This week, we launched our new conversational CAD assistant, Zookeeper! Read all
 
 ## Surface modeling
 
-Zoo has always focused on _solid modeling_, which uses closed 3D solids that _enclose_ space within them. When you model a solid cube, its volume includes all the space inside the cube. Solids are the main way people think about 3D objects in mechanical engineering, automotive and aerospace engineering, fields where object's weight matters.
+Zoo has always focused on _solid modeling_, which uses closed 3D solids that _enclose_ space within them. When you model a solid cube, its volume includes all the space inside the cube. Solids are the main way people think about 3D objects in mechanical engineering, automotive and aerospace engineering, i.e. fields where an object's weight matters.
 
-Start this year, Zoo can work with both solids and _surfaces_. A surface is a 3D shape that's infinitely thin. Basically, imagine surfaces are infinitely-thin tissue paper that can be twisted and folded in all sorts of ways.
+Starting this year, Zoo can work with both solids and _surfaces_. A surface is a 3D shape that's infinitely thin. Basically, imagine surfaces are infinitely-thin tissue paper that can be twisted and folded in all sorts of ways.
 
 In Zoo, you usually create 3D bodies from 2D sketches, using extrudes, revolves, sweeps and lofts. These operations now support creating either solid bodies, or surface bodies. For example, here's what happens when you solid extrude and surface extrude a square.
 
 ![Surface and solid extrudes of a square](/documentation-assets/whats-new-feb-2026/extrude_comparison.png)
 
-When you solid extrude, you create a solid cube, that encloses all the space within it. When you surface extrude, each line in the profile gets extruded upwards into an very thin surface. This means you've created an _open_ body, which doesn't enclose any space. The surface extrude creates 4 surfaces (one for each of the 4 lines in the square). Each surface has a front (silver) and a back (reddish).
+When you solid extrude, you create a solid cube, that encloses all the space within it. When you surface extrude, each line in the profile gets extruded upwards into a very thin surface. This means you've created an _open_ body, which doesn't enclose any space. The surface extrude creates 4 surfaces (one for each of the 4 lines in the square). Each surface has a front (silver) and a back (reddish).
 
 You can only solid extrude a closed profile, like a circle, or square, or any other sequence of lines that loops back on itself. But you can do a _surface_ extrude of an open profile, like this:
 
@@ -46,7 +46,7 @@ open up its volume, converting it into a surface (well, technically, a polysurfa
 
 ![A solid cube, then the same cube with one deleted face, showing an open box](/documentation-assets/whats-new-feb-2026/deleted_face.png)
 
-Surface modeling is useful for designing the exteriors of cars, for consumer products, and for complicated organic shapes. We're adding lots more surface modeling features to our custom in-house CAD kernel, so expect to see blends, trims, splits etc in a future update.
+Surface modeling is useful for designing the exteriors of cars, for consumer products, and for complicated organic shapes. We're adding lots more surface modeling features to our custom in-house CAD kernel, so expect to see blends, trims, splits, etc in a future update.
 
 ## Extrude faces
 
@@ -56,7 +56,7 @@ Previously in Zoo, you've been able to extrude a sketch. You could even sketch o
   <source src="/documentation-assets/whats-new-feb-2026/extrude_faces_demo.mp4" type="video/mp4"/>
 </video>
 
-There's still a few limitations, for example, you can't select the faces created from these extruded faces (yet). We're working on making these feel like any other face in Zoo. Stay tuned!
+Extruded faces still have a few limitations, for example, you can't select the faces created from these extruded faces (yet). We're working on making these feel like any other face in Zoo. Stay tuned!
 
 ## Self-hosting
 
@@ -168,7 +168,7 @@ And after:
 
 ![Samples homepage, after](/documentation-assets/whats-new-feb-2026/sample_home_after.png)
 
-And here's what it looks to view [one specific sample](https://zoo.dev/docs/kcl-samples/helical-gear), before:
+And here's what it looks like to view [one specific sample](https://zoo.dev/docs/kcl-samples/helical-gear), before:
 
 ![Samples homepage, before](/documentation-assets/whats-new-feb-2026/sample_before.png)
 
