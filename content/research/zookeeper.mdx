@@ -1,0 +1,68 @@
+---
+title: 'Zookeeper: The Conversational CAD Agent For Parametric Modeling'
+shortTitle: 'Zookeeper'
+excerpt: 'Zookeeper is the conversational CAD agent built into Zoo Design Studio. Our goal in developing Zookeeper is to speed up CAD workflows, automate the toil in design work, and enable designers and engineers of all skill levels to more efficiently produce manufacturable, high-quality 3D designs.'
+coverImage: '/documentation-assets/meta-images/research-zookeeper.png'
+date: '2026-02-05'
+author:
+    name: 'Greg Sweeney'
+    picture: '/documentation-assets/gregsweeney.jpg'
+ogImage:
+    url: '/documentation-assets/meta-images/research-zookeeper.png'
+---
+
+## Introduction: What is Zookeeper?
+
+Zookeeper is the conversational CAD agent built into Zoo Design Studio. Our goal in developing Zookeeper is to speed up CAD workflows, automate the toil in design work, and enable designers and engineers of all skill levels to more efficiently produce manufacturable, high-quality 3D designs.
+
+Zoo Design Studio is our flagship 3D CAD application. It hosts a unique and flexible CAD workflow by enabling users to seamlessly switch between point-and-click modeling and defining and editing geometry and annotations as code. Zookeeper extends that hybrid workflow by introducing AI-assisted modeling: it can create new models, inspect existing projects, understand what is selected, answer questions, and perform design reviews.
+
+In this article, we will explore the development decisions behind Zookeeper and highlight the challenges in developing a system that automates the design of parametric, 3D boundary representation models.
+
+## Background: Boundary Representation (B-Rep) for Engineering Applications
+
+Many people, particularly those from outside the physical engineering disciplines, associate the phrase "3D model" with a polygonal mesh -- essentially, a collection of connected triangles. While meshes are well-suited to applications such as rendering and gaming, this representation scheme has limitations that make it a poor fit for CAD and design for manufacturing. Engineering workflows require the precision and edit-ability provided by B-Reps.
+
+![A Comparison of Geometry Representation Schemes](/documentation-assets/research/zookeeper/geometric_representations.png)
+
+There are three key characteristics of B-Rep that make it the preferred choice for CAD applications:
+
+- **Precision**: B-Rep geometry represents surfaces exactly – curves are true curves, not approximations formed by tiny straight lines. This is critical for engineering applications where high precision is required.
+
+- **Editing**: Need to adjust a fillet radius or resize a hole? With B-Rep, it's often as straightforward as updating a parameter. Modifying a mesh typically involves manipulating vertices directly, which can be complex and error-prone.
+
+- **Workflow compatibility**: B-Rep is the standard representation for many CAD and CAM tools. For tasks like running simulations or manufacturing a part, B-Rep data is generally preferred or required.
+
+In short, meshes are often sufficient for visuals, while B-Rep is designed for building real stuff.
+
+## Research: Why is CAD hard to solve with AI
+
+Progress in Generative AI has accelerated rapidly across all domains in recent years. Before the popularity of the [transformer](https://arxiv.org/abs/1706.03762) architecture, early ML models from the mid-2010s could generate rudimentary images via [Variational Autoencoders](https://arxiv.org/abs/1312.6114) (VAEs) and [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661) (GANs), or could generate short snippets of text via [Recurrent Neural Networks](https://www.cs.toronto.edu/~bonner/courses/2014s/csc321/readings/sutskever2011icml.pdf) (RNNs). 3D model generation lagged behind because it requires more compute to process the additional dimension, and because high-quality annotated training data is harder to curate for 3D models, compared to images and text. Early notable examples of generative 3D modeling dealt with point cloud representations, as in [PointFlow](https://arxiv.org/abs/1906.12320) and [Point-E](https://arxiv.org/abs/2212.08751). Later, generative mesh research would be published via [DreamFusion](https://arxiv.org/abs/2209.14988) and [Magic3D](https://arxiv.org/abs/2211.10440). Finally, more recent works have been published to demonstrate direct B-Rep generation via transformers, as in [DeepCAD](https://arxiv.org/abs/2105.09492), and via Graph Neural Networks (GNNs), as in [BRepGen](https://arxiv.org/abs/2305.17462).
+
+But using AI to generate geometry is not enough to support the design of real, physical 3D objects. CAD modeling is an intent-based workflow. Designers construct models feature-by-feature, by sketching profiles and extruding them into the third dimension, while defining constraints, dimensions and relationships between sketch segments and 3D bodies. A robust AI system for CAD must be able to generate a coherent design intent, and must be able to produce follow-up edits to the design while preserving the intent. This is why most generative 3D research fails to lead to useful tools for working designers and engineers.
+
+## Development: From Text-to-CAD to Zookeeper
+
+Three years ago, when our team began researching and prototyping our own generative AI solution to complement our [CAD engine](https://zoo.dev/research/zoo-cad-engine-overview) and [3D modeling application](https://zoo.dev/design-studio), we initially pursued direct Text-to-B-Rep generation methods similar to those cited above. Two developments ultimately inspired us to change course: First was the evolution of our first-class design language, [KCL](https://zoo.dev/research/introducing-kcl), as the definition of geometry and design intent in our modeling app. Second was the rising capability and popularity of Large Language Models (LLMs) in 2023. We considered how LLMs were beginning to show accuracy in writing code, how easy it was to prototype and iterate with LLMs, and how LLMs were becoming increasingly widespread and capable at a rapid pace.
+
+This culminated in the release of our first AI product, Text-to-CAD, in December 2023. Text-to-CAD provided two simple endpoints: One for generating 3D B-Rep models via prompting, and one for editing existing models. Under the hood, Text-to-CAD is actually an agentic AI program -- more on that in the section below -- and is directly integrated into Zoo's CAD engine to generate, modify and validate 3D geometries.
+
+As time went on, and conversational agents such as ChatGPT, Claude and Gemini gained popularity, we knew we wanted to evolve Text-to-CAD into a more helpful AI assistant -- one that could be communicated with in a conversational style, as if it were a human teammate, with more flexible modes of understanding and greater agency to reason about intent, take action across the modeling workflow, ask clarifying questions, and iteratively create, modify and validate designs in closer collaboration with the user. In January 2026, we shipped our conversational agent as "Zookeeper" with Zoo Design Studio v1.1.
+
+## Implementation: What is an agent?
+
+In the context of AI, the most basic form of an agent is a Machine Learning model that can use tools in a loop. Typically, this loop looks like: Plan -> Act (call tools) -> Observe results -> Update the plan -> Repeat until done. Zookeeper is similar to other agentic programming tools such as Codex and Claude Code, in that it is powered by LLMs with strict context management. Zookeeper differentiates itself from other agents with additional tools for connecting to the Zoo CAD engine, writing, executing and debugging KCL, and analyzing 3D models via visual snapshots and computational tools for engineering, such as center of mass location, mass calculation, and surface area and volume measurements. Zookeeper is designed to behave like an engineer: It searches for and reads documentation as it works, it frequently executes the model to check for errors, and it reviews the geometry via multi-view snapshots.
+
+We are constantly optimizing Zookeeper's toolbox, so for an up-to-date description of its tools, you can prompt Zookeeper to list them:
+
+![Zookeeper's toolbox](/documentation-assets/research/zookeeper/tools.png)
+
+## Roadmap: What's next
+
+We view Zookeeper as being in its early stages and have significant plans to expand its capabilities:
+
+- **Multimodality**: Design concepts are typically conveyed using images more often than text. Our next update enables users to add image attachments within Zookeeper prompts.
+- **Reverse engineering**: We are training Zookeeper to infer parametric intent from static geometries, such as those defined by STEP and STL files, allowing users to import existing models and have them reconstructed into clean, editable KCL programs that can be inspected, modified, and extended like any native design.
+- **Fleets of agents**: Manage a team of Zookeeper agents working concurrently. Agents can be assigned to work on different features, components or projects in parallel, or coordinate to complete a single task faster.
+
+[Follow us](https://x.com/zoodotdev) for updates, or try [Zoo Design Studio](https://zoo.dev/design-studio) for free to get started with Zookeeper.
