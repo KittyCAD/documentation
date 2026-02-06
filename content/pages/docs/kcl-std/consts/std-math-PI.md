@@ -35,6 +35,6 @@ example = extrude(exampleSketch, length = 5)
 
 ```
 
-![Rendered example of PI 0](/documentation-assets/kcl-std/consts/math-PI.png)
+![Rendered example of PI 0](/kcl-test-outputs/serial_test_example_const_std-math-PI0.png)
 
 

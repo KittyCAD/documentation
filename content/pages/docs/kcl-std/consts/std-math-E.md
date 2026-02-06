@@ -30,4 +30,6 @@ example = extrude(exampleSketch, length = 10)
 
 ```
 
-![Rendered example of E 0](/documentation-assets/kcl-std/consts/math-E.png)
+![Rendered example of E 0](/kcl-test-outputs/serial_test_example_const_std-math-E0.png)
+
+

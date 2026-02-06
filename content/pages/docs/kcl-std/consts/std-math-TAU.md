@@ -30,4 +30,6 @@ example = extrude(exampleSketch, length = 5)
 
 ```
 
-![Rendered example of TAU 0](/documentation-assets/kcl-std/consts/math-TAU.png)
+![Rendered example of TAU 0](/kcl-test-outputs/serial_test_example_const_std-math-TAU0.png)
+
+
