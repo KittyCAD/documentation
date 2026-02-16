@@ -17,7 +17,7 @@ Hi, Zoo users! This is the first of our planned monthly blog posts highlighting 
 
 When we first launched Text-to-CAD in December 2023, it could only create a single CAD file, like a STEP or OBJ file that contained a 2ft wide bookshelf. This was fine, but users kept asking for a more powerful Text-to-CAD that could create parametric models, e.g. a bookshelf with any width. When we launched Zoo Design Studio 1.0 in May, it came with built-in parametric Text-to-CAD. You enter a text prompt, and our model spits out parametric KCL, the KittyCAD programming language. This meant you would get a bookshelf where the bookshelf's width is assigned once to a variable. If you change that variable later, all the bookshelf's other measurements will recalculate themselves using the new width. This is much better than constantly designing the same bookshelf again and again with different measurements.
 
-When we replaced the simple Text-to-CAD model with our new parametric model, we removed the old Text-to-CAD website and instead moved all our ML tooling into Zoo Design Studio. That annoyed a lot of our old users, so we recently put it back. You can now visit text-to-cad.zoo.dev to get the old Text-to-CAD experience back.
+When we replaced the simple Text-to-CAD model with our new parametric model, we removed the old Text-to-CAD website and instead moved all our ML tooling into Zoo Design Studio. That annoyed a lot of our old users, so we recently put it back. You can now visit [text-to-cad.zoo.dev](https://app.zoo.dev/) *(Text-To-Cad has been replaced by [Zookeeper](https://zoo.dev/zookeeper), the conversational CAD agent natively integrated into Zoo Design Studio.)* to get the old Text-to-CAD experience back.
 
 Another problem was that our new parametric model was having trouble generating KCL. Although the new model was much more powerful, it wasn't as reliable. Improving its KCL generation has been our #1 priority for the last few months, and we're proud to report that we've reduced the error rate from 50% to 16%. 
 
@@ -125,5 +125,3 @@ So our engineer Pierre shipped a new command palette, which handles optional arg
 ## Parser improvements
 
 We made the KCL parser more flexible! For example, before, `arr[f(i)]` and `arr[i + 1]` were syntax errors. Now they work as you would expect (here’s the [PR](https://github.com/KittyCAD/modeling-app/pull/7755)). And a lot of syntax errors have been improved. For example, if you left out the `else` block in an if-else expression, you’d get a short, unhelpful error “unexpected token”. Now you’ll get a helpful error reminding you to add the missing `else` block.
-
-
