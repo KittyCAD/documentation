@@ -12,6 +12,7 @@ Perform actions on `kcl` files.
 * [zoo kcl format](./zoo_kcl_format)
 * [zoo kcl snapshot](./zoo_kcl_snapshot)
 * [zoo kcl view](./zoo_kcl_view)
+* [zoo kcl analyze](./zoo_kcl_analyze)
 * [zoo kcl volume](./zoo_kcl_volume)
 * [zoo kcl mass](./zoo_kcl_mass)
 * [zoo kcl center-of-mass](./zoo_kcl_center-of-mass)
