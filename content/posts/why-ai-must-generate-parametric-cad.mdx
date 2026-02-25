@@ -43,6 +43,8 @@ This approach produces true CAD geometry: B-rep with parametric history and a fe
 
 It supports standard workflows like selecting a face or edge and using it to drive machining toolpaths.
 
+![mesh vs parametric brep](/documentation-assets/why-ai-must-generate-parametric-cad/bike.webp)
+
 Parametric CAD captures engineering intent, not just geometry. The feature tree encodes driving dimensions and constraints (hole spacing, overall width, symmetry), so edits stay predictable.
 
 This is the CAD-first approach.
@@ -103,33 +105,9 @@ Voxels are 3D pixels: a grid where each cell is filled or empty (or stores densi
 
 Voxels can be useful as an internal representation for research or coarse concepting, but **they don’t solve the core requirement: native, editable CAD**.
 
-## Benchmark
-
-The real benchmark is editability, not realism
-
-The question “can AI generate a 3D shape?” is already mostly answered.
-
-The question that matters for mechanical engineering is:
-
-**Can AI generate a model you can safely modify, dimension, tolerance, toolpath, and inspect?**
-
-![mesh vs parametric brep](/documentation-assets/why-ai-must-generate-parametric-cad/bike.webp)
-
-A simple test makes this clear:
-
-- Can you change driving dimensions (overall width, hole spacing, wall thickness) and have the model update predictably?
-- Do fillets and chamfers rebuild cleanly after changes?
-- Can you reorder or suppress features without destroying the part?
-- Can you reference meaningful faces, axes, and planes for downstream CAM and inspection?
-- Can you output standards-friendly CAD (like STEP) without repair sessions and broken faces?
-
-If the answer is “it’s a mesh, but it’s a good mesh,” it fails the test. That’s not an insult to mesh generation - it’s just acknowledging that **manufacturing workflows require structure.**
-
 ## The CAD Recipe
 
 What “CAD-first generation” actually implies: Generating manufacturable CAD is less like “generating geometry” and more like **“generating a parametric recipe.”**
-
-![generate B-rep CAD directly](/documentation-assets/why-ai-must-generate-parametric-cad/recipe.webp)
 
 A real part is a sequence of intentional operations:
 
@@ -142,6 +120,8 @@ A real part is a sequence of intentional operations:
 
 That recipe is the real artifact engineers work with. The solid is computed output.
 
+![generate B-rep CAD directly](/documentation-assets/why-ai-must-generate-parametric-cad/recipe.webp)
+
 So the core capability is not "produce triangles that resemble a bracket." It is **"produce a robust parametric model that behaves like an engineer built it."**
 
 ## What ZOO’s approach unlocks
@@ -152,18 +132,6 @@ Because CAD-first systems generate parametric B-rep directly, output is usable i
 - **Manufacturing-ready geometry:** stable faces and edges that CAM expects.
 - **Downstream compatibility:** move into machining, tolerancing, and inspection without betting on fragile conversion.
 - **Intent-preserving models:** the model captures why geometry is shaped that way through constraints, dimensions, and feature structure.
-
-## A practical checklist for evaluating AI for CAD
-
-If you are comparing tools, these questions cut through demos:
-
-- Does it output true **B-rep CAD** (not meshes) as the working model?
-- Do you get a clean **parametric feature history** (not just a final solid)?
-- Can you edit driving dimensions and **regenerate reliably**?
-- Are holes, fillets, patterns, and references **represented as features**?
-- Can you use output directly for **CAM and inspection** without manual remodeling?
-
-If any of these are "no," you do not have manufacturable CAD generation. You have shape generation.
 
 ## Closing
 
