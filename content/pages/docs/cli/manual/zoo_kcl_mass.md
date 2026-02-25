@@ -16,13 +16,13 @@ Get the mass of objects in a kcl file.
    <dd>Material density</dd>
 
    <dt><code>--material-density-unit</code></dt>
-   <dd>Material density unit<br/>Possible values: <code>lb-ft3 | kg-m3</code></dd>
+   <dd>Material density unit</dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit<br/>Possible values: <code>g | kg | lb</code></dd>
+   <dd>Output unit</dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
