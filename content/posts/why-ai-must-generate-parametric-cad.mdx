@@ -33,11 +33,9 @@ The shape itself is only an intermediate artifact. In real CAD/CAM workflows, th
 
 So the real question is not "can AI generate a shape?", it is **"can AI generate manufacturable CAD?"**
 
-## CAD-first vs mesh-first generation
+How? There are two fundamentally different ways to generate 3D models with AI.
 
-There are two fundamentally different ways to generate 3D models with AI:
-
-**1) Native, editable B-rep CAD with a parametric feature tree**
+## CAD-first, native, editable B-rep CAD with a parametric feature tree
 
 This approach produces true CAD geometry: B-rep with parametric history and a feature tree. Engineers can edit it, constrain it, and manufacture from it directly.
 
@@ -47,7 +45,7 @@ Parametric CAD captures engineering intent, not just geometry. The feature tree 
 
 This is the CAD-first approach.
 
-**2) Mesh-first generation (non-editable CAD output)**
+## Mesh-first generation (non-editable CAD output)
 
 Our competitors are mesh-first. They often use diffusion or related methods to produce intermediate 3D representations (implicit fields, triplanes, voxels), then extract a triangle mesh.
 
