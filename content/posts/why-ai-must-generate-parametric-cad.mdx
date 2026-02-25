@@ -15,7 +15,12 @@ Which approach makes sense depends on the end goal: visualization, simulation, c
 
 For **CAD workflows**, the goal is more specific than "a shape that looks right." You need a model that holds up to iteration and downstream use in CAM, tolerancing, and inspection. That means the output format matters as much as the geometry itself.
 
-![generate B-rep CAD directly](/documentation-assets/why-ai-must-generate-parametric-cad/shaft.webp)
+<FramedImage
+  src="/documentation-assets/why-ai-must-generate-parametric-cad/shaft.webp"
+  alt="Generate B-rep CAD directly"
+  aspect="3408 / 1408"
+  maxHeightPx={520}
+/>
 
 Manufacturable CAD needs two things:
 
@@ -29,7 +34,12 @@ Manufacturable CAD needs two things:
 **Feature tree.** Manufacturable CAD is not just "a solid." It needs **parametric history**. Engineers iterate constantly, and they rely on resilient modeling strategies so changes do not break downstream features. 
 When the feature tree is missing or poorly organized, edits become slow, brittle, and error-prone.
 
-![generate B-rep CAD directly](/documentation-assets/why-ai-must-generate-parametric-cad/shaft2.webp)
+<FramedImage
+  src="/documentation-assets/why-ai-must-generate-parametric-cad/shaft2.webp"
+  alt="Generate B-rep CAD directly"
+  aspect="2558 / 1408"
+  maxHeightPx={520}
+/>
 
 The shape itself is only an intermediate artifact. In real CAD/CAM workflows, the work lives in the **intent built into the model** (dimensions, constraints, references) and in the **downstream steps that depend on it** (toolpaths, setups, tolerances, inspection).
 
@@ -43,7 +53,12 @@ This approach produces true CAD geometry: B-rep with parametric history and a fe
 
 It supports standard workflows like selecting a face or edge and using it to drive machining toolpaths.
 
-![mesh vs parametric brep](/documentation-assets/why-ai-must-generate-parametric-cad/bike.webp)
+<FramedImage
+  src="/documentation-assets/why-ai-must-generate-parametric-cad/bike.webp"
+  alt="Editability benchmark examples"
+  aspect="3408 / 1580"
+  maxHeightPx={520}
+/>
 
 Parametric CAD captures engineering intent, not just geometry. The feature tree encodes driving dimensions and constraints (hole spacing, overall width, symmetry), so edits stay predictable.
 
@@ -120,7 +135,12 @@ A real part is a sequence of intentional operations:
 
 That recipe is the real artifact engineers work with. The solid is computed output.
 
-![generate B-rep CAD directly](/documentation-assets/why-ai-must-generate-parametric-cad/recipe.webp)
+<FramedImage
+  src="/documentation-assets/why-ai-must-generate-parametric-cad/recipe.webp"
+  alt="Generate B-rep CAD directly"
+  aspect="2558 / 1408"
+  maxHeightPx={520}
+/>
 
 So the core capability is not "produce triangles that resemble a bracket." It is **"produce a robust parametric model that behaves like an engineer built it."**
 
