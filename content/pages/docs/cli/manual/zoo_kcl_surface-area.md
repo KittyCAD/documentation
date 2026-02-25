@@ -16,7 +16,7 @@ Get the surface area of objects in a kcl file.
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit<br/>Possible values: <code>cm2 | dm2 | ft2 | in2 | km2 | m2 | mm2 | yd2</code></dd>
+   <dd>Output unit</dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
