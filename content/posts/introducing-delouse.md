@@ -9,6 +9,7 @@ author:
     picture: '/documentation-assets/paultag.jpg'
 ogImage:
     url: 'documentation-assets/meta-images/introducing-delouse-blog.jpg'
+tags: ['API']
 ---
 
 At Zoo, most of our user-facing stack is written in Rust, where we’ve
