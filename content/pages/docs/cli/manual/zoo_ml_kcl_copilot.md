@@ -34,7 +34,9 @@ $ zoo ml kcl copilot
 ### Slash Commands
 
 * `/accept` Apply all pending edits to the checked-out files and clear the diff queue.
+* `/answer-now` Send the `answer-now` system directive to the Copilot service.
 * `/bye` Send the `bye` system directive to the Copilot service.
+* `/cancel` Send the `cancel` system directive to the Copilot service.
 * `/exit` Exit the Copilot session immediately (alias of /quit).
 * `/interrupt` Send the `interrupt` system directive to the Copilot service.
 * `/new` Send the `new` system directive to the Copilot service.
