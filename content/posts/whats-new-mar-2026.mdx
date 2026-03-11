@@ -62,7 +62,7 @@ For each surface, you choose an edge, and how much of that edge should get used.
 
 ![A blend between two edges, one of which is only partly used](/documentation-assets/whats-new-mar-2026/blend_partial.png)
 
-If you set an upper bound which is above the lower bound, the blend will twist around! In this example, you can see the surface's backface (which is red by default, but can be customized in settings).
+If you set an upper bound which is above the lower bound, the blend will twist around! In this example, you can see the surface's backface. Backfaces are blue by default, but can be customized in settings. I've configured backfaces to be red, like this one below:
 
 ![A blend that twists around, showing the red backface](/documentation-assets/whats-new-mar-2026/blend_twist.png)
 
@@ -95,5 +95,9 @@ Well, we've been working on it, and we've fixed it up a lot! This month, you'll 
 Under the hood, this is powered by a new KCL function [`edgeId`](https://zoo.dev/docs/kcl-std/functions/std-edgeId) which lets Zoo resolve edges that can't be tagged. We know this was previously one of Zoo's big pain points. While we haven't fully eliminated it, you should be seeing a lot fewer error messages, and seeing a lot more beautifully-filleted edges.
 
 ![Edges that couldn't previously be filleted](/documentation-assets/whats-new-mar-2026/more_fillets.png)
+
+## Several small KCL improvements
+
+KCL users will have a few new helpful functions, like [slicing](https://zoo.dev/docs/kcl-std/functions/std-array-slice) or [flattening](https://zoo.dev/docs/kcl-std/functions/std-array-flatten) arrays, or using [clone](https://zoo.dev/docs/kcl-std/functions/std-clone) on an array of solids. You can also import STEP files or KCL files with spaces in their name, with `import "my part.kcl" as myPart`. We also added a new `isNotEqualTo` option to [`assert`](https://zoo.dev/docs/kcl-std/functions/std-assert), to help testing your code. Lastly, we improved the KCL formatter, which was putting some unnecessary spaces inside function calls. That didn't look good, but should be fixed now.
 
 That's all we've got for this month. Thanks for reading and using Zoo!
