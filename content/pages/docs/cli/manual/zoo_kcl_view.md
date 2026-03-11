@@ -16,7 +16,7 @@ View a render of a `kcl` file in your terminal.
    <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>--angle</code></dt>
-   <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways</code></dd>
+   <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways | iso</code></dd>
 
    <dt><code>--camera-style</code></dt>
    <dd>Which style of camera to use for snapshots<br/>Possible values: <code>ortho | perspective</code><br/>Default value: <code>ortho</code></dd>
@@ -37,12 +37,12 @@ View a render of a `kcl` file in your terminal.
 
 ### About
 
-```
-$ zoo kcl view my-file.kcl
 
-# pass a file to view from stdin
-$ cat my-obj.kcl | zoo kcl view -
-```
+    $ zoo kcl view my-file.kcl
+    
+    # pass a file to view from stdin
+    $ cat my-obj.kcl | zoo kcl view -
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

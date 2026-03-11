@@ -34,9 +34,9 @@ Edit `kcl` file(s) with a prompt.
 
 ### About
 
-```
-$ zoo ml kcl edit --prompt "Make it blue"
-```
+
+    $ zoo ml kcl edit --prompt "Make it blue"
+    
 
 This command outputs the edited `kcl` files back to the same location.
 We do not output to stdout, because for projects with multiple files,
