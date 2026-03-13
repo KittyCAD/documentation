@@ -4,5 +4,35 @@ excerpt: Translate geometry in Zoo Design Studio.
 sidebarPosition: 0
 ---
 
-Translate moves geometry linearly in 3D space, which is useful for repositioning components,
-constructing layouts, and preparing bodies for booleans or assembly placement.
+Translate moves geometry linearly in 3D space along specified axes. Use Translate for repositioning components, constructing assembly layouts, preparing bodies for boolean operations, and establishing part relationships.
+
+## Options
+
+### Objects
+Select the bodies or sketches to move. You can move multiple things at once.
+
+### X, Y, Z Distance
+How far to move along each axis. Values are in your current units (mm, inches, etc.). Positive values move in the + direction, negative values go the opposite way.
+
+### Global Coordinates
+Enable (default) to move in the world coordinate system. Disable to move relative to the object's own local orientation.
+
+## Design Applications
+
+### Component Positioning
+Precisely locate parts in assembly space:
+- Position mounting brackets at specific coordinates
+- Space components with exact clearances
+- Align parts to assembly datums
+
+### Pattern Creation
+Combine with parametric variables to create linear arrays:
+- Distribute fastener holes at regular intervals
+- Create tool paths for machining operations
+- Generate architectural element spacing
+
+### Construction Geometry
+Offset construction references for feature creation:
+- Position sketch planes at specific heights
+- Create offset datums for measurement
+- Establish reference frames for subsequent operations

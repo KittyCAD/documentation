@@ -4,5 +4,55 @@ excerpt: Create offset construction planes in Zoo Design Studio.
 sidebarPosition: 0
 ---
 
-Offset Plane creates a new reference plane at a controlled distance from an existing face or plane,
-which is useful for stacked features and parallel sketch setups.
+Offset Plane creates a new reference plane at a specified distance from an existing planar face or construction plane. Use Offset Plane to establish datum references for stacked features, parallel sketches, and controlled spacing in parametric models.
+
+## Options
+
+### Plane
+Select an existing plane to offset from. You can choose:
+- Planar faces on your solid bodies
+- Previously created offset planes
+- Sketch planes
+- Standard datum planes (XY, YZ, XZ)
+
+### Offset
+How far to move perpendicular from the source plane:
+- **Positive values** - Offset in the direction of the face normal (outward from solid)
+- **Negative values** - Offset opposite the face normal (inward toward solid)
+- **Zero** - Creates a coincident plane
+
+Examples:
+- offset = 10mm creates a plane 10mm away from the source
+- offset = -5mm creates a plane 5mm in the opposite direction
+
+## Design Applications
+
+### Feature Stacking
+Create sketches at precise heights for layered features:
+- Offset 25mm from base to create pocket datum
+- Offset 10mm above surface for boss placement
+- Establish multiple parallel work planes for architectural levels
+
+### Assembly References
+Define mating planes at controlled clearances:
+- Offset from mounting face by gasket thickness
+- Create reference plane at bearing seat location
+- Establish datum for fastener engagement depth
+
+### Parametric Spacing
+Maintain design intent with explicit offsets:
+- Wall thickness references (offset by wall dimension)
+- Structural member spacing (offset by standard intervals)
+- Layer boundaries in multi-layer assemblies
+
+## Workflow Tips
+
+### Reference Geometry
+Offset planes are construction geometry (not solid bodies). They:
+- Appear as semi-transparent reference surfaces
+- Serve as sketch planes for subsequent features
+- Do not affect mass properties or manufacturing outputs
+- Can be shown/hidden independently
+
+### Parametric Updates
+Changing the offset distance updates the plane position, automatically adjusting dependent sketches and features. This enables rapid design iteration while maintaining spatial relationships.

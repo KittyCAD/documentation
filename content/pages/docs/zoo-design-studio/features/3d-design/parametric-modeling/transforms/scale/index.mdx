@@ -4,9 +4,58 @@ excerpt: Scale geometry in Zoo Design Studio.
 sidebarPosition: 2
 ---
 
-Scale changes geometry size along one or more axes, which is useful for proportional edits,
-controlled stretch operations, and fast concept variations.
+Scale modifies geometry size along coordinate axes using scaling factors. Use Scale for proportional resizing, asymmetric stretching, rapid design iteration, and adapting reference geometry to new dimensional requirements.
 
-Use Scale when geometry needs to be resized in one direction, across a plane, or uniformly in all
-directions. The same feature supports these different scaling modes, even though the controls and
-parameters may vary by modeling context.
+## Options
+
+### Objects
+Select what you want to resize.
+
+### X, Y, Z Scale Factors
+Multiplier for each axis:
+- **1.0** - No change
+- **> 1.0** - Bigger (2.0 doubles the size)
+- **< 1.0** - Smaller (0.5 halves the size)
+- **Negative** - Mirrors and scales
+
+### Uniform Scale Factor
+Use this to scale everything equally in all directions. When set, this overrides the individual X, Y, Z values:
+- **2.0** - Doubles everything
+- **0.5** - Halves everything
+- **25.4** - Convert inches to millimeters
+
+### Global Coordinates
+Enable (default) to scale from the world origin. Disable to scale from the object's own center.
+
+## Scaling Modes
+
+### Uniform Scaling
+Use `factor` parameter to scale proportionally in all directions. Preserves shape, only changes overall size. Ideal for:
+- Unit conversion (e.g., inches to millimeters: factor = 25.4)
+- Creating similar parts at different scales
+- Adapting catalog components to project scale
+
+### Non-Uniform Scaling
+Specify different x, y, z factors to stretch geometry asymmetrically. Use for:
+- Adapting oval profiles from circular references
+- Stretching components to fit specific envelopes
+- Creating families of related parts with varying aspect ratios
+
+## Design Applications
+
+### Unit Conversion
+Convert imported geometry between unit systems:
+- Import STEP file in inches, scale by 25.4 to millimeters
+- Convert centimeter models to millimeters (factor = 10)
+
+### Design Variations
+Rapidly create size variants:
+- Generate small/medium/large versions (factors: 0.8, 1.0, 1.2)
+- Create conforming parts at different scales
+- Test dimensional sensitivity in assemblies
+
+### Reference Adaptation
+Modify catalog or standard components:
+- Stretch standard profiles to custom proportions
+- Adapt reference geometry from different industries
+- Create custom sizes from standard parts

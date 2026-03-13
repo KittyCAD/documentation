@@ -4,8 +4,7 @@ excerpt: Remove overlapping solid volume with subtract operations in Zoo Design 
 sidebarPosition: 1
 ---
 
-Use Subtract to carve one solid out of another, forming cavities, cutaways, and negative-space
-details. It is the primary boolean for body-against-body material removal.
+Use Subtract to remove one or more tool bodies from target bodies, creating cavities, cutaways, pockets, and negative-space features. Subtract is the primary boolean operation for body-against-body material removal in complex assemblies.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -27,8 +26,7 @@ details. It is the primary boolean for body-against-body material removal.
     </div>
 </div>
 
-The earlier `Cut` spotlight also fits this subtractive workflow, since it shows material removal
-from an existing solid rather than a separate hole-specific tool.
+Material removal.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -49,3 +47,28 @@ from an existing solid rather than a separate hole-specific tool.
         />
     </div>
 </div>
+
+## Options
+
+### Target Solids
+The bodies you want to keep. Material will be removed from these, but they'll stay in your model.
+
+### Tool Bodies
+The bodies that define what gets cut away. These tools get deleted after the subtraction (they're consumed by the operation).
+
+**Important:** Tool bodies must overlap with at least one target body. If they don't overlap, nothing happens.
+
+## Design Applications
+
+### Material Removal
+Create complex internal cavities by subtracting shaped volumes from solid parts:
+- Fluid passages in manifolds
+- Weight-reduction pockets
+- Assembly clearance volumes
+- Mold core cavities
+
+### Multi-Body Workflows
+Manage complex assemblies by maintaining separate bodies and using subtract to create proper interference-free fits:
+- Bearing pocket clearances
+- Shaft passages through housings
+- Tool access volumes

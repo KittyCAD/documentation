@@ -4,6 +4,61 @@ excerpt: Add hole features to solid bodies in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-Use Hole to create circular cut features that are driven from explicit hole geometry rather than
-manually sketching every pocket. Hole features are useful for fasteners, clearance holes, and repeat
-body edits that should remain easy to change later.
+Use Hole to create intelligent circular cut features driven by explicit hole geometry parameters rather than manually sketching each pocket. Hole features are parametric, supporting industry-standard configurations for clearance holes, threaded holes, counterbores, and countersinks.
+
+## Options
+
+### Face
+Select the flat face where you want to place the hole. The hole will be drilled perpendicular to this face.
+
+### Hole Location
+Specify the X,Y coordinates for the hole center on the selected face, measured in the face's local coordinate system.
+
+### Hole Depth Type
+Choose how deep the hole goes:
+- **Blind** - Stops at a specified depth
+- **Through** - Goes completely through the part
+
+### Blind Depth
+If you chose "Blind" above, specify how deep to drill from the face surface.
+
+### Hole Diameter
+The diameter of the main cylindrical hole.
+
+### Hole Type
+Choose the hole configuration:
+- **Simple** - Just a basic hole
+- **Counterbore** - Has an enlarged upper section for socket-head screws
+- **Countersink** - Has a conical upper section for flat-head screws
+
+### Counterbore Depth
+For counterbored holes, how deep the enlarged section goes. Should fit the fastener head height plus a bit of clearance.
+
+### Counterbore Diameter
+For counterbored holes, the diameter of the enlarged section. Must be bigger than the main hole and should match the fastener head.
+
+### Countersink Angle
+For countersunk holes, the included angle of the cone. Common values:
+- **90°** - ISO standard flat-head screws
+- **82°** - ANSI standard flat-head screws
+- **100° or 120°** - Aerospace applications
+
+### Countersink Diameter
+For countersunk holes, the diameter at the surface. Should match or slightly exceed the fastener head diameter.
+
+### Hole Bottom  
+For blind holes, choose the bottom shape:
+- **Flat** - Flat bottom (typical for end mill drilling)
+- **Drill Point** - Conical tip like a twist drill makes
+
+### Drill Point Angle
+If you chose "Drill Point" above, specify the cone angle. Standard angles:
+- **118°** - General purpose (steel, aluminum)
+- **135°** - Self-centering (harder materials)
+
+## Fastener Clearance Guidelines
+
+For clearance holes, add 0.2-0.5mm to the nominal screw size:
+- **M3 screw** → 3.2-3.4mm hole
+- **M5 screw** → 5.3-5.5mm hole  
+- **1/4" bolt** → 0.266"-0.281" hole

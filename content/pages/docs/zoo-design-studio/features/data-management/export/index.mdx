@@ -4,5 +4,205 @@ excerpt: Export geometry from Zoo Design Studio.
 sidebarPosition: 1
 ---
 
-Export workflows send design data out of Zoo Design Studio in formats suited to downstream CAD,
-manufacturing, and sharing use cases.
+Export workflows send design data from Zoo Design Studio to external CAD systems, manufacturing equipment, visualization tools, and collaboration platforms. Zoo supports industry-standard export formats ensuring compatibility with downstream processes.
+
+## Supported Export Formats
+
+### CAD and Engineering Formats
+
+**STEP (.step, .stp)**
+- Standard for the Exchange of Product model data (ISO 10303)
+- Industry-standard neutral CAD format
+- Preserves precise solid geometry and assemblies
+- Best for CAD system interchange (SolidWorks, CATIA, NX, Creo, Inventor, Fusion 360)
+- Includes assembly structure if exporting multi-body designs
+- **Recommended for manufacturing and engineering collaboration**
+
+**STL (.stl)**
+- Stereolithography format (ISO/ASTM 52915)
+- Tessellated (triangulated) surface representation
+- Standard for 3D printing and additive manufacturing
+- No internal structure or curves (mesh approximation only)
+- Files can be large for complex geometry
+- **Required for most 3D printing workflows**
+
+### Visualization and Graphics Formats
+
+**glTF/GLB (.gltf, .glb)**
+- Graphics Library Transmission Format
+- Modern 3D asset standard for web and real-time rendering
+- Compact file size, optimized for transmission
+- Supports materials, textures, and PBR rendering
+- **Best for web visualization, AR/VR, and game engines**
+
+**OBJ (.obj)**
+- Wavefront OBJ format
+- Widely-supported mesh format
+- Simple human-readable text format (can be large)
+- Limited material support (requires companion .mtl file)
+- **Good for general 3D software compatibility**
+
+**PLY (.ply)**
+- Polygon File Format (Stanford Triangle Format)
+- Supports vertex colors and other custom attributes
+- Used in computer graphics, 3D scanning, and point clouds
+- **Useful for visualization and data exchange with graphics tools**
+
+**FBX (.fbx)**
+- Filmbox format (Autodesk)
+- Interchange for animation, VFX, and game development
+- Supports complex scenes, animations, and rigs
+- **Best for animation pipelines and game engine import**
+
+## Export Command
+
+Access the Export command via:
+- Command Bar: Search "Export"
+- Menu: File → Export
+- Keyboard shortcut (if configured)
+
+## Export Options
+
+### Type
+Which file format to export:
+- **STEP** - CAD solid geometry (best for engineering)
+- **STL** - Mesh for 3D printing
+- **OBJ** - General mesh format
+- **glTF / GLB** - Modern graphics format for web and AR/VR
+- **PLY** - Polygon format
+- **FBX** - For animation and game engines
+
+### Storage
+Where to save the file:
+- **Local** - Save to your computer (default)
+- **Cloud** - Save to Zoo cloud storage (if available)
+
+### Up Axis
+Which direction is "up":
+- **Y-up** - Y-axis is vertical (common in graphics software)
+- **Z-up** - Z-axis is vertical (common in CAD)
+
+Zoo will use the standard for your chosen format unless you override it.
+
+### Scale
+Scaling factor for unit conversion:
+- **1.0** - No scaling (default)
+- **0.001** - Millimeters to meters
+- **25.4** - Inches to millimeters
+- **0.0393701** - Millimeters to inches
+
+Use this when the target software expects specific units.
+
+## Export Workflow
+
+### Basic Export Process
+
+1. **Complete design** in Zoo Design Studio
+2. **Open Command Bar** or use File menu
+3. **Select Export command**
+4. **Choose file format** appropriate for downstream use
+5. **Configure parameters:**
+   - Set up-axis if needed
+   - Apply scale conversion if required
+   - Select storage destination
+6. **Specify filename and location**
+7. **Confirm export**
+
+### Multi-Body Export
+
+When exporting projects containing multiple solid bodies:
+- **STEP format:** Exports as assembly with multiple components
+- **Mesh formats (STL, OBJ, glTF):** Exports as single file with multiple meshes
+- Body names are preserved as component identifiers
+- Spatial relationships and positions are maintained
+
+## Format Selection Guide
+
+### By Downstream Application
+
+| Target System | Recommended Format | Alternative |
+|---------------|-------------------|-------------|
+| SolidWorks, CATIA, NX | STEP | - |
+| Fusion 360, Onshape | STEP | - |
+| 3D Printing (FDM/SLA) | STL | - |
+| Unity, Unreal Engine | glTF/GLB | FBX |
+| Blender | glTF, OBJ | FBX |
+| Rendering (V-Ray, Corona) | OBJ, FBX | glTF |
+| Web viewers (Three.js) | glTF/GLB | - |
+| CNC machining (CAM) | STEP | - |
+| Laser cutting | DXF (see DXF Export) | - |
+
+### By Use Case
+
+| Use Case | Format | Reason |
+|----------|--------|--------|
+| Engineering collaboration | STEP | Preserves exact solid geometry |
+| Manufacturing (CNC) | STEP | CAM software requires precise surfaces |
+| 3D printing | STL | Standard for slicing software |
+| Web visualization | glTF/GLB | Optimized for web transmission |
+| Photorealistic rendering | OBJ, FBX | Widely supported by renderers |
+| Game development | glTF, FBX | Includes materials and optimizations |
+| AR/VR applications | glTF/GLB | Lightweight, optimized for real-time |
+
+## Export Quality Considerations
+
+### Mesh Resolution (STL, OBJ, PLY)
+
+Mesh exports tessellate curved surfaces into triangles:
+- **Higher resolution:** More triangles, larger files, smoother curves
+- **Lower resolution:** Fewer triangles, smaller files, visible faceting
+- **3D printing:** Use high resolution to ensure smooth printed surfaces
+- **Real-time viz:** Balance resolution with performance needs
+
+Zoo automatically determines appropriate tessellation based on geometry complexity. For custom control, adjust export settings in advanced options.
+
+### Accuracy Preservation
+
+**Formats preserving exact geometry:**
+- STEP (solid models, exact curves and surfaces)
+
+**Formats using approximation:**
+- STL, OBJ, PLY, glTF, FBX (tessellated meshes, curved surfaces approximated)
+
+For engineering and manufacturing workflows requiring dimensional accuracy, always use STEP format.
+
+## Unit Conversion Best Practices
+
+When exporting between systems using different units:
+
+1. **Know your source units** (check Zoo file unit setting)
+2. **Know target system expectations** (inches vs. mm)
+3. **Apply scale parameter** or convert units before export
+4. **Verify scale** after import in target system
+
+Common unit conversions:
+- Millimeters → Meters: scale = 0.001
+- Meters → Millimeters: scale = 1000
+- Inches → Millimeters: scale = 25.4
+- Millimeters → Inches: scale = 0.0393701
+
+## Advanced Export Workflows
+
+### Batch Export
+
+For exporting multiple files or formats:
+1. Use KCL scripting to automate exports
+2. Export to multiple formats for different downstream uses
+3. Maintain consistent naming conventions
+
+### Version Control Integration
+
+When using version control (Git):
+- Export STEP files for engineering review
+- Include exported files in repository for traceability
+- Tag releases with corresponding export snapshots
+- Document export settings in version history
+
+### Manufacturing Release Package
+
+Create comprehensive manufacturing package:
+1. Export STEP for CAM programming
+2. Export STL for validation/visualization
+3. Include DXF for 2D drawings (if applicable)
+4. Package technical drawings and specifications
+5. Include material and finish requirements

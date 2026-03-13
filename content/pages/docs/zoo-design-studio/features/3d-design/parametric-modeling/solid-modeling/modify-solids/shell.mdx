@@ -4,8 +4,31 @@ excerpt: Hollow solid bodies in Zoo Design Studio.
 sidebarPosition: 2
 ---
 
-Use Shell to hollow out a solid while leaving a controlled wall thickness for enclosures,
-lightweight parts, and molded geometry.
+Use Shell to hollow out solid bodies while maintaining controlled wall thickness. Shell is essential for creating enclosures, lightweight structures, molded parts, and any geometry requiring internal cavities with uniform wall thickness.
+
+## Options
+
+### Faces to Remove
+Select one or more faces to remove from the solid. These become the openings in your shelled part:
+- One face creates a box-like enclosure with one open side
+- Multiple faces create multiple openings
+- The faces must belong to the body you're shelling
+
+### Wall Thickness
+The thickness of the walls in your shelled part. This is the offset distance from the original outside surfaces to the new inside surfaces.
+
+Typical values:
+- **0.8-2mm** - Thin plastic enclosures, consumer products
+- **2-5mm** - Moderate-strength plastic parts
+- **5mm+** - Heavy-duty enclosures, metal castings
+
+Make sure the thickness is smaller than your part's thinnest internal dimension to avoid self-intersection.
+
+## Design Notes
+
+**Uniform Thickness:** The shell maintains the same wall thickness everywhere, following the shape of your original geometry.
+
+**Opening Selection:** Pick faces strategically for assembly access, parting lines in molded parts, and material distribution.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>

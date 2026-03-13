@@ -4,5 +4,63 @@ excerpt: Create circular patterns in Zoo Design Studio.
 sidebarPosition: 0
 ---
 
-Circular Pattern repeats geometry around an axis, which is useful for hole arrays, spokes, blades,
-and other rotational layouts.
+Circular Pattern creates multiple instances of solid bodies arranged around a circular axis. Use Circular Pattern for bolt circles, radial ribs, gear teeth, turbine blades, and any rotationally-distributed features.
+
+## Options
+
+### Solids
+Select the bodies to pattern in a circle. All selected bodies stay together as a group in each copy.
+
+### Instances
+How many total copies to create (including the original if you keep it). For example:
+- **6** - Creates 6 equally-spaced copies (60° apart if full circle)
+- **8** - Creates 8 copies (45° apart if full circle)
+
+### Axis
+Which axis to rotate around:
+- **X** - Pattern around the X-axis
+- **Y** - Pattern around the Y-axis
+- **Z** - Pattern around the Z-axis (typically vertical)
+
+### Center
+The [X, Y, Z] point where the rotation axis passes through. Everything rotates around this center point.
+
+For bolt circles:
+- [0, 0, 0] - Rotate around the origin
+- [partCenterX, partCenterY, 0] - Rotate around your part's center
+
+### Arc Degrees
+How far around the circle to distribute the copies (default: 360):
+- **360** - Full circle
+- **180** - Half circle
+- **90** - Quarter circle
+
+### Rotate Duplicates
+Whether each copy rotates:
+- **Enable** (default) - Each copy rotates to face outward radially (typical for bolt holes, gear teeth)
+- **Disable** - All copies keep the same orientation (useful for asymmetric features)
+
+### Use Original
+Whether to keep the original:
+- **Enable** (default) - Keep original, total count = instances
+- **Disable** - Hide original, only show patterned copies
+
+## Design Applications
+
+### Bolt Circles
+Create standard fastener patterns:
+- SAE 6-hole flange: instances=6, arcDegrees=360, axis=Z
+- 8-bolt wheel pattern: instances=8, arcDegrees=360
+- Partial arc mounting: instances=5, arcDegrees=120
+
+### Rotational Features
+Distribute mechanical elements:
+- Turbine blades around hub
+- Cooling fins on cylindrical surface
+- Radial ribs in circular structures
+
+### Symmetry Patterns
+Create symmetric designs:
+- 3-fold symmetry: instances=3 
+- 4-fold symmetry: instances=4
+- 12-fold symmetry: instances=12

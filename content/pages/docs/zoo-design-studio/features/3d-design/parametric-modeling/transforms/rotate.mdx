@@ -4,5 +4,45 @@ excerpt: Rotate geometry in Zoo Design Studio.
 sidebarPosition: 1
 ---
 
-Rotate reorients sketches, bodies, or selections around a chosen axis. Use it for part placement,
-alignment, and feature setup across modeling and assembly workflows.
+Rotate reorients geometry around coordinate axes using Euler angle rotations. Use Rotate for part alignment, orientation adjustment, and establishing angular relationships in assemblies and multi-body parts.
+
+## Options
+
+### Objects
+Select what you want to rotate. Multiple objects can be rotated together.
+
+### Roll (X-axis rotation)
+Rotation in degrees around the X-axis. Positive roll rotates counterclockwise when looking from +X toward the origin.
+
+### Pitch (Y-axis rotation)
+Rotation in degrees around the Y-axis. Positive pitch rotates counterclockwise when looking from +Y toward the origin.
+
+### Yaw (Z-axis rotation)
+Rotation in degrees around the Z-axis. Positive yaw rotates counterclockwise when looking from +Z toward the origin.
+
+### Global Coordinates
+Enable (default) to rotate about world axes. Disable to rotate about the object's own local axes.
+
+## How Rotations Work
+
+Rotations are applied in roll-pitch-yaw order (X-Y-Z). Use the right-hand rule: curl your fingers in the rotation direction with your thumb pointing along the positive axis.
+
+## Design Applications
+
+### Manufacturing Orientation
+Orient parts for optimal build direction:
+- Align print planes for additive manufacturing
+- Position parts for CNC accessibility
+- Establish nesting orientations for sheet cutting
+
+### Assembly Alignment
+Establish angular relationships between components:
+- Align bolt patterns to mating interfaces
+- Orient connectors to access directions
+- Position gears for meshing engagement
+
+### Analysis Preparation
+Orient geometry to analysis coordinate systems:
+- Align flow directions to computational domains
+- Position load-bearing faces perpendicular to force vectors
+- Establish symmetry planes for reduced models

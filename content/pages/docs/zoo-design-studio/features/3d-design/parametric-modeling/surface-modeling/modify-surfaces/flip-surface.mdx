@@ -4,5 +4,57 @@ excerpt: Flip surface orientation in Zoo Design Studio.
 sidebarPosition: 1
 ---
 
-Use Flip Surface to reverse the orientation of a surface body when the intended normal direction is
-opposite the current face orientation.
+Use Flip Surface to reverse the orientation (normal direction) of a surface body, swapping which side is the front face and which is the back face. Flip Surface is essential for correcting imported geometry, establishing proper surface orientation for manufacturing, and ensuring consistent normal direction in surface models.
+
+## Options
+
+### Surface
+Select the surface bodies you want to flip. You can flip multiple surfaces at once. This only works on open surfaces - closed solid bodies already have a well-defined inside and outside.
+
+## Surface Normals
+
+Surface normals are vectors perpendicular to the surface at each point, pointing toward the "front" or "outside" face. Surface orientation determines:
+
+### Rendering Appearance
+- Front faces typically render with full color/material
+- Back faces may render differently or be invisible (backface culling)
+- Lighting calculations depend on surface normal direction
+
+### Manufacturing Interpretation
+- CNC toolpaths reference surface normals for approach direction
+- Sheet metal bend directions determined by surface orientation
+- 3D printing shells require consistent outward-facing normals
+
+### Modeling Conventions
+- Solid bodies: normals point outward from material
+- Open surfaces: front face is typically "visible" or "exposed" side
+- Mold surfaces: cavity surface normals point into mold material
+
+## Design Applications
+
+### Import Correction
+Fix incorrectly oriented imported surfaces:
+- STEP files with reversed normals
+- STL meshes with inconsistent face orientation
+- Scanned surface data with arbitrary orientation
+
+### Manufacturing Setup
+Establish proper orientation for manufacturing processes:
+- Flip mold cavity surface to point tool approach direction correctly
+- Orient sheet metal surfaces for bend-up vs bend-down operations
+- Correct laser cutting surface reference (top vs bottom)
+
+### Surface Continuity
+Ensure consistent normal direction across multi-surface bodies:
+- Align surface patches in trimmed surface assemblies
+- Maintain consistent orientation in quilted surfaces
+- Prepare surfaces for boolean operations requiring normal agreement
+
+## Visualization
+
+In Zoo Design Studio, surface orientation may be indicated by:
+- Color variation (front vs back faces)
+- Normal vector arrows (if visualization is enabled)
+- Shading differences under directional lighting
+
+Use flip surface when the visual appearance suggests the "wrong" side is designated as the front face.
