@@ -1,0 +1,105 @@
+---
+title: App Header
+excerpt: The main application header at the top of Zoo Design Studio.
+sidebarPosition: 2
+---
+
+The App Header is the always-visible bar at the top of Zoo Design Studio while you are working in a
+project. It gives you quick access to project navigation, undo and redo controls, the Command Bar,
+sharing, and account actions.
+
+## Left to Right Layout
+
+### Project Area
+
+It contains:
+
+- The Zoo logo, which returns to home or the project list on desktop
+- A project dropdown menu when the menu is enabled
+- The current project and file breadcrumb in the dropdown trigger
+- The project name as static text when the dropdown is not enabled
+
+The project dropdown can include:
+
+- `Project settings`, with its keyboard shortcut
+- `Add file to project`, with its keyboard shortcut
+- `Export current part`, with its keyboard shortcut
+- `Make current part`, on desktop
+- `Go to Home`, on desktop
+
+`Export current part` and `Make current part` can show `Awaiting engine connection` when the
+relevant command is not available.
+
+### Undo, Redo, and Reload
+
+They contain:
+
+- `Undo`, which reverts the last modeling or editing action
+- `Redo`, which reapplies the last undone action
+- `Reload`, which refreshes the app or current project state for troubleshooting
+
+### Command Bar
+
+The Command Bar button opens the Command Bar for fast search and execution of commands.
+
+It shows the command shortcut in the button, such as `Cmd+K` on macOS or `Ctrl+K` on Windows and
+Linux.
+
+### Share Button
+
+The Share button opens sharing actions for the current part or file.
+
+The main action is:
+
+- `Share part via Zoo link`
+
+Depending on account type, the share menu can also include:
+
+- Organization-only access
+- Password protection for the shared link
+
+This button is hidden on smaller layouts, and share links are currently unavailable for multi-file
+assemblies.
+
+### User Menu
+
+The right side of the App Header is the user menu, opened from the user avatar.
+
+It contains:
+
+- The user name and email at the top
+- `Manage Zoo account`
+- `User settings`, with its keyboard shortcut
+- `Keyboard shortcuts`
+- `Request a feature`
+- `Report a bug`
+- `Ask the community`
+- `Release notes`
+- `Check for updates`, on desktop
+- `Sign out`
+- `Sign out of all environments`, on desktop when multiple environments are active
+
+The menu uses dividers between logical groups of actions.
+
+## Visual Order
+
+The App Header typically appears in this order:
+
+1. Project area
+2. Undo, redo, and reload
+3. Command Bar
+4. Share
+5. User menu
+
+## Platform and Layout Notes
+
+- The exact arrangement changes slightly with screen size and platform
+- The Share button is hidden in smaller layouts
+- Desktop-only actions such as `Make current part`, `Go to Home`, and `Check for updates` are not
+  shown in the web version
+
+## What This Page Does Not Cover
+
+This page covers the application header and session controls, not the full set of modeling
+operations. For modeling features such as `Extrude`, `Revolve`, `Loft`, and `Sweep`, see the
+[3D Design](/docs/zoo-design-studio/features/3d-design) section.

@@ -1,69 +1,64 @@
 ---
 title: Toolbar
-excerpt: Quick access to primary modeling tools through the Toolbar interface.
-sidebarPosition: 2
+excerpt: The modeling toolbar used for sketching and feature creation in Zoo Design Studio.
+sidebarPosition: 3
 ---
 
-The Toolbar is the main strip of buttons at the top of the modeling app, providing quick access to the most important modeling tools like [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude), [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve), [Loft](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft), [Sweep](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep), and more.
+The Toolbar is the modeling tool strip used while working in the Modeling Area. It gives you quick
+access to the most common sketching and 3D modeling actions without opening the Command Bar.
 
 ## What the Toolbar Does
 
-The Toolbar lets you:
-- Start a new sketch or edit an existing one
-- Turn sketches into 3D shapes (for example, using [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude) or [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve))
-- Add features like [fillets](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet) (rounded edges) or [chamfers](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer) (angled edges)
-- Quickly switch between different modeling actions
-- Access sketch tools and constraints while in sketch mode
+The Toolbar helps you:
 
-Each button in the Toolbar has an icon and a short label. When you hover over a button, you'll see a tooltip that explains what the tool does. Some buttons also have keyboard shortcuts, so you can work even faster.
+- Start or edit sketches
+- Create 3D features such as [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude), [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve), [Loft](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft), and [Sweep](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep)
+- Add finishing features such as [Fillet](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet) and [Chamfer](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer)
+- Access sketch geometry, editing tools, and constraints while sketching
+- Stay in a mouse-driven workflow while modeling
 
-## Key Benefits
+## How It Changes with Mode
 
-### Always Visible
-The Toolbar is always visible at the top of the screen, so you don't have to search through menus to find the tools you need.
+The Toolbar is context-aware. What you see depends on whether you are:
 
-### Context-Aware
-Buttons are enabled or disabled depending on what you're doing. For example, you can only [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude) when you have a sketch selected.
+- modeling in 3D
+- editing a traditional sketch
+- using solver-based sketch mode
 
-The Toolbar also changes with modeling state. Sketch mode exposes sketch geometry, constraints, and
-sketch editing tools, while 3D modeling exposes solid, surface, boolean, transform, and
-construction workflows.
+In 3D modeling, the Toolbar focuses on feature creation and modification. In sketching, it switches
+to sketch geometry, editing tools, and constraints.
 
-### Helpful Tips
-Tooltips give you a quick explanation of each tool, and sometimes link to more detailed documentation or examples.
+## Common Toolbar Actions
 
-### Keyboard Shortcuts
-Many tools have keyboard shortcuts (like E for [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude), R for [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve)) so you can keep your hands on the keyboard and work faster.
+Typical actions available from the Toolbar include:
 
-## Common Toolbar Tools
+- `Start Sketch` or `Edit Sketch`
+- `Extrude`
+- `Sweep`
+- `Loft`
+- `Revolve`
+- sketch geometry tools such as line, arc, and rectangle
+- sketch editing and constraint tools while sketching
 
-Most modeling workflows start with [**Sketch**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching), where you draw a 2D shape on a selected plane or face. Think of this as laying out your design on paper before bringing it into 3D. Once you have your sketch, the real magic begins.
+## Why Use the Toolbar
 
-The most common next step is [**Extrude**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude), which pulls your sketch profile perpendicular to the sketch plane, creating solid 3D geometry. It's perfect for simple shapes like boxes, brackets, or any feature that extends straight out.
+- It keeps common actions visible while you work
+- It is useful when learning the app because the tools are easier to discover visually
+- It exposes hotkeys and tooltips for many commands
+- It reduces the need to search for common modeling commands
 
-For round parts like bottles, shafts, or anything with circular symmetry, reach for [**Revolve**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve). This tool spins your sketch profile around an axis, creating turned geometry in seconds—think of a potter's wheel transforming a simple profile into a complete vessel.
+## Toolbar vs App Header vs Command Bar
 
-When you need to blend between different shapes, [**Loft**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft) smoothly transitions between two or more sketch profiles. It's ideal for organic shapes or tapered transitions where the cross-section changes along the length. [**Sweep**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep) takes a similar approach but moves your sketch profile along a path, perfect for pipes, handrails, or any geometry that follows a curve.
+- The [App Header](/docs/zoo-design-studio/features/workspace/app-header) contains project, sharing, and account controls
+- The Toolbar contains modeling and sketching actions
+- The [Command Bar](/docs/zoo-design-studio/features/workspace/command-bar) is fastest for keyboard-driven workflows and less common commands
 
-After creating your basic shapes, you'll often want to soften sharp edges. [**Fillet**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet) rounds off edges with smooth tangent surfaces, reducing stress concentrations and making parts more comfortable to handle. If you prefer a crisper look or need easier machining, [**Chamfer**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer) creates beveled transitions instead of curved rounds.
+## Related Docs
 
-## Using the Toolbar
+For the actual feature behavior behind Toolbar actions, see:
 
-1. **Select geometry** - Click on a sketch, face, or edge depending on what tool you want to use
-2. **Click a tool button** - The Toolbar will show which tools are available based on your selection
-3. **Enter parameters** - A dialog or panel appears where you specify dimensions and options
-4. **Confirm** - Apply the operation to your model
-
-If you're ever unsure what a button does, hover over it to see a description and helpful links to detailed documentation.
-
-## Availability and State
-
-Toolbar commands depend on more than selection alone:
-
-- Some tools are unavailable while the engine connection is down or model execution is in progress.
-- Some commands are intentionally marked `experimental`, `unavailable`, or `kcl-only`.
-- Some in-progress behaviors are present but not yet production-complete.
-
-## Toolbar vs Command Bar
-
-The Toolbar provides visual, mouse-driven access to frequently-used modeling operations. For keyboard-driven workflows or less common commands, use the [Command Bar](/docs/zoo-design-studio/features/workspace/command-bar) instead.
+- [Sketching](/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching)
+- [Solid Modeling](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling)
+- [Surface Modeling](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling)
+- [Transforms](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms)
+- [Construction Geometry](/docs/zoo-design-studio/features/3d-design/parametric-modeling/construction-geometry)
