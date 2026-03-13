@@ -1,7 +1,7 @@
 ---
 title: Toolbar
 excerpt: Quick access to primary modeling tools through the Toolbar interface.
-sidebarPosition: 1
+sidebarPosition: 2
 ---
 
 The Toolbar is the main strip of buttons at the top of the modeling app, providing quick access to the most important modeling tools like [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude), [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve), [Loft](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft), [Sweep](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep), and more.
@@ -13,6 +13,7 @@ The Toolbar lets you:
 - Turn sketches into 3D shapes (for example, using [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude) or [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve))
 - Add features like [fillets](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet) (rounded edges) or [chamfers](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer) (angled edges)
 - Quickly switch between different modeling actions
+- Access sketch tools and constraints while in sketch mode
 
 Each button in the Toolbar has an icon and a short label. When you hover over a button, you'll see a tooltip that explains what the tool does. Some buttons also have keyboard shortcuts, so you can work even faster.
 
@@ -23,6 +24,10 @@ The Toolbar is always visible at the top of the screen, so you don't have to sea
 
 ### Context-Aware
 Buttons are enabled or disabled depending on what you're doing. For example, you can only [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude) when you have a sketch selected.
+
+The Toolbar also changes with modeling state. Sketch mode exposes sketch geometry, constraints, and
+sketch editing tools, while 3D modeling exposes solid, surface, boolean, transform, and
+construction workflows.
 
 ### Helpful Tips
 Tooltips give you a quick explanation of each tool, and sometimes link to more detailed documentation or examples.
@@ -50,6 +55,14 @@ After creating your basic shapes, you'll often want to soften sharp edges. [**Fi
 4. **Confirm** - Apply the operation to your model
 
 If you're ever unsure what a button does, hover over it to see a description and helpful links to detailed documentation.
+
+## Availability and State
+
+Toolbar commands depend on more than selection alone:
+
+- Some tools are unavailable while the engine connection is down or model execution is in progress.
+- Some commands are intentionally marked `experimental`, `unavailable`, or `kcl-only`.
+- Some in-progress behaviors are present but not yet production-complete.
 
 ## Toolbar vs Command Bar
 
