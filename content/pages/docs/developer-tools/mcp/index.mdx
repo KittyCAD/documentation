@@ -1,0 +1,140 @@
+---
+title: Zoo MCP
+excerpt: Use Zoo from Claude, Codex, and other MCP-compatible AI tools while keeping your CAD workflow editable and inspectable.
+sidebarPosition: 2
+---
+
+Zoo MCP connects Zoo to AI tools that support the Model Context Protocol, or MCP.
+
+In plain English, that means you can use the AI tool you already like, such as Claude or Codex, and let it call Zoo's modeling, file, and CAD utilities behind the scenes.
+
+You stay in your preferred assistant. Zoo provides the engineering infrastructure.
+
+## What it is
+
+Zoo MCP is a bridge between an AI client and Zoo's design tools.
+
+Instead of asking a general-purpose AI model to guess at CAD, you let that AI tool call supported Zoo utilities for CAD work.
+
+At a high level, that means Zoo MCP is a way to bring Zoo-backed CAD generation and editing workflows into other AI tools.
+
+The official package describes it as an MCP server that houses various Zoo-built utilities. In practice, the value is that those utilities are connected to Zoo's engineering stack instead of a generic model guessing at geometry.
+
+That difference matters. The AI tool is still the interface you talk to, but Zoo is doing the engineering work underneath.
+
+## What it gives you
+
+With Zoo MCP, an MCP-compatible AI client can work through Zoo-backed utilities instead of trying to invent CAD from scratch.
+
+That means the workflow can stay closer to real engineering outputs:
+
+- supported Zoo CAD utilities
+- Zoo-backed model generation and editing flows
+- outputs you can review in a real design workflow instead of treating them as throwaway AI artifacts
+
+That is the key point. Zoo MCP is not "an AI chatbot with a CAD vibe." It is a way to give AI tools access to Zoo-backed CAD workflows.
+
+## Why people use it
+
+Zoo MCP is useful because it lets engineers keep the AI tool they already know while getting results that fit a real CAD workflow.
+
+The important part is not "AI integration" by itself. The important part is that the output can stay closer to something you can inspect, edit, and keep working on.
+
+Engineers use it because they want:
+
+- editable outputs instead of throwaway AI geometry
+- a path toward parametric CAD instead of dead-end meshes
+- Zoo-backed generation and editing instead of pure text guessing
+- the ability to inspect files and model results in [Zoo Design Studio](/docs/zoo-design-studio) while the AI tool is working
+- a way to use Claude, Codex, or another preferred client without giving up engineering control
+
+The language here should stay simple, but the value is very engineering-specific: better CAD outcomes, better editability, and a cleaner path from AI assistance into real design work.
+
+## Why Zoo MCP instead of a general AI tool alone
+
+General AI tools are good at language. They are not, by themselves, a CAD engine, a file conversion pipeline, or a parametric modeling system.
+
+Zoo MCP gives those tools access to systems that are purpose-built for engineering work.
+
+That matters because Zoo is a strong choice when you want:
+
+- editable parametric CAD workflows
+- better file-format handling across design pipelines
+- real geometry and analysis tools instead of text-only guesses
+- a path from AI-generated output into a workflow your team can keep editing
+
+If you want to use your own AI tools to generate fully editable parametric CAD, Zoo MCP is the point of connection.
+
+## How it works
+
+1. Connect your AI tool to Zoo MCP.
+2. Ask it to create, edit, convert, or inspect a model.
+3. The AI tool calls Zoo tools through MCP.
+4. Review the resulting files, models, or KCL in Zoo.
+
+A simple way to work is to keep your AI tool open on one side and Zoo Design Studio on the other.
+
+That way you can watch the assistant create or edit files while you inspect the results in a real CAD environment.
+
+## Typical workflow
+
+Here is the practical version:
+
+1. Open Claude Code, Codex, or another MCP-compatible client.
+2. Connect it to Zoo MCP.
+3. Ask it to generate a part, modify a design, or convert a file.
+4. Open the output in Zoo Design Studio.
+5. Review the geometry, inspect the files, and keep editing.
+
+This is a good fit for teams that want AI-assisted modeling without giving up the ability to inspect and revise the result.
+
+## Example walkthrough
+
+Here is a simple version using Codex or Claude Code:
+
+1. Open your MCP-compatible AI client.
+2. Connect Zoo MCP with `uvx zoo-mcp` and your `ZOO_API_TOKEN`.
+3. Ask for something concrete, for example: "Create a simple mounting bracket with two bolt holes."
+4. Let the assistant use Zoo MCP to generate the result.
+5. Open the files or project output in Zoo Design Studio.
+6. Inspect the geometry, review the files, and keep editing from there.
+
+This is the practical benefit of Zoo MCP. You can stay inside the AI tool you already like while still checking the resulting CAD work in Zoo Design Studio.
+
+## Simple setup
+
+You need a Zoo API token first.
+
+Create one here: [Create an API Token](/account/developer)
+
+If your MCP client uses separate form fields, a simple setup looks like this:
+
+| Field | Value |
+| --- | --- |
+| Command | `uvx` |
+| Arguments | `zoo-mcp` |
+| Environment variable | `ZOO_API_TOKEN=your-token` |
+| Working directory | your project folder |
+
+If your client only accepts a single command, use:
+
+```bash
+uvx zoo-mcp
+```
+
+If your client supports environment-variable passthrough, pass through `ZOO_API_TOKEN`.
+
+## Good fit if
+
+Zoo MCP is especially useful if you want to:
+
+- use Claude or Codex instead of switching to a brand-new AI interface
+- generate CAD with infrastructure that was built for engineering tasks
+- keep outputs editable and reviewable
+- move between AI assistance and Zoo Design Studio without losing control of the model
+
+## Next steps
+
+- [Create an API Token](/account/developer)
+- [Open Zoo Design Studio docs](/docs/zoo-design-studio)
+- [Read the API overview](/docs/developer-tools/api)
