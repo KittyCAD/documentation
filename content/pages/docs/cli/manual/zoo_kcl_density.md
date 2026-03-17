@@ -40,13 +40,13 @@ Get the density of objects in a kcl file.
 
 ### About
 
-```
-# get the density of a file
-$ zoo kcl density my-file.kcl
 
-# pass a file from stdin
-$ cat my-file.kcl | zoo kcl density
-```
+    # get the density of a file
+    $ zoo kcl density my-file.kcl
+    
+    # pass a file from stdin
+    $ cat my-file.kcl | zoo kcl density
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

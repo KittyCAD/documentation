@@ -37,13 +37,13 @@ Snapshot a render of a CAD file as any supported image format.
 
 ### About
 
-```
-# snapshot as png
-$ zoo file snapshot my-file.obj my-file.png
 
-# pass a file to snapshot from stdin
-$ cat my-obj.obj | zoo file snapshot --output-format=png - my-file.png
-```
+    # snapshot as png
+    $ zoo file snapshot my-file.obj my-file.png
+    
+    # pass a file to snapshot from stdin
+    $ cat my-obj.obj | zoo file snapshot --output-format=png - my-file.png
+    
 
 ### See also
 

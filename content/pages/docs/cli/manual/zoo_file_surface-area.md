@@ -38,13 +38,12 @@ If the input file is larger than a certain size it will be
 performed asynchronously, you can then check the status with the
 `zoo api-call status <id_of_your_operation>` command.
 
-```
-# get the surface-area of a file
-$ zoo file surface-area my-file.step
-
-# pass a file from stdin, the original file type is required
-$ cat my-obj.obj | zoo file surface-area - --src-format=obj
-```
+    # get the surface-area of a file
+    $ zoo file surface-area my-file.step
+    
+    # pass a file from stdin, the original file type is required
+    $ cat my-obj.obj | zoo file surface-area - --src-format=obj
+    
 
 ### See also
 

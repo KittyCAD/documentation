@@ -1,10 +1,10 @@
 ---
-title: "zoo kcl lint"
-excerpt: "Lint a KCL file for style issues."
+title: "zoo kcl bounding-box"
+excerpt: "Get the bounding box that contains everything in a KCL file."
 layout: manual
 ---
 
-Lint a KCL file for style issues.
+Get the bounding box that contains everything in a KCL file.
 
 ### Options
 
@@ -12,11 +12,11 @@ Lint a KCL file for style issues.
    <dt><code>input</code></dt>
    <dd>The path to the input file. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
-   <dt><code>--descriptions</code></dt>
-   <dd>Print a long-form description of what the issue is, and the rational behind why<br/>Default value: <code>false</code></dd>
+   <dt><code>-f/--format</code></dt>
+   <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
-   <dt><code>-s/--show-code</code></dt>
-   <dd>Show where the offending KCL source code is<br/>Default value: <code>false</code></dd>
+   <dt><code>-u/--output-unit</code></dt>
+   <dd>Output unit</dd>
 
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
@@ -32,12 +32,14 @@ Lint a KCL file for style issues.
 ### About
 
 
-    # check a file for issues
-    $ zoo kcl lint my-file.kcl
+    # get the volume of a file
+    $ zoo kcl bounding-box my-file.kcl
     
     # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl lint -
+    $ cat my-file.kcl | zoo kcl bounding-box
     
+
+By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
 ### See also
 
