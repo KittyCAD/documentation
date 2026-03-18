@@ -1,0 +1,74 @@
+---
+title: Subtract
+excerpt: Remove overlapping solid volume with subtract operations in Zoo Design Studio.
+sidebarPosition: 1
+---
+
+Use Subtract to remove one or more tool bodies from target bodies, creating cavities, cutaways, pockets, and negative-space features. Subtract is the primary boolean operation for body-against-body material removal in complex assemblies.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/b6QxAg09JUs"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
+
+Material removal.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/1Aqmm0abGJI"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
+
+## Options
+
+### Target Solids
+The bodies you want to keep. Material will be removed from these, but they'll stay in your model.
+
+### Tool Bodies
+The bodies that define what gets cut away. These tools get deleted after the subtraction (they're consumed by the operation).
+
+**Important:** Tool bodies must overlap with at least one target body. If they don't overlap, nothing happens.
+
+## Design Applications
+
+### Material Removal
+Create complex internal cavities by subtracting shaped volumes from solid parts:
+- Fluid passages in manifolds
+- Weight-reduction pockets
+- Assembly clearance volumes
+- Mold core cavities
+
+### Multi-Body Workflows
+Manage complex assemblies by maintaining separate bodies and using subtract to create proper interference-free fits:
+- Bearing pocket clearances
+- Shaft passages through housings
+- Tool access volumes

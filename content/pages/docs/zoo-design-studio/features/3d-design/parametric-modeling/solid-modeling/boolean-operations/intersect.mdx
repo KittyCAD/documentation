@@ -1,0 +1,57 @@
+---
+title: Intersect
+excerpt: Keep only overlapping solid volume with intersect operations in Zoo Design Studio.
+sidebarPosition: 2
+---
+
+Use Intersect to create a new solid body representing only the shared volume between two or more input bodies. Intersect is essential when design intent is defined by the exact overlap between bodies rather than the full extent of each body.
+
+## Options
+
+### Solids
+Select two or more bodies to intersect. The result will:
+- Keep only the volume that exists in ALL the input bodies
+- Have boundaries defined by where the bodies overlap
+- Be empty if the bodies don't overlap at all
+
+All input bodies must have some overlapping volume for this to work.
+
+## Design Applications
+
+### Interference Checking
+Create visual representations of overlapping volumes in assemblies:
+- Identify bearing interference zones
+- Verify adequate wall thickness at part interfaces
+- Detect collision volumes in kinematic mechanisms
+
+### Derived Geometry Creation
+Generate new features defined by the intersection of construction volumes:
+- Create blend transitions defined by overlapping surfaces
+- Extract core geometry from intersecting primitive shapes
+- Define features bounded by multiple cutting planes
+
+### Manufacturing Analysis
+Analyze material overlap in multi-body assemblies:
+- Identify weld zones in welded structures
+- Calculate interference fits for press-fit assemblies
+- Determine required clearance modifications
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/-uTzBtl76pE"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

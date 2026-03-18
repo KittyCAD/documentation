@@ -1,0 +1,102 @@
+---
+title: Extrude
+excerpt: Extrude sketch profiles into 3D geometry in Zoo Design Studio.
+sidebarPosition: 0
+---
+
+Use Extrude to pull a 2D sketch into 3D geometry perpendicular to or along its sketch plane. Extrude is one of the most fundamental solid modeling operations for creating base bodies, bosses, cuts, and pockets.
+
+## Options
+
+### Sketches
+Select the sketch profile or profiles you want to extrude. You can extrude multiple regions at once if they're on the same plane.
+
+### Length
+Specify how far to extrude the sketch, measured perpendicular from the sketch plane. Enter the distance in your current unit system (mm, in, etc.).
+
+### Extrude To Face
+Instead of specifying a fixed distance, select an existing face as the endpoint. The extrusion will automatically extend until it meets this face. Currently works with parallel faces only.
+
+### Symmetric
+Enable this to extrude equally in both directions from the sketch plane. The total length gets split evenly - half goes forward, half goes backward. This keeps your feature centered on the sketch plane, which is useful when the sketch represents a critical centerline or datum.
+
+### Bidirectional Length
+When creating a non-symmetric bidirectional extrusion, this sets how far to extrude in the opposite direction from the main length.
+
+### Start Tag and End Tag
+Apply tags to the start face (your original sketch plane) or end face (the extruded cap) to reference them in later operations. Useful when you need to select these faces for fillets, patterns, or new sketches.
+
+### Twist Angle
+Create a helical extrusion by specifying rotation in degrees. The profile rotates gradually from 0° at the start to your specified angle at the end, creating twisted geometry.
+
+### Twist Angle Step
+Controls how smoothly the twist is calculated. Smaller steps create smoother twists but take longer to compute. Adjust this if you see faceting in your twisted extrusions.
+
+### Twist Center
+Set the center point for the twist rotation using X,Y coordinates in the sketch plane. If you don't specify this, the twist rotates around the sketch origin.
+
+### Method
+Choose how the extrusion interacts with existing geometry:
+- **Add** - Creates new material (default for bosses and base features)
+- **Remove** - Cuts away material (for pockets and slots)  
+- **Intersect** - Keeps only the overlapping volume
+
+### Hide Seams
+Check this to hide the edge lines on twisted extrusions, giving you cleaner visualization of continuous surfaces.
+
+### Body Type
+Choose whether to create a solid body (watertight volume) or a surface body (shell with no thickness). Most mechanical parts use solid bodies.
+
+## Extrude Symmetric
+
+Extrude Symmetric grows a feature equally in opposite directions from its sketch plane. Enable the `symmetric` parameter when the feature should remain centered on its original reference plane. This is particularly useful for maintaining design intent in assemblies where the sketch plane represents a critical datum.
+
+## Extrude to Faces
+
+Extrude to Faces uses existing model faces as end conditions instead of a fixed depth. Use the `to` parameter to select a target face. This approach keeps the feature tied to surrounding geometry as the design evolves, enabling robust parametric relationships that adapt automatically to upstream changes.
+
+### Extrude to Standard Sweep Faces
+
+This workflow extends extrusions until they meet standard sweep faces, which is useful when the target boundary is driven by an existing path-based surface or body. The extrusion automatically calculates the intersection depth with the target geometry.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/cRb137CzYXQ"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
+
+Material removal.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/1Aqmm0abGJI"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

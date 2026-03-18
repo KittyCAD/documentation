@@ -1,0 +1,109 @@
+---
+title: Helix
+excerpt: Create helical curves in Zoo Design Studio.
+sidebarPosition: 1
+---
+
+Use Helix to create 3D helical curves or spiral paths around an axis. Helix is essential for modeling threads, springs, coils, augers, and any geometry that combines rotational and linear motion.
+
+Helix generates a 3D curve that spirals around a specified axis, advancing linearly while rotating. The helix can be defined by either a constant radius (cylindrical helix) or variable radius (conical spiral), with parameters controlling pitch, number of revolutions, and rotation direction.
+
+## Parameters
+
+### mode
+How do you want to define the helix axis:
+- **Axis** - Use a standard coordinate axis (X, Y, or Z)
+- **Edge** - Use an existing straight edge as the helix axis
+- **Cylinder** - Wrap around an existing cylindrical surface
+
+### axis (when using Axis mode)
+Which coordinate axis to spiral around:
+- **X** - Helix around X-axis
+- **Y** - Helix around Y-axis
+- **Z** - Helix around Z-axis (vertical, typical for springs and threads)
+
+### edge (when using Edge mode)
+Select an existing straight edge to use as the helix axis.
+
+### cylinder (when using Cylinder mode)
+Select a cylindrical surface. The helix will automatically match the cylinder's radius and axis.
+
+### revolutions
+How many complete 360° turns the helix makes. Examples:
+- **1.0** - Single revolution
+- **5.0** - Five complete turns (typical coil spring)
+- **0.25** - Quarter turn
+- **10.0** - Multiple-turn thread
+
+You can use fractional values for partial revolutions.
+
+### angleStart
+Where to start the helix, in degrees from the reference direction (typically +X when looking along the axis):
+- **0** - Start at reference
+- **90** - Start 90° rotated
+- **180** - Start at opposite side
+
+### radius (when using Axis or Edge mode)
+Distance from the centerline to the helix curve. This controls the diameter of your spiral.
+
+### length
+How tall the helix is, measured along the axis. 
+
+The pitch (distance per turn) is: **length / revolutions**
+
+For example:
+- length = 50mm, revolutions = 10 → pitch = 5mm per turn
+
+### ccw
+Direction of rotation:
+- **Enable** (default) - Counter-clockwise when viewing along positive axis (right-hand helix)
+- **Disable** - Clockwise rotation (left-hand helix)
+
+This controls thread handedness.
+
+## Design Applications
+
+### Fastener Threads
+Create thread paths for screws and bolts:
+- M6 × 1.0 thread: radius=3mm, pitch=1mm (length/revolutions = 1mm)
+- 1/4"-20 thread: radius=0.125in, pitch=0.05in (20 threads per inch)
+
+### Compression Springs
+Define coil spring geometry:
+- radius = wire centerline radius
+- revolutions = number of active coils
+- length = free length
+- Use resulting helix as sweep path for circular wire profile
+
+### Augers and Conveyors
+Design helical transport surfaces:
+- Large pitch for rapid material advancement
+- Multiple revolutions for continuous operation
+- Variable radius for tapered augers
+
+## Helix vs Thread
+
+Helix creates the 3D curve path. To create actual threaded geometry:
+1. Create helix with appropriate pitch and radius
+2. Create thread profile sketch (triangular, square, etc.)
+3. Use Sweep to carry profile along helix path
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/EgtNfXFnthk"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

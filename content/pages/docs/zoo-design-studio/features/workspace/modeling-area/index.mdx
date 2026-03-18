@@ -1,0 +1,36 @@
+---
+title: Modeling Area
+excerpt: The main workspace area for scene interaction, modeling tools, and view controls in Zoo Design Studio.
+sidebarPosition: 1
+---
+
+The Modeling Area is the main area used for point-and-click modeling in Zoo Design Studio. It is
+the part of the workspace where you inspect geometry, select entities, sketch, model, and control
+the current view.
+
+Within the Modeling Area, `Scene` refers to the 3D viewport itself. `Modeling Area` is the broader
+user-facing term for the full working surface around it.
+
+This section is split into:
+
+- [Scene](/docs/zoo-design-studio/features/workspace/modeling-area/scene)
+- [Toolbar](/docs/zoo-design-studio/features/workspace/modeling-area/toolbar)
+- [View Controls](/docs/zoo-design-studio/features/workspace/modeling-area/view-controls)
+
+## What You Can Do
+
+- Orbit, pan, and zoom the model
+- Sketch and model directly in the 3D workspace
+- Select geometry for commands and edits
+- Use view controls, gizmos, and modeling tools while working
+
+## What You Cannot Do
+
+- Reliably run modeling commands when the engine or network is not ready
+- Ignore selection requirements, some tools require a face, plane, edge, sketch region, or body first
+
+## Key Differences in This Area
+
+- Scene edits stay tightly linked to KCL source updates
+- Command availability depends on engine and execution readiness, not only on selection state
+- The Modeling Area combines the viewport, modeling toolbar, and view-orientation controls into one working surface

@@ -1,0 +1,293 @@
+---
+title: Command Bar
+excerpt: Access Zoo Design Studio commands through the Command Bar interface.
+sidebarPosition: 8
+---
+
+The Command Bar provides centralized keyboard-driven access to all Zoo Design Studio operations, settings, and navigation commands. Use the Command Bar to quickly invoke modeling operations, adjust preferences, manage projects, and execute workflows without navigating through menus or toolbars.
+
+## Overview
+
+The Command Bar (also called the Command Palette) is a searchable interface for discovering and executing commands. Access it via:
+- **Keyboard shortcut:** The primary, fastest method
+- **Menu:** View → Show All Commands
+- **Search:** Type command name, description, or related keyword
+
+The Command Bar displays available commands with descriptions, required parameters, and keyboard shortcuts (if assigned). Commands are organized by category and can be filtered by typing.
+
+## Opening the Command Bar
+
+Launch the Command Bar using the platform-specific keyboard shortcut or through the menu system. Once open, begin typing to search and filter available commands.
+
+## Command Categories
+
+### Settings Commands
+
+Settings commands control application preferences, display options, and modeling behavior. All settings commands follow the pattern: `Settings · [category] · [setting name]`
+
+**Available Settings:**
+
+- **Settings · app · theme:** Application appearance (light, dark, system)
+- **Settings · app · show debug panel:** Toggle development/debugging panel visibility
+- **Settings · app · stream idle mode:** Control bandwidth and battery usage during inactivity
+- **Settings · modeling · default unit:** Default length unit for new files (mm, cm, m, in, ft, yd)
+- **Settings · modeling · backface color:** Surface back-face display color
+- **Settings · modeling · mouse controls:** 3D navigation control scheme
+- **Settings · modeling · enable touch controls:** Enable touchscreen gestures for scene navigation
+- **Settings · modeling · use sketch solve mode:** Enable experimental constraint-based sketching
+- **Settings · modeling · camera projection:** Perspective or orthographic projection
+- **Settings · modeling · camera orbit:** Orbit methodology (turntable vs trackball)
+- **Settings · modeling · gizmo type:** Orientation gizmo style
+- **Settings · modeling · highlight edges:** Toggle edge highlighting on 3D geometry
+- **Settings · modeling · show scale grid:** Display reference grid in 3D scene
+- **Settings · modeling · fixed size grid:** Use fixed grid spacing vs. auto-scaling
+- **Settings · modeling · major grid spacing:** Distance between major grid lines
+- **Settings · modeling · minor grids per major:** Number of minor divisions per major grid
+- **Settings · modeling · snap to grid:** Enable cursor snapping for sketch operations
+- **Settings · modeling · snaps per minor:** Snap point density between minor grid lines
+- **Settings · text editor · text wrapping:** Enable/disable text wrapping in code editor
+- **Settings · text editor · blinking cursor:** Control cursor blink behavior
+- **Settings · projects · default project name:** Template name for new projects
+- **Settings · command bar · include settings:** Show settings in Command Bar results
+
+### Authentication Commands
+
+**Log out:** Terminate current session and return to login screen.
+
+**Reload app:** Force complete application reload (Scene, Features, Code Editor).
+
+### Project Management Commands
+
+**Open project:** Open an existing project by name (displays project list).
+
+**Create project:** Create new project with specified name.
+
+**Delete project:** Permanently delete a project (requires confirmation).
+
+**Rename project:** Change project name (old name → new name).
+
+**Import file from URL:** Import remote files into project (STEP, KCL, etc.).
+
+### File Operations Commands
+
+**Add file to project:** Import local files or Zoo samples into project.
+
+Supported formats:
+- Local: `.stp` (STEP), `.glb`, `.fbxb`, `.kcl`
+- Samples: KCL sample library
+
+Parameters:
+- Source: Local Drive, KCL Samples
+- Method: Add to current project or create new project
+- Sample selection (if using samples)
+- File path (if using local drive)
+
+### Application Commands
+
+**Reset layout:** Restore default panel arrangement.
+
+**Set layout:** Apply predefined workspace configuration.
+
+**Create a sample:** Create new project from Zoo sample library.
+
+**Switch Environments:** Connect to different backend environment (development, staging, production).
+
+**Override Engine:** Connect Scene to custom Engine WebSocket URL (development).
+
+**Override Zookeeper:** Connect to custom Zookeeper WebSocket URL (development).
+
+### View Management Commands
+
+#### Standard Views
+
+**Top view:** Orient camera to view XY plane from +Z.
+
+**Bottom view:** Orient camera to view XY plane from -Z.
+
+**Front view:** Orient camera to view XZ plane from +Y.
+
+**Back view:** Orient camera to view XZ plane from -Y.
+
+**Right view:** Orient camera to view YZ plane from +X.
+
+**Left view:** Orient camera to view YZ plane from -X.
+
+**Zoom to fit:** Automatically frame all geometry in the viewport.
+
+#### Named Views
+
+**Create named view:** Save current camera position/orientation with custom name.
+
+**Load named view:** Restore previously saved camera configuration.
+
+**Delete named view:** Remove saved view from settings.
+
+### Navigation Commands
+
+**Go to Home:** Return to project browser.
+
+**Go to Settings:** Open settings interface.
+
+**Go to Telemetry:** View application metrics and diagnostics.
+
+### KCL and Code Commands
+
+**Set file units:** Define default length unit for current file (mm, cm, m, in, ft, yd).
+
+**Set experimental features flag:** Enable/disable experimental KCL features (`warn`, `allow`, `none`).
+
+**Insert:** Import from project file (STEP, GLB, FBX, KCL) with local variable binding.
+
+**Format Code:** Apply standard formatting to KCL code editor content.
+
+**Share part via Zoo link:** Generate shareable link containing current file snapshot.
+
+**Create parameter:** Define named constant variable for parametric modeling.
+
+**Edit parameter:** Modify existing parameter value.
+
+### Modeling Commands
+
+#### Sketch Mode
+
+**Enter sketch:** Begin 2D sketch creation mode.
+
+**Line:** Draw straight line segments.
+
+**Tangential Arc:** Draw arc tangent to previous segment.
+
+**Rectangle:** Draw rectangular profiles.
+
+#### Solid Creation
+
+**Extrude:** Project sketch profiles perpendicular to sketch plane. See [Extrude](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude/) for parameters.
+
+**Revolve:** Rotate sketch profiles around axis. See [Revolve](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve) for parameters.
+
+**Sweep:** Carry sketch profiles along path curves. See [Sweep](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep) for parameters.
+
+**Loft:** Blend between multiple sketch profiles. See [Loft](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft) for parameters.
+
+#### Solid Modification
+
+**Fillet:** Round edges with constant radius. See [Fillet](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet) for parameters.
+
+**Chamfer:** Bevel edges with angled transitions. See [Chamfer](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer) for parameters.
+
+**Shell:** Hollow solid bodies with uniform wall thickness. See [Shell](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/shell) for parameters.
+
+**Hole:** Create intelligent parametric hole features. See [Hole](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/hole) for parameters.
+
+#### Boolean Operations
+
+**Boolean Subtract:** Remove tool body volume from targets. See [Subtract](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/boolean-operations/subtract) for parameters.
+
+**Boolean Union:** Merge multiple bodies into single solid. See [Union](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/boolean-operations/union) for parameters.
+
+**Boolean Intersect:** Keep only overlapping volumes. See [Intersect](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/boolean-operations/intersect) for parameters.
+
+**Boolean Split:** Partition bodies into separate sections. See Split documentation for parameters.
+
+#### Transforms
+
+**Translate:** Move geometry linearly. See [Translate](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/translate) for parameters.
+
+**Rotate:** Reorient geometry with Euler angles. See [Rotate](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/rotate) for parameters.
+
+**Scale:** Resize geometry uniformly or non-uniformly. See [Scale](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/scale) for parameters.
+
+**Clone:** Duplicate geometry with new variable name. See [Clone](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/clone) for parameters.
+
+#### Patterns
+
+**Pattern Circular 3D:** Distribute geometry around axis. See [Circular Pattern](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/patterns/circular-pattern) for parameters.
+
+**Pattern Linear 3D:** Repeat geometry along axis. See [Linear Pattern](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/patterns/linear-pattern) for parameters.
+
+#### Construction Geometry
+
+**Offset plane:** Create parallel reference plane. See [Offset Plane](/docs/zoo-design-studio/features/3d-design/parametric-modeling/construction-geometry/offset-plane) for parameters.
+
+**Helix:** Generate helical curves for threads and springs. See [Helix](/docs/zoo-design-studio/features/3d-design/parametric-modeling/construction-geometry/helix) for parameters.
+
+#### Surface Operations
+
+**Flip Surface:** Reverse surface normal direction. See [Flip Surface](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/flip-surface) for parameters.
+
+**Delete Face:** Remove faces to create openings. See [Delete Face](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/delete-face) for parameters.
+
+**Blend:** Create transitional surfaces between edges.
+
+#### GD&T Annotations
+
+**GDT Flatness:** Annotate planar surface flatness tolerance. See [Flatness](/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/flatness/) for parameters.
+
+**GDT Datum:** Define datum reference features. See [Datum](/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/datum/) for parameters.
+
+#### Appearance and Visualization
+
+**Appearance:** Set material properties (color, metalness, roughness, opacity). See [Appearance](/docs/zoo-design-studio/features/workspace/appearance) for parameters.
+
+#### Constraints
+
+**Constrain length:** Apply length constraint to sketch segments.
+
+**Constrain with named value:** Reference parameter in constraint definition.
+
+### Export and Manufacturing Commands
+
+**Export:** Export current model to various formats:
+- STEP (`.step`, `.stp`)
+- STL (`.stl`)
+- OBJ (`.obj`)
+- glTF/GLB (`.gltf`, `.glb`)
+- PLY (`.ply`)
+- FBX (`.fbx`)
+
+Parameters:
+- File type selection
+- Storage location (local, cloud)
+- Up axis (Y-up, Z-up)
+- Scale factor (unit conversion if needed)
+
+**Make:** Send model directly to networked 3D printer (experimental).
+
+## Using the Command Bar Efficiently
+
+### Search and Filter
+
+Type any part of a command name, description, or parameter to filter results:
+- `"extrude"` → Shows Extrude command
+- `"theme"` → Shows Settings · app · theme
+- `"project"` → Shows all project-related commands
+- `"boolean"` → Shows Boolean Subtract, Union, Intersect, Split
+
+### Command Execution Workflow
+
+1. **Open Command Bar** (keyboard shortcut recommended)
+2. **Type search term** to filter commands
+3. **Select command** from filtered list
+4. **Enter parameters** in sequential prompts (if required)
+5. **Confirm execution** (Enter/Return)
+
+### Recent Commands
+
+The Command Bar remembers recently-used commands and prioritizes them in search results, enabling rapid repetition of common workflows.
+
+### Keyboard Navigation
+
+Navigate the Command Bar entirely from the keyboard:
+- **↑ / ↓ arrows:** Select command from list
+- **Enter:** Execute selected command or confirm parameter
+- **Esc:** Cancel Command Bar or parameter entry
+- **Tab:** Auto-complete command name (when unique match)
+
+## Command Bar vs Menu vs Toolbar
+
+| Access Method | Best For | Advantages |
+|---------------|----------|------------|
+| **Command Bar** | Power users, keyboard workflows | Fastest access, searchable, discoverable |
+| **Menu** | Infrequent operations, browsing | Organized by category, visible structure |
+| **Toolbar** | Visual users, common modeling actions | Discoverable, mouse-friendly, always nearby |
+
+For maximum productivity, learn Command Bar keyboard shortcuts for frequently-used operations. This eliminates UI navigation overhead and enables uninterrupted design flow.

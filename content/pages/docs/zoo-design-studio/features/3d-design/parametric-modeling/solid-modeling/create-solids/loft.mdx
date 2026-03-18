@@ -1,0 +1,50 @@
+---
+title: Loft
+excerpt: Loft solid sections into transitional bodies in Zoo Design Studio.
+sidebarPosition: 2
+---
+
+Use Loft to create a 3D solid that smoothly transitions between two or more sketch profiles. Loft is essential for blended mechanical forms, tapered transitions, aerodynamic surfaces, and geometry that changes cross-sectional shape along its length.
+
+## Options
+
+### Sketches
+Select two or more sketch profiles in order from start to end. The sketches can have different shapes and sizes - position them where you want them along the loft.
+
+### Surface Degree (V-Direction)
+Controls how smooth the transition is between profiles. Default is 3 (cubic), which gives smooth curvature. Higher values create smoother transitions but compute slower:
+- **1** - Linear (straight blend)
+- **3** - Cubic (smooth, recommended)
+- **5+** - Very smooth transitions
+
+### Bezier Approximation
+Enable this to use Bezier math instead of rational B-splines. Can help with compatibility in some downstream tools.
+
+### Base Curve Index
+Specifies which sketch (counting from 0) to use as the base for interpolation calculations. Affects the blending between profiles.
+
+### Start Tag and End Tag
+Tag the first profile's face or the last profile's face to reference them later.
+
+### Body Type
+Choose solid (requires closed profiles) or surface for a shell without thickness.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/x0-biMvzV78"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
