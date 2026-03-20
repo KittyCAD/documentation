@@ -34,13 +34,13 @@ Get the volume of an object in a kcl file.
 
 ### About
 
-```
-# get the volume of a file
-$ zoo kcl volume my-file.kcl
 
-# pass a file from stdin
-$ cat my-file.kcl | zoo kcl volume
-```
+    # get the volume of a file
+    $ zoo kcl volume my-file.kcl
+    
+    # pass a file from stdin
+    $ cat my-file.kcl | zoo kcl volume
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

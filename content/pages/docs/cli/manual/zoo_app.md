@@ -27,10 +27,9 @@ Open a directory or file in the Zoo Design Studio on your desktop.
 
 If you do not have the app installed, you will be prompted to download it.
 
-```
-$ zoo app .
-
-$ zoo app main.kcl
-
-$ zoo app ../main.kcl
-```
+    $ zoo app .
+    
+    $ zoo app main.kcl
+    
+    $ zoo app ../main.kcl
+    
