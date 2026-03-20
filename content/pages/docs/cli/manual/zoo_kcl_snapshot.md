@@ -31,7 +31,7 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dd>If true, tell engine to store a replay<br/>Default value: <code>false</code></dd>
 
    <dt><code>--angle</code></dt>
-   <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways</code></dd>
+   <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways | iso</code></dd>
 
    <dt><code>--camera-style</code></dt>
    <dd>Which style of camera to use for snapshots<br/>Possible values: <code>ortho | perspective</code><br/>Default value: <code>ortho</code></dd>
@@ -52,13 +52,13 @@ Snapshot a render of a `kcl` file as any supported image format.
 
 ### About
 
-```
-# snapshot as png
-$ zoo kcl snapshot my-file.kcl my-file.png
 
-# pass a file to snapshot from stdin
-$ cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png
-```
+    # snapshot as png
+    $ zoo kcl snapshot my-file.kcl my-file.png
+    
+    # pass a file to snapshot from stdin
+    $ cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

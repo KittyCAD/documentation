@@ -54,13 +54,12 @@ Analyze multiple physical properties of objects in a kcl file.
 
 This runs KCL once and then returns all requested analyses from the same scene.
 
-```
-# analyze a file and print a table
-$ zoo kcl analyze my-file.kcl --material-density 1.0 --material-density-unit lb-ft3
-
-# output for scripting
-$ zoo kcl analyze my-file.kcl --format json --material-density 1.0 --material-density-unit lb-ft3
-```
+    # analyze a file and print a table
+    $ zoo kcl analyze my-file.kcl --material-density 1.0 --material-density-unit lb-ft3
+    
+    # output for scripting
+    $ zoo kcl analyze my-file.kcl --format json --material-density 1.0 --material-density-unit lb-ft3
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
