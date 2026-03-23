@@ -31,9 +31,9 @@ View a render of a Text-to-CAD prompt in your terminal.
 
 ### About
 
-```
-$ zoo ml text-to-cad view A 2x4 lego brick
-```
+
+    $ zoo ml text-to-cad view A 2x4 lego brick
+    
 
 ### See also
 

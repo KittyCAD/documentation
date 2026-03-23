@@ -37,9 +37,9 @@ Run a Text-to-CAD prompt and export it as any other supported CAD file format.
 
 ### About
 
-```
-$ zoo ml text-to-cad export --output-format=obj A 2x4 lego brick
-```
+
+    $ zoo ml text-to-cad export --output-format=obj A 2x4 lego brick
+    
 
 ### See also
 

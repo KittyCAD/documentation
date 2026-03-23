@@ -44,17 +44,16 @@ If the file being converted is larger than a certain size it will be
 performed asynchronously, you can then check its status with the
 `zoo api-call status <id_of_your_operation>` command.
 
-```
-# convert step to obj
-$ zoo file convert --output-format=obj my-file.step output_dir
-
-# convert obj to step
-$ zoo file convert --output-format=step my-obj.obj .
-
-# pass a file to convert from stdin
-# when converting from stdin, the original file type is required
-$ cat my-obj.obj | zoo file convert --output-format=step - output_dir
-```
+    # convert step to obj
+    $ zoo file convert --output-format=obj my-file.step output_dir
+    
+    # convert obj to step
+    $ zoo file convert --output-format=step my-obj.obj .
+    
+    # pass a file to convert from stdin
+    # when converting from stdin, the original file type is required
+    $ cat my-obj.obj | zoo file convert --output-format=step - output_dir
+    
 
 ### See also
 

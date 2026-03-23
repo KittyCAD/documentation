@@ -44,13 +44,12 @@ If the input file is larger than a certain size it will be
 performed asynchronously, you can then check the status with the
 `zoo api-call status <id_of_your_operation>` command.
 
-```
-# get the mass of a file
-$ zoo file mass my-file.step
-
-# pass a file from stdin, the original file type is required
-$ cat my-obj.obj | zoo file mass - --src-format=obj
-```
+    # get the mass of a file
+    $ zoo file mass my-file.step
+    
+    # pass a file from stdin, the original file type is required
+    $ cat my-obj.obj | zoo file mass - --src-format=obj
+    
 
 ### See also
 

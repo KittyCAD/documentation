@@ -32,7 +32,7 @@ Perform operations on CAD files.
 
 ### About
 
-```
-# convert a step file to an obj file
-$ zoo file convert --output-format=obj ./input.step ./
-```
+
+    # convert a step file to an obj file
+    $ zoo file convert --output-format=obj ./input.step ./
+    

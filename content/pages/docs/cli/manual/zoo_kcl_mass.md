@@ -40,13 +40,13 @@ Get the mass of objects in a kcl file.
 
 ### About
 
-```
-# get the mass of a file
-$ zoo kcl mass my-file.kcl
 
-# pass a file from stdin
-$ cat my-file.kcl | zoo kcl mass
-```
+    # get the mass of a file
+    $ zoo kcl mass my-file.kcl
+    
+    # pass a file from stdin
+    $ cat my-file.kcl | zoo kcl mass
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

@@ -34,13 +34,13 @@ Get the surface area of objects in a kcl file.
 
 ### About
 
-```
-# get the surface-area of a file
-$ zoo kcl surface-area my-file.kcl
 
-# pass a file from stdin
-$ cat my-file.kcl | zoo kcl surface-area
-```
+    # get the surface-area of a file
+    $ zoo kcl surface-area my-file.kcl
+    
+    # pass a file from stdin
+    $ cat my-file.kcl | zoo kcl surface-area
+    
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
