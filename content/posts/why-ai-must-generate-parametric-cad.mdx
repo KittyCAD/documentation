@@ -13,7 +13,7 @@ There are multiple ways to generate 3D models with AI. You can output **triangle
 
 Which approach makes sense depends on the end goal: visualization, simulation, concept exploration, or manufacturing.
 
-For **CAD workflows**, the goal is more specific than "a shape that looks right." You need a model that holds up to iteration and downstream use in CAM, tolerancing, and inspection. That means the output format matters as much as the geometry itself.
+For **CAD workflows**, the goal is more specific than "a shape that looks right." You need a model that holds up to iteration and downstream use in prototyping, manufacturing and inspection.
 
 <FramedImage
   src="/documentation-assets/why-ai-must-generate-parametric-cad/shaft.webp"
@@ -29,9 +29,9 @@ Manufacturable CAD needs two things:
 
 ## Why B-rep and feature trees are crucial
 
-**B-rep.** Engineers model to manufacture. In production workflows, a mesh, no matter how good it looks, does not provide the stable faces, edges, and analytic surfaces that CAD/CAM relies on. Machinists need **B-rep CAD** so they can reliably select holes, planar faces, edges, axes, and datums to drive toolpaths, setups, tolerances, and inspection.
+**B-rep.** Engineers model to manufacture. In production workflows, a mesh, no matter how good it looks, does not provide the stable faces, edges, and analytic surfaces that CAD/CAM relies on. Machinists need B-rep CAD so they can reliably select faces, edges, holes and other accurate features to drive toolpaths, setups, and inspection.
 
-**Feature tree.** Manufacturable CAD is not just "a solid." It needs **parametric history**. Engineers iterate constantly, and they rely on resilient modeling strategies so changes do not break downstream features. 
+**Feature tree.** Manufacturable CAD is not just "a solid." It needs **parametric history**. Engineers iterate constantly, and they rely on resilient modeling strategies so changes do not break downstream features.
 When the feature tree is missing or poorly organized, edits become slow, brittle, and error-prone.
 
 <FramedImage
@@ -51,7 +51,7 @@ How? There are two fundamentally different ways to generate 3D models with AI.
 
 This approach produces true CAD geometry: B-rep with parametric history and a feature tree. Engineers can edit it, constrain it, and manufacture from it directly.
 
-It supports standard workflows like selecting a face or edge and using it to drive machining toolpaths.
+It supports standard workflows like selecting a face or edge and using it to drive machining operations.
 
 <FramedImage
   src="/documentation-assets/why-ai-must-generate-parametric-cad/bike.webp"
@@ -76,7 +76,7 @@ Mesh-first pipelines introduce major issues:
 
 - **Incomplete geometry** (single-view / diffusion model): When a mesh is generated from one or a few images (or partial scans), unseen regions (backsides, occluded cavities, internal faces) are underconstrained. Models often guess or leave gaps, producing missing surfaces, non-watertight shells, or inconsistent thickness - so the result can’t be trusted for CAD or manufacturing
 
-- **Not CAD-compatible:** A mesh model may look correct, but it’s still just triangles - without parametric BREP, feature history, or engineering intent. There are no driving dimensions, constraints, or feature logic, and no stable CAD topology (faces/edges) to drive standard CAD/CAM workflows. 
+- **Not CAD-compatible:** A mesh model may look correct, but it’s still just triangles - without parametric BREP, feature history, or engineering intent. There are no driving dimensions, constraints, or feature logic, and no stable CAD topology (faces/edges) to drive standard CAD/CAM workflows.
 
 That is why generating true parametric CAD from the start is fundamentally better for mechanical engineering.
 
@@ -94,11 +94,11 @@ A triangle mesh is an approximation of a surface, not a definition of engineerin
 
 Even when a mesh looks perfect, it collapses the things CAD/CAM depends on:
 
-- **No analytic intent:** In CAD, a hole is a cylinder with an axis, diameter, depth, and often a spec (clearance, tapped, counterbore). In a mesh, a “hole” is just a bunch of triangles arranged in a loop. There’s no axis to reference, no diameter parameter to change, and no stable feature semantics.
+- **No analytic intent:** In CAD, a hole is a cylinder with an axis, diameter, depth, and often a spec (clearance, tapped, counterbore). In a mesh, a “hole” is just another part of the mesh. There’s no axis to reference, no diameter parameter to change, and no stable feature semantics.
 - **Unreliable selection:** CAM and inspection workflows need to select faces (planar faces, cylindrical faces), edges (silhouettes, tangency breaks), and datums (axes, midplanes). On a mesh, you’re selecting triangle soup. Even if software tries to infer primitives, it’s a best-effort guess.
-- **Mesh-to-B-rep is surface fitting, not recovery:** “Just convert the mesh to CAD” sounds reasonable until you do it at production tolerances. Converting a mesh into B-rep typically means fitting NURBS/analytic surfaces onto noisy, discretized facets, then stitching and healing gaps. This is ill-posed: many CAD models can produce the same mesh, and the conversion has no way to recover the original modeling decisions.
+- **Mesh-to-B-rep is surface fitting, not recovery:** “Just convert the mesh to CAD” sounds reasonable until you do it at production tolerances. A mesh inherently contains less information than a B-rep. Trying to recover that information into a B-rep model typically involves fitting analytic surfaces to the noisy, discretized mesh, then stitching and healing gaps.
 - **No feature tree:** Even if you somehow recover a watertight B-rep, you’re still missing the parametric history that makes edits resilient. You can’t roll back to “before fillets,” change a sketch dimension, then replay the operations. You’re stuck with direct edits, which are brittle under iteration.
-- **Unstable topology:** Engineering workflows implicitly rely on stable references (“this hole pattern,” “that mounting face,” “the axis of this boss”). In mesh-first pipelines, any regeneration or conversion step tends to reshuffle topology. Faces split, edges reorder, IDs change. Downstream constraints and toolpath references break.
+- **Unstable topology:** Engineering workflows implicitly rely on stable references (“this hole pattern,” “that mounting face,” “the axis of this boss”). In mesh-first pipelines, any regeneration or conversion step tends to reshuffle topology. Faces split, edges reorder, IDs change. Downstream constraints and references break.
 
 Meshes have a place (rendering, scanning, visualization), but they’re fundamentally the wrong working format for iterative, manufacturable CAD.
 
@@ -124,10 +124,10 @@ Voxels can be useful as an internal representation for research or coarse concep
 
 What “CAD-first generation” actually implies: Generating manufacturable CAD is less like “generating geometry” and more like **“generating a parametric recipe.”**
 
-A real part is a sequence of intentional operations:
+A real part comprises several _intentional_ operations:
 
 - Sketches with constraints (symmetry, tangency, equal, concentric)
-- Dimensions with units and design intent
+- Dimensions with design intent
 - Features (extrude, revolve, shell, draft, fillet, chamfer)
 - Patterns and mirrors
 - References (datums, midplanes, axes)
@@ -142,15 +142,15 @@ That recipe is the real artifact engineers work with. The solid is computed outp
   maxHeightPx={520}
 />
 
-So the core capability is not "produce triangles that resemble a bracket." It is **"produce a robust parametric model that behaves like an engineer built it."**
+The core capability is not to produce triangles that resemble a bracket. It is to **produce a robust parametric model that behaves like an engineer built it.**
 
 ## What Zoo’s approach unlocks
 
 Because CAD-first systems generate parametric B-rep directly, output is usable in the workflows that matter:
 
 - **Iteration without rework:** change a dimension, regenerate, and continue.
-- **Manufacturing-ready geometry:** stable faces and edges that CAM expects.
-- **Downstream compatibility:** move into machining, tolerancing, and inspection without betting on fragile conversion.
+- **Manufacturing-ready geometry:** stable faces and edges that CAM tooling expects.
+- **Downstream compatibility:** move into machining and inspection without betting on fragile mesh or voxel conversion.
 - **Intent-preserving models:** the model captures why geometry is shaped that way through constraints, dimensions, and feature structure.
 
 [Zookeeper](https://zoo.dev/docs/zoo-design-studio/zookeeper), our CAD agent, uses AI to generate and modify parametric B-rep CAD models through KCL.
