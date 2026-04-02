@@ -94,7 +94,7 @@ A triangle mesh is an approximation of a surface, not a definition of engineerin
 
 Even when a mesh looks perfect, it collapses the things CAD/CAM depends on:
 
-- **No analytic intent:** In CAD, a hole is a cylinder with an axis, diameter, depth, and often a spec (clearance, tapped, counterbore). In a mesh, a “hole” is just another part of the mesh. There’s no axis to reference, no diameter parameter to change, and no stable feature semantics.
+- **No analytic intent:** In CAD, a hole is a cylinder with an axis, diameter, depth, and often a spec (clearance, tapped, counterbore). In a mesh, a “hole” isn’t empty space, it’s just part of the mesh defined by surrounding geometry. There’s no axis to reference, no diameter parameter to change, and no stable feature semantics.
 - **Unreliable selection:** CAM and inspection workflows need to select faces (planar faces, cylindrical faces), edges (silhouettes, tangency breaks), and datums (axes, midplanes). On a mesh, you’re selecting triangle soup. Even if software tries to infer primitives, it’s a best-effort guess.
 - **Mesh-to-B-rep is surface fitting, not recovery:** “Just convert the mesh to CAD” sounds reasonable until you do it at production tolerances. A mesh inherently contains less information than a B-rep. Trying to recover that information into a B-rep model typically involves fitting analytic surfaces to the noisy, discretized mesh, then stitching and healing gaps.
 - **No feature tree:** Even if you somehow recover a watertight B-rep, you’re still missing the parametric history that makes edits resilient. You can’t roll back to “before fillets,” change a sketch dimension, then replay the operations. You’re stuck with direct edits, which are brittle under iteration.
