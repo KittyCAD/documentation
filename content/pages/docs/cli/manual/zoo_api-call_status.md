@@ -30,7 +30,7 @@ Perform operations for API calls.
 
 
     # get the status of an async API call
-    `$ zoo api-call status <id>`
+    $ zoo api-call status <id>
     
 
 ### See also
