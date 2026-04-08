@@ -57,6 +57,9 @@ proposing new modes for parsing the signed SAML document after signature verific
 Now, which mode works for you likely depends on your IdP. We are hesitant to make the `PreDigest` mode default for all users of the library.
 Zoo is switching to the `PreDigest` mode as we know the IdPs which are currently supported and those work with `PreDigest` mode.
 
+Based on the changes recommended by Trail of Bits, we created a patch that addresses the identified issues.
+The version 0.0.20 of `samael` contains the fixes.
+
 
 ## Turning path traversal into RCE
 
