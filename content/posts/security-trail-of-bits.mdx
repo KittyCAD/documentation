@@ -65,7 +65,7 @@ In the 2026 audit, Dominik from Trail of Bits found a path traversal vulnerabili
 Our `/file/conversion` API endpoint allows users to upload 3D files in various formats (STEP, FBX, SLDPRT) for conversion.
 The endpoint accepts multipart file uploads where the filename is attached.
 We had implemented a `normalize_path` function to sanitize user-provided filenames and prevent path traversal attacks by removing `..` and `.` components.
-However, the function had a subtle but critical flaw: it preserved absolute paths.
+However, the function had a subtle but serious flaw: it preserved absolute paths.
 
 When a user uploads a file with a filename like `/etc/cron.d/malicious`, the `normalize_path` function would return it unchanged.
 The function correctly handled absolute paths.
