@@ -19,6 +19,7 @@ Perform actions on `kcl` files.
 * [zoo kcl density](./zoo_kcl_density)
 * [zoo kcl surface-area](./zoo_kcl_surface-area)
 * [zoo kcl lint](./zoo_kcl_lint)
+* [zoo kcl bounding-box](./zoo_kcl_bounding-box)
 
 ### Options
 

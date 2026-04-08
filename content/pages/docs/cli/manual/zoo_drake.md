@@ -22,6 +22,6 @@ Open a drake meme in your web browser.
 
 ### About
 
-```
-$ zoo drake
-```
+
+    $ zoo drake
+    

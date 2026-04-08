@@ -1,0 +1,68 @@
+---
+title: Delete Face
+excerpt: Delete selected faces from surface geometry in Zoo Design Studio.
+sidebarPosition: 3
+---
+
+Use Delete Face to remove individual faces from a solid body, converting it to an open surface or creating intentional gaps in the boundary representation. Delete Face is used for creating openings, removing unwanted patches, or preparing geometry for surface extension and healing operations.
+
+## Options
+
+### Faces
+Select the face or faces you want to remove. You can delete multiple faces at once. The faces must be part of existing solid or surface bodies.
+
+## Design Applications
+
+### Creating Openings
+Remove faces to create access holes or ports:
+- Delete top face of a box to create an open enclosure
+- Remove end face of a tube for pipe connections
+- Create inspection ports by deleting wall sections
+
+### Surface Modeling Workflows
+Manipulate surface bodies by removing unwanted regions:
+- Trim excess material from imported surfaces
+- Remove patches that failed quality checks
+- Prepare surfaces for extending or replacing with new geometry
+
+### Manufacturing Preparation
+Create geometry for specific manufacturing processes:
+- Open mold cavity for draft analysis
+- Remove internal faces to simplify mesh generation
+- Prepare sheet metal parts by removing bend regions for flattening
+
+### Repair Operations
+Preparatory step for geometry healing:
+- Remove corrupted or degenerate faces
+- Delete faces before re-creating with proper topology
+- Isolate problematic regions for targeted repair
+
+## Important Considerations
+
+### Body Type Conversion
+Deleting faces from a closed solid converts it to an open surface:
+- Mass properties become undefined
+- Volume calculations no longer available
+- Some solid operations (like shell) cannot be applied to open surfaces
+- Surface may require manual closure or healing for downstream use
+
+### Topology Changes
+Removing faces alters the body's topology:
+- Edges unique to deleted faces are removed
+- Vertices may be removed if only connected to deleted faces
+- Adjacent face boundaries become free edges (open boundaries)
+- Features dependent on deleted faces may fail or require updating
+
+### Downstream Impact
+Consider effects on model tree:
+- Features referencing deleted faces will fail
+- Boolean operations may behave differently with open surfaces
+- Fillets or chamfers on removed edges will be deleted
+- Patterns or mirrors including deleted faces may produce unexpected results
+
+## Recovery
+
+If delete face creates unintended results:
+- Undo the operation (Ctrl+Z / Cmd+Z)
+- Use feature tree to suppress the delete face operation
+- Manually recreate deleted geometry if needed for downstream features

@@ -1,0 +1,70 @@
+---
+title: Clone
+excerpt: Clone geometry in Zoo Design Studio.
+sidebarPosition: 3
+---
+
+Use Clone to duplicate solid bodies or sketches, creating independent copies that can be transformed, modified, or referenced separately. Clone is essential for creating repeated features, design variations, and multi-instance components.
+
+## Options
+
+### Objects
+Select the bodies or sketches you want to duplicate.
+
+### Variable Name
+The name for your new copy. This must be unique and follow KCL naming rules:
+- Start with a letter or underscore
+- Use only letters, numbers, and underscores
+- Don't use reserved keywords
+
+You'll use this name to reference the cloned geometry later.
+
+## Clone vs Copy
+
+Clone creates a new, independent geometric entity:
+- New variable assignment in KCL
+- Independent feature tree entry
+- Can be transformed without affecting original
+- Modifications to clone do not propagate to source
+
+This differs from parametric patterns (which create linked instances) and boolean operations (which consume source geometry).
+
+## Design Applications
+
+### Repeated Features
+Create multiple instances for manual positioning:
+- Clone a boss to create several mounting points
+- Duplicate ribs for non-uniform spacing
+- Copy complex features to different locations
+
+### Design Variations
+Develop alternative designs from common base:
+- Clone base part, apply different modifications
+- Create A/B versions for design evaluation
+- Generate family of variants for configuration studies
+
+### Multi-Body Modeling
+Manage complex assemblies with separate bodies:
+- Clone components for positioning in assembly space
+- Create working copies for boolean operations
+- Maintain both transformed and original geometry
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/bL4GolK_Bkw"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

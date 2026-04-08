@@ -1,0 +1,59 @@
+---
+title: Revolve
+excerpt: Revolve sketch profiles into solids in Zoo Design Studio.
+sidebarPosition: 3
+---
+
+Use Revolve to rotate a 2D sketch profile around an axis, generating rotationally symmetric solids. Revolve is ideal for creating shafts, bottles, flanges, turned components, and any geometry with circular symmetry.
+
+## Options
+
+### Sketches
+Select the sketch profile you want to revolve. Make sure the sketch doesn't cross the axis of revolution - that would create invalid geometry with the surface intersecting itself.
+
+### Axis Type
+Choose whether to revolve around a standard sketch axis (X, Y, or Z) or around an existing edge in your model.
+
+### Sketch Axis
+If you chose "Sketch Axis" above, pick which axis: X, Y, or Z in your sketch's coordinate system. The profile will spin around this axis.
+
+### Edge
+If you chose "Edge" above, select a straight edge from your existing geometry to use as the revolution axis.
+
+### Angle
+How many degrees to rotate. Common choices:
+- **360** - Full revolution (shaft, bottle, bowl)
+- **180** - Half revolution  
+- Any custom angle for partial features
+
+### Symmetric
+Enable this to revolve equally in both directions from the sketch. Your specified angle gets split in half - rotating both ways from the starting position.
+
+### Bidirectional Angle
+When creating a non-symmetric bidirectional revolve, this sets the rotation amount in the opposite direction.
+
+### Start Tag and End Tag
+Tag the start face (at the sketch location) or end face (at the final rotation angle) to reference them in later features.
+
+### Body Type
+Choose solid for a watertight 3D body, or surface for a thin shell with no thickness. Most parts use solid.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/akD34Y2fk3w"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

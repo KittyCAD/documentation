@@ -31,13 +31,13 @@ Lint a KCL file for style issues.
 
 ### About
 
-```
-# check a file for issues
-$ zoo kcl lint my-file.kcl
 
-# pass a file from stdin
-$ cat my-file.kcl | zoo kcl lint -
-```
+    # check a file for issues
+    $ zoo kcl lint my-file.kcl
+    
+    # pass a file from stdin
+    $ cat my-file.kcl | zoo kcl lint -
+    
 
 ### See also
 

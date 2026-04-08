@@ -28,10 +28,10 @@ Perform operations for API calls.
 
 ### About
 
-```
-# get the status of an async API call
-$ zoo api-call status <id>
-```
+
+    # get the status of an async API call
+    `$ zoo api-call status <id>`
+    
 
 ### See also
 

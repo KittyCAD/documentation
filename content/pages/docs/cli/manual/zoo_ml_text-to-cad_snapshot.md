@@ -37,10 +37,10 @@ Snapshot a render of a Text-to-CAD prompt as any supported image format.
 
 ### About
 
-```
-# snapshot as png
-$ zoo ml text-to-cad snapshot A 2x4 lego brick
-```
+
+    # snapshot as png
+    $ zoo ml text-to-cad snapshot A 2x4 lego brick
+    
 
 ### See also
 

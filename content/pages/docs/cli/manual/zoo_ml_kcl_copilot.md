@@ -27,9 +27,8 @@ Start an interactive Copilot chat for KCL in the current project directory.
 
 Requires the current directory to contain a `main.kcl` file.
 
-```
-$ zoo ml kcl copilot
-```
+    $ zoo ml kcl copilot
+    
 
 ### Slash Commands
 
@@ -37,6 +36,7 @@ $ zoo ml kcl copilot
 * `/answer-now` Send the `answer-now` system directive to the Copilot service.
 * `/bye` Send the `bye` system directive to the Copilot service.
 * `/cancel` Send the `cancel` system directive to the Copilot service.
+* `/continue` Send the `continue` system directive to the Copilot service.
 * `/exit` Exit the Copilot session immediately (alias of /quit).
 * `/interrupt` Send the `interrupt` system directive to the Copilot service.
 * `/new` Send the `new` system directive to the Copilot service.

@@ -1,0 +1,58 @@
+---
+title: Union
+excerpt: Merge solid bodies with union operations in Zoo Design Studio.
+sidebarPosition: 0
+---
+
+Use Union to combine multiple solid bodies into a single continuous, manifold solid. Union merges overlapping and adjacent bodies, creating a unified part suitable for manufacturing, analysis, or further modeling operations.
+
+## Options
+
+### Solids
+Select two or more solid bodies to merge into a single body. The result will:
+- Contain all the volume from the input solids
+- Have no internal boundaries where bodies overlapped
+- Be a single piece ready for manufacturing
+
+Bodies don't need to touch to be unioned, but if they don't overlap you'll get a multi-piece result.
+
+## Design Applications
+
+### Feature Consolidation
+Combine multiple modeled features into a single body:
+- Merge bosses and ribs onto base geometry
+- Consolidate weldment components
+- Unite separately-designed sections of complex parts
+
+### Assembly Simplification
+Convert multi-body assemblies into single-part representations:
+- Create monolithic castings from multi-piece designs
+- Generate 3D printing models from assembled components
+- Simplify part counts for manufacturing
+
+### Boolean Workflows
+Union is often used in combination with other boolean operations:
+1. Create multiple base features separately
+2. Union them into a single body
+3. Use Subtract to remove unwanted volumes
+4. Apply finishing operations (fillets, chamfers) to the unified geometry
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/Vje_zc5AnsY"
+            allowfullscreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>

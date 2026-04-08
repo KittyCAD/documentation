@@ -47,7 +47,7 @@ Import the libraries necessary to create and retrieve models with Text-to-CAD:
 ```py
 import time
 
-from kittycad.api.ml import create_text_to_cad, get_text_to_cad_model_for_user
+from kittycad.api.ml import create_text_to_cad, get_text_to_cad_part_for_user
 from kittycad.client import ClientFromEnv
 from kittycad.models import (
     ApiCallStatus,
@@ -88,7 +88,7 @@ if isinstance(response, Error) or response is None:
 
 ## Checking the status
 
-Now that we have made the API call, we need to check the status of the model. We can do this by using the `get_text_to_cad_model_for_user.sync()` function. This function takes in the client and the ID of the request that we want to check the status. keep in mind that more complex prompts will take more time to process. In this example, we check the status every 5 seconds until the original request is complete.
+Now that we have made the API call, we need to check the status of the model. We can do this by using the `get_text_to_cad_part_for_user.sync()` function. This function takes in the client and the ID of the request that we want to check the status. keep in mind that more complex prompts will take more time to process. In this example, we check the status every 5 seconds until the original request is complete.
 
 ```py
 result: TextToCad = response
@@ -99,7 +99,7 @@ while result.completed_at is None:
     time.sleep(5)
 
     # Check the status of the task
-    response = get_text_to_cad_model_for_user.sync(
+    response = get_text_to_cad_part_for_user.sync(
         client=client,
         id=result.id,
     )
@@ -115,7 +115,7 @@ while result.completed_at is None:
 
 Once our request is complete, we can check the status one more time to see if it was successful. Then, we can save the generated CAD model to our local machine.
 
-Sometimes, Text-to-CAD will fail to generate a model. In this case, we recommend adjusting your prompt and trying again. For example, you may recieve the error message `400 / Bad Request / The prompt must clearly describe a CAD model`. If you receive this error, try to be more specific with your prompt.
+Sometimes, Text-to-CAD will fail to generate a model. In this case, we recommend adjusting your prompt and trying again. For example, you may receive the error message `400 / Bad Request / The prompt must clearly describe a CAD model`. If you receive this error, try to be more specific with your prompt.
 
 In our script, if Text-to-CAD returns an error, we want to print the error message. If it succeeds, then we print the available file formats of the generated CAD model.
 
