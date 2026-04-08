@@ -1,0 +1,131 @@
+---
+title: 'Zoo got audited by Trail of Bits (again)'
+excerpt: ''
+coverImage: '/kittycad-blog-banner.png'
+date: '2026-02-11T13:00:00.000Z'
+author:
+    name: Max Ammann
+    picture: '/documentation-assets/maxammann.jpeg'
+ogImage:
+    url: '/kittycad.png'
+---
+
+Secure code audits provide a unique view into the security of a product.
+While pentests have become a standard part of the security process for many companies, public secure code audits are still relatively uncommon.
+I believe one reason for that is that a lot of security processes evolve around checking the boxes and
+"Have you conducted a penetration test in 2025?" is a common question in security questionnaires.
+
+In this blog post I want to highlight 2 findings from our recent 2026 audit, as well as our 2024 audit, performed by Trail of Bits.
+We'll dive deep on one vulnerability and demonstrate how one vulnerability could have been exploited.
+
+Download our 2024 audit report
+[here](https://raw.githubusercontent.com/trailofbits/publications/59ac14c0fd375b6a32ad6a4b02b014a636723e40/reviews/2024-06-zoo-kittycad-securityreview.pdf)
+and our 2026 audit report
+[here](https://zoo.dev/audit-2025)
+.
+
+## Securing the Rust ecosystem
+
+One goal of the audit was to evaluate the security of our authentication system which includes SAML and OIDC flows.
+We are using the [samael](https://github.com/njaremko/samael) library and sponsor its author for a few years with a monthly donation.
+Vasco, one of the Trail of Bits auditors, found several low severity issues in the validation of SAML responses.
+None of them were exploitable, but they showed that the current method of validation is not as robust as it could be.
+
+The library takes the SAML response which is essentially a signed XML document and verifies the signature using xmlsec,
+the most widely used library for XML signature verification. So far so good.
+
+After that however it uses custom logic to find the nodes that have been verified.
+This might lead to inconsistencies between what xmlsec verified and what we consider verified.
+
+Finally, the well-known serde library is used to deserialize the XML document into Rust structs,
+which adds another source of parsing differentials.
+
+In summary, Vasco showed that you can create states where the custom samael logic, xmlsec,
+or serde disagree on what has been verified, which could lead to exploitable states.
+
+The goal of samael is to deserialize only signed data into Rust structs, dropping everything else. So we are reducing the
+SAML response which can contain unsigned data into its minimal signed form.
+The relevant code implements a function which takes a signed SAML response and returns structured Rust data which you can trust it originates from the SAML IdP.
+
+Again, nothing was found to be exploitable but we can do better here so we created a Pull Request to fix the issues by
+proposing new modes for parsing the signed SAML document after signature verification:
+
+1. `ValidateAndMark` - Legacy mode which marks the xmlsec returned node, its ancestors and descendants as verified.
+2. `ValidateAndMarkNoAncestors` - Similar to the legacy mode but only mark the xmlsec returned node and root ancestor node as verified.
+3. `PreDigest` - New strict mode, which gets the XML data just before the digest is calculated. This XML data is guaranteed to contain only data that has been signed.
+
+Now, which mode works for you likely depends on your IdP. We are hesitant to make the `PreDigest` mode default for all users of the library.
+Zoo is switching to the `PreDigest` mode as we know the IdPs which are currently supported and those work with `PreDigest` mode.
+
+
+## Turning path traversal into RCE
+
+In the 2026 audit, Dominik from Trail of Bits found a path traversal vulnerability in our handling of CAD files.
+
+Our `/file/conversion` API endpoint allows users to upload 3D files in various formats (STEP, FBX, SLDPRT) for conversion.
+The endpoint accepts multipart file uploads where the filename is attached.
+We had implemented a `normalize_path` function to sanitize user-provided filenames and prevent path traversal attacks by removing `..` and `.` components.
+However, the function had a subtle but critical flaw: it preserved absolute paths.
+
+When a user uploads a file with a filename like `/etc/cron.d/malicious`, the `normalize_path` function would return it unchanged.
+The function correctly handled absolute paths.
+
+The real problem emerged due to Rust's `PathBuf::join` semantics. When you call `temp_dir.join("/etc/cron.d/malicious")`,
+Rust replaces the base path entirely because the argument is absolute. So instead of creating a file at `/tmp/input_abc123/etc/cron.d/malicious`,
+the file gets written to `/etc/cron.d/malicious`.
+
+This vulnerability could have been exploited in at least two ways:
+
+- **Remote Code Execution**: An attacker could upload an ELF binary or shared library to replace the running process or overwrite libraries loaded by the HOOPS SDK at runtime.
+- **DNS Hijacking**: Overwriting `/etc/hosts` or `/etc/resolv.conf` could redirect service-to-service traffic or DNS requests to attacker-controlled servers.
+
+The exploitation was constrained by two factors. First, Cloudflare WAF blocks some obvious payloads targeting paths like `/etc/cron.d/`.
+Second, the attacker needed to find a writable path that would grant them meaningful capabilities. However, the underlying vulnerability remained exploitable
+if the WAF was bypassed or if the attacker targeted less obvious paths.
+
+We resolved this vulnerability by fixing the path normalization logic. Some paths are also directly rejected by our backend now.
+Additionally, we are using now kernel-level sandboxing to restrict processes from reading and writing unexpected paths.
+
+
+Internally, we turned this vulnerability into a full-blown exploit that allowed us to pop a shell on our containers.
+We used this to validate our fixes, and to demonstrate internally how an attacker could have exploited this vulnerability.
+On top of that we are reducing what an attacker could do if they got remote code execution.
+We are reducing the availability and lifetime of API credentials throughout the organization.
+
+## Highlights from the 2024 audit
+
+In our 2024 review with Trail of Bits, we did not discover a full-blown remote code execution vulnerability.
+However, we had several denial-of-service vectors identified, as well as a chain of web related vulnerabilities
+that would have allowed an attacker to phish Zoo users. Such a phishing attack would have allowed an attacker
+to steal a users session cookie.
+Any risks related to these vulnerabilities were mitigated.
+
+## Beyond audits: Defense in depth
+
+Source code audits can discover serious vulnerabilities. Doing them once is not enough though, they need to be performed regularly.
+Also, they are only one part of a comprehensive security program.
+
+We have also seen impact in other areas over the past years.
+In April 2025, [N008x](https://github.com/N008x) reported through our responsible disclosure program that our Microsoft SSO integration was vulnerable to [nOAuth](https://www.descope.com/noauth).
+The bug allows an account takeover. The issue stemmed from trusting the `email` claim
+provided by Microsoft instead of using the immutable `sub` (subject) claim as the primary identifier.
+
+An attacker could create their own Azure AD tenant, add a user with an arbitrary email address (like `victim@example.com`),
+and then sign in to Zoo using "Sign in with Microsoft" with those credentials. Because we trusted the email claim without verification,
+the attacker would gain access to the victim's account. We fixed this by switching to the `sub` claim as the primary identifier
+and implementing proper email verification before account linking.
+
+We reviewed our logs and validated that the vulnerability was not exploited. We expired all user sessions and unlinked all Microsoft accounts as a precautionary measure.
+Now fast-forward to 2026, in the Trail of Bits audit one finding actually referenced this vulnerability and recommended to implement
+a mitigating feature that requires email validation for any account linking.
+We implemented this feature now. If any of our SSO providers ever has a similar mis-behavior like Microsoft did, we are prepared!
+
+## Learnings from the audits
+
+Regular audits are crucial for maintaining security.
+I suspect that we will see patterns emerge from the audits over time.
+With every new service deployed it probably makes sense to revisit older audits, and check if we
+might be vulnerable to similar issues in new parts of our codebase.
+One way to reduce the risk is to write static analysis rules and seed LLMs
+with previous audits to find attack ideas and validate ideas.
+
