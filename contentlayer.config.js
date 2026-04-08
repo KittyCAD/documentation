@@ -204,6 +204,12 @@ const BlogPost = defineDocumentType(() => ({
       description: 'The tags of the blog post, for SEO, categorization, and filtering use.',
       required: false,
     },
+    draft: {
+      type: 'boolean',
+      description: 'Whether the blog post is a draft and should not be published.',
+      required: false,
+      default: false,
+    },
   },
   computedFields: {
     slug: {

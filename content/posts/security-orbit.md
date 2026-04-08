@@ -2,12 +2,13 @@
 title: 'Researching foreign cloud-native CAD software'
 excerpt: 'A summary of vulnerabilities I found in a cloud-native CAD application and recommendations to fix them.'
 coverImage: '/kittycad-blog-banner.png'
-date: '2026-02-12T13:00:00.000Z'
+date: '2026-05-05T13:00:00.000Z'
 author:
     name: Max Ammann
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
         url: '/kittycad.png'
+draft: true
 ---
 
 

@@ -2,12 +2,13 @@
 title: 'Organization wide dependabot configuration'
 excerpt: 'Introducing a tool to configure dependabot across your GitHub organization with better defaults and more customizability.'
 coverImage: '/kittycad-blog-banner.png'
-date: '2026-02-11T13:00:00.000Z'
+date: '2026-05-12T13:00:00.000Z'
 author:
     name: Max Ammann
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
     url: '/kittycad.png'
+draft: true
 ---
 
 Dependabot is probably the most widely used tool to automate dependency updates. It is simple and the default on GitHub.
