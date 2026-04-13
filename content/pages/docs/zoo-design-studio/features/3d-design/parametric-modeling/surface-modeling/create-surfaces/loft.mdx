@@ -4,6 +4,22 @@ excerpt: Loft surface sections with the Loft Surface tool in Zoo Design Studio.
 sidebarPosition: 2
 ---
 
-Use Loft to blend between section profiles as an open surface when the feature is configured for
-surface output. This is useful for fairings, covers, and transitional shapes that should remain
+Use the same Loft tool used in
+[Loft Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft),
+then set `bodyType` to `surface` to blend between section profiles as an open surface instead of a
+closed solid. This is useful for fairings, covers, and transitional shapes that should remain
 editable as surface geometry rather than closing into a solid.
+
+## Body Type
+
+The `bodyType` parameter controls whether Loft creates a solid body or a surface body. Set
+`bodyType` to `surface` when you want a shell with no thickness instead of a solid body. This is
+the same Body Type behavior described in the solid Loft workflow, the difference is simply that this
+surface page is focused on the surface output mode.
+
+## Other Parameters
+
+All other Loft parameters, such as Sketches, Surface Degree (V-Direction), Bezier Approximation,
+Base Curve Index, and Start Tag / End Tag, work the same way as they do in
+[Loft Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft).
+For the full parameter reference, visit the solid modeling section.

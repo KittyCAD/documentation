@@ -4,6 +4,22 @@ excerpt: Revolve profiles into surface geometry with the Revolve Surface tool in
 sidebarPosition: 1
 ---
 
-Use Revolve to spin a profile into an open surface when the feature is configured for surface output.
+Use the same Revolve tool used in
+[Revolve Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve),
+then set `bodyType` to `surface` to spin a profile into an open surface instead of a closed solid.
 This is useful for rotational forms, reference surfaces, and thin swept geometry that should not
 become a closed solid body.
+
+## Body Type
+
+The `bodyType` parameter controls whether Revolve creates a solid body or a surface body. Set
+`bodyType` to `surface` when you want a thin shell with no thickness instead of a watertight 3D
+body. This works the same way as the Body Type option in the solid Revolve workflow, you are just
+using it here to keep the result as surface geometry.
+
+## Other Parameters
+
+All other Revolve parameters, such as Axis Type, Sketch Axis, Edge, Angle, Symmetric, Bidirectional
+Angle, and Start Tag / End Tag, work the same way as they do in
+[Revolve Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve).
+For the full parameter reference, visit the solid modeling section.
