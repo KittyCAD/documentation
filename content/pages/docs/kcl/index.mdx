@@ -1,0 +1,36 @@
+---
+title: KCL
+excerpt: Overview of the KittyCAD Language and how this section is organized.
+layout: manual
+---
+
+KCL is KittyCAD's programming language for CAD. It is the source of truth behind Zoo models, so geometry created in Zoo Design Studio can be generated as KCL, edited as KCL, and shared as plain text in `.kcl` files.
+
+Because it is code, KCL works well for parametric design. You can define reusable parts, name dimensions, write formulas directly in the model, and keep your design under version control with normal text-based tools.
+
+## What you'll find here
+
+- [KCL Book](https://zoo.dev/docs/kcl-book/intro.html)
+  A guided introduction to KCL and parametric modeling workflows.
+
+- [KCL Language Reference](/docs/kcl-lang)
+  Syntax and semantics for pipelines, values and types, units, functions, arrays, modules, imports, attributes, settings, and known issues.
+
+- [KCL Standard Library](/docs/kcl-std)
+  The modeling API for sketching, solids, surfaces, transforms, patterns, holes, math, units, vectors, constants, and types.
+
+- [CAD Samples Gallery](/docs/kcl-samples)
+  Complete KCL examples, including simple parts and larger multi-file projects, so you can study working models instead of staring into the void.
+
+## Which page should you start with?
+
+- Start with the [KCL Book](https://zoo.dev/docs/kcl-book/intro.html) if you are learning KCL.
+- Use the [Language Reference](/docs/kcl-lang) when you need exact syntax, behavior, or language rules.
+- Use the [Standard Library](/docs/kcl-std) when you know the modeling operation you need, such as `extrude`, `loft`, `translate`, or `patternCircular3d`.
+- Browse the [CAD Samples Gallery](/docs/kcl-samples) when you want real KCL projects to adapt.
+
+## Why KCL
+
+- It keeps geometry readable and reviewable as text.
+- It makes parametric design explicit with variables, formulas, and reusable modules.
+- It gives you one language across direct coding, app-generated geometry, and automated workflows.
