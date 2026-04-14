@@ -1,9 +1,32 @@
 ---
-title: Sweep
-excerpt: Sweep profiles into surface geometry with the Sweep tool in Zoo Design Studio.
+title: Sweep Surface
+excerpt: Sweep profiles into surface geometry with the Sweep Surface tool in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-Use Sweep to carry a profile along a path as an open surface when the feature is configured for
-surface output. This is useful for guide surfaces, routed surface geometry, and path-driven forms
+Use the same Sweep tool used in
+[Sweep Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep),
+then set `bodyType` to `surface` to carry a profile along a path as an open surface instead of a
+closed solid. This is useful for guide surfaces, routed surface geometry, and path-driven forms
 that should stay open for later surfacing operations.
+
+## Body Type
+
+The `bodyType` parameter controls whether Sweep creates a solid body or a surface body. Set
+`bodyType` to `surface` when you want a shell with no thickness instead of a solid body. This works
+the same way as the Body Type option in the solid Sweep workflow, you are just choosing the surface
+output mode here.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/sweep/sweep.webp"
+  alt="Sweep tool with bodyType set to surface in Zoo Design Studio"
+  aspect="2370 / 1738"
+  maxHeightPx={800}
+/>
+
+## Other Parameters
+
+All other Sweep parameters, such as `Sketches`, `Path`, `Sectional`, `Relative To`, and
+`Start Tag / End Tag`, work the same way as they do in
+[Sweep Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep).
+For the full parameter reference, visit the solid modeling section.
