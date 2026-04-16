@@ -4,7 +4,7 @@ KittyCAD Language (KCL) is our language for defining geometry and working with o
 
 This repository includes a mixture of simple and complex models demonstrating the features and syntax of KCL.
 
-The samples can be browsed in our documentation at <https://zoo.dev/docs/kcl-samples>.
+The samples can be browsed in our documentation at <https://zoo.dev/aquarium>.
 
 ## Guidelines for adding samples
 
