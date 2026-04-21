@@ -8,6 +8,7 @@ author:
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
     url: '/kittycad.png'
+tags: ['New', 'Security']
 draft: true
 ---
 

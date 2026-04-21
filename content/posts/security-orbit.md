@@ -7,7 +7,8 @@ author:
     name: Max Ammann
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
-        url: '/kittycad.png'
+        url: '/documentation-assets/meta-images/researching-foreign-cloud-native-CAD-software-blog.png'
+tags: ['New', 'Security']
 draft: true
 ---
 
