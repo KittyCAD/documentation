@@ -33,6 +33,9 @@ Edit user settings.
    <dt><code>-p/--phone</code></dt>
    <dd>The user's phone number<br/>Default value: <code></code></dd>
 
+   <dt><code>-u/--username</code></dt>
+   <dd>Public username/handle for community-facing features. Empty clears it</dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
