@@ -24,9 +24,66 @@ output mode here.
   maxHeightPx={800}
 />
 
+## Selection
+
+Choose a sketch segment when the surface should use a single edge as its profile. If the sketch
+forms a closed region, choose the region to use the full enclosed profile instead.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/sweep/select-segment.webp"
+  alt="Sweep surface with a selected segment"
+  aspect="2370 / 1738"
+  maxHeightPx={400}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Selected sketch segment
+</div>
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/sweep/select-region.webp"
+  alt="Sweep surface with a selected region"
+  aspect="2370 / 1738"
+  maxHeightPx={400}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Selected sketch region
+</div>
+
 ## Other Parameters
 
 All other Sweep parameters, such as `Sketches`, `Path`, `Sectional`, `Relative To`, and
 `Start Tag / End Tag`, work the same way as they do in
 [Sweep Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep).
 For the full parameter reference, visit the solid modeling section.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A surface sweep is just a `sweep` call with `bodyType = SURFACE`, applied to sketch segments and a path.
+
+```kcl
+section = sketch(on = XZ) {
+  line1 = line(start = [var 3mm, var -10mm], end = [var -5mm, var -10mm])
+  line2 = line(start = [var -5mm, var -10mm], end = [var -5mm, var 10mm])
+  coincident([line1.end, line2.start])
+  line3 = line(start = [var -5mm, var 10mm], end = [var 3mm, var 10mm])
+  coincident([line2.end, line3.start])
+}
+guide = sketch(on = XY) {
+  line1 = line(start = [var 0mm, var 0mm], end = [var 0mm, var 17mm])
+  arc1 = arc(start = [var 7mm, var 24mm], end = [var 0mm, var 17mm], center = [var 7mm, var 17mm])
+  line2 = line(start = [var 7mm, var 24mm], end = [var 17mm, var 24mm])
+  coincident([arc1.end, line1.end])
+  coincident([line2.start, arc1.start])
+}
+sweepSurface = sweep(
+  [
+    section.line1,
+    section.line2,
+    section.line3
+  ],
+  path = [guide.line1, guide.arc1, guide.line2],
+  bodyType = SURFACE,
+  version = 2,
+)
+```
+
+Want to find out more about the `sweep` function? [Check it out](/docs/kcl-std/functions/std-sketch-sweep) in our KCL docs.
