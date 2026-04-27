@@ -30,3 +30,23 @@ All other Extrude parameters, such as `Length`, `Extrude To Face`, `Symmetric`,
 `Bidirectional Length`, `Twist Angle`, and `Start Tag / End Tag`, work the same way as they do in
 [Extrude Solid](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude).
 For the full parameter reference, visit the solid modeling section.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A surface extrusion is just an `extrude` call with
+`bodyType = SURFACE`, applied to a sketch segment or profile.
+
+```kcl
+mySketch = sketch(on = XY) {
+  arc1 = arc(
+    start = [var 0mm, var 2mm],
+    end = [var 0mm, var -1mm],
+    center = [var 0mm, var 0mm],
+  )
+}
+
+surfaceExtrude = extrude(mySketch.arc1, length = 5, bodyType = SURFACE)
+```
+
+Want to find out more about the `extrude` function? [Check it out](/docs/kcl-std/functions/std-sketch-extrude)
+in our KCL docs.
