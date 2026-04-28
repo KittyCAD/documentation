@@ -4,8 +4,9 @@ excerpt: Blend adjacent surfaces together in Zoo Design Studio.
 sidebarPosition: 4
 ---
 
-Use Blend to create a new transitional surface between neighboring surface regions. Blend is useful
-when the design intent depends on smoother face continuity than a hard edge can provide.
+Use Blend to create a smooth transition surface between two selected open boundary edges. It is
+useful for connecting separate surface bodies with a controlled bridge instead of an abrupt gap or
+hard corner.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/blend/blend.webp"
@@ -38,6 +39,40 @@ of a surface, select a different pair of boundary edges before accepting the fea
 When you select an edge in the scene, Blend uses the full length of that edge as one side of the
 transition. In KCL, the same operation can also use bounded edge spans when you only want to blend
 part of an edge.
+
+Edge spans are normalized from `0` to `1` along the selected edge. `lowerBound` defaults to `0`,
+`upperBound` defaults to `1`, and tagged edges use the full span. Keeping `lowerBound = 0` while
+lowering `upperBound` clips the blend back toward the edge start point.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/blend/left-upper-bound-1_0.webp"
+  alt="Blend surface using the full left boundary edge with lowerBound 0 and upperBound 1"
+  aspect="1216 / 956"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Left edge span: <code>lowerBound = 0</code>, <code>upperBound = 1</code>
+</div>
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/blend/left-upper-bound-0_5.webp"
+  alt="Blend surface using half of the left boundary edge with lowerBound 0 and upperBound 0.5"
+  aspect="1216 / 956"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Left edge span: <code>lowerBound = 0</code>, <code>upperBound = 0.5</code>
+</div>
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/blend/left-upper-bound-0_0.webp"
+  alt="Blend surface touching the left boundary edge at only the start point with lowerBound 0 and upperBound 0"
+  aspect="1216 / 956"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Left edge span: <code>lowerBound = 0</code>, <code>upperBound = 0</code>
+</div>
 
 ## Other Parameters
 
