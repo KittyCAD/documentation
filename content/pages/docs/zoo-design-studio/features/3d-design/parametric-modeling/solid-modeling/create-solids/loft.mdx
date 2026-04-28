@@ -8,25 +8,30 @@ Use Loft to create a 3D solid that smoothly transitions between two or more sket
 
 ## Options
 
-### Sketches
-Select two or more sketch profiles in order from start to end. The sketches can have different shapes and sizes - position them where you want them along the loft.
+## Sketches
+Select two or more sketch regions in order from start to end. A closed sketch encloses an area, and
+Zoo Design Studio exposes that filled area as a selectable region. For a solid loft, select regions,
+not the individual sketch edges.
 
-### Surface Degree (V-Direction)
+The selected regions become the loft sections. They can have different shapes and sizes, and each
+section should be positioned where you want it along the loft.
+
+## Surface Degree (V-Direction)
 Controls how smooth the transition is between profiles. Default is 3 (cubic), which gives smooth curvature. Higher values create smoother transitions but compute slower:
 - **1** - Linear (straight blend)
 - **3** - Cubic (smooth, recommended)
 - **5+** - Very smooth transitions
 
-### Bezier Approximation
+## Bezier Approximation
 Enable this to use Bezier math instead of rational B-splines. Can help with compatibility in some downstream tools.
 
-### Base Curve Index
+## Base Curve Index
 Specifies which sketch (counting from 0) to use as the base for interpolation calculations. Affects the blending between profiles.
 
-### Start Tag and End Tag
-Tag the first profile's face or the last profile's face to reference them later.
+## Start Tag and End Tag
+Tag the first profile's face or the last profile's face to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
 
-### Body Type
+## Body Type
 Choose solid (requires closed profiles) or surface for a shell without thickness.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>

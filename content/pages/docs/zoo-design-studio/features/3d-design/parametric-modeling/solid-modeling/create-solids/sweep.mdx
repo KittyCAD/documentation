@@ -6,25 +6,27 @@ sidebarPosition: 1
 
 Use Sweep to carry a 2D sketch profile along a 3D path, generating complex geometry that follows curves and arbitrary trajectories. Sweep is ideal for creating pipes, rails, cable routes, handrails, and other features that follow non-linear paths.
 
+## Sketches
+Select a closed sketch region as the sweep profile. A closed sketch encloses an area, and Zoo Design
+Studio exposes that filled area as a selectable region. For a solid sweep, select the region as the
+profile, not the individual sketch edges.
 
-## Options
+The selected region is carried along the path to create the solid volume. Sketch edges are selected
+for the path, not for the solid profile.
 
-### Sketches
-Select the sketch profile to sweep along the path. The profile can be open (creating a surface) or closed (creating a solid).
-
-### Path
+## Path
 Select the curve or edge that defines the sweep trajectory. This can be any continuous edge - straight lines, arcs, splines, or complex curves.
 
-### Sectional
+## Sectional
 Enable this to keep the profile perpendicular to the path as it sweeps. Disable to maintain a fixed orientation relative to the world coordinate system.
 
-### Relative To
+## Relative To
 Controls how the profile orients itself as it follows the path.
 
-### Start Tag and End Tag
-Tag the start face (where the profile begins) or end face (where it finishes) to reference them later.
+## Start Tag and End Tag
+Tag the start face (where the profile begins) or end face (where it finishes) to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
 
-### Body Type
+## Body Type
 Choose solid (requires a closed profile) or surface for a shell without thickness.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
