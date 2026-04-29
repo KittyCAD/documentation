@@ -6,13 +6,23 @@ sidebarPosition: 0
 
 Use Extrude to pull a 2D sketch into 3D geometry perpendicular to or along its sketch plane. Extrude is one of the most fundamental solid modeling operations for creating base bodies, bosses, cuts, and pockets.
 
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/extrude.webp"
+    alt="Extrude Solid tool overview in Zoo Design Studio"
+    aspect="2028 / 1432"
+    maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Extrude Solid pulls a selected sketch region into 3D
+</div>
+
 ## Sketches
-Select one or more sketch regions to extrude. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid extrude, select the region, not the individual sketch edges.
+Select one or more sketch regions to extrude. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid extrude, select the region, not the individual sketch segments. Segments define the boundary, but the filled region is the profile that becomes the solid.
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/select-sketch.webp"
     alt="Closed sketch outline before selecting the filled sketch region"
-    aspect="1718 / 1658"
+    aspect="1644 / 1248"
     maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -22,7 +32,7 @@ Select one or more sketch regions to extrude. A closed sketch encloses an area, 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/select-region.webp"
     alt="Filled sketch region selected for Extrude Solid"
-    aspect="1718 / 1658"
+    aspect="1644 / 1248"
     maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -35,7 +45,7 @@ Specify how far to extrude the sketch, measured perpendicular from the sketch pl
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/length.webp"
     alt="Extrude length example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1248"
     maxHeightPx={340}
 />
 
@@ -45,17 +55,17 @@ Instead of specifying a fixed distance, select an existing face as the endpoint.
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/to-face.webp"
     alt="Extrude to face example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1482"
     maxHeightPx={340}
 />
 
 ## Symmetric
-Enable this to extrude equally in both directions from the sketch plane. The total length gets split evenly - half goes forward, half goes backward. This keeps your feature centered on the sketch plane, which is useful when the sketch represents a critical centerline or datum.
+Enable this to extrude equally in both directions from the sketch plane. The total length gets split evenly: half goes forward, half goes backward. This keeps your feature centered on the sketch plane, which is useful when the sketch represents a critical centerline or datum.
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/symmetrical.webp"
     alt="Symmetric extrude example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1366"
     maxHeightPx={340}
 />
 
@@ -65,7 +75,7 @@ When creating a non-symmetric bidirectional extrusion, this sets how far to extr
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/bidirectional.webp"
     alt="Bidirectional extrude example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -73,7 +83,7 @@ When creating a non-symmetric bidirectional extrusion, this sets how far to extr
 </div>
 
 ## Start Tag and End Tag
-Apply tags to the start face (your original sketch plane) or end face (the extruded cap) to reference them in later operations. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
+Apply tags to the start face (your original sketch plane) or end face (the extruded cap) to reference them in later operations. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags. This is mostly for advanced users who want precise control or automation.
 
 ## Twist Angle
 Create a helical extrusion by specifying rotation in degrees. The profile rotates gradually from 0° at the start to your specified angle at the end, creating twisted geometry.
@@ -81,7 +91,7 @@ Create a helical extrusion by specifying rotation in degrees. The profile rotate
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/twist-default.webp"
     alt="Twist angle extrude example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 
@@ -91,7 +101,7 @@ Controls how smoothly the twist is calculated. Smaller steps create smoother twi
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/twist-angle-step.webp"
     alt="Twist angle step extrude example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 
@@ -101,7 +111,7 @@ Set the center point for the twist rotation using X,Y coordinates in the sketch 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/twist-center.webp"
     alt="Twist center extrude example"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 
@@ -111,7 +121,7 @@ The method parameter controls how the extrusion interacts with existing geometry
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/method-new.webp"
     alt="Extrude method: new (creates new body)"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -121,7 +131,7 @@ The method parameter controls how the extrusion interacts with existing geometry
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/method-merge.webp"
     alt="Extrude method: merge (adds or removes material)"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -134,7 +144,7 @@ This feature matters when you are extruding the faces of a solid, not just regio
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/hide-seams-face.webp"
     alt="Selecting a face for Hide Seams"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -144,21 +154,21 @@ This feature matters when you are extruding the faces of a solid, not just regio
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/hide-seams-on.webp"
     alt="Hide seams on (default)"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-    Hide Seams: On (default) — no edge lines are shown between faces
+    Hide Seams: On (default): no edge lines are shown between faces
 </div>
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/hide-seams-off.webp"
     alt="Hide seams off"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-    Hide Seams: Off — edge lines are visible between faces
+    Hide Seams: Off: edge lines are visible between faces
 </div>
 
 ## Body Type
@@ -167,7 +177,7 @@ Choose whether to create a `solid body` (watertight volume) or a `surface body` 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/extrude-solid/surface.webp"
     alt="Surface extrude: hollow surface without end caps"
-    aspect="2130 / 1956"
+    aspect="1644 / 1572"
     maxHeightPx={340}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -175,6 +185,39 @@ Choose whether to create a `solid body` (watertight volume) or a `surface body` 
     If you want to learn more about surface modeling, see the <a href="/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude">Surface Extrude</a> page.
 </div>
 
+## Parameter Reference
+
+`sketches`: The selected sketch profile or profiles. In the UI, select filled regions for solid
+extrudes, not the boundary segments.
+
+`length`: A fixed extrusion distance. Cannot be used at the same time as `to`.
+
+`to`: A point, axis, plane, edge, face, sketch, solid, or tagged reference to extrude until. Cannot
+be used with `length` or `twistAngle`.
+
+`symmetric`: Splits the extrusion equally to both sides of the sketch plane.
+
+`bidirectionalLength`: Adds a second extrusion distance in the opposite direction. Ignored when
+`symmetric` is enabled.
+
+`tagStart`: Names the start face at the original sketch plane for later reference.
+
+`tagEnd`: Names the end face created by the extrusion for later reference.
+
+`twistAngle`: Twists the profile as it extrudes. Cannot be used with `to`.
+
+`twistAngleStep`: Controls the angular step used to calculate a twisted extrusion. Smaller values
+are smoother but slower.
+
+`twistCenter`: Sets the 2D center point of the twist relative to the sketch plane origin.
+
+`method`: Chooses whether the extrusion creates a new body with `NEW` or merges with existing
+geometry with `MERGE`.
+
+`hideSeams`: Hides seams between the source face and merged result when extruding a face with
+`method = MERGE`.
+
+`bodyType`: Creates either a solid body or a surface body.
 
 
 
