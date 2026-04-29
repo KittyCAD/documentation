@@ -188,7 +188,7 @@ Long term, place the exporter behind an authenticated backend service that check
 
 | Severity | Difficulty |
 |----------|------------|
-| Very High| Low        |
+| High     | Low        |
 
 I found a very serious one though. It is possible to execute arbitrary code on https://step-service-abc.app/build123d/execute
 As the code is just python you can read from the filesystem, including secrets and environment variables.
