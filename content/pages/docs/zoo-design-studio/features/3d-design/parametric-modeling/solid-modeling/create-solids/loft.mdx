@@ -12,7 +12,7 @@ Use Loft to create a 3D solid that smoothly transitions between two or more sket
 <FramedImage
         src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/index.webp"
         alt="Loft Solid tool overview"
-        aspect="1718 / 1658"
+        aspect="1766 / 1108"
         maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -21,12 +21,12 @@ Use Loft to create a 3D solid that smoothly transitions between two or more sket
 
 
 ## Sketches
-Select two or more sketch regions in order from start to end. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid loft, select regions, not the individual sketch edges.
+Select two or more sketch regions in order from start to end. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid loft, select regions, not the individual sketch segments. Segments define each section boundary, but the filled regions are the sections the loft connects.
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/selection-sketch.webp"
     alt="Closed sketch outline before selecting the filled sketch region for Loft"
-    aspect="1718 / 1658"
+    aspect="1766 / 1108"
     maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -36,7 +36,7 @@ Select two or more sketch regions in order from start to end. A closed sketch en
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/selection-region.webp"
     alt="Filled sketch region selected for Loft Solid"
-    aspect="1718 / 1658"
+    aspect="1766 / 1108"
     maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -55,7 +55,7 @@ Controls how smooth the transition is between profiles. Default is 3 (cubic), wh
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/v-degree-1.webp"
     alt="Loft with V-Degree 1 (linear blend)"
-    aspect="1718 / 1658"
+    aspect="1766 / 1108"
     maxHeightPx={420}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -63,13 +63,20 @@ Controls how smooth the transition is between profiles. Default is 3 (cubic), wh
 </div>
 
 ## Bezier Approximation
-Enable this to use Bezier math instead of rational B-splines. Can help with compatibility in some downstream tools.
+Enable this when a loft that mixes arcs, circles, and non-arc section geometry shows visible banding or uneven interpolation. Arcs and circles are rational curves, which can represent exact circular geometry. Bezier curves are polynomial approximations. `bezApproximateRational` asks the engine to approximate rational curves as Bezier curves so the loft sections use more similar curve math.
+
+Leave this off unless you see a problem it fixes. The approximation can improve arc-to-non-arc blends, but it may also create errors in other cases.
 
 ## Base Curve Index
-Specifies which sketch (counting from 0) to use as the base for interpolation calculations. Affects the blending between profiles.
+Loft has to decide how points and edges on one section correspond to points and edges on the next section. The engine automatically chooses a topological base curve, usually from the first section it encounters, and uses that as the reference for interpolation.
+
+`baseCurveIndex` overrides that automatic choice. Use it when the loft connects the right sections but twists, crosses, or matches the wrong side of one profile to another. The value is zero-based, so `0` means the first candidate base curve, `1` means the next one, and so on. Most simple lofts do not need this parameter.
+
+## Tolerance
+Controls the small-distance threshold used to decide whether entities are coincident, intersecting, coplanar, or similar. For normal lofts, leave this at its default value. Change it only when troubleshooting very small or nearly coincident profiles.
 
 ## Start Tag and End Tag
-Tag the first profile's face or the last profile's face to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
+Tag the first profile's face or the last profile's face to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags. This is mostly for advanced users who want precise control or automation.
 
 ## Body Type
 Choose solid (requires closed profiles) or surface for a shell without thickness.
@@ -77,7 +84,7 @@ Choose solid (requires closed profiles) or surface for a shell without thickness
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/body-type-surface.webp"
     alt="Loft Body Type: Surface"
-    aspect="1718 / 1658"
+    aspect="1766 / 1108"
     maxHeightPx={420}
 />
 
@@ -85,6 +92,29 @@ Choose solid (requires closed profiles) or surface for a shell without thickness
     In this example, switching Body Type to <b>Surface</b> creates a shell without thickness.<br/>
     If you want to learn more about surface modeling, see the <a href="/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/loft">Surface Loft</a> page.
 </div>
+
+## Parameter Reference
+
+`sketches`: The loft sections. In the UI, select at least two filled regions in the order the loft
+should connect them.
+
+`vDegree`: Sets the interpolation degree in the V direction. Use `1` for a straight linear
+transition, `2` for quadratic, or `3` for a smoother cubic transition.
+
+`bezApproximateRational`: Approximates rational curves, such as arcs, with Bezier curves to reduce
+banding when mixing arc and non-arc profiles.
+
+`baseCurveIndex`: Overrides the automatically chosen topological base curve when the loft twists or
+matches the wrong sides of sections.
+
+`tolerance`: Sets the coincidence/intersection threshold for very small geometry checks. Usually
+leave this at the default.
+
+`tagStart`: Names the first loft face for later reference.
+
+`tagEnd`: Names the final loft face for later reference.
+
+`bodyType`: Creates either a solid body or a surface body.
 
 
 ## Prefer to learn by watching?

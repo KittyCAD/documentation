@@ -6,43 +6,59 @@ sidebarPosition: 1
 
 Use Sweep to carry a 2D sketch profile along a 3D path, generating complex geometry that follows curves and arbitrary trajectories. Sweep is ideal for creating pipes, rails, cable routes, handrails, and other features that follow non-linear paths.
 
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/sweep.webp"
+    alt="Sweep Solid tool overview in Zoo Design Studio"
+    aspect="2692 / 1788"
+    maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Sweep Solid carries a selected region along a selected path
+</div>
+
 ## Sketches
-Select a closed sketch region as the sweep profile. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid sweep, select the region as the profile, not the individual sketch edges.
-
-
+Select a closed sketch region as the sweep profile. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid sweep, select the region as the profile, not the individual sketch segments. Segments are selected for the path, not for the solid profile.
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/selection.webp"
-    alt="Sweep profile selection"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    alt="Sweep profile selection step in Zoo Design Studio"
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1em', fontStyle: 'italic'}}>
-    Select the profile to sweep (region or edge)
+    Start by selecting the profile region to sweep
 </div>
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/selection-profile-region.webp"
     alt="Closed sketch region selected for Sweep Solid"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
     Select the filled sketch region to sweep it into a solid
 </div>
 
-The selected region is carried along the path to create the solid volume. Sketch edges are selected for the path, not for the solid profile.
+The selected region is carried along the path to create the solid volume. If the sweep starts in the wrong place or twists immediately, move the profile so it sits at the start of the guide path before creating the feature.
+
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/sketch-profile-at-guide-start.webp"
+    alt="Sweep profile sketched at the start of the guide path"
+    aspect="3000 / 1940"
+    maxHeightPx={360}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Place the profile at the guide path start for predictable sweep orientation
+</div>
 
 
 ## Path
-Select the curve or edge that defines the sweep trajectory. This can be any continuous edge—straight lines, arcs, splines, or complex curves.
-
-
+Select the segment or segments that define the sweep trajectory. Path segments are not chained automatically: select each path segment one by one in the order the profile should travel. For the cleanest result, adjacent path segments should touch and be tangent to each other so the sweep transitions smoothly through corners and arcs.
 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/selection-guide-one-segment.webp"
     alt="Sweep path: one segment"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1em', fontStyle: 'italic'}}>
     Sweep along a single guide segment
@@ -50,11 +66,11 @@ Select the curve or edge that defines the sweep trajectory. This can be any cont
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/selection-guide-all-segments.webp"
     alt="Sweep path example"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-    The selected region is swept along the chosen path
+    Select every guide segment needed for the full path
 </div>
 
 
@@ -66,8 +82,8 @@ Enable this to keep the profile perpendicular to the path as it sweeps. Disable 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/sectional-on.webp"
     alt="Sectional sweep ON"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1em', fontStyle: 'italic'}}>
     Sectional ON: profile stays perpendicular to the path
@@ -75,8 +91,8 @@ Enable this to keep the profile perpendicular to the path as it sweeps. Disable 
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/sectional-off.webp"
     alt="Sectional sweep OFF"
-    aspect="2370 / 1738"
-    maxHeightPx={320}
+    aspect="3000 / 1940"
+    maxHeightPx={360}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
     Sectional OFF: profile keeps a fixed orientation
@@ -84,10 +100,34 @@ Enable this to keep the profile perpendicular to the path as it sweeps. Disable 
 
 
 ## Relative To
-Controls how the profile orients itself as it follows the path.
+Controls the coordinate frame the sweep uses while the profile follows the path.
+
+- `sketchPlane` keeps the profile oriented relative to the original sketch plane. This is useful when you want the profile to keep a stable orientation instead of rolling with the path.
+- `trajectoryCurve` orients the profile relative to the path trajectory. This is useful when the profile should follow the path's local direction more closely.
+
+In KCL, these correspond to [`sweep::SKETCH_PLANE`](/docs/kcl-std/consts/std-sweep-SKETCH_PLANE)
+and [`sweep::TRAJECTORY`](/docs/kcl-std/consts/std-sweep-TRAJECTORY).
+
+If the preview looks rotated or rolled differently than expected, this is the first setting to compare.
+
+## Version
+Chooses the sweep algorithm version. Leave this unset, or use `0`, for the default algorithm. If the sweep looks twisted, pinched, inside-out, or otherwise wrong even though the profile and path selections are correct, try another version and compare the preview.
+
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/version-1.webp"
+    alt="Sweep result using a different sweep algorithm version"
+    aspect="2762 / 2114"
+    maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    If a sweep looks wrong, try another algorithm version and compare the result
+</div>
+
+## Tolerance
+Controls the small-distance threshold used to decide whether path entities are coincident, coplanar, or intersecting. For normal modeling, leave this at its default value. Change it only when you are deliberately troubleshooting very small or nearly coincident geometry.
 
 ## Start Tag and End Tag
-Tag the start face (where the profile begins) or end face (where it finishes) to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
+Tag the start face (where the profile begins) or end face (where it finishes) to reference them later. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags. This is mostly for advanced users who want precise control or automation.
 
 ## Body Type
 Choose whether to create a <b>solid body</b> (watertight volume) or a <b>surface body</b> (shell with no thickness). Most mechanical parts use <b>solid body</b>.
@@ -96,13 +136,36 @@ Choose whether to create a <b>solid body</b> (watertight volume) or a <b>surface
 <FramedImage
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/sweep-solid/body-type-surface.webp"
     alt="Surface sweep: hollow surface without end caps"
-    aspect="2370 / 1738"
+    aspect="3000 / 1940"
     maxHeightPx={400}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
     In this example, switching Body Type to <b>Surface</b> creates a hollow surface without the end caps.<br/>
     If you want to learn more about surface modeling, see the <a href="/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/sweep">Surface Sweep</a> page.
 </div>
+
+## Parameter Reference
+
+`sketches`: The selected sweep profile or profiles. In the UI, select a filled region for the solid
+profile, not its boundary segments.
+
+`path`: The sweep trajectory. Select path segments one by one, or use a helix/path reference in code.
+
+`sectional`: Breaks the sweep into sub-sweeps based on the path components.
+
+`tolerance`: Sets the coincidence/intersection threshold for very small geometry checks. Usually
+leave this at the default.
+
+`relativeTo`: Chooses whether orientation is relative to the `sketchPlane` or the `trajectoryCurve`.
+
+`tagStart`: Names the start face for later reference.
+
+`tagEnd`: Names the end face for later reference.
+
+`bodyType`: Creates either a solid body or a surface body.
+
+`version`: Chooses the sweep algorithm version. Use the default first, then compare versions if the
+result looks wrong.
 
 
 ## Prefer to learn by watching?

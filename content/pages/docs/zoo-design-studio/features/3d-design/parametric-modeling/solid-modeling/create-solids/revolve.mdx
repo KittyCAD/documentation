@@ -16,7 +16,8 @@ Use Revolve to rotate a 2D sketch profile around an axis, generating rotationall
 ## Sketches
 Select one or more sketch regions to revolve. A closed sketch encloses an area, and Zoo Design
 Studio exposes that filled area as a selectable `region`. For a solid revolve, select the region, not
-the individual sketch edges.
+the individual sketch segments. Segments define the profile boundary, but the filled region is the
+cross-section that becomes the revolved solid.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve-solid/selection-sketch.webp"
@@ -121,7 +122,7 @@ How many `degrees` to rotate. Common choices:
 Or any custom angle for partial features
 
 ## Symmetric
-Enable this to revolve equally in both directions from the sketch. Your specified angle gets split in half - rotating both ways from the starting position.
+Enable this to revolve equally in both directions from the sketch. Your specified angle gets split in half, rotating both ways from the starting position.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/revolve-solid/symmetric.webp"
@@ -148,7 +149,10 @@ When creating a non-symmetric bidirectional revolve, this sets the rotation amou
 </div>
 
 ## Start Tag and End Tag
-Tag the start face (at the sketch location) or end face (at the final rotation angle) to reference them in later features. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags—it's mostly for advanced users who want precise control or automation.
+Tag the start face (at the sketch location) or end face (at the final rotation angle) to reference them in later features. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags. This is mostly for advanced users who want precise control or automation.
+
+## Tolerance
+Controls the small-distance threshold used to decide whether entities are coincident, intersecting, coplanar, or similar. For normal revolves, leave this at its default value. Change it only when troubleshooting very small or nearly coincident geometry.
 
 ## Body Type
 Choose `solid` for a watertight solid geometry, or `surface` for a thin shell with no thickness.
@@ -163,6 +167,30 @@ Choose `solid` for a watertight solid geometry, or `surface` for a thin shell wi
   In this example, switching Body Type to <b>Surface</b> creates a hollow surface without the end caps.<br/>
   If you want to learn more about surface modeling, see the <a href="/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/revolve">Surface Revolve</a> page.
 </div>
+
+## Parameter Reference
+
+`sketches`: The selected profile or profiles. In the UI, select filled regions for solid revolves,
+not their boundary segments.
+
+`axis`: The revolution axis. Use a local sketch axis such as `X` or `Y`, or select a straight
+edge/segment as the axis.
+
+`angle`: The revolution angle. Defaults to a full `360deg` revolve.
+
+`tolerance`: Sets the coincidence/intersection threshold for very small geometry checks. Usually
+leave this at the default.
+
+`symmetric`: Splits the revolve equally to both sides of the starting sketch position.
+
+`bidirectionalAngle`: Adds a second revolve angle in the opposite direction. Ignored when
+`symmetric` is enabled.
+
+`tagStart`: Names the start face for later reference.
+
+`tagEnd`: Names the end face for later reference.
+
+`bodyType`: Creates either a solid body or a surface body.
 
 
 ## Prefer to learn by watching?
