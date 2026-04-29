@@ -6,21 +6,61 @@ sidebarPosition: 2
 
 Use Loft to create a 3D solid that smoothly transitions between two or more sketch profiles. Loft is essential for blended mechanical forms, tapered transitions, aerodynamic surfaces, and geometry that changes cross-sectional shape along its length.
 
-## Options
+
+
+
+<FramedImage
+        src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/index.webp"
+        alt="Loft Solid tool overview"
+        aspect="1718 / 1658"
+        maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+        Loft Solid in Zoo Design Studio
+</div>
+
 
 ## Sketches
-Select two or more sketch regions in order from start to end. A closed sketch encloses an area, and
-Zoo Design Studio exposes that filled area as a selectable region. For a solid loft, select regions,
-not the individual sketch edges.
+Select two or more sketch regions in order from start to end. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid loft, select regions, not the individual sketch edges.
 
-The selected regions become the loft sections. They can have different shapes and sizes, and each
-section should be positioned where you want it along the loft.
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/selection-sketch.webp"
+    alt="Closed sketch outline before selecting the filled sketch region for Loft"
+    aspect="1718 / 1658"
+    maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Sketch edges define the boundary, but the outline itself is not the solid profile selection
+</div>
+
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/selection-region.webp"
+    alt="Filled sketch region selected for Loft Solid"
+    aspect="1718 / 1658"
+    maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Select the filled sketch regions to define the loft sections
+</div>
+
+The selected regions become the loft sections. They can have different shapes and sizes, and each section should be positioned where you want it along the loft.
+
 
 ## Surface Degree (V-Direction)
 Controls how smooth the transition is between profiles. Default is 3 (cubic), which gives smooth curvature. Higher values create smoother transitions but compute slower:
 - **1** - Linear (straight blend)
 - **3** - Cubic (smooth, recommended)
 - **5+** - Very smooth transitions
+
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/v-degree-1.webp"
+    alt="Loft with V-Degree 1 (linear blend)"
+    aspect="1718 / 1658"
+    maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    Example: V-Degree 1 creates a straight, linear blend between profiles
+</div>
 
 ## Bezier Approximation
 Enable this to use Bezier math instead of rational B-splines. Can help with compatibility in some downstream tools.
@@ -33,6 +73,22 @@ Tag the first profile's face or the last profile's face to reference them later.
 
 ## Body Type
 Choose solid (requires closed profiles) or surface for a shell without thickness.
+
+<FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/create-solids/loft-solid/body-type-surface.webp"
+    alt="Loft Body Type: Surface"
+    aspect="1718 / 1658"
+    maxHeightPx={420}
+/>
+
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+    In this example, switching Body Type to <b>Surface</b> creates a shell without thickness.<br/>
+    If you want to learn more about surface modeling, see the <a href="/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/loft">Surface Loft</a> page.
+</div>
+
+
+## Prefer to learn by watching?
+If you want to find out more in a different way, check out our video walkthrough:
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
@@ -53,3 +109,35 @@ Choose solid (requires closed profiles) or surface for a shell without thickness
         />
     </div>
 </div>
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. Here’s an example of a solid loft in KCL:
+
+```kcl
+rectangleSketch = sketch(on = XY) {
+    line1 = line(start = [var -6.34mm, var 5.82mm], end = [var 6.42mm, var 5.82mm])
+    line2 = line(start = [var 6.42mm, var 5.82mm], end = [var 6.42mm, var -5.95mm])
+    line3 = line(start = [var 6.42mm, var -5.95mm], end = [var -6.34mm, var -5.95mm])
+    line4 = line(start = [var -6.34mm, var -5.95mm], end = [var -6.34mm, var 5.82mm])
+    coincident([line1.end, line2.start])
+    coincident([line2.end, line3.start])
+    coincident([line3.end, line4.start])
+    coincident([line4.end, line1.start])
+    parallel([line2, line4])
+    parallel([line3, line1])
+    perpendicular([line1, line2])
+    horizontal(line3)
+}
+planeForCircle = offsetPlane(XY, offset = 10)
+circleSketch = sketch(on = planeForCircle) {
+    circle1 = circle(start = [var 6.14mm, var 0.61mm], center = [var 0mm, var 0mm])
+    coincident([circle1.center, ORIGIN])
+}
+regionRectangle = region(point = [0mm, 0mm], sketch = rectangleSketch)
+regionCircle = region(point = [0mm, 0mm], sketch = circleSketch)
+
+loftSolid = loft([regionRectangle, regionCircle])
+```
+
+Want to find out more about the `loft` function? [Check it out](/docs/kcl-std/functions/std-sketch-loft) in our KCL docs.
