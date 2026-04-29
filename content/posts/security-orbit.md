@@ -44,7 +44,7 @@ curl 'https://someapp.supabase.co/rest/v1/rpc/cash_up' \
 
 ### Recommendations
 
-Short term, disallow negative values for the "money" parameter.
+Short term, disallow negative values for the `money` parameter.
 
 Long term, move logic to deduct credits to the server side entirely, so that the client cannot manipulate it.
 
@@ -60,7 +60,7 @@ curl 'https://someapp.supabase.co/rest/v1/cad?select=*&visibility=eq.private' \
     -H "authorization: Bearer $BEARER"
 ```
 
-Returns full cad designs not created by the logged in user (the logged in user's id is `c24acd26-07e4-433c-909c-babb9becbeb8`).
+Returns full CAD designs not created by the logged-in user (the logged- in user's id is `c24acd26-07e4-433c-909c-babb9becbeb8`).
 
 ```json
 [
@@ -99,7 +99,7 @@ Enforce ownership checks server-side, add auditing capabilities, and add tests t
 | High     | Low        |
 
 The users table is readable by any authenticated user.
-A broad `select=* returns all profile rows and sensitive fields like the full name of the user, enabling user enumeration and privacy violations.
+A broad `select=*`` returns all profile rows and sensitive fields like the full name of the user, enabling user enumeration and privacy violations.
 
 ```bash
 curl 'https://someapp.supabase.co/rest/v1/users?select=*' \
@@ -109,7 +109,7 @@ curl 'https://someapp.supabase.co/rest/v1/users?select=*' \
 
 ### Exploit Scenario
 
-An attacker authenticates once and lists all profiles via `select=*.
+An attacker authenticates once and lists all profiles via `select=*`.
 This data can be scraped to identify users and fetch their public designs.
 
 ### Recommendations
@@ -148,7 +148,7 @@ Short term, standardize error handling and return sanitized error messages witho
 |----------|------------|
 | Low      | Low        |
 
-The production frontend serves readable, non-minified JavaScript (and/or exposes source maps). This eases reverse engineering of client logic, endpoints, and endpoints.
+The production frontend serves readable, non-minified JavaScript (and/or exposes source maps). This eases reverse engineering of client logic and endpoints.
 
 ### Exploit Scenario
 
@@ -185,6 +185,10 @@ Long term, place the exporter behind an authenticated backend service that check
 
 
 ## ORBIT-7: Arbitrary remote code execution in STEP exporter
+
+| Severity | Difficulty |
+|----------|------------|
+| High     | Low        |
 
 I found a very serious one though. It is possible to execute arbitrary code on https://step-service-abc.app/build123d/execute
 As the code is just python you can read from the filesystem, including secrets and environment variables.
