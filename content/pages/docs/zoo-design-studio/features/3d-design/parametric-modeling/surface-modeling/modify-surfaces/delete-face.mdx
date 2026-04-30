@@ -4,65 +4,81 @@ excerpt: Delete selected faces from surface geometry in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-Use Delete Face to remove individual faces from a solid body, converting it to an open surface or creating intentional gaps in the boundary representation. Delete Face is used for creating openings, removing unwanted patches, or preparing geometry for surface extension and healing operations.
+Delete Face removes selected faces from a solid or polysurface. Use it when a body needs an
+intentional opening, when a split created a face you want to discard, or when imported geometry
+contains a bad patch that should be rebuilt.
 
-## Options
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/delete-face/delete-face.gif"
+  alt="Deleting a selected face in Zoo Design Studio"
+  aspect="649 / 593"
+  maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Select one or more faces, then run Delete Face to remove them from the body
+</div>
 
-### Faces
-Select the face or faces you want to remove. You can delete multiple faces at once. The faces must be part of existing solid or surface bodies.
+## Selection
 
-## Design Applications
+Select the face or faces you want to remove. Delete Face can remove multiple faces in one feature,
+as long as they belong to the selected solid or surface body.
 
-### Creating Openings
-Remove faces to create access holes or ports:
-- Delete top face of a box to create an open enclosure
-- Remove end face of a tube for pipe connections
-- Create inspection ports by deleting wall sections
+## When to use it
 
-### Surface Modeling Workflows
-Manipulate surface bodies by removing unwanted regions:
-- Trim excess material from imported surfaces
-- Remove patches that failed quality checks
-- Prepare surfaces for extending or replacing with new geometry
+- Open a solid body by removing a cap, wall, or end face
+- Remove a face created by [Split](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/split)
+- Delete an unwanted surface patch before replacing it with new surface geometry
+- Simplify imported geometry by removing faces you do not need
 
-### Manufacturing Preparation
-Create geometry for specific manufacturing processes:
-- Open mold cavity for draft analysis
-- Remove internal faces to simplify mesh generation
-- Prepare sheet metal parts by removing bend regions for flattening
+## What changes
 
-### Repair Operations
-Preparatory step for geometry healing:
-- Remove corrupted or degenerate faces
-- Delete faces before re-creating with proper topology
-- Isolate problematic regions for targeted repair
+Deleting a face from a closed solid makes the result open. The surrounding edges become free
+boundaries, and features that referenced the deleted face may need to be edited.
 
-## Important Considerations
+If the result is not what you expected, undo the operation or edit the Delete Face feature in the
+feature tree.
 
-### Body Type Conversion
-Deleting faces from a closed solid converts it to an open surface:
-- Mass properties become undefined
-- Volume calculations no longer available
-- Some solid operations (like shell) cannot be applied to open surfaces
-- Surface may require manual closure or healing for downstream use
+## Are you interested in code?
 
-### Topology Changes
-Removing faces alters the body's topology:
-- Edges unique to deleted faces are removed
-- Vertices may be removed if only connected to deleted faces
-- Adjacent face boundaries become free edges (open boundaries)
-- Features dependent on deleted faces may fail or require updating
+Zoo Design Studio writes KCL behind the scenes. Delete Face is the `deleteFace` function applied to
+one or more selected faces.
 
-### Downstream Impact
-Consider effects on model tree:
-- Features referencing deleted faces will fail
-- Boolean operations may behave differently with open surfaces
-- Fillets or chamfers on removed edges will be deleted
-- Patterns or mirrors including deleted faces may produce unexpected results
+Here is a small open-box example. The sketch creates a rectangular prism, tags the top cap during
+the extrude, then deletes the top face and one side face.
 
-## Recovery
+```kcl
+@settings(defaultLengthUnit = mm)
 
-If delete face creates unintended results:
-- Undo the operation (Ctrl+Z / Cmd+Z)
-- Use feature tree to suppress the delete face operation
-- Manually recreate deleted geometry if needed for downstream features
+// Delete Face example
+// Remove selected faces from an extruded rectangular body.
+boxWidth = 20mm
+boxDepth = 24mm
+boxHeight = 15mm
+
+boxSketch = sketch(on = XY) {
+  bottomEdge = line(start = [var 0mm, var 0mm], end = [var 20mm, var 0mm])
+  rightEdge = line(start = [var 20mm, var 0mm], end = [var 20mm, var 24mm])
+  topEdge = line(start = [var 20mm, var 24mm], end = [var 0mm, var 24mm])
+  leftEdge = line(start = [var 0mm, var 24mm], end = [var 0mm, var 0mm])
+
+  coincident([bottomEdge.start, ORIGIN])
+  coincident([bottomEdge.end, rightEdge.start])
+  coincident([rightEdge.end, topEdge.start])
+  coincident([topEdge.end, leftEdge.start])
+  coincident([leftEdge.end, bottomEdge.start])
+  horizontal(bottomEdge)
+  vertical(rightEdge)
+  horizontal(topEdge)
+  vertical(leftEdge)
+  horizontalDistance([bottomEdge.start, bottomEdge.end]) == boxWidth
+  verticalDistance([bottomEdge.start, leftEdge.start]) == boxDepth
+}
+
+baseRegion = region(point = [boxWidth / 2, boxDepth / 2], sketch = boxSketch)
+closedBox = extrude(baseRegion, length = boxHeight, tagEnd = $topFace)
+hiddenBoxSketch = hide(boxSketch)
+openSurface = deleteFace(closedBox, faces = [topFace, baseRegion.tags.leftEdge])
+```
+
+Want to find out more about the `deleteFace` function? [Check it out](/docs/kcl-std/functions/std-solid-deleteFace)
+in our KCL docs.
