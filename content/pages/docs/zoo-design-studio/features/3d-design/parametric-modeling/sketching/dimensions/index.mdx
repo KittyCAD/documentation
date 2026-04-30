@@ -8,6 +8,16 @@ Dimensions define the size and measured relationships that control sketch geomet
 linear spacing, angular values, and curved sizes so the sketch can regenerate to explicit design
 intent instead of relying on manual placement.
 
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching/dimensions/distance/dimensions-line.gif"
+  alt="Distance dimension applied to sketch geometry"
+  aspect="679 / 711"
+  maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Dimensions turn sketch placement into measured design intent
+</div>
+
 This section covers the primary sketch dimensions used in Zoo Design Studio:
 [Distance](/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching/dimensions/distance),
 [Angle](/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching/dimensions/angle),
@@ -17,3 +27,17 @@ and [Diameter](/docs/zoo-design-studio/features/3d-design/parametric-modeling/sk
 Distance dimensions control spacing between points, lines, and other sketch entities. Angle
 dimensions define measured rotation between lines. Radius and diameter dimensions control the size of
 arcs and circles without redrawing the underlying geometry.
+
+If a sketch becomes over-constrained, Zoo Design Studio highlights the conflicting sketch geometry
+or dimension in red. Remove or edit one of the competing dimensions or constraints to loosen the
+sketch until it can solve again.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/sketching/dimensions/radius/radius.gif"
+  alt="Radius dimension applied to a circle"
+  aspect="679 / 711"
+  maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Curved dimensions control circles and arcs from their center references
+</div>
