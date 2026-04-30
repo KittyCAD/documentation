@@ -11,3 +11,41 @@ Most in-app ML and AI workflows route through
 [Zookeeper](/docs/zoo-design-studio/zookeeper), Zoo Design Studio's conversational CAD agent. Start
 there for the main user workflow around AI-assisted geometry creation, modification, and design
 reasoning.
+
+## Queue and Steer
+
+AI Chat is not limited to one prompt at a time. While Zookeeper is reasoning, creating geometry, or
+editing the model, you can keep writing follow-up prompts instead of waiting for the current action
+to finish.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/queue-and-steer.gif"
+  alt="Queueing and steering follow-up prompts in Zoo Design Studio AI Chat"
+  aspect="681 / 734"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Queue follow-up prompts while Zookeeper works, then steer the active task when direction changes
+</div>
+
+### Queue
+
+Queue adds a follow-up prompt to the list of tasks Zookeeper should handle next. Use it when you
+already know the next step, such as changing a dimension, applying a color, adding another feature,
+or asking for a check after the current edit finishes.
+
+Queueing keeps the modeling flow moving. CAD tasks are often incremental, and each step depends on
+the model state produced by the previous step. A queue lets you capture those next instructions
+while they are still fresh.
+
+### Steer
+
+Steer promotes a queued prompt into guidance for the work already in progress. Use it when the
+current task is still running and you want to correct, narrow, or redirect it without starting the
+conversation over.
+
+Steering matters because AI-assisted CAD can take several steps: reading the model, planning an
+edit, changing KCL, validating geometry, and reporting back. If your intent changes mid-run, steer
+lets you add that context while Zookeeper is still working.
+
+For the full chat workflow, see [AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).
