@@ -20,6 +20,7 @@ Work seamlessly with Zoo from the command line
 * [zoo generate](./zoo_generate)
 * [zoo kcl](./zoo_kcl)
 * [zoo ml](./zoo_ml)
+* [zoo org](./zoo_org)
 * [zoo project](./zoo_project)
 * [zoo say](./zoo_say)
 * [zoo start-session](./zoo_start-session)
