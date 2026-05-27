@@ -17,26 +17,6 @@ Select the surface or solid bodies you want to mirror. Multiple bodies can be mi
 Choose the geometry that defines the mirror reference. This can be a default plane, a construction
 plane, an edge, an axis, or a sketch segment.
 
-## Design Applications
-
-### Symmetric Parts
-Build one side of a model, then mirror it across a center plane:
-- Create left and right halves from a single modeled side
-- Keep paired features aligned around a centerline
-- Reduce repeated work on symmetric housings, brackets, and covers
-
-### Surface Modeling
-Reflect surface bodies while preserving their shape relationships:
-- Create paired styling surfaces
-- Mirror one side of a surface layout before joining or trimming
-- Keep complex curvature consistent across a model centerline
-
-### Layout And Variants
-Generate opposing or handed geometry:
-- Create left-hand and right-hand versions
-- Place matching components on opposite sides of an assembly
-- Explore mirrored alternatives without redrawing base geometry
-
 Behind the scenes, Mirror maps to KCL's
 [`mirror3d`](/docs/kcl-std/functions/std-transform-mirror3d) function.
 
