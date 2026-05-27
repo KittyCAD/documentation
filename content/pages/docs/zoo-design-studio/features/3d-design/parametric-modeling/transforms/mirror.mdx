@@ -1,0 +1,56 @@
+---
+title: Mirror
+excerpt: Mirror geometry in Zoo Design Studio.
+sidebarPosition: 3
+---
+
+Mirror reflects selected 3D geometry across a reference plane, edge, axis, or sketch segment. Use
+Mirror for symmetric parts, mirrored design variants, and creating paired surface or solid bodies
+without manually rebuilding the second side.
+
+## Options
+
+### Objects
+Select the surface or solid bodies you want to mirror. Multiple bodies can be mirrored together.
+
+### Across
+Choose the geometry that defines the mirror reference. This can be a default plane, a construction
+plane, an edge, an axis, or a sketch segment.
+
+## Design Applications
+
+### Symmetric Parts
+Build one side of a model, then mirror it across a center plane:
+- Create left and right halves from a single modeled side
+- Keep paired features aligned around a centerline
+- Reduce repeated work on symmetric housings, brackets, and covers
+
+### Surface Modeling
+Reflect surface bodies while preserving their shape relationships:
+- Create paired styling surfaces
+- Mirror one side of a surface layout before joining or trimming
+- Keep complex curvature consistent across a model centerline
+
+### Layout And Variants
+Generate opposing or handed geometry:
+- Create left-hand and right-hand versions
+- Place matching components on opposite sides of an assembly
+- Explore mirrored alternatives without redrawing base geometry
+
+Behind the scenes, Mirror maps to KCL's
+[`mirror3d`](/docs/kcl-std/functions/std-transform-mirror3d) function.
+
+## Surface Sweep In The Aquarium
+
+For a real model built with Surface Sweep, open [this car bumper in the
+Aquarium](https://zoo.dev/aquarium/b0a8d539-ca56-43e4-8eb5-150dbffbdb49), our public model
+gallery.
+
+<a href="https://zoo.dev/aquarium/b0a8d539-ca56-43e4-8eb5-150dbffbdb49">
+  <FramedImage
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/sweep/bumper.webp"
+    alt="Car bumper model created with Surface Sweep in the Aquarium"
+    aspect="1778 / 968"
+    maxWidthPx="800"
+  />
+</a>
