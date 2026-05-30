@@ -6,6 +6,13 @@ sidebarPosition: 1
 
 Datum annotations establish reference features that form the datum reference frame (DRF) for geometric dimensioning and tolerancing. Use Datum annotations to identify planes, axes, and points that constrain part degrees of freedom and serve as measurement references for related tolerances.
 
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/datum/datum.png"
+  alt="Datum GD&T annotation on a selected model face"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
 ## Options
 
 ### Faces
@@ -126,3 +133,20 @@ In feature control frames, datums are referenced in the tolerance compartments:
 [Characteristic] [Tolerance] | A | B | C |
 ```
 This reads: "Tolerance relative to Datum A primary, Datum B secondary, Datum C tertiary."
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Datum annotation uses `gdt::datum` with a selected
+face and a datum label.
+
+```kcl
+gdt::datum(
+  face = mountingFace,
+  name = "A",
+  framePosition = [10mm, 0mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::datum` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-datum) in our KCL docs.

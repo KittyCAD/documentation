@@ -1,0 +1,43 @@
+---
+title: Zoodle
+excerpt: Draw viewport guidance for Zookeeper in Zoo Design Studio.
+sidebarPosition: 1
+---
+
+Zoodle lets you draw directly on the model viewport and send that visual context to Zookeeper. Use
+it when the most precise way to explain an edit is to mark up the geometry instead of describing the
+region in text.
+
+## Drawing Area
+
+Draw over the viewport while the relevant model view is visible. Keep the markups close to the
+geometry they describe so Zookeeper can connect the note to the intended feature.
+
+## Prompt
+
+Use the prompt to explain what the drawing means. The drawing supplies spatial context, and the
+prompt supplies intent, such as "move this hole here", "round this edge", or "make this wall
+thicker".
+
+## Model Context
+
+Zookeeper receives the current model context with the drawing. Rotate or zoom the model before
+drawing when a different view makes the target geometry easier to identify.
+
+## Iteration
+
+Use Zoodle for edits that are hard to name precisely in text. After Zookeeper responds, inspect the
+result and send another drawing if the edit needs refinement.
+
+## Are you interested in code?
+
+Zoodle is an AI-assisted interaction workflow rather than a KCL standard-library function. When
+Zookeeper applies the requested model change, Zoo Design Studio updates the underlying KCL just like
+it does for other AI-assisted edits.
+
+```kcl
+// Zookeeper applies the Zoodle-guided edit to the model's KCL.
+```
+
+For the full assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
+[AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).

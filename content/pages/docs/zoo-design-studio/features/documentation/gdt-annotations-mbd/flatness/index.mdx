@@ -6,6 +6,13 @@ sidebarPosition: 0
 
 Flatness is a form control that constrains how much a surface may deviate from an ideal plane. Use Flatness annotations to specify tolerance zones for datum surfaces, sealing faces, mounting planes, and any feature requiring planar control without reference to external datums.
 
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/flatness/flatness.png"
+  alt="Flatness GD&T annotation on a selected model face"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
 ## Options
 
 ### Faces
@@ -43,7 +50,9 @@ Overall scaling for all annotation elements.
 ## GD&T Flatness Principles
 
 ### Tolerance Zone Definition
-The flatness tolerance zone consists of two parallel planes separated by the tolerance value. The surface must lie entirely within this zone, but the zone can be oriented at any angle—flatness does not reference coordinate system orientation.
+The flatness tolerance zone consists of two parallel planes separated by the tolerance value. The
+surface must lie entirely within this zone, but the zone can be oriented at any angle. Flatness does
+not reference coordinate system orientation.
 
 ### No Datum Reference
 Flatness is a form control that does not reference datums. The tolerance zone can float to the optimal orientation that minimizes measured deviation. This differs from:
@@ -85,4 +94,22 @@ Flatness (macro-geometry) and surface roughness (micro-geometry) are complementa
 
 Both may be specified for critical surfaces. For example, a sealing surface might specify:
 - Flatness: 0.05mm (macro planarity)
-- Ra: 0.8μm (micro surface finish)
+- Ra: 0.8 micrometers (micro surface finish)
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Flatness annotation uses `gdt::flatness` with
+selected faces and a tolerance.
+
+```kcl
+gdt::flatness(
+  faces = [mountingFace],
+  tolerance = 0.05mm,
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::flatness` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-flatness) in our KCL docs.
