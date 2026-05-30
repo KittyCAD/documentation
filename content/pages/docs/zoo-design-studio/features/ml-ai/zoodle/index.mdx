@@ -1,0 +1,40 @@
+---
+title: Zoodle
+excerpt: Draw viewport guidance for Zookeeper in Zoo Design Studio.
+sidebarPosition: 1
+---
+
+Zoodle lets you draw directly on the model viewport and send that visual context to Zookeeper. Use
+it when a marked-up region, edge, or face is clearer than a text-only instruction.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle.gif"
+  alt="Using Zoodle to draw viewport guidance and attach it to a Zookeeper prompt"
+  aspect="900 / 722"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Draw over the viewport, attach the marked-up image, then describe the intended edit
+</div>
+
+## Drawing Area
+
+Open Zoodle from the Zookeeper prompt controls. Draw close to the geometry you want Zookeeper to
+notice.
+
+## Prompt
+
+After sending the marked-up image back to the composer, add a short prompt that explains the edit:
+"move this hole here", "round this edge", or "make this wall thicker".
+
+## Model Context
+
+Zookeeper receives the current model context with the drawing. Rotate or zoom the model first when a
+different view makes the target easier to identify.
+
+## Iteration
+
+Use another Zoodle markup when the first result needs refinement.
+
+For the full assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
+[AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).
