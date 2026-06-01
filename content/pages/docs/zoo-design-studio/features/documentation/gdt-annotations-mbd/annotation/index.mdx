@@ -1,0 +1,59 @@
+---
+title: Annotation
+excerpt: General GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 7
+---
+
+Annotation attaches general model-based manufacturing notes to selected faces or edges. Use it for
+notes that should travel with the 3D model, such as finish instructions, deburr notes, handling
+constraints, or inspection guidance.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/annotation/annotation.webp"
+  alt="General GD&T annotation attached to a model face"
+  aspect="1762 / 898"
+  maxHeightPx={460}
+/>
+
+## Annotation Text
+
+Enter the note to display. Keep the wording short enough to remain readable in the model view.
+
+## Faces Or Edges
+
+Select the faces or edges that the note applies to. The annotation leader connects the note to that
+geometry.
+
+## Frame Position
+
+Place the annotation text relative to the leader arrow.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Pick a plane that keeps the text legible in the view
+where the note will be reviewed.
+
+## Leader Scale
+
+Adjust the visual size of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A general Annotation uses `gdt::annotation` with
+text plus selected faces or edges.
+
+```kcl
+gdt::annotation(
+  faces = [topFace],
+  annotation = "Break all sharp edges",
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::annotation` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-annotation) in our KCL docs.

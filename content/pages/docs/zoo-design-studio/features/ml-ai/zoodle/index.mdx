@@ -1,0 +1,61 @@
+---
+title: Zoodle
+excerpt: Mark up the model viewport and send visual edit guidance to Zookeeper.
+sidebarPosition: 1
+---
+
+Zoodle captures the current model viewport, lets you draw markup over it, and attaches that marked-up
+image to a Zookeeper prompt. Use it when the edit depends on a specific face, edge, region, or
+direction that would be awkward to describe in text alone.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle.webp"
+  alt="Using Zoodle to draw viewport guidance and attach it to a Zookeeper prompt"
+  aspect="1222 / 1056"
+  maxHeightPx={520}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Draw over the viewport, attach the marked-up image, then describe the intended edit
+</div>
+
+## Set The View
+
+Before opening Zoodle, rotate and zoom the model so the target geometry is visible. The captured view
+is the visual reference Zookeeper receives, so avoid hiding important faces behind the model or the
+view gizmo.
+
+## Mark Up The Target
+
+Open Zoodle from the Zookeeper prompt controls. Draw directly over the captured viewport to identify
+the geometry that matters.
+
+Use simple markups:
+
+- Circle a face, hole, or region.
+- Draw an arrow to show direction.
+- Underline or box an edge that should be changed.
+- Keep strokes close to the target geometry.
+
+## Prompt
+
+Send the markup back to the composer, then add a short prompt that states the intended operation.
+The drawing identifies where the edit applies. The prompt explains what should happen.
+
+Good prompts are specific:
+
+- "Move this hole 8 mm toward the marked edge."
+- "Round the circled edge with a small fillet."
+- "Make the marked wall 2 mm thicker."
+
+## Model Context
+
+Zookeeper receives the marked-up image with the current model context. If the edit depends on depth,
+orientation, or a hidden face, adjust the view and capture another markup from a clearer angle.
+
+## Review The Result
+
+After Zookeeper applies the edit, inspect the model and the updated KCL. If the result is close but
+not exact, send another Zoodle markup that shows the correction.
+
+For the full assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
+[AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).
