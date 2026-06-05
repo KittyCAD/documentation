@@ -5,13 +5,13 @@ sidebarPosition: 0
 ---
 
 Zoo Stream is the interactive viewport path in Zoo Design Studio. Instead of asking your computer to
-run the full CAD engine and render every 3D frame locally, Zoo runs the engine session on cloud GPU
-infrastructure and streams the result back to the app.
+run the full CAD engine and render every 3D frame locally, Zoo runs the engine session on cloud
+compute infrastructure and streams the result back to the app.
 
 That means the computer in front of you is not the performance ceiling for the CAD engine. A fast
 workstation is still nice to use, but the geometry engine, rendering workload, and heavy model
-operations are designed to run on Zoo cloud GPU infrastructure. Even if your local machine has a
-high-end GPU, the heavy engine work still belongs to the cloud session.
+operations are designed to run on Zoo's cloud CPU and GPU resources. Even if your local machine has
+a high-end GPU, the heavy engine work still belongs to the cloud session.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/system-requirements/zoo-stream/turbojet-turbine-rotor-assembly.png"
@@ -53,7 +53,7 @@ frames that come back from that engine session.
 Your computer                         Zoo cloud session
 --------------                        -----------------
 App UI, input, video decode  ---->    CAD engine and renderer
-Viewport video frames        <----    Cloud GPU rendering stream
+Viewport video frames        <----    Cloud-rendered viewport stream
 ```
 
 The result is closer to an interactive CAD stream than a traditional desktop-only CAD viewport. The
@@ -74,9 +74,9 @@ that would not normally be treated like a CAD workstation. Even on a powerful de
 engine work still runs on Zoo infrastructure, so improvements to Zoo's cloud-side hardware and
 engine architecture can benefit your sessions without requiring you to buy a new local GPU.
 
-Zoo's architecture is built around this idea: a GPU-based, cloud-implemented, API-accessible engine
-that can be used by Zoo Design Studio and by applications built directly on the Modeling API. For more
-technical background, see [CAD + WebRTC](/blog/cad-webrtc),
+Zoo's architecture is built around this idea: a cloud-implemented, API-accessible engine that can use
+cloud CPU and GPU resources for interactive CAD sessions in Zoo Design Studio and in applications
+built directly on the Modeling API. For more technical background, see [CAD + WebRTC](/blog/cad-webrtc),
 [Fixing an H.264 encoding bug in the KittyCAD API](/blog/fixing-an-h264-encoding-bug), and
 [Zoo CAD Engine Overview](/research/zoo-cad-engine-overview).
 
@@ -100,7 +100,7 @@ The cloud session handles the engine-side work:
 
 - Geometry evaluation and model updates
 - 3D rendering for the interactive viewport
-- GPU-accelerated CAD operations
+- CAD operations backed by cloud CPU and GPU resources
 - AI-driven model changes that need engine execution
 - Session resources that can be provisioned independently from your local machine
 
