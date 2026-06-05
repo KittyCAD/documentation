@@ -10,8 +10,8 @@ infrastructure and streams the result back to the app.
 
 That means the computer in front of you is not the performance ceiling for the CAD engine. A fast
 workstation is still nice to use, but the geometry engine, rendering workload, and heavy model
-operations are designed to run on Zoo cloud hardware chosen for CAD workloads. Even if your local
-machine has a high-end GPU, the heavy engine work still belongs to the cloud session.
+operations are designed to run on Zoo cloud GPU infrastructure. Even if your local machine has a
+high-end GPU, the heavy engine work still belongs to the cloud session.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/system-requirements/zoo-stream/turbojet-turbine-rotor-assembly.png"
@@ -25,7 +25,7 @@ machine has a high-end GPU, the heavy engine work still belongs to the cloud ses
 
 ## How It Works
 
-When you open a modeling session, Zoo Design Studio connects to Zoo's Design API and starts an
+When you open a modeling session, Zoo Design Studio connects through Zoo's Modeling API and starts an
 engine session in the cloud. Your local app sends modeling commands, camera movements, mouse drags,
 and other interaction events to that session. The cloud engine updates the model, renders the scene,
 encodes the viewport as video, and streams those frames back to your computer.
@@ -66,14 +66,13 @@ punish a local workstation.
 
 Zoo Stream changes the system requirement question from "does this computer have enough GPU for this
 model?" to "can this computer run the app and maintain a good connection to Zoo?" Because the engine
-runs in the cloud, the same modeling workload is not capped by the CPU, GPU, cooling, battery, or
-memory profile of the local device.
+runs in the cloud, the main modeling workload is not primarily capped by the CPU, GPU, cooling,
+battery, or memory profile of the local device.
 
-This is useful when you want to inspect large projects, work on complex assemblies, or open the same
-design from a laptop that would not normally be treated like a CAD workstation. Even on a powerful
-desktop, the core engine work still runs on Zoo infrastructure, so improvements to Zoo's cloud-side
-hardware and engine architecture can benefit your sessions without requiring you to buy a new local
-GPU.
+This is useful when you want to inspect large projects, work on complex assemblies, or use a laptop
+that would not normally be treated like a CAD workstation. Even on a powerful desktop, the core
+engine work still runs on Zoo infrastructure, so improvements to Zoo's cloud-side hardware and
+engine architecture can benefit your sessions without requiring you to buy a new local GPU.
 
 Zoo's architecture is built around this idea: a GPU-based, cloud-implemented, API-accessible engine
 that can be used by Zoo Design Studio and by applications built directly on the Design API. For more
@@ -111,15 +110,16 @@ session, where Zoo can keep improving hardware, scheduling, and engine performan
 
 ## Data And Safety
 
-Zoo Stream is about execution and visualization. It does not change who owns your design files.
+Zoo Stream is about execution and visualization. It does not change the app's source-file storage
+model.
 
-In the desktop app, project files live in the normal project storage on your machine. In the browser
-version, project files use browser-managed storage. The cloud session receives the model data needed
-to run the engine and produce the interactive stream, but the streaming architecture is not a
-permanent handoff of your project files to Zoo.
+In the desktop app, CAD source files are stored on your device. In the browser version, project files
+use browser-managed storage. The cloud session receives the model data needed to run the engine and
+produce the interactive stream, but the streaming architecture is not a permanent storage migration
+for your project files.
 
-That split is the point: keep the control and portability of local project storage while using remote
-compute for the expensive CAD work.
+That split is the point: keep the control and portability of the app's project storage model while
+using remote compute for the expensive CAD work.
 
 ## Network Requirements
 
