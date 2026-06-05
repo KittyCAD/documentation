@@ -1,17 +1,17 @@
 ---
-title: Zoo Stream
+title: Zoo Design Studio Stream
 excerpt: How Zoo Design Studio streams cloud-rendered CAD sessions to your computer.
 sidebarPosition: 0
 ---
 
-Zoo Stream is the interactive viewport path in Zoo Design Studio. Instead of asking your computer to
-run the full CAD engine and render every 3D frame locally, Zoo runs the engine session on cloud
-compute infrastructure and streams the result back to the app.
+Zoo Design Studio Stream is our interactive viewport path for Zoo Design Studio. Instead of asking
+your computer to run the full CAD engine and render every 3D frame locally, we run the engine
+session on our cloud compute infrastructure and stream the result back to the app.
 
 That means the computer in front of you is not the performance ceiling for the CAD engine. A fast
 workstation is still nice to use, but the geometry engine, rendering workload, and heavy model
-operations are designed to run on Zoo's cloud CPU and GPU resources. Even if your local machine has
-a high-end GPU, the heavy engine work still belongs to the cloud session.
+operations are designed to run on our cloud CPU and GPU resources. Even if your local machine has a
+high-end GPU, the heavy engine work still belongs to the cloud session.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/system-requirements/zoo-stream/turbojet-turbine-rotor-assembly.png"
@@ -20,12 +20,12 @@ a high-end GPU, the heavy engine work still belongs to the cloud session.
   maxHeightPx={560}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  A detailed turbine rotor assembly in Zoo Design Studio. The local app displays the streamed viewport while the engine work runs on Zoo cloud infrastructure.
+  A detailed turbine rotor assembly in Zoo Design Studio. The local app displays the streamed viewport while the engine work runs on our cloud infrastructure.
 </div>
 
 ## How It Works
 
-When you open a modeling session, Zoo Design Studio connects through Zoo's Modeling API and starts an
+When you open a modeling session, Zoo Design Studio connects through our Modeling API and starts an
 engine session in the cloud. Your local app sends modeling commands, camera movements, mouse drags,
 and other interaction events to that session. The cloud engine updates the model, renders the scene,
 encodes the viewport as video, and streams those frames back to your computer.
@@ -45,12 +45,12 @@ webrtc               starts the interactive video connection
 commands             camera moves, modeling operations, selections, exports
 ```
 
-Zoo Stream uses WebRTC for the interactive video stream and API/WebSocket traffic for modeling
-commands. The app sends the command stream to the cloud engine, then displays the encoded viewport
-frames that come back from that engine session.
+Zoo Design Studio Stream uses WebRTC for the interactive video stream and API/WebSocket traffic for
+modeling commands. The app sends the command stream to the cloud engine, then displays the encoded
+viewport frames that come back from that engine session.
 
 ```text
-Your computer                         Zoo cloud session
+Your computer                         Our cloud session
 --------------                        -----------------
 App UI, input, video decode  ---->    CAD engine and renderer
 Viewport video frames        <----    Cloud-rendered viewport stream
@@ -58,23 +58,24 @@ Viewport video frames        <----    Cloud-rendered viewport stream
 
 The result is closer to an interactive CAD stream than a traditional desktop-only CAD viewport. The
 viewport is a live video feed from the cloud-rendered scene, not a local render of the full model on
-your device. The local machine handles the app interface and video decoding. Zoo's cloud session
+your device. The local machine handles the app interface and video decoding. Our cloud session
 handles the CAD work that normally makes large assemblies, detailed models, and expensive operations
 punish a local workstation.
 
 ## Why This Matters
 
-Zoo Stream changes the system requirement question from "does this computer have enough GPU for this
-model?" to "can this computer run the app and maintain a good connection to Zoo's cloud servers?"
+Zoo Design Studio Stream changes the system requirement question from "does this computer have
+enough GPU for this model?" to "can this computer run the app and maintain a good connection to
+our cloud servers?"
 Because the engine runs in the cloud, the main modeling workload is not primarily capped by the CPU,
 GPU, cooling, battery, or memory profile of the local device.
 
 This is useful when you want to inspect large projects, work on complex assemblies, or use a laptop
 that would not normally be treated like a CAD workstation. Even on a powerful desktop, the core
-engine work still runs on Zoo infrastructure, so improvements to Zoo's cloud-side hardware and
-engine architecture can benefit your sessions without requiring you to buy a new local GPU.
+engine work still runs on our infrastructure, so improvements to our cloud-side hardware and engine
+architecture can benefit your sessions without requiring you to buy a new local GPU.
 
-Zoo's architecture is built around this idea: a cloud-implemented, API-accessible engine that can use
+Our architecture is built around this idea: a cloud-implemented, API-accessible engine that can use
 cloud CPU and GPU resources for interactive CAD sessions in Zoo Design Studio and in applications
 built directly on the Modeling API. For more technical background, see [CAD + WebRTC](/blog/cad-webrtc),
 [Fixing an H.264 encoding bug in the KittyCAD API](/blog/fixing-an-h264-encoding-bug), and
@@ -88,7 +89,7 @@ Your computer still matters for the parts of Zoo Design Studio that run locally:
 - Displaying the user interface
 - Sending keyboard, mouse, and command events
 - Decoding and displaying the streamed viewport video
-- Maintaining a stable network connection to Zoo's cloud servers
+- Maintaining a stable network connection to our cloud servers
 
 For most users, this means you do not need a specialized CAD workstation just to get started. A
 modern computer that can run Zoo Design Studio, decode video smoothly, and stay connected to the
@@ -104,14 +105,15 @@ The cloud session handles the engine-side work:
 - AI-driven model changes that need engine execution
 - Session resources that can be provisioned independently from your local machine
 
-This is why Zoo Stream is especially important for heavier models. If a model gets expensive, the
-answer is not automatically "buy a bigger workstation." The engine workload belongs to the cloud
-session, where Zoo can keep improving hardware, scheduling, and engine performance centrally.
+This is why Zoo Design Studio Stream is especially important for heavier models. If a model gets
+expensive, the answer is not automatically "buy a bigger workstation." The engine workload belongs
+to the cloud session, where we can keep improving hardware, scheduling, and engine performance
+centrally.
 
 ## Data And Safety
 
-Zoo Stream is about execution and visualization. It does not change the app's source-file storage
-model.
+Zoo Design Studio Stream is about execution and visualization. It does not change the app's
+source-file storage model.
 
 In the desktop app, CAD source files are stored on your device. In the browser version, project files
 use browser-managed storage. The cloud session receives the model data needed to run the engine and
@@ -123,7 +125,7 @@ using remote compute for the expensive CAD work.
 
 ## Network Requirements
 
-Because Zoo Stream is interactive, network quality matters. For the best experience:
+Because Zoo Design Studio Stream is interactive, network quality matters. For the best experience:
 
 - Use a stable broadband connection.
 - Avoid highly congested Wi-Fi when working with large or fast-moving scenes.
