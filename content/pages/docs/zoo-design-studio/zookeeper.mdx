@@ -102,15 +102,28 @@ By combining live external information with full model context, the agent can re
 
 ## Agent Modes
 
-Zookeeper runs in two modes: Thoughtful and Fast. Thoughtful mode is slower, but it consistently produces higher‑quality results on complex modeling and multi‑step workflows, so it’s generally the best default for CAD work.
+Zookeeper supports three modes: Auto, Thoughtful, and Standard.
 
-Fast mode trades some depth for speed. It works well for simpler geometry changes, quick iterations, and is more than sufficient for tasks like web search, documentation lookup, and conversational reasoning around a design.
+Auto mode selects the most appropriate model and reasoning effort for the task. It is the best starting point when you want Zookeeper to balance speed, cost, and capability automatically.
+
+Thoughtful mode uses deeper reasoning. It is best for complex modeling, multi-step workflows, and prompts where design quality matters more than response speed.
+
+Standard mode trades some depth for speed. It works well for simpler geometry changes, quick iterations, web search, documentation lookup, and conversational reasoning around a design.
+
+Mode availability depends on your plan. Unavailable modes remain visible in the selector with upgrade messaging, but they cannot be selected until your plan includes them. Free users can use Auto mode. Paid plans include Auto, Standard, and Thoughtful.
+
+The selector keeps unavailable modes visible so users can see what an upgraded plan unlocks.
+
+| Free plan | Paid plans |
+| --- | --- |
+| ![Zookeeper mode selector for a Free user with Standard and Thoughtful unavailable and Auto selected](/documentation-assets/pages/zookeeper/zookeeper-mode-selector-free.png) | ![Zookeeper mode selector for a paid user with Standard, Thoughtful, and Auto available](/documentation-assets/pages/zookeeper/zookeeper-mode-selector-paid.png) |
+| Standard and Thoughtful remain visible with upgrade messaging, while Auto stays selectable. | Standard, Thoughtful, and Auto are all selectable. |
 
 ## What's Coming Next
 
 The agent described above is only the beginning. Several upcoming capabilities will extend both its reach and its usefulness.
 
-- **Agent selection**, will allow users to choose the underlying language model and system prompt that define the agent’s behavior.
+- **More agent selection controls** will allow users to choose the underlying language model and system prompt that define the agent’s behavior.
 
 - **Sketch-to-CAD** will allow users to sketch directly over models when drawing is faster or clearer than describing an idea in words—combining visual input with conversational intent.
 
