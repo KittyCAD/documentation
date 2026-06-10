@@ -27,6 +27,7 @@ standard library.
 gdt::datum(face = datumFace, name = "A")
 gdt::flatness(faces = [mountingFace], tolerance = 0.05mm)
 gdt::position(faces = [holeFace], tolerance = 0.08mm, datums = ["A"])
+gdt::angularity(faces = [controlledSurface], tolerance = 0.1mm, datums = ["A"])
 ```
 
 Want to find out more about the `gdt` module? [Check it out](/docs/kcl-std/modules/std-gdt) in our
