@@ -1,11 +1,12 @@
 ---
 title: Modes
-excerpt: Choose how Zookeeper balances speed, cost, and capability.
+excerpt: Choose between Auto, Standard, and Thoughtful modes in Zookeeper.
 sidebarPosition: 0
 ---
 
-Zookeeper supports three modes: Auto, Thoughtful, and Standard. Choose a mode based on how much
-reasoning depth the task needs and how quickly you want a response.
+Zookeeper has three modes: Auto, Standard, and Thoughtful. Modes change how much reasoning
+Zookeeper applies before it responds. Use Auto when you want Zookeeper to choose for you, Standard
+for quick work, and Thoughtful for complex CAD tasks that benefit from deeper reasoning.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zookeeper-shaft-prompt.webp"
@@ -14,38 +15,37 @@ reasoning depth the task needs and how quickly you want a response.
   maxHeightPx={460}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  Select a mode before sending a prompt, then keep refining the model through the same conversation
+  Open the prompt controls to choose a mode before sending your request
 </div>
 
 ## Auto
 
-Auto selects the most appropriate model and reasoning effort for the task. It is the best starting
-point when you want Zookeeper to balance speed, cost, and capability automatically.
+Auto chooses the model and reasoning effort for the task. Start here when you want Zookeeper to
+balance speed, cost, and capability automatically.
 
 ## Thoughtful
 
-Thoughtful is slower, but it consistently produces higher-quality results on complex modeling and
-multi-step workflows. Use it for CAD work that needs deeper reasoning, careful planning, or several
-dependent edits.
+Thoughtful takes more time, but gives Zookeeper more reasoning depth. Use it for complex CAD
+modeling, multi-step edits, and workflows where quality matters more than response speed.
 
 ## Standard
 
-Standard trades some depth for speed. It works well for simpler geometry changes, quick iterations,
-web search, documentation lookup, and conversational reasoning around a design.
+Standard prioritizes faster responses with less reasoning depth. Use it for simple geometry
+changes, quick iterations, web search, documentation lookup, or general questions about a design.
 
 ## Availability
 
-Mode availability depends on your plan. Unavailable modes remain visible in the selector with
-upgrade messaging, but they cannot be selected until your plan includes them.
+Your plan determines which modes you can select. Modes that are not included in your plan still
+appear in the selector with upgrade messaging, so you can see what is available on paid plans.
 
-Free users can use Auto mode. Paid plans include Auto, Standard, and Thoughtful.
+Free users can select Auto only. Paid plans include all three modes: Auto, Standard, and Thoughtful.
 
 <div className="grid grid-cols-1 gap-8 items-start my-6">
   <div className="w-full max-w-sm">
     <h3>Free plan</h3>
     <div>
-      Free users can select Auto mode. Standard and Thoughtful remain visible with upgrade messaging
-      so you can see what paid plans unlock.
+      On the Free plan, Auto is selectable. Standard and Thoughtful stay visible but disabled until
+      your plan includes them.
     </div>
     <FramedImage
       src="/documentation-assets/pages/zookeeper/zookeeper-mode-selector-free.png"
@@ -57,8 +57,8 @@ Free users can use Auto mode. Paid plans include Auto, Standard, and Thoughtful.
   <div className="w-full max-w-xs">
     <h3>Paid plans</h3>
     <div>
-      Paid plans include Auto, Standard, and Thoughtful, so you can choose between automatic
-      selection, faster responses, and deeper reasoning for CAD work.
+      On paid plans, Auto, Standard, and Thoughtful are all selectable. Use Auto for automatic
+      selection, Standard for speed, or Thoughtful for deeper CAD reasoning.
     </div>
     <FramedImage
       src="/documentation-assets/pages/zookeeper/zookeeper-mode-selector-paid.png"
