@@ -1,0 +1,63 @@
+---
+title: Modes
+excerpt: Choose how Zookeeper balances speed, cost, and capability.
+sidebarPosition: 0
+---
+
+Zookeeper supports three modes: Auto, Thoughtful, and Standard. Choose a mode based on how much
+reasoning depth the task needs and how quickly you want a response.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zookeeper-shaft-prompt.webp"
+  alt="Zoo Design Studio Zookeeper prompt field with a secondary shaft prompt"
+  aspect="992 / 622"
+  maxHeightPx={460}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Select a mode before sending a prompt, then keep refining the model through the same conversation
+</div>
+
+## Auto
+
+Auto selects the most appropriate model and reasoning effort for the task. It is the best starting
+point when you want Zookeeper to balance speed, cost, and capability automatically.
+
+## Thoughtful
+
+Thoughtful is slower, but it consistently produces higher-quality results on complex modeling and
+multi-step workflows. Use it for CAD work that needs deeper reasoning, careful planning, or several
+dependent edits.
+
+## Standard
+
+Standard trades some depth for speed. It works well for simpler geometry changes, quick iterations,
+web search, documentation lookup, and conversational reasoning around a design.
+
+## Availability
+
+Mode availability depends on your plan. Unavailable modes remain visible in the selector with
+upgrade messaging, but they cannot be selected until your plan includes them.
+
+Free users can use Auto mode. Paid plans include Auto, Standard, and Thoughtful.
+
+<div className="max-w-[50rem] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start my-6">
+  <div className="w-full">
+    <h3>Free plan</h3>
+    <img
+      src="/documentation-assets/pages/zookeeper/zookeeper-mode-selector-free.png"
+      alt="Zookeeper mode selector for a Free user with Standard and Thoughtful unavailable and Auto selected"
+    />
+    <p>Standard and Thoughtful remain visible with upgrade messaging, while Auto stays selectable.</p>
+  </div>
+  <div className="w-full">
+    <h3>Paid plans</h3>
+    <img
+      src="/documentation-assets/pages/zookeeper/zookeeper-mode-selector-paid.png"
+      alt="Zookeeper mode selector for a paid user with Standard, Thoughtful, and Auto available"
+    />
+    <p>Standard, Thoughtful, and Auto are all selectable.</p>
+  </div>
+</div>
+
+For the full assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
+[AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).
