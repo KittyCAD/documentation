@@ -20,10 +20,10 @@ I believe one reason for that is that a lot of security processes evolve around 
 In this blog post I want to highlight 2 findings from our recent 2026 audit, as well as our 2024 audit, performed by Trail of Bits.
 We'll dive deep on one vulnerability and demonstrate how one vulnerability could have been exploited.
 
-Download our 2024 audit report
-[here](https://raw.githubusercontent.com/trailofbits/publications/59ac14c0fd375b6a32ad6a4b02b014a636723e40/reviews/2024-06-zoo-kittycad-securityreview.pdf)
+View our 2024 audit report
+[here](https://github.com/trailofbits/publications/blob/1c2295698d654066038156c206fb3dd5502fa1a5/reviews/2024-06-zoo-kittycad-securityreview.pdf)
 and our 2026 audit report
-[here](https://zoo.dev/audit-2025)
+[here](https://example.com)
 .
 
 ## Securing the Rust ecosystem
