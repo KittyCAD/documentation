@@ -1,0 +1,67 @@
+---
+title: Circularity
+excerpt: Circularity GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 9
+---
+
+Circularity controls how closely a round edge or round face follows a perfect circle. Use it for
+turned diameters, bores, pins, cones, and other features of revolution where each cross-section must
+stay round without referencing a datum.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-circularity0.png"
+  alt="Circularity GD&T annotation on a cylindrical feature"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces Or Edges
+
+Select a circular edge or a round face. Edges are useful when the requirement applies to a specific
+rim or cross-section. Faces are useful when the requirement applies along a cylindrical or conical
+surface.
+
+## Tolerance
+
+Set the allowed roundness variation in the current unit system. The circularity tolerance zone is
+defined by two concentric circles whose radii differ by the tolerance value.
+
+## Precision
+
+Choose how many decimal places to display for the tolerance value.
+
+## Frame Position
+
+Place the feature control frame near the selected round feature while keeping it readable.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Use `XY`, `XZ`, or `YZ` to keep the frame facing the
+intended view.
+
+## Leader Scale
+
+Adjust the visual scale of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Circularity annotation uses `gdt::circularity`
+with selected faces or edges and a tolerance. Circularity is a form tolerance, so it does not use
+datums.
+
+```kcl
+gdt::circularity(
+  edges = [roundEdge],
+  tolerance = 0.05mm,
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::circularity` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-circularity) in our KCL docs.

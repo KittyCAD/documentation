@@ -1,0 +1,71 @@
+---
+title: Symmetry
+excerpt: Symmetry GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 15
+---
+
+Symmetry controls how closely a feature's derived median plane aligns with a datum center plane. Use
+it when opposing surfaces must remain balanced around a datum plane, such as centered grooves,
+slots, tabs, or features where mass distribution matters.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-symmetry0.png"
+  alt="Symmetry GD&T annotation on a feature relative to a datum plane"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces Or Edges
+
+Select the face or edge whose median plane should be controlled. Choose the geometry that represents
+the feature of size being inspected.
+
+## Tolerance
+
+Set the total width of the symmetry tolerance zone in the current unit system.
+
+## Datums
+
+Add the datum label or labels that define the center plane. Symmetry requires at least one datum
+reference.
+
+## Precision
+
+Choose how many decimal places to display for the tolerance value.
+
+## Frame Position
+
+Place the feature control frame near the controlled feature while keeping it clear of other
+callouts.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Use the plane that keeps the callout readable in the
+view where symmetry will be reviewed.
+
+## Leader Scale
+
+Adjust the visual scale of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Symmetry annotation uses `gdt::symmetry` with
+selected faces or edges, a tolerance, and datum references.
+
+```kcl
+gdt::symmetry(
+  faces = [centeredFeature],
+  tolerance = 0.2mm,
+  datums = ["A"],
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::symmetry` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-symmetry) in our KCL docs.
