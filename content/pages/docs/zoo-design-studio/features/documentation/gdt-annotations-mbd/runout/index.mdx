@@ -1,0 +1,71 @@
+---
+title: Runout
+excerpt: Runout GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 16
+---
+
+Runout controls how much a round feature may vary as it rotates around a datum axis. Use it for
+shafts, shoulders, bearing seats, pulleys, and other rotating features where circular variation
+relative to an axis affects fit, vibration, or sealing.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-runout0.png"
+  alt="Runout GD&T annotation on a rotating feature relative to a datum axis"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces Or Edges
+
+Select a round face or circular edge that should be controlled during rotation about the datum
+axis.
+
+## Tolerance
+
+Set the allowed circular runout in the current unit system.
+
+## Datums
+
+Add the datum label or labels that define the rotation axis. Runout requires at least one datum
+reference.
+
+## Precision
+
+Choose how many decimal places to display for the tolerance value.
+
+## Frame Position
+
+Place the feature control frame near the selected round feature while keeping it clear of other
+annotations.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Use the plane that keeps the callout readable in the
+view where runout will be reviewed.
+
+## Leader Scale
+
+Adjust the visual scale of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Runout annotation uses `gdt::runout` with
+selected faces or edges, a tolerance, and datum references.
+
+```kcl
+gdt::runout(
+  edges = [shoulderEdge],
+  tolerance = 0.2mm,
+  datums = ["A"],
+  precision = 1,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::runout` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-runout) in our KCL docs.

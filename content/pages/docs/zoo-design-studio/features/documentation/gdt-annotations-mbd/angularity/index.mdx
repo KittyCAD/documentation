@@ -1,0 +1,73 @@
+---
+title: Angularity
+excerpt: Angularity GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 6
+---
+
+Angularity controls how close selected faces or edges stay to a specified basic angle relative to a
+datum. Use it for bent tabs, angled pads, ramps, and mating surfaces that must hold an orientation
+other than parallel or perpendicular.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-angularity0.png"
+  alt="Angularity GD&T annotation on selected angled geometry"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces Or Edges
+
+Select the face or edge whose angled orientation should be controlled. Choose the geometry that
+directly represents the manufactured feature being inspected.
+
+## Tolerance
+
+Set the allowed angularity zone size in the current unit system. The value defines the width of the
+tolerance zone shown in the feature control frame. It is a length, not a plus-or-minus angle.
+
+## Datums
+
+Add the datum label or labels that define the reference orientation. Angularity normally needs at
+least one datum to make the angled relationship meaningful.
+
+## Precision
+
+Choose how many decimal places to display for the tolerance value.
+
+## Frame Position
+
+Place the feature control frame near the controlled feature while keeping it clear of the model
+outline.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Use `XY`, `XZ`, or `YZ` to keep the frame legible in
+the intended view.
+
+## Leader Scale
+
+Adjust the visual scale of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. An Angularity annotation uses `gdt::angularity`
+with selected faces or edges, a tolerance, and datum references. The basic angle comes from the
+model geometry or drawing definition.
+
+```kcl
+gdt::angularity(
+  faces = [angledFace],
+  tolerance = 0.1mm,
+  datums = ["A"],
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::angularity` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-angularity) in our KCL docs.

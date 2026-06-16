@@ -1,0 +1,71 @@
+---
+title: Concentricity
+excerpt: Concentricity GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 14
+---
+
+Concentricity controls how closely the derived median axis of a round feature aligns with a datum
+axis. Use it when coaxial alignment matters for rotating parts, nested diameters, precision bores,
+or shafts where mass distribution around a common axis is important.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-concentricity0.png"
+  alt="Concentricity GD&T annotation on a round feature relative to a datum axis"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces Or Edges
+
+Select the round face or circular edge whose median axis should be controlled. Choose the geometry
+that represents the manufactured feature being inspected.
+
+## Tolerance
+
+Set the diameter of the cylindrical tolerance zone in the current unit system.
+
+## Datums
+
+Add the datum label or labels that define the reference axis. Concentricity requires at least one
+datum reference.
+
+## Precision
+
+Choose how many decimal places to display for the tolerance value.
+
+## Frame Position
+
+Place the feature control frame near the controlled round feature while keeping it clear of other
+callouts.
+
+## Frame Plane
+
+Choose the display plane for the annotation. Use the plane that keeps the frame legible in the
+inspection or documentation view.
+
+## Leader Scale
+
+Adjust the visual scale of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Concentricity annotation uses
+`gdt::concentricity` with selected faces or edges, a tolerance, and datum references.
+
+```kcl
+gdt::concentricity(
+  faces = [controlledCylinder],
+  tolerance = 0.05mm,
+  datums = ["A"],
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::concentricity` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-concentricity) in our KCL docs.

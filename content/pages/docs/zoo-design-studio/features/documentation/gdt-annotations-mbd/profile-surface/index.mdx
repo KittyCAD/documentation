@@ -1,0 +1,71 @@
+---
+title: Profile Surface
+excerpt: Profile surface GD&T annotation workflows in Zoo Design Studio.
+sidebarPosition: 13
+---
+
+Profile Surface controls how far selected faces may deviate from their ideal three-dimensional
+surface. Use it for contoured surfaces, molded faces, aerodynamic surfaces, castings, and other
+features where the whole surface shape matters.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-profileSurface0.png"
+  alt="Profile surface GD&T annotation on a selected face"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Faces
+
+Select one or more faces to control. Profile Surface applies across the selected surface area, not
+just a single boundary edge.
+
+## Tolerance
+
+Set the allowed deviation from the ideal surface in the current unit system.
+
+## Datums
+
+Add datum references when the surface profile should also control orientation or location relative
+to a datum reference frame. Leave datums empty when the profile controls only form.
+
+## Precision
+
+Choose how many decimal places to display in the annotation.
+
+## Frame Position
+
+Place the feature control frame relative to the leader arrow. Keep the frame clear of dense model
+details so it remains readable.
+
+## Frame Plane
+
+Choose the display plane for the feature control frame. Use the plane that keeps the annotation
+facing the viewer in your documentation or inspection workflow.
+
+## Leader Scale
+
+Adjust the visual size of the leader dot.
+
+## Font Size
+
+Set the model-space height of the annotation text.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Profile Surface annotation uses
+`gdt::profileSurface` with one or more selected faces, a tolerance, and optional datum references.
+
+```kcl
+gdt::profileSurface(
+  faces = [controlledSurface],
+  tolerance = 0.05mm,
+  datums = ["A"],
+  precision = 2,
+  framePosition = [12mm, 8mm],
+  framePlane = XZ,
+)
+```
+
+Want to find out more about the `gdt::profileSurface` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-profileSurface) in our KCL docs.
