@@ -30,10 +30,10 @@ and our 2026 audit report
 
 One goal of the audit was to evaluate the security of our authentication system which includes SAML and OIDC flows.
 We are using the [samael](https://github.com/njaremko/samael) library and sponsor its author for a few years with a monthly donation.
-Vasco, one of the Trail of Bits auditors, found several low severity issues in the validation of SAML responses.
+Vasco Franco, one of the Trail of Bits auditors, found several issues in the validation of SAML responses.
 None of them were exploitable, but they showed that the current method of validation is not as robust as it could be.
 
-The library takes the SAML response which is essentially a signed XML document and verifies the signature using xmlsec,
+The library takes the SAML response and verifies the signature using xmlsec,
 the most widely used library for XML signature verification. So far so good.
 
 After that however it uses custom logic to find the nodes that have been verified.
@@ -42,7 +42,7 @@ This might lead to inconsistencies between what xmlsec verified and what we cons
 Finally, the well-known serde library is used to deserialize the XML document into Rust structs,
 which adds another source of parsing differentials.
 
-In summary, Vasco showed that you can create states where the custom samael logic, xmlsec,
+In summary, Vasco Franco showed that you can create states where the custom samael logic, xmlsec,
 or serde disagree on what has been verified, which could lead to exploitable states.
 
 The goal of samael is to deserialize only signed data into Rust structs, dropping everything else. So we are reducing the
