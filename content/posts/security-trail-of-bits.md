@@ -22,7 +22,7 @@ We'll dive deep on one vulnerability and demonstrate how one vulnerability could
 View our 2024 audit report
 [here](https://github.com/trailofbits/publications/blob/1c2295698d654066038156c206fb3dd5502fa1a5/reviews/2024-06-zoo-kittycad-securityreview.pdf)
 and our 2026 audit report
-[here](https://example.com)
+[here](https://github.com/trailofbits/publications/blob/587d66e15c62b46f0e852994aa2aca950c62a791/reviews/2026-03-Zoo-TextToCad-security-review.pdf)
 .
 
 ## Securing the Rust ecosystem
