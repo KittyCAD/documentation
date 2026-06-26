@@ -1,12 +1,12 @@
 ---
 title: Zoodle
-excerpt: Mark up the model viewport and send visual edit guidance to Zookeeper.
+excerpt: Mark up the model viewport and attach visual edit guidance to a Zookeeper prompt.
 sidebarPosition: 2
 ---
 
-Zoodle captures the current model viewport, lets you draw markup over it, and attaches that marked-up
-image to a Zookeeper prompt. Use it when the edit depends on a specific face, edge, region, or
-direction that would be awkward to describe in text alone.
+Zoodle is a visual handoff for Zookeeper. It captures the current model viewport, lets you draw on
+the image, and attaches the markup to your prompt. Use it when the target face, edge, hole,
+direction, or dimension would be hard to describe in text alone.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle.webp"
@@ -15,47 +15,148 @@ direction that would be awkward to describe in text alone.
   maxHeightPx={520}
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  Draw over the viewport, attach the marked-up image, then describe the intended edit
+  Capture the viewport, mark the target, then pair the image with a prompt
 </div>
 
-## Set The View
+## How To Use It
 
-Before opening Zoodle, rotate and zoom the model so the target geometry is visible. The captured view
-is the visual reference Zookeeper receives, so avoid hiding important faces behind the model or the
-view gizmo.
+Use this flow when a quick sketch can remove ambiguity. Frame the model first, mark the image, add a
+concise prompt, and then verify both the generated geometry and the editable parameters.
 
-## Mark Up The Target
+### 1. Click Zoodle
 
-Open Zoodle from the Zookeeper prompt controls. Draw directly over the captured viewport to identify
-the geometry that matters.
+Open Zoodle from the Zookeeper prompt controls. It captures the current viewport, so rotate and zoom
+the model until the relevant geometry is visible. The image gives Zookeeper spatial context. The
+prompt you add later explains the intended operation.
 
-Use simple markups:
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-composer-button.webp"
+  alt="The Zoodle button in the Zookeeper composer"
+  aspect="1034 / 358"
+  maxHeightPx={240}
+/>
 
-- Circle a face, hole, or region.
-- Draw an arrow to show direction.
-- Underline or box an edge that should be changed.
-- Keep strokes close to the target geometry.
+### 2. Draw over the captured part
 
-## Prompt
+Draw directly on the captured viewport. Put dimensions next to the edges they describe, circle holes
+or faces that matter, and use arrows when direction is important.
 
-Send the markup back to the composer, then add a short prompt that states the intended operation.
-The drawing identifies where the edit applies. The prompt explains what should happen.
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-marked-plate-prompt.webp"
+  alt="A Zoodle markup drawn over a plate sketch with dimensions and hole callouts"
+  aspect="2956 / 1716"
+  maxHeightPx={560}
+/>
 
-Good prompts are specific:
+### 3. Send the marked image
 
-- "Move this hole 8 mm toward the marked edge."
+Click **Send** in the Zoodle toolbar to attach the marked image to your next Zookeeper message.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-send-markup.webp"
+  alt="The Send button in the Zoodle markup toolbar"
+  aspect="494 / 220"
+  maxHeightPx={180}
+/>
+
+Zookeeper receives that image with the current model context. If the edit depends on depth,
+orientation, or a hidden face, adjust the viewport and make another markup from a clearer angle.
+
+### 4. Add the prompt and run it
+
+After the image is attached, add a short prompt in the chat box. If the markup already contains the
+key dimensions, a simple prompt like "Make this part" is enough. Choose a reasoning mode that matches
+the task, then send it.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-prompt-composer.webp"
+  alt="Zookeeper prompt composer with the prompt Make this part ready to send"
+  aspect="1050 / 366"
+  maxHeightPx={260}
+/>
+
+The drawing identifies where the edit applies. The prompt explains what should happen. For follow-up
+edits, be specific:
+
+- "Move the marked hole 8 mm toward the edge."
 - "Round the circled edge with a small fillet."
 - "Make the marked wall 2 mm thicker."
 
-## Model Context
+### 5. Review the generated part
 
-Zookeeper receives the marked-up image with the current model context. If the edit depends on depth,
-orientation, or a hidden face, adjust the view and capture another markup from a clearer angle.
+Zookeeper uses the markup and prompt together to create or edit the model. In this example, the
+marked sketch becomes a rectangular plate with four mounting holes and a larger center hole.
 
-## Review The Result
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-generated-plate.webp"
+  alt="Zookeeper result showing a generated rectangular plate with four mounting holes and a center hole"
+  aspect="2956 / 1716"
+  maxHeightPx={560}
+/>
 
-After Zookeeper applies the edit, inspect the model and the updated KCL. If the result is close but
-not exact, send another Zoodle markup that shows the correction.
+Inspect the generated model and updated KCL before continuing. If the result is close but not exact,
+send another Zoodle markup that shows the correction.
 
-For the full assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
+### 6. Check the parameters
+
+Open the feature tree to confirm the generated model is editable. When Zookeeper can infer
+dimensions from the markup, it creates named parameters for them.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-parameter-tree-result.webp"
+  alt="The generated plate visible with its editable parameters in the feature tree"
+  aspect="2956 / 1716"
+  maxHeightPx={560}
+/>
+
+The full view shows the generated part next to its feature tree. Zoom into the Parameters group to
+confirm the key dimensions are editable values, not just baked into the final shape.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-parameters-list.webp"
+  alt="Generated Zoodle model parameters including plate length, height, thickness, and hole diameters"
+  aspect="742 / 534"
+  maxHeightPx={340}
+/>
+
+### 7. Edit an existing part
+
+Zoodle is not limited to creating a new model from a sketch. Once you have a part, keep working by
+marking it up again and asking Zookeeper to modify it, such as adding a cutout, moving a feature, or
+changing a dimension.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-edit-existing-part.webp"
+  alt="Using Zoodle markup to request an edit on an existing generated plate"
+  aspect="2956 / 1822"
+  maxHeightPx={560}
+/>
+
+Zookeeper applies the requested change to the same model, preserving the editable part context while
+adding the new cutout.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-edit-existing-part-result.webp"
+  alt="Zookeeper result after adding the marked cutout to the existing plate"
+  aspect="2956 / 1822"
+  maxHeightPx={560}
+/>
+
+### 8. Add MBD annotations
+
+Zoodle can also point Zookeeper at geometry that needs model-based definition annotations. Mark the
+face or feature, describe the GD&T annotation or tolerance you want, and let Zookeeper add it to the
+model.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-add-mbd-annotation.webp"
+  alt="Using Zoodle markup to request an MBD GD&T annotation on a generated plate"
+  aspect="2956 / 1822"
+  maxHeightPx={560}
+/>
+
+For supported annotation workflows, see
+[GD&T Annotations (MBD)](/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd).
+
+For the broader assistant workflow, see [Zookeeper](/docs/zoo-design-studio/zookeeper) and
 [AI Chat](/docs/zoo-design-studio/features/workspace/ai-chat).
