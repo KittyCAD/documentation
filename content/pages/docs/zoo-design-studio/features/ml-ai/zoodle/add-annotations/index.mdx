@@ -1,0 +1,56 @@
+---
+title: Add annotations
+excerpt: Use Zoodle markup to point Zookeeper at geometry that needs MBD and GD&T annotations.
+sidebarPosition: 2
+---
+
+Zoodle can point Zookeeper at geometry that needs model-based definition annotations. Mark the face,
+edge, datum, or feature, then describe the GD&T annotation or tolerance you want.
+
+Use this workflow when the annotation target is clearer visually than in text, especially on parts
+with repeated holes, similar faces, or several candidate edges.
+
+## 1. Mark the annotation target
+
+Open Zoodle while the relevant face or feature is visible. Draw the callout, leader, or box close to
+the target geometry so Zookeeper can tell what the annotation belongs to.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-add-mbd-annotations-markup.webp"
+  alt="Using Zoodle markup to request datum, flatness, and perpendicularity annotations on a generated plate"
+  aspect="3344 / 1716"
+  maxHeightPx={560}
+/>
+
+## 2. Describe the annotation
+
+Send the marked image with a prompt that names the annotations and any tolerance values. For example,
+you can ask Zookeeper to add a datum, flatness tolerance, perpendicularity tolerance, or other
+supported MBD annotations to the marked features.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-add-mbd-annotations-prompt.webp"
+  alt="Zookeeper prompt composer with an annotated viewport attachment and the prompt Add these annotations"
+  aspect="1038 / 444"
+  maxHeightPx={300}
+/>
+
+If Zookeeper asks which GD&T standard to use, choose the standard for your drawing set, such as
+ASME Y14.5 or ISO 1101.
+
+If the target is ambiguous, rotate the model and capture another Zoodle markup from a clearer angle.
+
+## 3. Review the model
+
+After Zookeeper responds, inspect the annotation placement and the updated model context. Verify each
+target feature, callout value, datum reference, and tolerance before continuing.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zoodle/zoodle-add-mbd-annotations-result.webp"
+  alt="Zookeeper result showing datum, flatness, and perpendicularity annotations on the generated plate"
+  aspect="3344 / 1716"
+  maxHeightPx={560}
+/>
+
+For supported annotation workflows and examples, see
+[GD&T Annotations (MBD)](/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd).
