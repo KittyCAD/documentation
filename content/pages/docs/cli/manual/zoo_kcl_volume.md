@@ -21,6 +21,9 @@ Get the volume of an object in a kcl file.
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
 
+   <dt><code>--allow-errors</code></dt>
+   <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
