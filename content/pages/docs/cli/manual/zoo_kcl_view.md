@@ -24,6 +24,9 @@ View a render of a `kcl` file in your terminal.
    <dt><code>--camera-padding</code></dt>
    <dd>How much padding to use when zooming before the screenshot. Positive padding will zoom out, negative padding will zoom in (and therefore crop). e.g. padding = 0.2 means the view will span 120% of the object(s) bounding box, and padding = -0.2 means the view will span 80% of the object(s) bounding box<br/>Default value: <code>0.1</code></dd>
 
+   <dt><code>--allow-errors</code></dt>
+   <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 

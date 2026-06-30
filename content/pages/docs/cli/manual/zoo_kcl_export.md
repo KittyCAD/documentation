@@ -27,6 +27,9 @@ Export a `kcl` file as any other supported CAD file format.
    <dt><code>--deterministic</code></dt>
    <dd>If true, the output file should be deterministic, meaning any date or time information will be replaced with a fixed value. This is useful for when pushing to version control<br/>Default value: <code>false</code></dd>
 
+   <dt><code>--allow-errors</code></dt>
+   <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 

@@ -18,6 +18,9 @@ Get the bounding box that contains everything in a KCL file.
    <dt><code>-u/--output-unit</code></dt>
    <dd>Output unit</dd>
 
+   <dt><code>--allow-errors</code></dt>
+   <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
+
    <dt><code>-d/--debug</code></dt>
    <dd>Print debug info<br/>Default value: <code>false</code></dd>
 
