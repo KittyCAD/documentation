@@ -1,0 +1,50 @@
+---
+title: Note
+excerpt: Free-floating GD&T note workflows in Zoo Design Studio.
+sidebarPosition: 17
+---
+
+A Note adds free-floating model-based manufacturing text that is not attached to a face or edge. Use
+it for general callouts that should travel with the 3D model but do not point at specific geometry,
+such as general notes, material or finish statements, or shop instructions.
+
+Unlike an
+[Annotation](/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/annotation), a Note
+has no leader and is placed directly on a plane.
+
+<FramedImage
+  src="/kcl-test-outputs/serial_test_example_fn_std-gdt-note0.png"
+  alt="Free-floating GD&T note placed on the XY plane"
+  aspect="1280 / 720"
+  maxHeightPx={460}
+/>
+
+## Note Text
+
+Enter the note to display. Keep the wording short enough to remain readable in the model view.
+
+## Frame Position
+
+Place the note within the plane, in the plane's local coordinates. The default is `[100mm, 100mm]`.
+
+## Frame Plane
+
+Choose the plane the note lies in. The default is `XY`. Use a standard plane like `XZ` or `YZ`, or a
+user-defined plane, to keep the note facing the intended view.
+
+## Font Size
+
+Set the model-space height of the note text. The default is `10mm`.
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. A Note uses `gdt::note` with the text to display plus
+an optional plane, position, and font size. Because a note is free-floating, it does not take faces,
+edges, datums, or a tolerance.
+
+```kcl
+gdt::note(note = "Note on XY", framePosition = [12mm, 8mm])
+```
+
+Want to find out more about the `gdt::note` function?
+[Check it out](/docs/kcl-std/functions/std-gdt-note) in our KCL docs.
