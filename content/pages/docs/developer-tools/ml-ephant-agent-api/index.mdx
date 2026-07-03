@@ -1,0 +1,63 @@
+---
+title: ML-Ephant Agent API
+excerpt: Overview page for the ML-Ephant Agent API.
+sidebarPosition: 1
+---
+## What is it?
+
+The ML-Ephant Agent API is a CAD-focused LLM agent that is easily accessible
+through a web-based interface. Its primary use-case is for creating CAD models,
+but you can also ask it common (and uncommon!) CAD questions, ideate alongside
+it, and even analyze particular aspects of a CAD model using FEA and other
+tools available to it.
+
+Our flagship product that uses ML-Ephant Agent API is Zookeeper, as you may have
+heard. Zookeeper is constantly changing, getting updates and new tools to
+augment its abilities. If you haven't already, <a href="https://zoo.dev/zookeeper">give it a spin</a>.
+
+## An API Even An LLM Agent Could Love
+
+Our APIs are all created from the ground-up with humans and LLMs in mind. When
+the foundation of your technologies has low cognitive overhead, it makes building
+more sophisticated and complex applications easier.
+
+As with the KittyCAD Engine API, our SDKs and web API are all derived
+from an OpenAPI specification, the "source of truth" that itself comes from our
+server-code. When we update our code, you get the changes for free, without effort.
+
+## Understanding The World With More Than Text
+
+LLMs are good at pattern matching text, but not so much visual or spatial information,
+although they are getting better with time.
+
+What sets Zookeeper apart from competitors is we've actually given LLMs virtual
+eyes and other reasoning capabilities and context to navigate and understand space.
+
+Zookeeper having access to all the intricacies of our stack, it's able to understand
+what's up and what's down. It's able to understand when a bolt hole is not in
+the correct position. While it can take some time, eventually, the model walks
+itself to a correct solution.
+
+## Powerful Remote Compute
+
+As with the KittyCAD Engine API, the ML-Ephant Agent API is run on powerful
+remote machines that take on all the computational load. Instead of running
+analysis tooling or visual checks on your own machine, we leverage our existing
+infrastructure to do that for you. When used correctly in tandem with our other
+APIs, this leads to locally power-efficient applications.
+
+# What will you build?
+
+<DocCardGrid>
+  <DocCard
+    title="Quickstart your next Zoo adventure"
+    href="/docs/developer-tools/tutorials/beginner-onboarding-py"
+  >
+    Use Python to talk to the ML-Ephant Agent API and get back a file.
+  </DocCard>
+
+  <DocCard title="Dive into the API reference" href="/docs/developer-tools/api/ml">
+    Explore generated endpoints, schemas, authentication, and WebSocket
+    protocols for the ML-Ephant Agent API.
+  </DocCard>
+</DocCardGrid>

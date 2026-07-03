@@ -1,208 +1,296 @@
 ---
-title: 'Python Beginner Tutorial'
-excerpt: In this tutorial we'll walk through the basics of Zoo and using the API
+title: 'Send Your First Zookeeper Prompt with Python'
+excerpt: Use Python to send a CAD prompt to Zookeeper over WebSocket.
+langs: ['py']
 ---
 
-Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
+This quickstart shows you how to send your first Zookeeper prompt from Python
+over a WebSocket. You will ask Zookeeper to generate a simple part, wait for the
+streamed response, and save the generated model as a STEP file.
 
-Welcome to our Python beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
+In Zoo Design Studio, [Zookeeper](/docs/zoo-design-studio/zookeeper) is the
+conversational CAD agent that helps create, edit, and reason about models. The
+same agent is available to developers through the Zookeeper WebSocket.
 
-## What is an API?
+This tutorial uses two WebSocket-backed steps: Zookeeper generates editable KCL,
+then `zoo-kcl` executes that project and sends a Modeling WebSocket `export`
+command to produce the STEP file.
 
-API stands for Application Programming Interface. The key to an API is that it allows applications to talk and be used by one another. Here are some current examples of API's used today.
-* Uber drivers use Google Maps for navigation in the Uber app.
-* Duolingo allows users to log in using their Facebook information.
-* Shopify uses Stripe to process credit card payments. 
+## What you will build
 
-API's are powerful. Let's take the Uber example above. It would take a lot of time and engineers to develop a map feature similar to Google Maps within the Uber app. Uber uses Google Maps' API to access it within their own app. Of course, Uber pays a portion of their sales to Google in return for using their API. 
+You will run a Python script that sends this prompt to Zookeeper:
 
-## Let's Get Started
-
-For you to communicate with Zoo's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
-
-You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
-* Create an account. If you haven't already, you can [create an account here](/account)
-* Sign in. Once you've signed up for an account, make sure you are signed in. 
-* Generate an API key. You can either go into your [account settings](/account?tab=api_tokens) to generate an API key, or you can press the button below and we will take care of it for you!
-
-<MarkDownAPITokens />
-
-## Executing From Your Computer
-
-* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the KittyCAD repository:
-
-[Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
-
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains many files, but there are  two files that we will be working with: a 3D model (dodecahedron.obj) and a python script (convert.py).
-
-### Jump to the appropriate tutorial for your setup
-
-- <a href="#Mac">Mac</a>
-- <a href="#Windows">Windows</a>
-- <a href="#Linux">Linux</a>
-
-### Mac
-
-<h5 id="Mac"></h5>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
-* Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
-    * **make sure you download the correct version for Mac**
-* Once you download Python, you will need to open your **Terminal**. You can open **Terminal** in a few ways:
-    * Press "cmd" + "space" and type in "Terminal" and hit "return"
-    * Press the magnifying glass icon <img src="/mac-spotlight.png" style={{ width: '20px', height: 'auto'}}/> on the top-right of your screen, type "Terminal" in the search box, and hit "return".
-    * Go to your **Applications/Utilities** folder. Double-click **Terminal**
-* Once the **Terminal** is open, you will need to navigate to the folder you downloaded. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
-
-```bash
-cd ~/Desktop/litterbox-main
+```text
+Design a simple mounting bracket with a flat rectangular base, two bolt holes,
+and one vertical tab with a circular hole.
 ```
 
-cd stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
+When the request completes, the script writes the generated model to
+`zookeeper-output.step`.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- A [Zoo account](/account)
+- [Python](https://www.python.org/downloads/) installed on your computer
+- A terminal app, such as Terminal on macOS or Linux, or PowerShell on Windows
+
+## Get an API token
+
+Zoo uses an API token to verify that requests come from your account.
+
+If you are signed in and already have a token, you will see it below. If you do
+not have one yet, generate one before continuing.
+
+- Create a Zoo account if you do not already have one.
+- Sign in to your account.
+- Generate an API token from your [account settings](/account/developer), or use
+  the button below.
+
+**Keep your token private**. Do not share it or commit it to source control.
+
+## Create a Python project
+
+Create a folder for the quickstart and move into it.
+
+On Windows PowerShell, macOS, Linux, run:
 
 ```bash
-cd ~/Documents/ZooPractice/litterbox-main
+mkdir zookeeper-python-quickstart
+cd zookeeper-python-quickstart
 ```
 
-You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
+Create and activate a virtual environment so the tutorial dependencies stay
+separate from the rest of your Python installation.
 
-Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+On macOS or Linux, run:
 
-* Once inside the correct folder, input the following command into **Terminal**. Simply copy and paste the following
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install "websockets>=14" zoo-kcl
+```
+
+On Windows PowerShell, run:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install "websockets>=14" zoo-kcl
+```
+
+This guide uses the raw Zookeeper WebSocket instead of the Zoo Python SDK. It
+does not use the Zoo CLI. The `zoo-kcl` package provides the KCL execution layer
+that talks to the Modeling WebSocket and sends the final `export` command.
+
+## Set your API token
+
+Set your API token as the `ZOO_API_TOKEN` environment variable. The script sends
+it as a bearer token when it opens the WebSocket.
+
+On macOS or Linux, run:
 
 ```bash
 export ZOO_API_TOKEN="YOUR-API-TOKEN"
-pip3 install virtualenv
-python3 -m venv venv
-source venv/bin/activate
-pip3 install kittycad
-python3 tutorials/beginner_tutorial/convert.py
 ```
 
-<TokenReplacementNote />
+On Windows PowerShell, run:
 
-As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
-
-```bash
-File conversion id: <your-conversion-id>
-File conversion status: Completed
-Saving output to ./output.stl
-```
-
-**Note:** depending on the version of Python you have installed, the "Python3" command might differ.
-
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api).
-
-Click on the button below to see the script we ran.
-##### [convert.py script](#rundown)
-
-### Windows
-
-<h5 id="Windows"></h5>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
-* Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
-    * **make sure you download the correct version for Windows**
-    * Note: if you see a checkbox to **Add python [ver] to PATH**, make sure you check this box.
-* Once you download Python, you will need to open your **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
-* Once **Powershell** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in **Powershell** and hit enter:
-
-```bash
-cd $HOME/Desktop/litterbox-main
-```
-
-`cd` stands for change directory. Once you hit "return", you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
-
-```bash
-cd $HOME/Documents/ZooPractice/litterbox-main
-```
-
-You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
-
-Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then just drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Just hit "enter". 
-
-You will now be working inside the folder you created called ZooPractice.
-* Once inside the correct folder, input the following commands into **Powershell**. (Note: if you are signed in and have made an API token, we auto-populated your token below). Simply copy and paste the following:
-
-```bash
+```powershell
 $env:ZOO_API_TOKEN = "YOUR-API-TOKEN"
-pip install virtualenv
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install kittycad
-python .\tutorials\beginner_tutorial\convert.py
 ```
 
-<TokenReplacementNote />
+## Write the script
 
-As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+Create a file named `zookeeper_prompt.py` and paste in this script:
+
+```py
+import asyncio
+import json
+import os
+from pathlib import Path
+
+import kcl
+import websockets
+
+
+ZOOKEEPER_WS_URL = "wss://api.zoo.dev/ws/ml/zookeeper"
+PROJECT_NAME = "zookeeper-python-quickstart"
+OUTPUT_FILE = Path("zookeeper-output.step")
+PROMPT = """
+Design a simple mounting bracket with a flat rectangular base,
+two bolt holes, and one vertical tab with a circular hole.
+"""
+
+
+def find_main_kcl(value):
+    if not isinstance(value, dict):
+        return None
+
+    outputs = value.get("outputs")
+    if isinstance(outputs, dict) and isinstance(outputs.get("main.kcl"), str):
+        return outputs["main.kcl"]
+
+    for child in value.values():
+        found = find_main_kcl(child)
+        if found:
+            return found
+
+    return None
+
+
+async def export_step(main_kcl):
+    files = await kcl.execute_code_and_export(
+        main_kcl,
+        kcl.FileExportFormat.Step,
+    )
+
+    if not files:
+        raise RuntimeError("Modeling WebSocket did not return a STEP file.")
+
+    OUTPUT_FILE.write_bytes(files[0].contents)
+    print(f"Saved {OUTPUT_FILE}")
+
+
+async def main():
+    token = os.environ.get("ZOO_API_TOKEN")
+    if not token:
+        raise RuntimeError("Set ZOO_API_TOKEN before running this script.")
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "User-Agent": "ZooDocsPythonQuickstart",
+    }
+    request = {
+        "type": "user",
+        "content": PROMPT,
+        "project_name": PROJECT_NAME,
+        "current_files": {"main.kcl": ""},
+    }
+
+    final_main_kcl = None
+
+    async with websockets.connect(
+        ZOOKEEPER_WS_URL,
+        additional_headers=headers,
+    ) as websocket:
+        await websocket.send(json.dumps(request))
+
+        async for raw_message in websocket:
+            message = json.loads(raw_message)
+
+            if "conversation_id" in message:
+                print(f"Conversation: {message['conversation_id']}")
+
+            elif "delta" in message:
+                print(message["delta"], end="", flush=True)
+
+            elif "tool_output" in message:
+                main_kcl = find_main_kcl(message["tool_output"])
+                if main_kcl:
+                    final_main_kcl = main_kcl
+
+            elif "error" in message:
+                detail = message["error"].get("detail", message["error"])
+                raise RuntimeError(detail)
+
+            elif "end_of_stream" in message:
+                print()
+                break
+
+    if final_main_kcl is None:
+        raise RuntimeError("Zookeeper finished without returning main.kcl.")
+
+    await export_step(final_main_kcl)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Send the prompt
+
+Run the script:
 
 ```bash
-File conversion id: <your-conversion-id>
-File conversion status: Completed
-Saving output to ./output.stl
+python zookeeper_prompt.py
 ```
 
-**Note:** depending on the version of Python you have installed, the "Python3" command might differ.
+The script opens a WebSocket to `wss://api.zoo.dev/ws/ml/zookeeper`, sends your
+prompt, and prints streamed response text as it arrives.
 
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api).
+When Zookeeper edits the project, the script keeps the latest returned KCL in
+memory. Zookeeper always returns a project with a top-level `main.kcl`. When the
+stream ends, `zoo-kcl` executes `main.kcl` from memory, and the Modeling
+WebSocket exports the scene as STEP. The script writes only
+`zookeeper-output.step`.
 
-Click on the button below to see the script we ran.
-##### [convert.py script](#rundown)
-
-### Linux
-
-<h5 id="Linux"></h5>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder called `litterbox-main` with all the contents into your directory. 
-* Install the latest version of Python for your machine here: [Install Python](https://www.python.org/downloads/)
-    * **make sure you download the correct version for Linux**
-* Once you download Python, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
-    * Press "CTRL" + "ALT" + "T"
-    * Click the **Terminal** icon amongst the list of all apps. 
-* Once the **Terminal** is open, you will need to navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
+You should see output similar to:
 
 ```bash
-cd ~/Desktop/litterbox-main
+Conversation: <conversation-id>
+Saved zookeeper-output.step
 ```
 
-cd stands for change directory. Once you hit return, you will be working inside the Desktop. For another example, let's say you put your files in a folder called ZooPractice within the Documents folder. This would look like so:
+Open the generated STEP file in Zoo Design Studio or another CAD tool to inspect
+the model.
 
-```bash
-cd ~/Documents/ZooPractice/litterbox-main
+## WebSocket message shape
+
+The client sends a user message as JSON:
+
+```json
+{
+  "type": "user",
+  "content": "Create a 10 mm cube.",
+  "project_name": "zookeeper-python-quickstart",
+  "current_files": {
+    "main.kcl": ""
+  }
+}
 ```
 
-You will now be working inside the `litterbox-main` folder you placed inside the ZooPractice folder.
+Zookeeper streams JSON messages back over the same socket. The messages you will
+usually care about are:
 
-Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+- `conversation_id`, sent when the socket is ready
+- `delta`, streamed assistant text
+- `tool_output`, generated project edits that the script exports to STEP
+- `error`, a typed error response
+- `end_of_stream`, the end of the current prompt response
 
-You will now be working inside the folder you created called ZooPractice.
-* Once inside the correct folder, input the following command into **Terminal**. (Note: if you are signed in and have made an API token, we auto-populated your token below).    Simply copy and paste the following:
+## Write better prompts
 
-```bash
-export ZOO_API_TOKEN="YOUR-API-TOKEN"
-pip3 install virtualenv
-python3 -m venv venv
-source venv/bin/activate
-pip3 install kittycad
-python3 tutorials/beginner_tutorial/convert.py
+Zookeeper works best when your prompt includes the part type, important
+features, and any dimensions or constraints you already know.
+
+Good first prompts usually include:
+
+- The object you want, such as a bracket, enclosure, gear, fixture, or adapter
+- The main features, such as holes, tabs, ribs, slots, bosses, or cutouts
+- Approximate dimensions if they matter
+- The intended use or manufacturing constraint if it affects the design
+
+For example:
+
+```text
+Design a 120 mm by 80 mm electronics enclosure with rounded corners, four screw
+bosses, a removable lid, and cable openings on one short side.
 ```
 
-<TokenReplacementNote />
+If the result is not what you wanted, make the next prompt more specific and run
+the script again.
 
-As long as everything went smoothly, you will see the following output (Note: your STL file will be called **output.stl** and be placed in the same directory):
+## Next steps
 
-```bash
-File conversion id: <your-conversion-id>
-File conversion status: Completed
-Saving output to ./output.stl
-```
+Now that you have sent your first prompt, you can:
 
-**Note:** depending on the version of Python you have installed, the "python3" and "pip3" command might differ.
-
-Congrats! You just made your first successful API command using a Python script. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here](/docs/api). 
-
-<h5 id="rundown">convert.py script</h5>
-
-```py data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.py"
-```
+- Try a different part description in `PROMPT`.
+- Send existing project files in `current_files` so Zookeeper can edit them.
+- Change `kcl.FileExportFormat.Step` if you want another output format.
+- Continue the model in [Zoo Design Studio](https://app.zoo.dev/).
+- Read the [Zookeeper guide](/docs/zoo-design-studio/zookeeper) for the broader
+  assistant workflow.

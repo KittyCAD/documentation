@@ -1,0 +1,44 @@
+---
+title: CrocoFILE Format API
+excerpt: Overview page for the CrocoFILE Format API.
+sidebarPosition: 2
+---
+
+## What is it?
+
+Sometimes engineers find themselves needing to work in different programs, or
+deliver their files for someone else to consume in a different format. That's
+where CrocoFILE Format API crawls in. It provides an easy way for developers to
+integrate CAD file format conversion directly into any application.
+
+In some cases those files require further analysis before being declared ok to
+send - and we've got that covered too.
+
+The API provides a variety of analytical functions you can perform on the various
+file formats, such as mass or volume calculations, with a growing toolset.
+
+## REST Easy
+
+Zoo's assortment of APIs are all designed with utmost simplicity in mind, and
+CrocoFILE Format API is no exception. A simple HTTP request to `/file/conversion/{input_format}/{output_format}`
+is enough to convert between CAD file formats. We're confident there isn't anything easier!
+
+Need to know the volume? Just as easy! `/file/volume?src_format=value&output_unit=value`
+
+Designing this API around simple web requests makes CAD file format conversion
+and analysis allows even most inexperienced developers to take advantage of it.
+
+## Powerful Remote Compute
+
+As with all other Zoo APIs, CrocoFILE Format API leverages the remote compute we offer
+to all users so even the heaviest, most complicated CAD models and assemblies
+can be converted between formats even while on the go.
+
+# What will you build?
+
+<DocCardGrid>
+  <DocCard title="Dive into the API reference" href="/docs/developer-tools/api/file">
+    Explore generated endpoints, schemas, authentication, and WebSocket
+    protocols for the CrocoFILE Format API.
+  </DocCard>
+</DocCardGrid>
