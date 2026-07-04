@@ -1,258 +1,287 @@
 ---
-title: 'JavaScript Beginner Tutorial'
-excerpt: In this tutorial we'll walk through the basics of Zoo and using the API with Javascript
+title: 'Create Your First CAD Model with TypeScript'
+excerpt: Use TypeScript to create and export a green cube with the KittyCAD Engine API.
+langs: ['ts']
 ---
 
-Welcome to Zoo. We are building tools to be the backbone infrastructure for hardware tools. 
+This quickstart shows you how to create your first CAD model from TypeScript
+with the KittyCAD Engine API. You will open a Modeling WebSocket, send commands
+that create a cube, color it green, and save the model as a STEP file.
 
-Welcome to our JavaScript beginner tutorial. This is primarily for those that have little coding experience, have no idea what an API is, or have no idea how to use them. 
+The KittyCAD Engine API is the low-level modeling API behind Zoo Design Studio.
+It accepts typed modeling commands over a WebSocket and returns structured
+responses that you can use to build geometry, inspect results, and export files.
 
-## What is an API?
+**Note**: There is an even easier way to connect to the KittyCAD Engine API:
+[`@kittycad/web-view`](https://github.com/KittyCAD/web-view). It lets you submit
+KCL directly and attach the live engine view to a `<video>` element with very
+little code. The rest of this quickstart uses the lower-level Modeling WebSocket
+so you can understand the fundamentals of what the helper library is doing.
 
-API stands for Application Programming Interface. The key to an API is that it allows applications to talk and be used by one another. Here are some current examples of API's used today.
+## What you will build
 
-* Uber drivers use Google Maps for navigation in the Uber app.
-* Duolingo allows users to log in using their Facebook information.
-* Shopify uses Stripe to process credit card payments. 
+You will run a TypeScript script that creates a 20 mm cube, applies a green PBR
+material, and writes the exported model to `green-cube.step`.
 
-API's are powerful. Let's take the Uber example above. It would take a lot of time and engineers to develop a map feature similar to Google Maps within the Uber app. Uber uses Google Maps' API to access it within their own app. Of course, Uber pays a portion of their sales to Google in return for using their API. 
+## Prerequisites
 
-## Let's Get Started
+Before you start, make sure you have:
 
-For you to communicate with Zoo's website, you must have an API key. When you make an API command, you will pass this API key along with your command, so that we can verify it's you. 
+- A [Zoo account](/account)
+- [Node.js 22 or newer](https://nodejs.org/en/download) installed on your computer
+- A terminal app, such as Terminal on macOS or Linux, or PowerShell on Windows
 
-You will see your API token below if you are signed in and have already generated one. If all you see is "Generate your first API token," then you currently do not have a token. Follow the steps below to generate an API key:
+## Get an API token
 
-* Create an account. If you haven't already, you can [create an account here](/account)
-* Sign in. Once you've signed up for an account, make sure you are signed in. 
-* Generate an API key. You can either go into your [account settings](/account?tab=api_tokens) to generate an API key, or you can press the button below and we will take care of it for you!
+We will need an API token in order to use Zoo's services.
 
-<MarkDownAPITokens />
+<DocCardGrid>
+  <DocCard
+    title="Generate an API token"
+    href="/account/developer"
+  >
+    Zoo uses an API token to verify that requests come from a particular account.
+  </DocCard>
+</DocCardGrid>
 
-## Executing From Your Computer
+**Keep your token private**. Do not share it or commit it to source control.
 
-* First, we want to make sure you have the right tools to make your first API command from your computer. We will provide you with almost everything you need. There are a few files that you will need to download from the Zoo repository:
+## Set your API token
 
-[Download Here](https://github.com/KittyCAD/litterbox/archive/refs/heads/main.zip)
+Set your API token as the `ZOO_API_TOKEN` environment variable. The script reads
+this value and passes it to `@kittycad/lib`, which authenticates the Modeling
+WebSocket session.
 
-The link will have you download a zip file. Place this zip file in an easy-to-access location on your computer (the Desktop is a simple spot). The .zip file contains plenty of files. However, only two of the files are needed for this example: a 3D model of a gear (gear.obj) and a Javascript file (convert.js).
-
-### Jump to the appropriate tutorial for your setup
-
-- <a href="#Windows">Windows</a>
-- <a href="#Mac">Mac</a>
-- <a href="#Linux">Linux</a>
-
-<h3 id="Windows">Windows</h3>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
-* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
-    * **make sure you download the correct version for Windows**
-* Once you download node.js, you will need to open **Powershell**. One way to open the **Powershell** is to click on the Start button and type "powershell" and press enter
-* Once **Powershell** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Powershell** and hitting enter:
-
-```bash
-npm install -g yarn
-```
-
-* Now, navigate to the folder in which you put all the files. for example, let's say you put them on the Desktop, then you would type the following in **Powershell** and hit enter:
+On macOS or Linux, run:
 
 ```bash
-cd $HOME/Desktop/litterbox-main
-```
-
-`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
-
-```bash
-cd $HOME/Documents/ZooPractice/litterbox-main
-```
-
-Another method for changing directories is if you see the folder you want to move into (whether through File Explorer or the Desktop), you can type "cd" and then drag and drop the folder onto **Powershell**, it will automatically fill out the file path for you. Hit "enter". 
-
-You will now be working inside the folder you created called ZooPractice.
-* Once inside the correct folder, input the following commands into **Powershell**. This is going to install the dependencies needed to use the Zoo Typescript API. Make sure to replace "YOUR-API-TOKEN" with the token we mentioned earlier!
-
-```bash
-$env:ZOO_API_TOKEN="YOUR-API-TOKEN"
-yarn install
-```
-
-<TokenReplacementNote />
-
-This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file:
-
-```sh
-node tutorials/beginner_tutorial/convert.js
-```
-
-As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
-
-```bash
-File created successfully.
-```
-
-Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
-
-##### [Code Rundown](#rundown)
-
-Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
-
-<h3 id="Mac">Mac</h3>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by double-clicking on the file. This will unpack the zip file and place a new folder with all the contents into your directory. 
-* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
-    * **make sure you download the correct version for Mac**
-* Once you download Node.js, you will need to open your **Terminal**. You can open **Terminal** in a few ways:
-    * Press "cmd" + "space" and type in "Terminal" and hit "return"
-    * Press the magnifying glass icon <img src="/mac-spotlight.png" style={{ width: '20px', height: 'auto'}}/> on the top-right of your screen, type "Terminal" in the search box, and hit "return"
-    * Go to your **Applications/Utilities** folder. Double-click **Terminal**
-* Once **Terminal** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Terminal** and hitting enter:
-
-```sh
-npm install -g yarn
-```
-
-* Now, navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "return":
-
-```    
-cd ~/Desktop/litterbox-main
-```
-
-`cd` stands for change directory. Once you hit return, you will be working inside the litterbox-main folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
-
-```
-cd ~/Documents/ZooPractice/litterbox-main
-```
-
-You will now be working inside the folder you created called ZooPractice.
-
-Another method for changing directories is if you see the folder you want to move into (whether through Finder or the Desktop), you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
-
-* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the Zoo Typescript API.
-
-```sh
 export ZOO_API_TOKEN="YOUR-API-TOKEN"
-yarn install
 ```
 
-<TokenReplacementNote />
+On Windows PowerShell, run:
 
-This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file (**note**: this may take 15 to 20 seconds due to the size and complexity of the gear.obj file):
-
-```sh
-node tutorials/beginner_tutorial/convert.js
+```powershell
+$env:ZOO_API_TOKEN = "YOUR-API-TOKEN"
 ```
 
-As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
+## Create a TypeScript project
 
-```
-File created successfully.
-```
+Create a folder for the quickstart and move into it.
 
-Curious how to write your own script? Click the button below for a step by step look into the `convert.js` file.
+On Windows PowerShell, macOS, or Linux, run:
 
-##### [Code Rundown](#rundown)
-
-Congrats! You just made your first successful API command using Javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api)
-
-<h3 id="Linux">Linux</h3>
-
-* Once you download the .zip file and place it somewhere you can easily access, extract the contents of your zip file. You can do this by right-clicking on the .zip file and selecting **Extract Here**. This will unpack the zip file and place all the contents into the current directory it's in. 
-* Install the latest version of node.js for your machine here: [Install Node.js](https://nodejs.org/en/download)
-    * **make sure you download the correct version for your machine**
-* Once you download node.js, you will need to open your **Terminal**. There are a few ways to open the **Terminal**:
-    * Press "CTRL" + "ALT" + "T"
-    * Click the **Terminal** icon amongst the list of all apps. 
-* Once **Terminal** is open, you will need to install yarn. Yarn will allow us to install all the dependencies needed to execute this script. You can do this by typing the following command into **Terminal** and hitting enter:
-
-```sh
-npm install -g yarn
+```bash
+mkdir kittycad-engine-typescript-quickstart
+cd kittycad-engine-typescript-quickstart
+npm init -y
+npm pkg set type=module
+npm install @kittycad/lib @msgpack/msgpack
+npm install --save-dev @types/node tsx typescript
 ```
 
-* Now, navigate to the folder in which you put all the files. As an example, let's say you put them on the Desktop. You would type the following in your **Terminal** and hit "enter":
+This guide uses `@kittycad/lib` to create the API client, build the Modeling
+WebSocket URL, authenticate the session, serialize commands, parse responses,
+send modeling commands, and provide TypeScript types. Export responses are
+binary MsgPack messages, so the script uses `@msgpack/msgpack` to decode the
+exported STEP file. Node.js provides the native WebSocket runtime.
 
-```    
-cd ~/Desktop
-```
+## Write the script
 
-`cd` stands for change directory. Once you hit return, you will be working inside the `litterbox-main` folder. For another example, let's say you put your folder you downloaded in a folder called `ZooPractice` within the `Documents` folder. This would look like so:
+Create a file named `create_green_cube.ts` and paste in this script:
 
-```
-cd ~/Documents/ZooPractice
-```
+```ts
+import { writeFile } from 'node:fs/promises'
+import { randomUUID } from 'node:crypto'
 
-Another method for changing directories is if you see the folder you want to move into, you can type "cd" and then just drag and drop the folder onto **Terminal**, it will automatically fill out the file path for you. Just hit "return". 
+import { Client, modeling } from '@kittycad/lib'
+import { decode } from '@msgpack/msgpack'
+import type {
+  ModelingCmd,
+  OkModelingCmdResponse,
+  WebSocketRequest,
+  WebSocketResponse,
+} from '@kittycad/lib'
 
-You will now be working inside the folder you created called ZooPractice.
-* Once inside the correct folder, input the following command into **Terminal**. This is going to install the dependencies needed to use the Zoo Typescript API.
+const OUTPUT_FILE = 'green-cube.step'
+const CUBE_SIZE_MM = 20
 
-```sh
-export ZOO_API_TOKEN="YOUR-API-TOKEN"
-yarn install
-```
+const client = new Client(process.env.ZOO_API_TOKEN)
+const ModelingWs = modeling.modeling_commands_ws
+const url = ModelingWs.urlConstructFrom({ client, webrtc: false })
 
-<TokenReplacementNote />
+async function sendCommand(
+  ws: WebSocket,
+  cmd: ModelingCmd,
+  cmdId = randomUUID()
+): Promise<WebSocketResponse> {
+  const request: WebSocketRequest = {
+    type: 'modeling_cmd_req',
+    cmd_id: cmdId,
+    cmd,
+  }
 
-This will install the necessary dependencies to run the Zoo Typescript API. Now, run the following command to execute the `convert.js` file (**note**: this may take 15 to 20 seconds due to the size and complexity of the gear.obj file):
+  return new Promise((resolve) => {
+    const onMessage = (event: MessageEvent) => {
+      const response =
+        event.data instanceof ArrayBuffer
+          ? (decode(event.data) as WebSocketResponse)
+          : (ModelingWs.parseMessage(event) as WebSocketResponse)
 
-```sh
-node tutorials/beginner_tutorial/convert.js
-```
+      if (response.request_id !== cmdId) {
+        return
+      }
 
-As long as everything went smoothly, you will see the following output (Note: your STEP file will be called **gear.step** and be placed in the same directory):
-
-```
-File created successfully.
-```
-Curious how to write your own script? Look down below for a step by step look into the convert.js file.
-
-Congrats! You just made your first successful API command using javascript. We offer plenty of API endpoints for you to use (file conversions, calculating center of mass, converting units, and more). Check them out [here!](/docs/api). 
-
-<h3 id="rundown">Code Rundown</h3>
-
-This is a quick look inside the `convert.js` file. Here we will go through the code line by line and explain what's happening, so you can create your own code! First, a look at the entire code:
-
-```js data-file="public/litterbox_assets/tutorials/beginner_tutorial/convert.js"
-```
-
-The first two lines are importing the Zoo (KittyCAD) library, as well as the fs/promises library.
-
-```js
-import { file } from '@kittycad/lib'
-import fsp from 'fs/promises'
-```
-
-* The KittyCAD library is what we will use to do the OBJ to STEP file conversion.
-* The fs/promises library is what we are using to write a new file after we do the conversion. 
-
-The next segment in the code is responsible for the file conversion:
-
-```js
-async function convertOBJtoSTEP() {
-    // Use KittyCAD client library to output base64 string from OBJ to STEP
-    const response = await file.create_file_conversion({
-        output_format: 'step',
-        src_format: 'obj',
-        body: await fsp.readFile('./gear.obj', 'base64'),
-    })
-```
-
-This is where the oo API command is. We create a new function called convertOBJtoSTEP(). In the function we store the returned value into a variable called "response". The `file.create_file_conversion` needs three parameters: The **output_format** (obj, step, stl, etc.), the **src_format** (obj, step, stl, etc.), and the **body** (the 3D model). The 3d model needs to be passed in as a base64 encoded string, so we use the fs/promises library to do this. We use `await fsp.readFile('./gear.obj', 'base64')`. This line will only work if the 3D model is in the current directory. If it's in a different directory, you will need to state where the 3D model is (for example, ./Desktop/ZooPractice/gear.obj)
-
-The last segment of the code is responsible for writing the new file. Since the api call allows for multiple exports, we need to loop through the response.outputs object and write a new file for each one. In this case, we only have a single STEP export. We get the base64 data from `reponse.outputs`, decode it to a string, and write it to a new file.
-
-```js
-for (const key in response.outputs) {
-        if (response.outputs.hasOwnProperty(key)) {
-          const output = response.outputs[key];
-          const outputFilePath = "./gear.step";
-        
-          console.log(`Saving output to ${outputFilePath}`);
-        
-          const decodedData = Buffer.from(output, "base64").toString("utf-8");
-          fsp.writeFile(outputFilePath, decodedData);
-        }
+      ws.removeEventListener('message', onMessage)
+      resolve(response)
     }
+
+    ws.addEventListener('message', onMessage)
+    ws.send(ModelingWs.toBSON(request))
+  })
+}
+
+async function main() {
+  const ws = new WebSocket(url)
+  ws.binaryType = 'arraybuffer'
+
+  await new Promise<void>((resolve) => {
+    ws.addEventListener('open', () => resolve(), { once: true })
+  })
+
+  ModelingWs.authenticate({ client }, ws)
+
+  const pathId = randomUUID()
+
+  await sendCommand(ws, { type: 'start_path' }, pathId)
+  await sendCommand(ws, {
+    type: 'move_path_pen',
+    path: pathId,
+    to: { x: 0, y: 0, z: 0 },
+  })
+  await sendCommand(ws, {
+    type: 'extend_path',
+    path: pathId,
+    segment: {
+      type: 'line',
+      end: { x: CUBE_SIZE_MM, y: 0, z: 0 },
+      relative: false,
+    },
+  })
+  await sendCommand(ws, {
+    type: 'extend_path',
+    path: pathId,
+    segment: {
+      type: 'line',
+      end: { x: CUBE_SIZE_MM, y: CUBE_SIZE_MM, z: 0 },
+      relative: false,
+    },
+  })
+  await sendCommand(ws, {
+    type: 'extend_path',
+    path: pathId,
+    segment: {
+      type: 'line',
+      end: { x: 0, y: CUBE_SIZE_MM, z: 0 },
+      relative: false,
+    },
+  })
+  await sendCommand(ws, { type: 'close_path', path_id: pathId })
+
+  const extrusionResponse = (await sendCommand(ws, {
+    type: 'extrude',
+    target: pathId,
+    distance: CUBE_SIZE_MM,
+    extrude_method: 'new',
+  })) as { resp: { data: { modeling_response: OkModelingCmdResponse } } }
+  const extrusion = extrusionResponse.resp.data
+    .modeling_response as Extract<OkModelingCmdResponse, { type: 'extrude' }>
+
+  const cubeId = extrusion.data.bodies_created!.bodies[0]!.id
+
+  await sendCommand(ws, {
+    type: 'object_set_material_params_pbr',
+    object_id: cubeId,
+    color: { r: 0.1, g: 0.85, b: 0.2, a: 1 },
+    metalness: 0,
+    roughness: 0.5,
+    ambient_occlusion: 1,
+  })
+
+  const exportedResponse = (await sendCommand(ws, {
+    type: 'export',
+    entity_ids: [cubeId],
+    format: { type: 'step', units: 'mm' },
+  })) as { resp: { data: { files: { contents: number[] }[] } } }
+
+  const stepFile = exportedResponse.resp.data.files[0]
+
+  await writeFile(OUTPUT_FILE, Buffer.from(stepFile.contents))
+  ws.close()
+
+  console.log(`Saved ${OUTPUT_FILE}`)
+}
+
+main()
 ```
 
-`fsp.writeFile` takes two parameters: the first one is what you would like the file to be named. In this case, we call it "gear.step". The second parameter is the information you want written in the new file. In this case, `decodedData` has all the information for the STEP file.
+## Create and export the cube
+
+Run the script:
+
+```bash
+npx tsx create_green_cube.ts
+```
+
+The script opens a WebSocket to the KittyCAD Engine API, authenticates it with
+your API token, and sends modeling commands one at a time.
+
+First, it creates a closed square path in the XY plane. Then it extrudes that
+path by the same distance as the square's side length, which creates a cube. The
+script reads the created body ID from the `extrude` response, uses that ID to
+set the cube's material color to green, and exports the body as STEP.
+
+You should see output similar to:
+
+```bash
+Saved green-cube.step
+```
+
+Open the generated STEP file in Zoo Design Studio or another CAD tool to inspect
+the model.
+
+## Modeling command shape
+
+The client sends each modeling command as a WebSocket request. For example, the
+STEP export command has this shape:
+
+```json
+{
+  "type": "modeling_cmd_req",
+  "cmd_id": "<random-uuid>",
+  "cmd": {
+    "type": "export",
+    "entity_ids": ["<cube-body-id>"],
+    "format": {
+      "type": "step",
+      "units": "mm"
+    }
+  }
+}
+```
+
+Each response includes the original `cmd_id` as `request_id`. The script uses
+that ID to match every response to the command that produced it. Most modeling
+responses are JSON text messages, while export responses are binary MsgPack
+messages that contain the exported file bytes.
+
+## Next steps
+
+Now that you have sent your first KittyCAD Engine API commands, try changing the
+script:
+
+- Change `CUBE_SIZE_MM` to create a larger or smaller cube
+- Change the `color` values to apply a different material color
+- Add more path segments before the `extrude` command to create a new profile
+
+For the full list of available modeling commands, see the
+[KittyCAD Engine API reference](/docs/developer-tools/api/modeling/open-a-websocket-which-accepts-modeling-commands).
