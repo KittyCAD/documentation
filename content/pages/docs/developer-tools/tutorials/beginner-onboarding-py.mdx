@@ -38,17 +38,36 @@ Before you start, make sure you have:
 
 ## Get an API token
 
-Zoo uses an API token to verify that requests come from your account.
+We will need an API token in order to use any of Zoo's services.
 
-If you are signed in and already have a token, you will see it below. If you do
-not have one yet, generate one before continuing.
-
-- Create a Zoo account if you do not already have one.
-- Sign in to your account.
-- Generate an API token from your [account settings](/account/developer), or use
-  the button below.
+<DocCardGrid>
+  <DocCard
+    title="Generate an API token"
+    href="/account/developer"
+  >
+    Zoo uses an API token to verify that requests come from a particular account.
+  </DocCard>
+</DocCardGrid>
 
 **Keep your token private**. Do not share it or commit it to source control.
+
+## Set your API token
+
+Set your API token as the `ZOO_API_TOKEN` environment variable. The script sends
+it as a bearer token when it opens the WebSocket. Currently this is the way
+that the Python SDK reads the API token to authenticate.
+
+On macOS or Linux, run:
+
+```bash
+export ZOO_API_TOKEN="YOUR-API-TOKEN"
+```
+
+On Windows PowerShell, run:
+
+```powershell
+$env:ZOO_API_TOKEN = "YOUR-API-TOKEN"
+```
 
 ## Create a Python project
 
@@ -85,23 +104,6 @@ python -m pip install "websockets>=14" zoo-kcl
 This guide uses the raw Zookeeper WebSocket instead of the Zoo Python SDK. It
 does not use the Zoo CLI. The `zoo-kcl` package provides the KCL execution layer
 that talks to the Modeling WebSocket and sends the final `export` command.
-
-## Set your API token
-
-Set your API token as the `ZOO_API_TOKEN` environment variable. The script sends
-it as a bearer token when it opens the WebSocket.
-
-On macOS or Linux, run:
-
-```bash
-export ZOO_API_TOKEN="YOUR-API-TOKEN"
-```
-
-On Windows PowerShell, run:
-
-```powershell
-$env:ZOO_API_TOKEN = "YOUR-API-TOKEN"
-```
 
 ## Write the script
 
@@ -143,22 +145,20 @@ def find_main_kcl(value):
 
 
 async def export_step(main_kcl):
+    # This will open a connection to the KittyCAD Engine API and execute
+    # the KCL that the ML-Ephant Agent API gave back.
     files = await kcl.execute_code_and_export(
         main_kcl,
         kcl.FileExportFormat.Step,
     )
-
-    if not files:
-        raise RuntimeError("Modeling WebSocket did not return a STEP file.")
 
     OUTPUT_FILE.write_bytes(files[0].contents)
     print(f"Saved {OUTPUT_FILE}")
 
 
 async def main():
+    # Read the API token from the envvar we set earlier
     token = os.environ.get("ZOO_API_TOKEN")
-    if not token:
-        raise RuntimeError("Set ZOO_API_TOKEN before running this script.")
 
     headers = {
         "Authorization": f"Bearer {token}",
@@ -173,6 +173,7 @@ async def main():
 
     final_main_kcl = None
 
+    # Connect to the ML-Ephant Agent API
     async with websockets.connect(
         ZOOKEEPER_WS_URL,
         additional_headers=headers,
@@ -182,27 +183,24 @@ async def main():
         async for raw_message in websocket:
             message = json.loads(raw_message)
 
+            # Particularly useful to record or show the conversation_id for
+            # debugging purposes.
             if "conversation_id" in message:
                 print(f"Conversation: {message['conversation_id']}")
 
+            # This is the incoming response text
             elif "delta" in message:
                 print(message["delta"], end="", flush=True)
 
+            # These are tool outputs
             elif "tool_output" in message:
                 main_kcl = find_main_kcl(message["tool_output"])
                 if main_kcl:
                     final_main_kcl = main_kcl
 
-            elif "error" in message:
-                detail = message["error"].get("detail", message["error"])
-                raise RuntimeError(detail)
-
             elif "end_of_stream" in message:
                 print()
                 break
-
-    if final_main_kcl is None:
-        raise RuntimeError("Zookeeper finished without returning main.kcl.")
 
     await export_step(final_main_kcl)
 
