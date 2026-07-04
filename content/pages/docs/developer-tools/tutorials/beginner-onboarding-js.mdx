@@ -109,21 +109,6 @@ const client = new Client(process.env.ZOO_API_TOKEN)
 const ModelingWs = modeling.modeling_commands_ws
 const url = ModelingWs.urlConstructFrom({ client, webrtc: false })
 
-function uuidBytesToString(bytes: Uint8Array) {
-  const hex = [...bytes].map((byte) => byte.toString(16).padStart(2, '0'))
-  return [
-    hex.slice(0, 4).join(''),
-    hex.slice(4, 6).join(''),
-    hex.slice(6, 8).join(''),
-    hex.slice(8, 10).join(''),
-    hex.slice(10, 16).join(''),
-  ].join('-')
-}
-
-function requestIdToString(requestId: unknown) {
-  return requestId instanceof Uint8Array ? uuidBytesToString(requestId) : requestId
-}
-
 async function sendCommand(
   ws: WebSocket,
   cmd: ModelingCmd,
@@ -142,7 +127,11 @@ async function sendCommand(
           ? (decode(event.data) as WebSocketResponse)
           : (ModelingWs.parseMessage(event) as WebSocketResponse)
 
-      if (requestIdToString(response.request_id) !== cmdId) {
+      if (!('resp' in response)) {
+        return
+      }
+
+      if (response.resp.type !== 'modeling' && response.resp.type !== 'export') {
         return
       }
 
