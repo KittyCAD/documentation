@@ -109,6 +109,21 @@ const client = new Client(process.env.ZOO_API_TOKEN)
 const ModelingWs = modeling.modeling_commands_ws
 const url = ModelingWs.urlConstructFrom({ client, webrtc: false })
 
+function uuidBytesToString(bytes: Uint8Array) {
+  const hex = [...bytes].map((byte) => byte.toString(16).padStart(2, '0'))
+  return [
+    hex.slice(0, 4).join(''),
+    hex.slice(4, 6).join(''),
+    hex.slice(6, 8).join(''),
+    hex.slice(8, 10).join(''),
+    hex.slice(10, 16).join(''),
+  ].join('-')
+}
+
+function requestIdToString(requestId: unknown) {
+  return requestId instanceof Uint8Array ? uuidBytesToString(requestId) : requestId
+}
+
 async function sendCommand(
   ws: WebSocket,
   cmd: ModelingCmd,
@@ -127,7 +142,7 @@ async function sendCommand(
           ? (decode(event.data) as WebSocketResponse)
           : (ModelingWs.parseMessage(event) as WebSocketResponse)
 
-      if (response.request_id !== cmdId) {
+      if (requestIdToString(response.request_id) !== cmdId) {
         return
       }
 
@@ -187,16 +202,26 @@ async function main() {
   })
   await sendCommand(ws, { type: 'close_path', path_id: pathId })
 
-  const extrusionResponse = (await sendCommand(ws, {
+  await sendCommand(ws, {
     type: 'extrude',
     target: pathId,
     distance: CUBE_SIZE_MM,
     extrude_method: 'new',
-  })) as { resp: { data: { modeling_response: OkModelingCmdResponse } } }
-  const extrusion = extrusionResponse.resp.data
-    .modeling_response as Extract<OkModelingCmdResponse, { type: 'extrude' }>
+  })
 
-  const cubeId = extrusion.data.bodies_created!.bodies[0]!.id
+  const sceneResponse = (await sendCommand(ws, {
+    type: 'scene_get_entity_ids',
+    filter: ['solid3d'],
+    skip: 0,
+    take: 1,
+  })) as { resp: { data: { modeling_response: OkModelingCmdResponse } } }
+  const scene = sceneResponse.resp.data
+    .modeling_response as Extract<
+    OkModelingCmdResponse,
+    { type: 'scene_get_entity_ids' }
+  >
+
+  const cubeId = scene.data.entity_ids[0]![0]!
 
   await sendCommand(ws, {
     type: 'object_set_material_params_pbr',
@@ -221,7 +246,7 @@ async function main() {
   console.log(`Saved ${OUTPUT_FILE}`)
 }
 
-main()
+await main()
 ```
 
 ## Create and export the cube
