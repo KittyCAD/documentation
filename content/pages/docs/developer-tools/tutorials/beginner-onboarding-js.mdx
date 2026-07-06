@@ -1,18 +1,18 @@
 ---
 title: 'Create Your First CAD Model with TypeScript'
-excerpt: Use TypeScript to create and export a green cube with the KittyCAD Engine API.
+excerpt: Use TypeScript to create and export a green cube with the Engine API.
 langs: ['ts']
 ---
 
 This quickstart shows you how to create your first CAD model from TypeScript
-with the KittyCAD Engine API. You will open a Modeling WebSocket, send commands
+with the Engine API. You will open a Modeling WebSocket, send commands
 that create a cube, color it green, and save the model as a STEP file.
 
-The KittyCAD Engine API is the low-level modeling API behind Zoo Design Studio.
+The Engine API is the low-level modeling API behind Zoo Design Studio.
 It accepts typed modeling commands over a WebSocket and returns structured
 responses that you can use to build geometry, inspect results, and export files.
 
-**Note**: There is an even easier way to connect to the KittyCAD Engine API:
+**Note**: There is an even easier way to connect to the Engine API:
 [`@kittycad/web-view`](https://github.com/KittyCAD/web-view). It lets you submit
 KCL directly and attach the live engine view to a `<video>` element with very
 little code. The rest of this quickstart uses the lower-level Modeling WebSocket
@@ -246,7 +246,7 @@ Run the script:
 npx tsx create_green_cube.ts
 ```
 
-The script opens a WebSocket to the KittyCAD Engine API, authenticates it with
+The script opens a WebSocket to the Engine API, authenticates it with
 your API token, and sends modeling commands one at a time.
 
 First, it creates a closed square path in the XY plane. Then it extrudes that
@@ -290,7 +290,7 @@ messages that contain the exported file bytes.
 
 ## Next steps
 
-Now that you have sent your first KittyCAD Engine API commands, try changing the
+Now that you have sent your first Engine API commands, try changing the
 script:
 
 - Change `CUBE_SIZE_MM` to create a larger or smaller cube
@@ -298,4 +298,4 @@ script:
 - Add more path segments before the `extrude` command to create a new profile
 
 For the full list of available modeling commands, see the
-[KittyCAD Engine API reference](/docs/developer-tools/api/modeling/open-a-websocket-which-accepts-modeling-commands).
+[Engine API reference](/docs/developer-tools/api/modeling/open-a-websocket-which-accepts-modeling-commands).

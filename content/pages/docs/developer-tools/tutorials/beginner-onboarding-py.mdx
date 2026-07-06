@@ -145,8 +145,8 @@ def find_main_kcl(value):
 
 
 async def export_step(main_kcl):
-    # This will open a connection to the KittyCAD Engine API and execute
-    # the KCL that the ML-Ephant Agent API gave back.
+    # This will open a connection to the Engine API and execute
+    # the KCL that the Agent API gave back.
     files = await kcl.execute_code_and_export(
         main_kcl,
         kcl.FileExportFormat.Step,
@@ -173,7 +173,7 @@ async def main():
 
     final_main_kcl = None
 
-    # Connect to the ML-Ephant Agent API
+    # Connect to the Agent API
     async with websockets.connect(
         ZOOKEEPER_WS_URL,
         additional_headers=headers,
