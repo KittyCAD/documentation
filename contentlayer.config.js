@@ -139,10 +139,18 @@ const Doc = defineDocumentType(() => ({
     slugs: {
       type: 'list',
       resolve: (doc) => {
-        const paths = doc._raw.sourceFilePath
+        const sourceFilePath = doc._raw.sourceFilePath
           .replace('pages/docs/', '')
           .replace(/\.(?:md|mdx)$/i, '')
-          .split('/')
+
+        const routePath = sourceFilePath.startsWith('cli/manual')
+          ? sourceFilePath.replace(
+              /^cli\/manual/,
+              'developer-tools/cli/manual'
+            )
+          : sourceFilePath
+
+        const paths = routePath.split('/')
 
         // If we end the array on "index", we remove it.
         if (paths[paths.length - 1] === 'index') {
