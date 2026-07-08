@@ -30,6 +30,9 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>--replay</code></dt>
    <dd>If true, tell engine to store a replay<br/>Default value: <code>false</code></dd>
 
+   <dt><code>--allow-errors</code></dt>
+   <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
+
    <dt><code>--angle</code></dt>
    <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways | iso</code></dd>
 
