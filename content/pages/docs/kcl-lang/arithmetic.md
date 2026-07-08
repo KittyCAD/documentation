@@ -18,7 +18,7 @@ KCL supports the usual arithmetic operators on numbers and logic operators on bo
 | `\|` | Logical 'or' |
 | `!` | Unary logical 'not' |
 
-KCL also supports comparison operators which operate on numbers and produce booleans:
+KCL also supports comparsion operators which operate on numbers and produce booleans:
 
 | Operator | Meaning |
 |----------|---------|
@@ -29,7 +29,7 @@ KCL also supports comparison operators which operate on numbers and produce bool
 | `<=` | Less than or equal |
 | `>=` | Greater than or equal |
 
-Arithmetics and logic expressions can be arbitrarily combined with the usual rules of associativity and precedence, e.g.,
+Arithmetics and logic expressions can be arbitrairly combined with the usual rules of associativity and precedence, e.g.,
 
 ```
 myMathExpression = 3 + 1 * 2 / 3 - 7
