@@ -1,0 +1,51 @@
+---
+title: Revertible AI Changes
+excerpt: Use undo and redo to move through Zookeeper edits and manual design changes.
+sidebarPosition: 3
+---
+
+Zookeeper is built for iteration. You can ask it to explore a design direction, update a project,
+create supporting files, or remove geometry, then use undo and redo to move through those changes
+alongside your manual KCL edits.
+
+This makes AI-assisted modeling easier to trust. Instead of manually tracking every file Zookeeper
+changed, you can compare the generated result against the previous design state and redo the change
+if the new direction is better.
+
+<video
+  width="100%"
+  controls
+  playsInline
+  poster="/documentation-assets/docs/zoo-design-studio/features/ml-ai/revertible-ai-changes/zookeeper-revertible-ai-changes-poster.webp"
+>
+  <source
+    src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/revertible-ai-changes/zookeeper-revertible-ai-changes.mp4"
+    type="video/mp4"
+  />
+</video>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Move backward and forward through a project-level Zookeeper edit without manually restoring each
+  file
+</div>
+
+## What undo and redo cover
+
+AI changes are recorded in your design history after Zookeeper finishes applying them. You can use
+undo and redo for:
+
+- Single-file edits.
+- Project-level edits that touch multiple KCL files.
+- Files Zookeeper creates.
+- Files Zookeeper deletes.
+- Longer-running requests that update the project over time.
+
+## How history steps work
+
+When Zookeeper changes multiple files in one request, Zoo Design Studio records the completed request
+as one history step. Undo moves the project back to the previous state. Redo reapplies the Zookeeper
+change.
+
+Manual edits remain separate history steps. For example, you can edit KCL by hand, ask Zookeeper to
+update the model, make another manual edit, then undo and redo through those changes in order.
+
+Wait for Zookeeper to finish applying the current edit before using undo or redo.
