@@ -1,0 +1,224 @@
+---
+title: STEP Import
+excerpt: Import STEP and STP files into Zoo Design Studio.
+sidebarPosition: 0
+---
+
+STEP import brings precise CAD geometry from other systems into Zoo Design Studio. Use it for
+supplier parts, mechanical assemblies, visual reference geometry, and CAD interchange with tools such
+as SolidWorks, CATIA, NX, Creo, Inventor, Fusion 360, and Onshape.
+
+Adding a STEP file to Project Files makes it available to the project. To load and display the
+geometry, reference that file from KCL with an `import` statement.
+
+## Add the STEP file to your project
+
+Before importing a STEP file, make sure it is in the Zoo Design Studio project. The simplest
+workflow is to drag the `.step` or `.stp` file directly into the Project Files panel.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/drag-and-drop-to-zds.gif"
+  alt="Dragging a STEP file into the Project Files panel in Zoo Design Studio"
+  aspect="1378 / 1216"
+  maxHeightPx={520}
+/>
+<br />
+<div>
+  Drop the STEP file into Project Files when you want Zoo Design Studio to add it to the current
+  project
+</div>
+
+You can also add the file outside Zoo Design Studio by placing it in the project folder next to
+`main.kcl`. After it is added, confirm that the STEP file appears in Project Files before
+referencing it from KCL.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/drag-and-drop-to-folder.gif"
+  alt="Dragging a STEP file into the same project folder as main.kcl"
+  aspect="1378 / 1216"
+  maxHeightPx={520}
+/>
+<br />
+<div>
+  Drag the STEP file into the project folder so it sits beside `main.kcl`
+</div>
+
+## Add the STEP import to KCL
+
+With the STEP file in Project Files, use the insert action to add the import statement to the
+active KCL file. Zoo Design Studio writes the import line for you, so you do not need to type the
+filename manually.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/import-step-to-kcl.gif"
+  alt="Using the Project Files insert action to add a STEP import statement to main.kcl"
+  aspect="1280 / 733"
+  maxHeightPx={520}
+/>
+<br />
+<div>
+  Use the insert action from Project Files to add the STEP import line to `main.kcl`
+</div>
+
+## Recommended KCL syntax
+
+The imported file path is quoted and can be aliased with `as`. For a file in a folder, use a path
+relative to the project directory, such as `"parts/flange.step"`.
+
+After import, you can transform, style, or clone the imported geometry. For example:
+
+```kcl
+@settings(kclVersion = 2.0)
+
+import "flange.step" as flange
+
+clonedFlange = clone(flange)
+  |> translate(z = 10)
+  |> appearance(color = "#1100ff")
+```
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/clone-and-translate-step.webp"
+  alt="A cloned STEP flange translated above the original flange in Zoo Design Studio"
+  aspect="2560 / 1466"
+  maxHeightPx={620}
+/>
+<br />
+<div>
+  Clone an imported STEP file when you want another instance while keeping the original as a
+  reference
+</div>
+
+You can also transform the imported file directly when you do not need the original visible as a
+reference. Use [`clone`](/docs/kcl-std/functions/std-clone) when you need another instance of the
+same imported part.
+
+## What STEP import supports
+
+STEP files can contain precise CAD boundary representation (BREP) geometry and product structure.
+Zoo Design Studio reads `.step` and `.stp` files from the native desktop app. Foreign file imports
+currently work in the desktop app, not in the browser.
+
+Imported STEP geometry:
+
+- appears as external CAD geometry in the scene
+- can be inspected, measured, translated, rotated, scaled, styled, and cloned
+- can be used as a visual reference while building native KCL geometry
+- cannot be used for boolean operations, sketch-on-face, or other modeling operations that require
+  interaction with other scene geometry
+- does not become editable KCL feature history
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/transform-step-import.webp"
+  alt="An imported STEP flange scaled, rotated, and measured in Zoo Design Studio"
+  aspect="2560 / 1466"
+  maxHeightPx={620}
+/>
+<br />
+<div>
+  Imported STEP geometry can be measured and transformed in the scene, but it remains external
+  geometry rather than editable native KCL feature history
+</div>
+
+If you need parametric edits or modeling operations that interact with other geometry, recreate the
+feature natively in KCL and use the imported STEP file as a visual reference while rebuilding the
+part.
+
+## Units and scale
+
+Zoo Design Studio currently interprets STEP numeric values in the current KCL file or scene unit. It
+does not rescale the imported geometry from STEP unit metadata. For example, if a STEP file was
+authored as a 50 mm part but the current file unit is inches, that same edge measures as 50 in after
+import.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/step-scene-unit-measure.webp"
+  alt="A 50 millimeter STEP flange imported into an inch scene and measured as 50 inches"
+  aspect="2560 / 1466"
+  maxHeightPx={620}
+/>
+<br />
+<div>
+  STEP values are interpreted in the current scene unit, so a 50 mm source model can measure as 50 in
+  when the file unit is set to inches
+</div>
+
+To preserve the intended size, set the KCL file unit to match the source CAD file before importing:
+
+```kcl
+@settings(kclVersion = 2.0, defaultLengthUnit = mm)
+
+import "flange.step" as flange
+```
+
+If you need to keep a different scene unit, scale the imported geometry after import. For a
+millimeter-authored STEP file in an inch scene, scale by `1 / 25.4`:
+
+```kcl
+@settings(kclVersion = 2.0, defaultLengthUnit = in)
+
+import "flange.step" as flange
+
+mmToIn = 1 / 25.4
+
+flangeInInches = flange
+  |> scale(x = mmToIn, y = mmToIn, z = mmToIn)
+```
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/step-scaled-to-inches.webp"
+  alt="A millimeter STEP flange scaled in an inch scene and measured as 1.9685 inches"
+  aspect="2560 / 1466"
+  maxHeightPx={620}
+/>
+<br />
+<div>
+  After scaling by `1 / 25.4`, the 50 mm source edge measures about 1.9685 in
+</div>
+
+STEP does not use the KCL `lengthUnit` import attribute. That override is for formats documented with
+custom length-unit support, such as STL, OBJ, and PLY.
+
+## Troubleshooting "import failed"
+
+STEP import is still a work in progress. Some files can fail to import, especially files with many
+surfaces, faces, or complex topology.
+
+To isolate whether the failure is project setup or the STEP importer, try importing a small
+known-good STEP file in the same project. You can use this sample:
+<a
+  href="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/flange.step"
+  download
+>
+  Download flange.step
+</a>
+
+If the simple STEP file imports successfully, the project setup, file placement, and KCL import
+syntax are probably correct. The failing file is then more likely to be hitting a Zoo Design Studio
+importer issue.
+
+Please contact support and file a bug when STEP import fails. Include the STEP file when you can, so
+the Zoo team can reproduce the failure and improve the importer.
+
+## What to send support
+
+For confidential models, do not post STEP files publicly. Contact support and share the file through
+the secure process they provide.
+
+Include:
+
+- Zoo Design Studio version and whether you are using the desktop app or browser
+- operating system and version
+- the STEP file, when it can be shared
+- the STEP file size and source CAD system
+- the export settings used, if known
+- the exact KCL import line
+- whether smaller STEP files import successfully in the same project
+- screenshots or text from the error marker, if available
+
+Support channels:
+
+- [Zoo Community Forum](https://community.zoo.dev/) for workflow questions and public discussion.
+- [Discord](https://discord.gg/JQEpHR7Nt2) for faster back-and-forth with the team and other users.
+- [GitHub](https://github.com/KittyCAD/modeling-app/issues/new) for public bug reports.
+- [Support form](/contact?type=support) for direct support.
