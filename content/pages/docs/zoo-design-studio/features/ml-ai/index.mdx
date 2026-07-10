@@ -45,3 +45,37 @@ than a text-only instruction.
 explore larger Zookeeper edits with undo and redo. Use it to compare an AI-generated result against
 the previous design state, move through manual and AI edits together, and restore files created or
 deleted by Zookeeper.
+
+## Troubleshooting unexpected Zookeeper behavior
+
+If Zookeeper takes a strange path, gets stuck, or produces a result that should have been simpler,
+ask it why. The answer can give useful context for your next step and help decide whether the
+behavior should be reported. For example:
+
+> This should have been a simple two-feature operation, but it took much longer and produced poor
+> results. What pushed you toward that strategy?
+
+That reply can help separate prompt ambiguity from a connection or runtime issue, reasoning failure,
+KCL or modeling-kernel issue, or system-prompt problem.
+
+If it still looks like a product issue, use **Export conversation** from the Zookeeper menu and send
+the export with what you expected and what happened. The export lets Zoo engineers inspect the
+reasoning, map it back to the actual steps Zookeeper took, and make targeted fixes.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/ml-ai/zookeeper-export-conversation.webp"
+  alt="Zookeeper menu showing the Export conversation action"
+  aspect="888 / 474"
+  maxHeightPx="360"
+/>
+<br />
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Export the Zookeeper conversation when you need to report unexpected behavior
+</div>
+
+Support channels:
+
+- [Zoo Community Forum](https://community.zoo.dev/) for workflow questions and public discussion.
+- [Discord](https://discord.gg/JQEpHR7Nt2) for faster back-and-forth with the team and other users.
+- [GitHub](https://github.com/KittyCAD/modeling-app/issues/new) for public bug reports.
+- [Support form](/contact?type=support) for direct support.
