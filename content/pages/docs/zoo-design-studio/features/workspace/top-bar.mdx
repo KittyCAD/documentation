@@ -6,7 +6,7 @@ sidebarPosition: 10
 
 The Top Bar is the always-visible bar at the top of Zoo Design Studio while you are working in a
 project. It gives you quick access to project navigation, undo and redo controls, the Command Bar,
-sharing, and account actions.
+publishing, and account actions.
 
 ## Left to Right Layout
 
@@ -22,6 +22,7 @@ It contains:
 The project dropdown can include:
 
 - `Project settings`, with its keyboard shortcut
+- `Reveal in file explorer`, on desktop
 - `Add file to project`, with its keyboard shortcut
 - `Export current part`, with its keyboard shortcut
 - `Make current part`, on desktop
@@ -46,21 +47,24 @@ The Command Bar button opens the Command Bar for fast search and execution of co
 It shows the command shortcut in the button, such as `Cmd+K` on macOS or `Ctrl+K` on Windows and
 Linux.
 
-### Share Button
+### Publish Button
 
-The Share button opens sharing actions for the current part or file.
+The `Publish` button opens the Aquarium submission form for the current project. Add a title,
+description, and at least one category, then select `Submit for review`. Zoo Design Studio uploads
+the whole project, including files in subfolders.
 
-The main action is:
+You must be signed in and have a Zoo username before publishing. The button is disabled when the
+current KCL file is empty or contains errors. Existing submissions can be edited and sent again with
+`Update submission`.
 
-- `Share part via Zoo link`
+See [Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) for the complete publishing
+and review workflow.
 
-Depending on account type, the share menu can also include:
+### Project Share Links
 
-- Organization-only access
-- Password protection for the shared link
-
-This button is hidden on smaller layouts, and share links are currently unavailable for multi-file
-assemblies.
+Zoo Design Studio does not currently create direct project share links. To share a project publicly,
+publish it to Aquarium and use its public Aquarium URL after approval. Aquarium publishing is
+public and does not replace private or organization-restricted sharing.
 
 ### User Menu
 
@@ -89,13 +93,13 @@ The Top Bar typically appears in this order:
 1. Project area
 2. Undo, redo, and reload
 3. Command Bar
-4. Share
+4. Publish
 5. User menu
 
 ## Platform and Layout Notes
 
 - The exact arrangement changes slightly with screen size and platform
-- The Share button is hidden in smaller layouts
+- The Publish button is hidden in smaller layouts
 - Desktop-only actions such as `Make current part`, `Go to Home`, `New Window`, and `Check for updates` are not
   shown in the web version
 

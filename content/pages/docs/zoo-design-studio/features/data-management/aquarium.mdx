@@ -5,7 +5,8 @@ sidebarPosition: 4
 ---
 
 Aquarium is Zoo's public CAD gallery for discovering, viewing, and sharing models. Use it when you
-want a model to be browsable outside your local project workflow.
+want a model to be browsable outside your local project workflow. Projects are submitted from Zoo
+Design Studio and become public after Aquarium review.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/aquarium/aquarium-gallery.webp"
@@ -22,6 +23,29 @@ want a model to be browsable outside your local project workflow.
 An Aquarium model page gives the model a public destination that can be opened in a browser. Use it
 for examples, demos, tutorials, and models you want other people to inspect.
 
+## Publish a Project
+
+Before publishing, make sure you are signed in, have a username set on your Zoo account, and have a
+non-empty KCL file without errors open in the project. The `Publish` button is disabled when the
+current KCL file is empty or has errors.
+
+To submit a project:
+
+1. Open the project in Zoo Design Studio.
+2. Select `Publish` in the Top Bar.
+3. Enter a title and description.
+4. Select at least one Aquarium category.
+5. Review the Aquarium terms, then select `Submit for review`.
+
+Zoo Design Studio uploads the complete project, including files in subfolders, rather than only the
+KCL file currently open. The app confirms whether the project was published or submitted for
+review.
+
+If the project has already been submitted, the dialog restores its publication details and shows
+the last submission date. Edit the details and select `Update submission` to send a new version.
+When reviewers request changes, Zoo Design Studio shows their feedback when you open the project;
+update the project and submit it again to return it to the review queue.
+
 ## Model Files
 
 Keep the model files organized before publishing. Clear names, stable KCL files, and meaningful
@@ -30,7 +54,8 @@ parameters make the shared model easier to understand and reuse.
 ## Sharing
 
 Share the Aquarium URL when you want someone to view the model without sending a project folder
-directly.
+directly. Direct project share-link creation is not currently supported in Zoo Design Studio. Use
+`Publish` to submit a project to Aquarium, then share its public Aquarium URL after it is approved.
 
 ## Terms
 
