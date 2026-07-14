@@ -1,17 +1,21 @@
 ---
 title: Cookie
-excerpt: A bit of data stored in your browser for a site to remember you by
+excerpt: Data stored by a website in your browser
 synonyms:
-    - tracker
-    - trackers
-    - session cookie
-    - session cookies
+  - tracker
+  - trackers
+  - session cookie
+  - session cookies
 domains:
-    - software-engineering
+  - software-engineering
 ---
 
-A cookie in the web development refers to a bit of data that a website or web service is allowed to save in your browser to remember who you are while you browse.
+A cookie is a small piece of data that a website or web service stores in your browser. Cookies can maintain a session, remember a preference, provide security, or support analytics and advertising.
 
-The term "tracker" usually refers to marketing analytics cookies—like those from Google and other ad companies—that identify your web identity and sell your trail of cookies across the web, because they are worth more as a whole than they are on their own. This is bad and we at Zoo don't like it, so zoo.dev doesn't use any third-party analytics or advertising trackers.
+A cookie is not necessarily a tracker, and a tracker does not necessarily use cookies. Tracking technologies can also include pixels, scripts, and other forms of browser storage. Some trackers measure how people use a website or whether an advertising campaign resulted in a visit or signup.
 
-We use cookies to validate sessions when working with the Zoo API. When you access certain services from our API, we send back a session cookie, and then ask for it back periodically to ensure it's still really you asking for our services. You as a developer have to keep our cookie around to send back to us and revalidate your session.
+Zoo uses necessary cookies and browser storage for purposes such as authentication, security, and remembering privacy preferences. When you access certain Zoo API services, Zoo may provide a session cookie. Your browser or API client must preserve and return that cookie so the service can validate your session.
+
+With your permission, the zoo.dev website may also use optional analytics and advertising technologies to understand how visitors use the site, improve Zoo’s products, and measure campaigns. These optional technologies remain off unless you allow them.
+
+For more information about Zoo’s use of cookies and other technologies, including your available choices, see our [Privacy Policy](/privacy-policy).
