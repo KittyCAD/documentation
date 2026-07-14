@@ -1,0 +1,75 @@
+---
+title: Export to Slicer
+excerpt: Export a model as STL and open it directly in a supported slicer.
+sidebarPosition: 3
+---
+
+Export to Slicer sends the current model from Zoo Design Studio directly to a desktop slicing
+application. Zoo Design Studio creates an STL file, saves it in its application data, and opens the
+file in the slicer you select.
+
+This workflow is available in the Zoo Design Studio desktop app on macOS, Windows, and Linux. It is
+not available in the browser version.
+
+## Before you begin
+
+Install one of the supported slicers in its usual application location or make its executable
+available on your system `PATH`:
+
+- [PrusaSlicer](https://www.prusa3d.com/page/prusaslicer_424/)
+- [UltiMaker Cura](https://ultimaker.com/software/ultimaker-cura/)
+
+Open a project with a valid, non-empty model and make sure Zoo Design Studio is connected to the
+modeling engine.
+
+## Enable slicer export
+
+Slicer export is an optional plugin and is turned off by default.
+
+1. Open `Settings`.
+2. Select the `Plugins` tab.
+3. Turn on `Slicer export`.
+
+The `Export to Slicer` action, shown with a 3D-printer icon, appears at the end of the left Toolbar.
+The command also becomes available from the Command Bar.
+
+## Export a model to a slicer
+
+1. Click `Export to Slicer` in the left Toolbar, or open the Command Bar and search for `Export to
+   Slicer`.
+2. Select `PrusaSlicer` or `UltiMaker Cura`.
+3. Confirm the command.
+
+Zoo Design Studio exports the current model as an ASCII STL with millimeter coordinates, then
+launches the selected slicer and opens the exported file. STL does not store unit metadata, so
+confirm that the slicer interprets the model dimensions as millimeters.
+
+Export to Slicer transfers the model geometry but does not choose printer, material, support, or
+other slicing settings and does not generate G-code. Configure those options in the slicer before
+printing.
+
+## Troubleshooting
+
+### The command or Toolbar action is missing
+
+Use the desktop app and confirm that `Slicer export` is turned on under `Settings` → `Plugins`. The
+feature is not shown in the browser version.
+
+### The Toolbar action is disabled
+
+Wait for the model to finish executing and check the modeling-engine connection. Export requires an
+active engine connection.
+
+### The model does not export
+
+Resolve any KCL errors and confirm that the scene contains geometry. Zoo Design Studio does not
+export an empty scene or a model with KCL errors.
+
+### The slicer is not found
+
+Confirm that the selected slicer is installed in a standard application location or available on
+your system `PATH`. When Zoo Design Studio cannot find the slicer, the error message includes the
+path to the exported STL so you can open it manually.
+
+For a regular file export that does not launch a slicer, use
+[Export Mesh](/docs/zoo-design-studio/features/data-management/export/export-mesh).
