@@ -46,6 +46,16 @@ You can extrude multiple body edges together, but you cannot mix body edges with
 profiles in the same `extrude` call. Use separate extrusions instead.
 
 <FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude/select-body-edge.webp"
+  alt="An edge selected on an existing body for surface extrusion"
+  aspect="1 / 1"
+  maxHeightPx={420}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Selected body edge
+</div>
+
+<FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude/select-segment.webp"
   alt="Extrude surface with a selected segment"
   aspect="1696 / 2536"
@@ -73,6 +83,26 @@ Use `direction` to override that default. In the command palette, select a sketc
 existing body edge to supply the direction. In KCL, `direction` also accepts a three-component
 vector, a tagged edge, or an edge returned by an edge query. The selected curve supplies only its
 direction; `length` still controls how far the profile is extruded.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude/edge-extrude.webp"
+  alt="A body edge extruded with its inferred direction"
+  aspect="1 / 1"
+  maxHeightPx={360}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Body edge extruded in the inferred direction
+</div>
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude/edge-extrude-direction.webp"
+  alt="A body edge extruded with a custom direction"
+  aspect="1 / 1"
+  maxHeightPx={360}
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  The same edge extruded with <code>direction = [1, 0, 1]</code>
+</div>
 
 For example, all of these forms are valid:
 
