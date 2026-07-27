@@ -82,6 +82,17 @@ When creating a non-symmetric bidirectional extrusion, this sets how far to extr
     In this example, the extrude uses two different lengths: 5mm in one direction and 2mm in the other. This allows you to create features that extend unequally from the sketch, giving you more control and flexibility for asymmetric or custom shapes.
 </div>
 
+## Direction
+
+By default, a sketch profile extrudes perpendicular to its sketch plane. Set `direction` when the
+extrusion should follow a different vector. In the command palette, select a sketch segment or an
+existing body edge to define that direction. In KCL, you can also pass a three-component vector, a
+tagged edge, or an edge returned by an edge query.
+
+The direction reference sets the extrusion's orientation; `length` still sets its distance. The
+same parameter is available when [extruding a surface or body
+edge](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/create-surfaces/extrude).
+
 ## Start Tag and End Tag
 Apply tags to the start face (your original sketch plane) or end face (the extruded cap) to reference them in later operations. This is mainly used for referencing faces from other objects or features, especially in code or scripts. In the usual point-and-click UI flow, you don't need to set these tags. This is mostly for advanced users who want precise control or automation.
 
@@ -196,6 +207,9 @@ extrudes, not the boundary segments.
 be used with `length` or `twistAngle`.
 
 `symmetric`: Splits the extrusion equally to both sides of the sketch plane.
+
+`direction`: Overrides the sketch plane normal. Accepts a 3D vector, sketch segment, body edge,
+tagged edge, or queried edge.
 
 `bidirectionalLength`: Adds a second extrusion distance in the opposite direction. Ignored when
 `symmetric` is enabled.
