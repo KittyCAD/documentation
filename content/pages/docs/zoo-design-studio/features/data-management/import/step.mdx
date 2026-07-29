@@ -1,8 +1,13 @@
 ---
-title: STEP Import
-excerpt: Import STEP and STP files into Zoo Design Studio.
+title: STEP Import (Experimental)
+excerpt: Experimental support for importing STEP and STP files into Zoo Design Studio.
 sidebarPosition: 0
 ---
+
+> 🧪 **Experimental feature:** STEP import is under active development and currently supports
+> read-only 3D geometry. Imported STEP geometry cannot be edited in Zoo Design Studio, and 2D STEP
+> drawings are not supported. Some files may fail to import, especially files with complex geometry,
+> and behavior may change as the importer improves.
 
 STEP import brings precise CAD geometry from other systems into Zoo Design Studio. Use it for
 supplier parts, mechanical assemblies, visual reference geometry, and CAD interchange with tools such
@@ -96,17 +101,19 @@ same imported part.
 ## What STEP import supports
 
 STEP files can contain precise CAD boundary representation (BREP) geometry and product structure.
-Zoo Design Studio reads `.step` and `.stp` files from the native desktop app. Foreign file imports
-currently work in the desktop app, not in the browser.
+Zoo Design Studio imports 3D geometry from `.step` and `.stp` files in the native desktop app. It
+does not support importing 2D drawings from STEP files. Foreign file imports currently work in the
+desktop app, not in the browser.
 
 Imported STEP geometry:
 
 - appears as external CAD geometry in the scene
 - can be inspected, measured, translated, rotated, scaled, styled, and cloned
 - can be used as a visual reference while building native KCL geometry
+- cannot be edited directly after import; make changes in the source CAD system and reimport the file,
+  or recreate the geometry natively in KCL
 - cannot be used for boolean operations, sketch-on-face, or other modeling operations that require
   interaction with other scene geometry
-- does not become editable KCL feature history
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/transform-step-import.webp"
