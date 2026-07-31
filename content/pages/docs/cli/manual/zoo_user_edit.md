@@ -9,6 +9,9 @@ Edit user settings.
 ### Options
 
 <dl class="flags">
+   <dt><code>-a/--allow-pay-as-you-go</code></dt>
+   <dd>Whether the user has opted into pay-as-you-go charges after using their included credits<br/>Possible values: <code>true | false</code></dd>
+
    <dt><code>-c/--company</code></dt>
    <dd>The user's company</dd>
 

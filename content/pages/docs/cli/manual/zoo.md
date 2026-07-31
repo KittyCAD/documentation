@@ -15,7 +15,6 @@ Work seamlessly with Zoo from the command line
 * [zoo auth](./zoo_auth)
 * [zoo completion](./zoo_completion)
 * [zoo config](./zoo_config)
-* [zoo drake](./zoo_drake)
 * [zoo file](./zoo_file)
 * [zoo generate](./zoo_generate)
 * [zoo kcl](./zoo_kcl)
