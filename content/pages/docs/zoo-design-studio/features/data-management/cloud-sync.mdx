@@ -42,6 +42,26 @@ Cloud projects can appear in several states:
 | Cloud sync blocked | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account does not have write access. |
 | Cloud conflict | Local and cloud data both changed since the last synced version and need manual resolution. |
 
+## Automatic Merging
+
+Cloud sync can automatically merge simple project changes when local files and cloud files changed
+in different places after the last synced version.
+
+For example, if you edit `main.kcl` locally while another Zoo surface adds `mount.kcl` in the cloud,
+Zoo Design Studio can keep your local `main.kcl`, download the cloud-only `mount.kcl`, upload the
+combined project snapshot, and continue syncing without asking you to resolve a conflict.
+
+Automatic merging is intentionally conservative:
+
+- If only the local copy changed a file, Zoo Design Studio keeps the local file.
+- If only the cloud copy changed a file, Zoo Design Studio uses the cloud file.
+- If both copies changed the same file to the same contents, Zoo Design Studio accepts that file.
+- If both copies changed the same file differently, Zoo Design Studio shows a cloud sync conflict.
+
+Cloud sync does not perform line-by-line or semantic code merges inside a `.kcl` file. Use Git or
+another version-control tool when you need intentional history, branches, code review, or manual
+same-file merging.
+
 ## Start Syncing
 
 To start syncing a local Directory project, move it to `Personal Cloud`:
@@ -79,7 +99,7 @@ that Directory library unless you move the project back to `Personal Cloud`.
 ## Resolve Conflicts
 
 A cloud sync conflict happens when the local project and the cloud project both changed after the
-last synced version, and Zoo Design Studio cannot choose one without risking data loss.
+last synced version, and Zoo Design Studio cannot safely combine the changes automatically.
 
 When a conflict is detected:
 
