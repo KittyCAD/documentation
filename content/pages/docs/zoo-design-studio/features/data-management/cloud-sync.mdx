@@ -7,33 +7,40 @@ sidebarPosition: 4
 Cloud sync keeps Zoo Design Studio projects available through your Zoo account while preserving the
 project files you work with locally.
 
-The sync model follows the same project-library principles:
+It is built around the same file-based project model as
+[Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries):
 
-- Local reads and writes happen first.
-- Project contents are ordinary files, including human-readable KCL and `project.toml`.
-- Cloud sync runs in the background and uploads or downloads whole project snapshots.
-- Sync failures do not remove local files or block local edits.
+- A project is still a directory with `project.toml` and at least one `.kcl` file.
+- KCL and project metadata are still readable outside Zoo Design Studio.
+- Local file changes happen first.
+- Cloud sync runs in the background and uploads or downloads project snapshots.
 
-**Screenshot placeholder:** Add a screenshot of the status bar showing `Cloud synced`, `Cloud sync
-pending`, or `Cloud syncing`.
+Cloud sync is not version control. It keeps project copies available across Zoo surfaces, while Git
+or another version-control tool records intentional history and code review.
+
+{/* IMAGE PLACEHOLDER: Status bar showing Cloud synced, Cloud sync pending, or Cloud syncing. */}
 
 ## How Cloud Sync Works
 
-When cloud sync is enabled, Zoo Design Studio watches project file changes and queues cloud work in
+When cloud sync is enabled, Zoo Design Studio watches project file changes and queues sync work in
 the background. Creating, editing, renaming, and deleting project files still happens locally first.
-The sync engine then reconciles those local changes with the Zoo cloud project.
+Zoo Design Studio then reconciles those local files with the matching project in Zoo cloud.
 
-Projects can appear in several cloud states:
+On desktop, synced projects live in a managed Personal Cloud folder on your computer. You can see
+that path in User Settings under `Projects` > `Project Libraries`, then reveal it in your file
+explorer.
+
+Cloud projects can appear in several states:
 
 | State | Meaning |
 | --- | --- |
-| `Cloud-only` | The project exists in Zoo cloud and has not been downloaded on this device yet. Opening it creates a local working copy. |
-| `Syncing` | Zoo Design Studio is uploading or downloading project data. |
-| `Synced` | Local files and the cloud project are up to date. |
-| `Cloud sync pending` | Local changes are queued for upload. |
-| `Cloud sync failed` | Sync could not complete and will be retried. |
-| `Cloud sync blocked` | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account lacks write access. |
-| `Conflicted` | Local and cloud data both changed since the last synced version and need manual resolution. |
+| Cloud-only | The project exists in Zoo cloud and has not been downloaded on this device yet. Opening it creates a local working copy. |
+| Cloud synced | Local files and the cloud project are up to date. |
+| Cloud sync pending | Local changes are queued for upload. |
+| Cloud syncing | Zoo Design Studio is uploading or downloading project data. |
+| Cloud sync failed | Sync could not complete and will be retried. Your local files remain available. |
+| Cloud sync blocked | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account does not have write access. |
+| Cloud conflict | Local and cloud data both changed since the last synced version and need manual resolution. |
 
 ## Start Syncing
 
@@ -51,8 +58,7 @@ a local working copy for normal editing.
 Creating a project directly in `Personal Cloud` also starts it as a synced project. In the browser,
 Personal Cloud is the only project library, so projects are cloud-backed by default.
 
-**Screenshot placeholder:** Add a screenshot of the `Move to library` workflow with `Personal Cloud`
-selected as the destination.
+{/* VIDEO PLACEHOLDER: Moving a Directory project to Personal Cloud and watching the sync status reach Cloud synced. */}
 
 ## Stop Syncing
 
@@ -64,14 +70,13 @@ To make a synced project local-only, move it from `Personal Cloud` to a Director
 3. Choose a Directory library as the destination.
 4. Confirm the move.
 
-Zoo Design Studio moves the project into the selected local library and stops cloud sync for that
-project. Future edits happen only in the local Directory library unless you move the project back to
-`Personal Cloud`.
+Zoo Design Studio disconnects the project from cloud sync and moves the files into the selected
+local library. The moved local copy is the project that remains, and future edits happen only in
+that Directory library unless you move the project back to `Personal Cloud`.
 
-**Screenshot placeholder:** Add a screenshot of the `Move to library` workflow with a Directory
-library selected as the destination.
+{/* VIDEO PLACEHOLDER: Moving a Personal Cloud project into a Directory library to make it local-only. */}
 
-## Identify Conflicts
+## Resolve Conflicts
 
 A cloud sync conflict happens when the local project and the cloud project both changed after the
 last synced version, and Zoo Design Studio cannot choose one without risking data loss.
@@ -83,38 +88,34 @@ When a conflict is detected:
 - The status bar shows `Cloud conflict`.
 - The project menu shows `Inspect Conflicts`.
 
-Zoo Design Studio keeps your current local project as the primary project. The cloud version is saved
-locally as a separate conflict copy with a name like `project-name (cloud conflict
-YYYYMMDDTHHMMSS)`.
+Zoo Design Studio keeps your current local project as the primary project while you review the
+conflict.
 
-**Screenshot placeholder:** Add a screenshot of a conflicted project card and the status bar conflict
-indicator.
+{/* IMAGE PLACEHOLDER: Home project card and status bar showing Cloud conflict. */}
 
-## Resolve Conflicts
+Open the conflict dialog from the project menu or from the cloud sync status UI. The dialog compares
+the local version and the cloud version file by file.
 
-Open the conflict dialog from the project menu or from the cloud sync status UI.
-
-The conflict dialog lists changed files and labels each file as:
+Files are labeled as:
 
 - `Changed`, when local and cloud both have the file but with different contents.
 - `Only local`, when the file exists only in the local project.
-- `Only cloud`, when the file exists only in the saved cloud copy.
+- `Only cloud`, when the file exists only in the cloud project.
 
 Text files, including `.kcl` and Markdown files, show a side-by-side diff when possible. Large,
 binary, or non-UTF-8 files may show file metadata without an inline diff.
 
 Choose one resolution:
 
-- `Use local data` uploads the current local project to the cloud and removes the saved conflict
-  copy.
-- `Use cloud data` replaces the local project with the saved cloud version and resumes sync from
-  that version.
+- `Use local data` uploads the current local project to the cloud, clears the conflict, and resumes
+  sync from the local version.
+- `Use cloud data` replaces the local project with the cloud version shown in the dialog, clears the
+  conflict, and resumes sync from the cloud version.
 
 If you need to combine both versions, manually copy or edit the files you want into the local
 project first, then choose `Use local data`.
 
-**Screenshot placeholder:** Add a screenshot of the conflict dialog showing the changed-files table
-and the `Use local data` / `Use cloud data` actions.
+{/* IMAGE PLACEHOLDER: Conflict dialog showing changed files and the Use local data / Use cloud data actions. */}
 
 ## Related
 
