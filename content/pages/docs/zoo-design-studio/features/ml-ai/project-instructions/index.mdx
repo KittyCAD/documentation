@@ -1,0 +1,87 @@
+---
+title: Project Instructions
+excerpt: Give Zookeeper durable project-specific preferences with AGENTS.md.
+sidebarPosition: 4
+---
+
+Use an `AGENTS.md` file for instructions that should apply whenever Zookeeper works in a particular
+project. This keeps project conventions with the model instead of repeating them in every prompt.
+
+Project instructions are useful for preferences such as:
+
+- Default units and dimensional conventions.
+- Naming, comments, and file organization.
+- Manufacturing assumptions or required clearances.
+- Whether reusable geometry should use custom KCL functions.
+- Features or files that Zookeeper should preserve during edits.
+
+One-off design requests still belong in the chat. KCL syntax and general language rules belong in
+the [KCL documentation](/docs/kcl-lang), where both people and Zookeeper can find the same answer.
+
+## Create the file
+
+The filename is case-sensitive and must be exactly `AGENTS.md`. Put it at the project root so its
+scope is unambiguous. You can create and edit the file without leaving Zoo Design Studio:
+
+1. Open the **Project Files** pane.
+2. Click empty space in the file tree to clear any nested selection, or select a root-level file
+   such as `main.kcl`. New files are created inside the selected folder or next to the selected file.
+3. Click the file-plus button (**New File...**) in the pane header.
+4. Enter `AGENTS.md` and press **Enter**. Including the `.md` extension prevents Zoo Design Studio
+   from adding the default `.kcl` extension.
+5. Select `AGENTS.md` in the project tree. It opens as Markdown in the **Code Editor** pane.
+6. Add the project instructions. Changes are saved to the project automatically. Wait at least one
+   second after your last edit, or switch files to flush it immediately, before asking Zookeeper to
+   use the new instructions.
+
+You can also ask Zookeeper to create or update the file, for example:
+
+> Create an AGENTS.md for this project. Use millimeters, use lower camel case names, preserve the
+> mounting interface during edits, and use custom functions for parameterized features that repeat
+> at different sizes.
+
+In the desktop app, [Reveal in file explorer](/docs/zoo-design-studio/features/workspace/file-explorer)
+lets you edit the same file with an external text editor instead.
+
+## Write outcome-focused instructions
+
+State the convention or invariant once and explain the reason when it changes how the model should
+be structured. Keep instructions specific to the project.
+
+```md
+# Project Instructions
+
+- Use millimeters for all dimensions.
+- Keep the four-hole mounting interface unchanged unless the user explicitly asks to edit it.
+- Name KCL values in lower camel case from their mechanical purpose.
+- Put each manufactured assembly component in its own KCL file and assemble them in main.kcl.
+- Use custom functions when the same parameterized feature repeats at different dimensions.
+- State material and tolerance assumptions in comments near the relevant parameters.
+```
+
+Avoid copying API reference material into `AGENTS.md`. Link to the relevant KCL documentation or
+describe the desired outcome instead. This keeps instructions short and prevents project guidance
+from becoming stale as KCL changes.
+
+Do not put credentials, access tokens, or other secrets in project instructions.
+
+## Precedence and scope
+
+Zookeeper treats `AGENTS.md` as project preferences. System safety and product constraints still
+take precedence, so conflicting project instructions are ignored.
+
+If a project contains more than one `AGENTS.md`, Zookeeper uses the file closest to the project
+root. Prefer a single root file until directory-specific instruction scopes are supported.
+
+The file affects Zookeeper's work in that project. It does not change global Zoo Design Studio
+settings or automatically apply to other projects.
+
+## Custom functions and editability
+
+Custom KCL functions are useful for a parameterized feature that repeats with different inputs.
+However, point-and-click tools cannot currently edit sketches inside custom function bodies. Keep
+sketches at the top level when point-and-click editing is more important than reuse. Use `AGENTS.md`
+to choose the default that fits the project, and override it in chat for a specific task when
+needed.
+
+See [KCL Functions](/docs/kcl-lang/functions) for function syntax and reuse options.
