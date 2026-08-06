@@ -63,6 +63,27 @@ This process produces real models with a full feature tree and editable paramete
 
 You set intent and constraints; Zookeeper handles the repetitive, low-level edits. It can also generate parametric variants on demand to compare options.
 
+### Keep project preferences with the project
+
+Follow-up prompts are best for instructions that apply to the current task. For conventions that
+should apply every time Zookeeper works in a project, add an `AGENTS.md` file. Project instructions
+can define defaults such as units, naming, comments, manufacturing assumptions, or when Zookeeper
+should use custom KCL functions.
+
+See [Project Instructions](/docs/zoo-design-studio/features/ml-ai/project-instructions) for the file
+format, examples, and precedence rules.
+
+### Choose reuse or point-and-click sketch editing
+
+Zookeeper keeps sketches at the top level by default because Zoo Design Studio's point-and-click
+tools cannot currently edit sketches inside custom KCL function bodies. Ask for custom functions,
+or set that preference in `AGENTS.md`, when reusable parameterized features matter more than
+point-and-click access to their internal sketches.
+
+For KCL details, see [Functions](/docs/kcl-lang/functions), the
+[solver module](/docs/kcl-std/modules/std-solver), and
+[`region`](/docs/kcl-std/functions/std-sketch-region).
+
 ## Model-Aware Tools
 
 Beyond geometry creation, the agent has access to tools that extract quantitative, model-derived information directly from the CAD model.
