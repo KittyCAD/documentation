@@ -41,6 +41,10 @@ library does not delete the projects on disk.
 Use Directory libraries when you want full control over where projects live, how they are backed up,
 or how they fit into other tools.
 
+A Directory library can also show a project folder that is linked to a Zoo cloud project. In that
+case, the folder is still owned by the Directory library for local actions such as delete. Deleting
+that Directory library copy removes the local folder, not the cloud project.
+
 ### Cloud Libraries
 
 A Cloud library points to projects served from Zoo's API. The cloud library you see today is
@@ -94,6 +98,19 @@ This is the preferred way to move projects between libraries. It lets Zoo Design
 project files, library membership, and cloud sync metadata together.
 
 {/* VIDEO PLACEHOLDER: Moving a local project into Personal Cloud, then moving it back to a Directory library. */}
+
+## Delete Projects from Libraries
+
+Deleting a project follows the library it belongs to:
+
+- Deleting from a Directory library removes the local project folder.
+- Deleting a cloud-backed copy from a Directory library still removes only that local folder. The
+  cloud project remains available in `Personal Cloud`.
+- Deleting from `Personal Cloud` deletes the cloud project and removes the local working copy on the
+  current device when one exists.
+
+Zoo Design Studio shows different delete confirmation copy when a Directory library delete will keep
+the cloud version.
 
 ## Related
 

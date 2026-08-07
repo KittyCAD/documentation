@@ -42,6 +42,32 @@ Cloud projects can appear in several states:
 | Cloud sync blocked | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account does not have write access. |
 | Cloud conflict | Local and cloud data both changed since the last synced version and need manual resolution. |
 
+## Duplicate Local Copies
+
+A cloud project can have more than one local copy. This can happen if you copy a synced project
+folder in Finder or File Explorer, restore one from a backup, or keep overlapping project library
+folders that both include the same project.
+
+Zoo Design Studio tracks this as one cloud project with one or more local copies. Home picks one
+canonical copy to open and sync from, then marks extra copies with a `Duplicate copies` badge.
+
+Duplicate copies are handled conservatively:
+
+- The canonical copy is kept.
+- Extra local copies are not hidden just because they share the same cloud project ID.
+- Directory library copies are not silently deleted.
+- Zoo Design Studio may clean up an exact duplicate in the cloud library only when it can prove that
+  copy matches the clean synced version.
+- Pending, conflicted, unreadable, tombstoned, sync-excluded, or changed copies stay available for
+  review.
+
+Use `Review duplicate copies` from the project card context menu to inspect duplicate local folders.
+You can select duplicate folders to permanently delete, and Zoo Design Studio will still keep the
+canonical folder. This review action removes selected local folders; it does not delete the cloud
+project.
+
+{/* IMAGE PLACEHOLDER: Project card showing the Duplicate copies badge and Review duplicate copies action. */}
+
 ## Automatic Merging
 
 Cloud sync can automatically merge simple project changes when local files and cloud files changed
@@ -95,6 +121,20 @@ local library. The moved local copy is the project that remains, and future edit
 that Directory library unless you move the project back to `Personal Cloud`.
 
 {/* VIDEO PLACEHOLDER: Moving a Personal Cloud project into a Directory library to make it local-only. */}
+
+## Delete Synced Projects
+
+Deleting a cloud-backed project follows the library that owns the project card.
+
+If you delete a project from `Personal Cloud`, Zoo Design Studio deletes the cloud project. If the
+project has a local working copy on that device, the local working copy is removed too.
+
+If you delete a cloud-backed project from a Directory library, Zoo Design Studio deletes only that
+local folder. The cloud project remains in your Zoo account, and the delete dialog says that the
+cloud version will not be deleted.
+
+This is different from `Move to library`. Use `Move to library` when you want to change where a
+project belongs. Use delete when you want to remove the project card from its current library.
 
 ## Resolve Conflicts
 
