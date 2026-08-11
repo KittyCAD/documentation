@@ -15,7 +15,7 @@ The Project Browser is your home screen for project-level work.
 
 ## What You Can Do
 
-- See all projects in your current project directory.
+- See projects grouped by [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries).
 - Search projects by name.
 - Sort projects by `Name` or `Last Modified`.
 - Create a project.
@@ -23,7 +23,11 @@ The Project Browser is your home screen for project-level work.
 - Open a project.
 - Duplicate a project.
 - Rename or delete a project (if you have write access).
-- Jump to project directory settings.
+- Move projects between libraries.
+- Review duplicate local copies of the same cloud project.
+- Open Project Libraries settings.
+- Inspect cloud sync status badges, including cloud-only, synced, blocked, conflicted, and duplicate
+  projects.
 
 ## Duplicate a Project
 
@@ -36,7 +40,7 @@ From the Project Browser:
 1. Right-click the project card.
 2. Select **Duplicate project**.
 
-From an open project, open the project menu next to the project name in the left sidebar and select
+From an open project, open the project menu next to the project name in the top bar and select
 **Duplicate project**. In the desktop app, you can also select **File → Duplicate Project**.
 
 The copy is named after the original project with `-copy` appended. If that name is already in use,
@@ -45,9 +49,16 @@ Zoo Design Studio adds a number, such as `-copy-1` or `-copy-2`.
 ## What You Cannot Do
 
 - Open a project card that does not have write access.
-- Rename a project to a name that starts with `.`.
 
 ## Key Differences in This Area
 
 - Work starts from a project dashboard, not from a single-file open flow.
 - Project metadata (preview, file count, edit time) is part of the default start experience.
+- Cloud projects can appear before they are downloaded locally; opening one creates a local working
+  copy first.
+- A cloud project can have duplicate local copies. The Project Browser keeps the canonical copy
+  clear, shows duplicate copies for review, and does not silently delete Directory library copies.
+
+For project storage and sync details, see
+[Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries) and
+[Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync).
