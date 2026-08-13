@@ -1,21 +1,21 @@
 ---
 title: Project Libraries
-excerpt: Organize Zoo Design Studio projects across local folders and cloud-backed libraries.
+excerpt: Choose whether projects live in a folder on your computer or in Personal Cloud.
 sidebarPosition: 3
 ---
 
-Project libraries are the groups of projects you see on Home. Use them to organize work around a
-theme, client, product line, experiment, local Git folder, or anything else that makes your project
-list easier to scan.
+A project library is a place where Zoo Design Studio keeps projects. Libraries also organize the
+projects you see on Home.
 
-Zoo Design Studio keeps this model intentionally file based. A project is a directory with at least
-one `.kcl` file somewhere inside the project folder. Projects created by Zoo Design Studio normally
-also include `project.toml`, which stores project metadata, but an existing KCL project does not need
-that file before it can be discovered.
+On desktop, there are two choices:
 
-That means your work is not locked inside Zoo Design Studio. You can open a project folder in a text
-editor, search it, copy it, diff it, version it with Git, or ask an AI agent to read the source.
-KCL files and `project.toml` are designed to be readable outside the app.
+- **Directory** keeps projects in a folder you choose on your computer. These projects are local and
+  are not uploaded to Zoo.
+- **Personal Cloud** stores projects in your Zoo account so you can open them on other devices and
+  in the browser. Zoo Design Studio also keeps a local working copy while you edit on desktop.
+
+These are separate locations. Adding a Directory library does not sync its projects. To start
+syncing a Directory project, move it to Personal Cloud.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/project-libraries-home.webp"
@@ -24,41 +24,36 @@ KCL files and `project.toml` are designed to be readable outside the app.
   maxHeightPx={520}
 />
 
-## Library Types
+## Choose a Library
 
 Zoo Design Studio currently supports two library types.
 
-| Type | Where it stores projects | Best for |
+| Library | Where the project lives | Use it when |
 | --- | --- | --- |
-| Directory | A folder on your computer, with projects as immediate subfolders. | Local-only work, client folders, Git worktrees, shared drives, and explicit filesystem organization. |
-| Cloud | Your Zoo Personal Cloud, with a local working copy on your device. | Projects you want available through your Zoo account, across devices, or in the browser. |
+| Directory | In a folder you choose on this computer. | You want local-only work, a specific folder, or a Git workflow. |
+| Personal Cloud | In your Zoo account, plus a working copy on the device where you open it. | You want the project in the browser or on multiple devices. |
 
 ### Directory Libraries
 
-A Directory library points to a normal folder on your computer. Each project appears as an immediate
-subfolder inside that library folder.
+A Directory library points to a normal folder on your computer. Each project is a subfolder inside
+that library folder. A Directory project stays in that folder and is not uploaded to Zoo.
 
 Directory libraries are available in the desktop app. Under `Settings` > `User` > `App` >
 `Libraries`, you can add more than one, rename them, choose different folders, reorder them, or remove
 them from Home. Changing a library path changes which folder Home scans; it does not move projects.
 Removing a Directory library does not delete its folder or projects on disk.
 
-Use Directory libraries when you want full control over where projects live, how they are backed up,
-or how they fit into other tools.
+Zoo Design Studio projects remain normal, readable files. You can open a Directory project in a text
+editor, search it, copy it, version it with Git, or use it with other filesystem tools.
 
-A Directory library can also show a project folder that is linked to a Zoo cloud project. In that
-case, the folder is still owned by the Directory library for local actions such as delete. Deleting
-that Directory library copy removes the local folder, not the cloud project.
+### Personal Cloud
 
-### Cloud Libraries
+Personal Cloud stores projects in your Zoo account.
 
-A Cloud library points to projects served from Zoo's API. The cloud library you see today is
-`Personal Cloud`.
-
-Cloud projects still have source files on your device. When you create or open a cloud project, Zoo
-Design Studio places a local working copy in its managed cloud sync folder and syncs changes in the
-background. On desktop, the Personal Cloud settings row shows that local path and can reveal it in
-your file explorer.
+On desktop, Personal Cloud uses its own managed folder, separate from your Directory libraries.
+When you create or open a cloud project, Zoo Design Studio puts a working copy in that folder and
+syncs your changes in the background. The Personal Cloud settings row shows the folder's path and
+can reveal it in your file explorer.
 
 Some Personal Cloud projects may appear before they have been opened on the current device. These are
 cloud-only entries. Opening one downloads the project first, then opens the local working copy.
@@ -75,11 +70,10 @@ cloud-only entries. Opening one downloads the project first, then opens the loca
 On desktop, Zoo Design Studio can show Directory and Cloud libraries side by side. This lets you keep
 local-only work, Git-based work, and cloud-backed work in one Home view.
 
-In the browser, Zoo Design Studio uses `Personal Cloud`. Browser storage. Browser storage
-is not a normal folder that you manage in Finder, File Explorer, or a terminal, so browser projects
-are treated as cloud-backed projects instead of local-only Directory projects. In the browser, you
-can edit a library's display title, but you cannot add or reorder libraries or change their type or
-storage location.
+In the browser, Zoo Design Studio uses `Personal Cloud`. Its working copy lives in browser storage,
+not in a normal folder that you can manage in Finder, File Explorer, or a terminal. You can edit the
+library's display title, but you cannot add or reorder libraries or change their type or storage
+location.
 
 ## Browse Libraries on Home
 
@@ -118,7 +112,7 @@ project menu in the top bar, or a project card's context menu on Home.
 The result depends on the source and destination:
 
 - Directory to Directory moves the project folder between local library paths.
-- Directory to Personal Cloud moves it into managed cloud storage and enrolls it for cloud sync 
+- Directory to Personal Cloud moves it into managed cloud storage and starts cloud sync.
 - Personal Cloud to Directory deletes the remote cloud project, disconnects the local copy, and
   moves that remaining folder to the Directory library.
 
@@ -148,7 +142,7 @@ project files, library membership, and cloud sync metadata together.
   maxHeightPx={320}
 />
 
-## Delete Projects from Libraries
+## Delete a Project
 
 Deleting a project follows the library it belongs to:
 
@@ -159,8 +153,7 @@ Deleting a project follows the library it belongs to:
 - Deleting from `Personal Cloud` deletes the cloud project and removes the local working copy on the
   current device when one exists.
 
-Zoo Design Studio shows different delete confirmation copy when a Directory library delete will keep
-the cloud version. Project deletion is permanent and has no undo.
+Read the confirmation dialog before deleting. Project deletion is permanent and has no undo.
 
 ## Related
 
