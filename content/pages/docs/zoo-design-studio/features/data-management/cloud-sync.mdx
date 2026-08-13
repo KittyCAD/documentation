@@ -1,22 +1,20 @@
 ---
 title: Cloud Sync
-excerpt: Keep Zoo Design Studio projects available across devices while preserving local files.
+excerpt: Keep Personal Cloud projects up to date across your devices.
 sidebarPosition: 4
 ---
 
-Cloud sync keeps Zoo Design Studio projects available through your Zoo account while preserving the
-project files you work with locally.
+Personal Cloud is Zoo Design Studio's cloud storage for projects. Cloud Sync keeps those projects up
+to date across your devices; it does not sync every project on your computer.
 
-It is built around the same file-based project model as
-[Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries):
+- A project in a **Directory** library stays in the folder you chose on that computer. Zoo Design
+  Studio does not upload it.
+- A project in **Personal Cloud** is stored in your Zoo account. On desktop, Zoo Design Studio also
+  keeps a working copy in a separate, managed folder while you edit.
 
-- A project is still a directory with `project.toml` and at least one `.kcl` file.
-- KCL and project metadata are still readable outside Zoo Design Studio.
-- Local file changes happen first.
-- Cloud sync runs in the background and uploads or downloads project snapshots.
-
-Cloud sync is not version control. It keeps project copies available across Zoo surfaces, while Git
-or another version-control tool records intentional history and code review.
+When you change a Personal Cloud project, Zoo Design Studio saves the change to the working copy
+first and syncs it to your Zoo account in the background. You can then open the latest synced
+version in the browser or on another device signed in to the same Zoo account.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-status.webp"
@@ -25,112 +23,38 @@ or another version-control tool records intentional history and code review.
   maxHeightPx={120}
 />
 
-## How Cloud Sync Works
+## Common Questions
 
-When cloud sync is enabled, Zoo Design Studio watches project file changes and queues sync work in
-the background. Creating, editing, renaming, and deleting project files still happens locally first.
-Zoo Design Studio then reconciles those local files with the matching project in Zoo cloud.
+### Where Do My Files Live?
 
-On desktop, synced projects live in a managed Personal Cloud folder on your computer. You can see
-that path in User Settings under `App` > `Libraries`, then reveal it in your file explorer.
+Personal Cloud does not use the folders configured for your Directory libraries. On desktop, each
+cloud project gets a working copy in the managed Personal Cloud folder. You can see this folder's
+path under `Settings` > `User` > `App` > `Libraries` and reveal it in your file explorer.
 
-Cloud projects can appear in several states:
+In the browser, the working copy lives in browser site storage rather than a normal folder. Clearing
+the site's data can remove that copy and any changes that have not reached `Cloud synced`.
 
-| State | Meaning |
-| --- | --- |
-| Cloud-only | The project exists in Zoo cloud and has not been downloaded on this device yet. Opening it creates a local working copy. |
-| Cloud synced | Local files and the cloud project are up to date. |
-| Cloud sync pending | Local changes are queued for upload. |
-| Cloud syncing | Zoo Design Studio is uploading or downloading project data. |
-| Cloud sync failed | Sync could not complete and will be retried. Your local files remain available. |
-| Cloud sync blocked | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account does not have write access. |
-| Cloud conflict | Local and cloud data both changed since the last synced version and need manual resolution. |
+### Can I Work Offline?
 
-Failed work stays queued and is retried automatically. A downloaded project remains locally
-available after a network request fails, but a cloud-only project needs a connection before it can
-be opened.
+You can keep editing a downloaded Personal Cloud project without an internet connection. Your
+changes stay in its working copy and sync after you reconnect. A cloud-only project must be
+downloaded before you can open it offline.
 
-Browser working copies live in site storage. Clearing the browser's site data can remove those local
-copies and any work that has not reached `Cloud synced`.
+### Can I Use Personal Cloud on Multiple Devices?
 
-Before changing the same project on another device or browser, wait for the first device to show
-`Cloud synced`. Cloud sync is not a real-time collaboration session; if both copies change, Zoo
-Design Studio may merge independent file changes or ask you to resolve a conflict.
+Before moving to another device or browser, wait for the first device to show `Cloud synced`. Cloud
+Sync is not a live collaboration session. If the same project changes in two places, Zoo Design
+Studio may combine independent file changes or ask you to resolve a conflict.
 
-## What Is Included in Cloud Sync
+### Is Cloud Sync Version Control or a Backup?
 
-Cloud sync uploads KCL, project metadata, and other project files that are not excluded.
+No. Cloud Sync keeps the current project available through your Zoo account, but it does not provide
+Git-style history, branches, or code review. Use Git or another backup system when you need revision
+history or recovery outside the current synced project.
 
-Cloud sync does not upload:
+## Use Cloud Sync
 
-- Files and folders matched by the project's `.gitignore` rules. The `.gitignore` files themselves
-  are uploaded.
-- Version-control metadata directories named `.git`, `.hg`, `.svn`, or `.jj`.
-- Zoo's internal `._meta` data or the generated project thumbnail.
-
-Binary files are included unless `.gitignore` excludes them. Cloud sync does not infer which files
-contain secrets, so exclude sensitive paths before syncing.
-
-**Important:** Excluded files are not part of the cloud project. Current versions can replace or
-remove the entire managed project folder during a remote update, automatic merge, remote deletion,
-automatic duplicate cleanup, or `Use cloud data`. This can remove local Git history, ignored files,
-and other excluded content.
-
-## Duplicate Local Copies
-
-A cloud project can have more than one local copy. This can happen if you copy a synced project
-folder in Finder or File Explorer, restore one from a backup, or keep overlapping project library
-folders that both include the same project.
-
-Zoo Design Studio tracks this as one cloud project with one or more local copies. Home picks one
-canonical copy to open and sync from, then marks extra copies with a `Duplicate copies` badge.
-
-Duplicate copies are handled conservatively:
-
-- The canonical copy is kept.
-- Extra local copies are not hidden just because they share the same cloud project ID.
-- Directory library copies are not silently deleted.
-- Zoo Design Studio may clean up an exact duplicate in the cloud library only when it can prove that
-  copy matches the clean synced version.
-- Pending, conflicted, unreadable, tombstoned, sync-excluded, or changed copies stay available for
-  review.
-
-Ignored files and version-control metadata do not make an otherwise exact extra copy divergent, so
-automatic cleanup can remove that excluded content with the duplicate folder.
-
-Use `Review duplicate copies` from the project card context menu to inspect duplicate local folders.
-You can select duplicate folders to permanently delete, and Zoo Design Studio will still keep the
-canonical folder. This review action removes selected local folders; it does not delete the cloud
-project.
-
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-duplicate-copies-menu.webp"
-  alt="Project card with a Duplicate copies badge and the Review duplicate copies menu action"
-  aspect="420 / 300"
-  maxHeightPx={420}
-/>
-
-## Automatic Merging
-
-Cloud sync can automatically merge simple project changes when local files and cloud files changed
-in different places after the last synced version.
-
-For example, if you edit `main.kcl` locally while another Zoo surface adds `mount.kcl` in the cloud,
-Zoo Design Studio can keep your local `main.kcl`, download the cloud-only `mount.kcl`, upload the
-combined project snapshot, and continue syncing without asking you to resolve a conflict.
-
-Automatic merging is intentionally conservative:
-
-- If only the local copy changed a file, Zoo Design Studio keeps the local file.
-- If only the cloud copy changed a file, Zoo Design Studio uses the cloud file.
-- If both copies changed the same file to the same contents, Zoo Design Studio accepts that file.
-- If both copies changed the same file differently, Zoo Design Studio shows a cloud sync conflict.
-
-Cloud sync does not perform line-by-line or semantic code merges inside a `.kcl` file. Use Git or
-another version-control tool when you need intentional history, branches, code review, or manual
-same-file merging.
-
-## Start Syncing
+### Start Syncing
 
 To start syncing a local Directory project, move it to `Personal Cloud`:
 
@@ -156,7 +80,23 @@ Personal Cloud is the only project library, so projects are cloud-backed by defa
   maxHeightPx={320}
 />
 
-## Stop Syncing
+### Check Sync Status
+
+Cloud projects can appear in several states:
+
+| State | Meaning |
+| --- | --- |
+| Cloud-only | The project exists in Zoo cloud and has not been downloaded on this device yet. Opening it creates a local working copy. |
+| Cloud synced | Local files and the cloud project are up to date. |
+| Cloud sync pending | Local changes are queued for upload. |
+| Cloud syncing | Zoo Design Studio is uploading or downloading project data. |
+| Cloud sync failed | Sync could not complete and will be retried. Your local files remain available. |
+| Cloud sync blocked | Zoo Design Studio can read the cloud project but cannot upload local changes, usually because the current account does not have write access. |
+| Cloud conflict | Local and cloud data both changed since the last synced version and need manual resolution. |
+
+Failed sync work stays queued and is retried automatically.
+
+### Stop Syncing
 
 To make a synced project local-only, move it from `Personal Cloud` to a Directory library:
 
@@ -175,10 +115,7 @@ project before moving the remaining local folder. The cloud project is no longer
 browser or on other devices. If remote deletion fails, Zoo Design Studio restores the cloud link and
 the move fails.
 
-Remote deletion happens before the filesystem move. If that later move fails, the remote project is
-not restored automatically. Back up important work before moving it out of Personal Cloud.
-
-Turning the cloud sync plugin off only pauses synchronization; it does not make a project local-only.
+Turning Cloud Sync off only pauses synchronization; it does not make a project local-only.
 A cloud-only project must first be opened and downloaded before it can be moved.
 
 {/* VIDEO PLACEHOLDER: Moving a Personal Cloud project into a Directory library to make it local-only. */}
@@ -190,32 +127,26 @@ A cloud-only project must first be opened and downloaded before it can be moved.
   maxHeightPx={320}
 />
 
-## Delete Synced Projects
+### Delete a Synced Project
 
 Deleting a cloud-backed project follows the library that owns the project card.
 
 If you delete a project from `Personal Cloud`, Zoo Design Studio deletes the cloud project. If the
 project has a local working copy on that device, the local working copy is removed too.
 
-If you delete a cloud-backed project from a Directory library, Zoo Design Studio deletes only that
-local folder. The cloud project remains in your Zoo account, and the delete dialog says that the
-cloud version will not be deleted.
+If you delete a cloud-backed project from a Directory library, Zoo Design Studio deletes the
+selected local folder. The cloud project remains in your Zoo account, and the delete dialog says
+that the cloud version will not be deleted. Other local folders with the same cloud identity may be
+removed if they are exact duplicates or disconnected if they differ.
 
-Keep cloud sync enabled and make sure Zoo Design Studio can reach the cloud before deleting a
-cloud-linked project. Deleting a downloaded Personal Cloud project removes its local folder before
-the remote request finishes. If that request fails, Zoo Design Studio reports the failure, but the
-local folder may already be gone and the remote project can reappear on Home.
-
-Deletion from Personal Cloud propagates to other devices. Copies with unsynced changes, or copies Zoo
-Design Studio cannot verify, are preserved and disconnected instead. Excluded files do not count as
-changes, so keep the separate backup described above.
+Deletion from Personal Cloud propagates to other devices.
 
 This is different from `Move to library`. Use `Move to library` when you want to change where a
 project belongs. Use delete when you want to remove the project card from its current library.
 Moving from Personal Cloud to a Directory library also deletes the remote project, but preserves and
 relocates the selected local folder.
 
-## Resolve Conflicts
+### Resolve a Conflict
 
 A cloud sync conflict happens when the local project and the cloud project both changed after the
 last synced version, and Zoo Design Studio cannot safely combine the changes automatically.
@@ -259,8 +190,8 @@ The resolution applies to the whole project, not individual files. Choose one re
 If you need to combine both versions, manually copy or edit the files you want into the local
 project first, then choose `Use local data`.
 
-You may want to back up the local folder before choosing `Use cloud data`, especially if it contains ignored or
-version-control files.
+You may want to back up the local folder before choosing `Use cloud data`, especially if it contains
+ignored or version-control files.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-conflict-dialog.webp"
@@ -268,6 +199,95 @@ version-control files.
   aspect="1440 / 900"
   maxHeightPx={620}
 />
+
+## Advanced Details
+
+### Which Files Sync?
+
+Cloud sync uploads KCL, project metadata, and other project files that are not excluded.
+
+Cloud sync does not upload:
+
+- Files and folders matched by the project's `.gitignore` rules. The `.gitignore` files themselves
+  are uploaded.
+- Version-control metadata directories named `.git`, `.hg`, `.svn`, or `.jj`.
+- Zoo's internal `._meta` data or the generated project thumbnail.
+
+Binary files are included unless `.gitignore` excludes them. Cloud sync does not infer which files
+contain secrets, so exclude sensitive paths before syncing.
+
+**Important:** Excluded files are not part of the cloud project. Current versions can replace or
+remove the entire managed project folder during a remote update, automatic merge, remote deletion,
+automatic duplicate cleanup, or `Use cloud data`. This can remove local Git history, ignored files,
+and other excluded content.
+
+### Deletion and Move Failures
+
+Keep cloud sync enabled and make sure Zoo Design Studio can reach the cloud before deleting a
+cloud-linked project. Deleting a downloaded Personal Cloud project removes its local folder before
+the remote request finishes. If that request fails, Zoo Design Studio reports the failure, but the
+local folder may already be gone and the remote project can reappear on Home.
+
+Copies with unsynced changes, or copies Zoo Design Studio cannot verify, are preserved and
+disconnected instead. Excluded files do not count as changes, so keep a separate backup.
+
+When you move a project out of Personal Cloud, remote deletion happens before the filesystem move.
+If that later move fails, the remote project is not restored automatically. Back up important work
+before moving it out of Personal Cloud.
+
+### Duplicate Local Copies
+
+A cloud project can have more than one local copy. This can happen if you copy a synced project
+folder in Finder or File Explorer, restore one from a backup, or keep overlapping project library
+folders that both include the same project.
+
+Zoo Design Studio tracks this as one cloud project with one or more local copies. Home picks one
+canonical copy to open and sync from, then marks extra copies with a `Duplicate copies` badge.
+
+Duplicate copies are handled conservatively:
+
+- The canonical copy is kept.
+- Extra local copies are not hidden just because they share the same cloud project ID.
+- Directory library copies are not silently deleted.
+- Zoo Design Studio may clean up an exact duplicate in the cloud library only when it can prove that
+  copy matches the clean synced version.
+- Pending, conflicted, unreadable, tombstoned, sync-excluded, or changed copies stay available for
+  review.
+
+Ignored files and version-control metadata do not make an otherwise exact extra copy divergent, so
+automatic cleanup can remove that excluded content with the duplicate folder.
+
+Use `Review duplicate copies` from the project card context menu to inspect duplicate local folders.
+You can select duplicate folders to permanently delete, and Zoo Design Studio will still keep the
+canonical folder. This review action removes selected local folders; it does not delete the cloud
+project.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-duplicate-copies-menu.webp"
+  alt="Project card with a Duplicate copies badge and the Review duplicate copies menu action"
+  aspect="420 / 300"
+  maxHeightPx={420}
+/>
+
+### Automatic Merging
+
+Cloud sync can automatically merge simple project changes when local files and cloud files changed
+in different places after the last synced version.
+
+For example, if you edit `main.kcl` locally while another Zoo surface adds `mount.kcl` in the cloud,
+Zoo Design Studio can keep your local `main.kcl`, download the cloud-only `mount.kcl`, upload the
+combined project snapshot, and continue syncing without asking you to resolve a conflict.
+
+Automatic merging is intentionally conservative:
+
+- If only the local copy changed a file, Zoo Design Studio keeps the local file.
+- If only the cloud copy changed a file, Zoo Design Studio uses the cloud file.
+- If both copies changed the same file to the same contents, Zoo Design Studio accepts that file.
+- If both copies changed the same file differently, Zoo Design Studio shows a cloud sync conflict.
+
+Cloud sync does not perform line-by-line or semantic code merges inside a `.kcl` file. Use Git or
+another version-control tool when you need intentional history, branches, code review, or manual
+same-file merging.
 
 ## Related
 
