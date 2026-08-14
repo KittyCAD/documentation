@@ -4,17 +4,30 @@ excerpt: Keep Personal Cloud projects up to date across your devices.
 sidebarPosition: 4
 ---
 
-Personal Cloud is Zoo Design Studio's cloud storage for projects. Cloud Sync keeps those projects up
-to date across your devices; it does not sync every project on your computer.
+Personal Cloud is the only project library that syncs with your Zoo account. Zoo Design Studio does
+not automatically upload every project on your computer.
 
-- A project in a **Directory** library stays in the folder you chose on that computer. Zoo Design
-  Studio does not upload it.
-- A project in **Personal Cloud** is stored in your Zoo account. On desktop, Zoo Design Studio also
-  keeps a working copy in a separate, managed folder while you edit.
+- **Personal Cloud projects sync.** They are stored in your Zoo account so you can open them in the
+  browser and on other devices. On desktop, Zoo Design Studio also keeps a working copy in a
+  separate, managed folder while you edit.
+- **Directory projects do not sync.** They stay in the folder you chose on that computer and are not
+  uploaded unless you move them to Personal Cloud.
 
 When you change a Personal Cloud project, Zoo Design Studio saves the change to the working copy
 first and syncs it to your Zoo account in the background. You can then open the latest synced
 version in the browser or on another device signed in to the same Zoo account.
+
+Zoo Design Studio adds Personal Cloud automatically for signed-in users. On desktop
+Home, it appears beside Directory libraries with a cloud icon.
+Directory libraries have folder icons and show normal paths on your computer, the default one is titled "Default Projects Directory". 
+In the browser, Personal Cloud is the only project library.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/project-libraries-home.webp"
+  alt="Home showing a Directory library with a folder icon and local path beside Personal Cloud with a cloud icon and zoo://personal address"
+  aspect="1000 / 650"
+  maxHeightPx={520}
+/>
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-status.webp"
@@ -25,14 +38,34 @@ version in the browser or on another device signed in to the same Zoo account.
 
 ## Common Questions
 
+### How Do I Know Which Projects Are Saved to the Cloud?
+
+Check the library that contains the project on Home. Only projects in `Personal Cloud` are saved to
+your Zoo account. Projects in a Directory library are local-only, even while Cloud Sync is enabled.
+Move a Directory project to Personal Cloud when you want to start syncing it.
+
+### How Much Cloud Storage Do I Get?
+
+Storage is limited to what we consider fair use for Free users.
+Paid subscription tiers all get unlimited storage.
+
+### Will Clearing My Browser Cache Delete My Cloud Projects?
+
+No. Clearing the browser's cached images and files does not delete projects from Personal Cloud.
+
+Clearing Zoo Design Studio's **site data or site storage** is different: it removes the working
+copies downloaded in that browser and any pending sync data stored there. Projects that reached
+`Cloud synced` remain in your Zoo account and download again when you open them. New projects or
+changes that had not reached `Cloud synced` can be lost, so wait for that status before clearing
+site data.
+
 ### Where Do My Files Live?
 
 Personal Cloud does not use the folders configured for your Directory libraries. On desktop, each
 cloud project gets a working copy in the managed Personal Cloud folder. You can see this folder's
 path under `Settings` > `User` > `App` > `Libraries` and reveal it in your file explorer.
 
-In the browser, the working copy lives in browser site storage rather than a normal folder. Clearing
-the site's data can remove that copy and any changes that have not reached `Cloud synced`.
+In the browser, the working copy lives in browser site storage rather than a normal folder.
 
 ### Can I Work Offline?
 
