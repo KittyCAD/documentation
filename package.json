@@ -3,11 +3,11 @@
     "version": "0.1.0",
     "private": false,
     "scripts": {
-        "build": "contentlayer build",
-        "dev": "contentlayer dev"
+        "build": "contentlayer2 build",
+        "dev": "contentlayer2 dev"
     },
     "dependencies": {
-        "contentlayer": "^0.3.4",
+        "contentlayer2": "^0.5.8",
         "rehype-katex": "^7.0.1",
         "remark-gfm": "^4.0.1",
         "remark-math": "^6.0.0"
