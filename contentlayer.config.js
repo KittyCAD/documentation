@@ -2,7 +2,7 @@ import {
   defineDocumentType,
   defineNestedType,
   makeSource,
-} from '@contentlayer/source-files'
+} from 'contentlayer2/source-files'
 import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 
