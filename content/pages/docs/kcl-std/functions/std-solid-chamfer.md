@@ -32,7 +32,7 @@ a sharp, straight transitional edge.
 | `solid` | [`Solid`](/docs/kcl-std/types/std-types-Solid) | The solid whose edges should be chamfered | Yes |
 | `length` | [`number(Length)`](/docs/kcl-std/types/std-types-number) | Chamfering cuts away two faces to create a third face. This is the length to chamfer away from each face. The larger this length to chamfer away, the larger the new face will be. | Yes |
 | `tags` | [[`Edge`](/docs/kcl-std/types/std-types-Edge); 1+] | The paths you want to chamfer (legacy API) | No |
-| `edges` | [[`any`](/docs/kcl-std/types/std-types-any)] | **Experimental.** Experimental face API. Do not use in generated or user-facing KCL yet; prefer `tags` until point-and-click and migration support ships. Array of edge references; each element is an object with: - `sideFaces`: [Face | Tag; 1+] - Adjacent faces that share the edge(s) to chamfer - `endFaces?`: [Face | Tag] - Optional faces to disambiguate when multiple edges share the same two faces - `index?`: number(Count) - Optional index when multiple edges share the same faces (0-based) | No |
+| `edges` | [[`any`](/docs/kcl-std/types/std-types-any)] | Array of edge references; each element is an object with: - `sideFaces`: [Face | Tag; 1+] - Adjacent faces that share the edge(s) to chamfer - `endFaces?`: [Face | Tag] - Optional faces to disambiguate when multiple edges share the same two faces - `index?`: number(Count) - Optional index when multiple edges share the same faces (0-based) | No |
 | `secondLength` | [`number(Length)`](/docs/kcl-std/types/std-types-number) | Chamfering cuts away two faces to create a third face. If this argument isn't given, the lengths chamfered away from both the first and second face are both given by `length`. If this argument _is_ given, it determines how much is cut away from the second face. Incompatible with `angle`. | No |
 | `angle` | [`number(Angle)`](/docs/kcl-std/types/std-types-number) | Chamfering cuts away two faces to create a third face. This argument determines the angle between the two cut edges. Requires `length`, incompatible with `secondLength`. The valid range is 0deg < angle < 90deg. | No |
 | `tag` | [`TagDecl`](/docs/kcl-std/types/std-types-TagDecl) | Create a new tag which refers to this chamfer | No |
@@ -63,11 +63,11 @@ mountingPlateSketch = startSketchOn(XY)
 mountingPlate = extrude(mountingPlateSketch, length = thickness)
   |> chamfer(
        length = chamferLength,
-       tags = [
-         getNextAdjacentEdge(edge1),
-         getNextAdjacentEdge(edge2),
-         getNextAdjacentEdge(edge3),
-         getNextAdjacentEdge(edge4)
+       edges = [
+         { sideFaces = [edge1, edge2] },
+         { sideFaces = [edge2, edge3] },
+         { sideFaces = [edge3, edge4] },
+         { sideFaces = [edge1, edge4] }
        ],
      )
 
@@ -101,9 +101,9 @@ fn cube(pos, scale) {
 
 part001 = cube(pos = [0, 0], scale = 20)
   |> close(tag = $line1)
-  |> extrude(length = 20)
+  |> extrude(length = 20, tagEnd = $capEnd001)
   // We tag the chamfer to reference it later.
-  |> chamfer(length = 10, tags = [getOppositeEdge(line1)], tag = $chamfer1)
+  |> chamfer(length = 10, edges = [{ sideFaces = [line1, capEnd001] }], tag = $chamfer1)
 
 sketch001 = startSketchOn(part001, face = chamfer1)
   |> startProfile(at = [10, 10])
@@ -144,8 +144,8 @@ fn cube(pos, scale) {
 
 part001 = cube(pos = [0, 0], scale = 20)
   |> close(tag = $line1)
-  |> extrude(length = 20)
-  |> chamfer(length = 10, angle = 30deg, tags = [getOppositeEdge(line1)])
+  |> extrude(length = 20, tagEnd = $capEnd001)
+  |> chamfer(length = 10, angle = 30deg, edges = [{ sideFaces = [line1, capEnd001] }])
 
 ```
 
@@ -184,12 +184,12 @@ block = extrude(region(point = [3mm, 2mm], sketch = baseProfile), length = 3mm, 
 tabProfile = startSketchOn(block, face = top)
   |> startProfile(at = [1mm, 1mm])
   |> line(end = [4mm, 0mm], tag = $tabEdge)
-  |> line(end = [0mm, 1mm])
+  |> line(end = [0mm, 1mm], tag = $seg01)
   |> line(end = [-4mm, 0mm])
   |> close()
 
 blockWithTab = extrude(tabProfile, length = 1mm)
-chamfered = chamfer(blockWithTab, length = 0.5mm, tags = [getNextAdjacentEdge(tabEdge)])
+chamfered = chamfer(blockWithTab, length = 0.5mm, edges = [{ sideFaces = [tabEdge, seg01] }])
 
 ```
 
