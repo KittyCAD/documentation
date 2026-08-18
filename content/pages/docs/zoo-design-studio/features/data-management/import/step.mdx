@@ -106,15 +106,10 @@ browser. It does not support importing 2D drawings from STEP files. In the brows
 into Project Files; the `Add file to project` Local Drive picker is available only in the desktop
 app.
 
-Imported STEP geometry:
-
-- appears as external CAD geometry in the scene
-- can be inspected, measured, translated, rotated, scaled, styled, and cloned
-- can be used as a visual reference while building native KCL geometry
-- cannot be edited directly after import; make changes in the source CAD system and reimport the file,
-  or recreate the geometry natively in KCL
-- cannot be used for boolean operations, sketch-on-face, or other modeling operations that require
-  interaction with other scene geometry
+Imported STEP geometry behaves like every other non-native import: it can be inspected, measured,
+transformed, styled, and cloned, but it cannot be edited, booleaned, or sketched on. See
+[Editing imported geometry](/docs/zoo-design-studio/features/data-management/import#editing-imported-geometry)
+for the full list of what is and is not supported, and for the two ways to work around it.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/import/step/transform-step-import.webp"
@@ -130,7 +125,8 @@ Imported STEP geometry:
 
 If you need parametric edits or modeling operations that interact with other geometry, recreate the
 feature natively in KCL and use the imported STEP file as a visual reference while rebuilding the
-part.
+part. This is a limitation of the geometry engine rather than of STEP specifically — a mesh format
+such as STL behaves the same way.
 
 ## Units and scale
 

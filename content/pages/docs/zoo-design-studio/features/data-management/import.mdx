@@ -22,6 +22,26 @@ Zoo Design Studio supports the following file formats for import into projects:
 - For STEP-specific syntax, export settings, and troubleshooting, see
   [STEP Import](/docs/zoo-design-studio/features/data-management/import/step)
 
+**SolidWorks part (.sldprt)**
+- Native SolidWorks single-part format
+- Useful when a supplier ships the original part rather than a neutral export
+
+### Mesh Formats
+
+**STL (.stl)**
+- Triangle mesh, the standard interchange format for 3D printing
+- Carries no unit metadata; defaults to millimeters, overridable with the
+  `lengthUnit` import attribute
+- Holds no BREP surfaces, so it is best used as a shape reference
+
+**OBJ (.obj)**
+- Wavefront mesh format, widely supported across 3D tooling
+- Supports the `lengthUnit` and `coords` import attributes
+
+**PLY (.ply)**
+- Polygon mesh format, common for scanned geometry
+- Supports the `lengthUnit` and `coords` import attributes
+
 ### 3D Model Formats
 
 **glTF/GLB (.glb)**
@@ -85,41 +105,84 @@ Supported URL formats:
 Reference existing project files from within KCL code:
 
 ```kcl
-// Import STEP file
-import bracket from "./parts/bracket.stp"
+// Import a STEP file. Foreign files import whole, so alias with `as`
+// rather than naming items inside them.
+import "parts/bracket.stp" as bracket
 
-// Import other KCL file
-import utils from "./library/utils.kcl"
+// Import items from another KCL file
+import utils from "library/utils.kcl"
 
-// Import GLB visualization
-import reference from "./reference/concept.glb"
+// Import a GLB for visual reference
+import "reference/concept.glb" as reference
 ```
+
+Paths are relative to the project directory. See
+[Importing geometry from other CAD systems](/docs/kcl-lang/foreign-imports) for the full format
+list, length-unit and coordinate-system attributes, and performance notes.
 
 The `Insert` command (available via Command Bar) provides a UI workflow for the same functionality:
 1. Select file from project directory
 2. Specify local variable name for the imported geometry
 3. KCL import statement is automatically generated
 
-## Imported Geometry Behavior
+## Editing imported geometry
 
-### Non-Native Formats (STEP, GLB, FBX)
+Imported CAD files are references, not editable models. Zoo Design Studio can place, inspect, and
+measure them, but it cannot change their geometry. This applies to every non-native format —
+STEP, STL, OBJ, PLY, glTF/GLB, FBX, and SLDPRT — whether the file holds precise BREP surfaces or a
+triangle mesh.
 
-Imported CAD geometry from external formats:
-- Appears as reference geometry in the Scene
-- Can be measured, visualized, and used as construction references
-- Can be **used as boolean tools** (subtract imported geometry from KCL-created solids)
-- Can serve as **extrusion targets** ("extrude to face" with imported surfaces)
-- Geometry is **not directly editable** (no feature history)
-- To edit parametrically, manually recreate using KCL/native tools
+Imported geometry:
 
-### Native KCL Format
+- appears as external CAD geometry in the Scene
+- can be inspected, measured, and used as a visual reference while you build native KCL geometry
+- can be transformed and styled with [`clone`](/docs/kcl-std/functions/std-clone),
+  [`translate`](/docs/kcl-std/functions/std-transform-translate),
+  [`rotate`](/docs/kcl-std/functions/std-transform-rotate),
+  [`scale`](/docs/kcl-std/functions/std-transform-scale), and
+  [`appearance`](/docs/kcl-std/functions/std-solid-appearance)
+- **cannot be edited directly after import**; change it in the source CAD system and reimport the
+  file, or recreate the geometry natively in KCL
+- **cannot be used for boolean operations** (`subtract`, `union`, `intersect`), sketch-on-face,
+  fillet, chamfer, shell, or patterns
 
-Imported KCL files:
-- Fully parametric and editable
-- Feature tree is preserved
-- Parameters can be modified
-- Code can be directly edited in Code Editor
-- Functions and variables can be reused
+The reason is the KCL type system. An imported file has type
+[`ImportedGeometry`](/docs/kcl-std/types/std-types-ImportedGeometry), while every modeling function
+listed above is typed to take a [`Solid`](/docs/kcl-std/types/std-types-Solid). There is no
+conversion between the two, so handing an import to `subtract` fails before anything is modeled:
+
+```
+The input argument of `subtract` requires one or more `Solid`s (`[Solid; 1+]`),
+but found an array of `ImportedGeometry`
+```
+
+This is a current limitation of the geometry engine rather than a property of your file, and it is
+tracked in [Known Issues](/docs/kcl-lang/known-issues).
+
+### If you need to change imported geometry
+
+Two workflows are supported:
+
+1. **Recreate it natively in KCL.** Keep the import visible as a reference, rebuild the shape with
+   native features, then hide or remove the import. The result is fully parametric and can be
+   filleted, shelled, and booleaned like any other KCL solid.
+2. **Model a new part around it.** Leave the import untouched and build a separate part that mates
+   to it, positioning the new geometry with `translate` and `rotate`.
+
+[Zookeeper](/docs/zoo-design-studio/zookeeper) works under the same constraint. It can measure an
+imported file and recreate it as native KCL, but it cannot cut, fillet, or boolean the import
+itself.
+
+### Imported KCL files
+
+Native `.kcl` imports are not subject to any of the above. They are:
+
+- fully parametric and editable
+- preserved with their feature tree
+- adjustable by changing parameters
+- editable directly in the Code Editor
+- reusable, including their functions and variables
+
 
 ## Import Workflow Best Practices
 
@@ -148,10 +211,24 @@ When importing files into version-controlled projects:
 
 ### Unit Handling
 
-STEP files include unit metadata:
-- Zoo automatically interprets STEP file units
-- If units are ambiguous, verify scale after import
-- Use `Scale` transform if unit conversion is needed
+Zoo Design Studio does not rescale imported geometry from a file's unit metadata. STEP numeric
+values are interpreted in the current KCL file or scene unit, so a part authored as 50 mm measures
+50 in when the file unit is inches. Verify scale after import and correct it with `scale` if
+needed — for example, `scale(x = 1/25.4, y = 1/25.4, z = 1/25.4)` for a millimeter part in an
+inch scene.
+
+Formats that carry no unit metadata at all (STL, OBJ, PLY) default to millimeters and accept an
+explicit override:
+
+```kcl
+@(lengthUnit = inch)
+import "scan.stl" as scan
+```
+
+See [STEP Import](/docs/zoo-design-studio/features/data-management/import/step) for STEP-specific
+scale behavior and
+[Importing geometry from other CAD systems](/docs/kcl-lang/foreign-imports) for the full list of
+supported length units and coordinate systems.
 
 ### Performance Considerations
 
@@ -171,3 +248,8 @@ Large imported files affect performance:
 | Animation pipeline | FBX (.fbxb) | Supports complex scenes and animations |
 | Supplier-provided models | STEP (.stp) | Most common neutral format from vendors |
 | Internal library components | KCL (.kcl) | Maintains parameter definitions and editability |
+| 3D-print or scan reference | STL (.stl) | Mesh-only, but the common output of slicers and scanners |
+
+Any non-native format in this table imports as reference geometry. See
+[Editing imported geometry](#editing-imported-geometry) for what can and cannot be done with
+it afterwards.
