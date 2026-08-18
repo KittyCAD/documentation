@@ -24,29 +24,31 @@ The base color for your object. You can specify this using:
 - Named colors: `red`, `blue`, `forestgreen`
 
 ### Metalness
-How metallic the material looks (0.0 to 1.0):
-- **0.0** - Non-metallic (plastic, rubber, ceramic, painted surfaces)
-- **1.0** - Fully metallic (aluminum, steel, brass, chrome)
+How metallic the material looks, expressed as a percentage from 0 to 100:
+- **0** - Non-metallic (plastic, rubber, ceramic, painted surfaces)
+- **100** - Fully metallic (aluminum, steel, brass, chrome)
 - **In between** - Mixed or weathered metals
 
 This affects how light reflects colored highlights on the surface.
 
 ### Roughness
-How smooth or rough the surface appears (0.0 to 1.0):
-- **0.0** - Mirror-smooth (polished chrome, glass)
-- **0.1-0.3** - Brushed or satin finish (brushed aluminum)
-- **0.4-0.6** - Moderate (matte plastic, painted steel)
-- **0.7-1.0** - Very rough (unfinished wood, concrete, rubber)
+How smooth or rough the surface appears, expressed as a percentage from 0 to 100:
+- **0** - Mirror-smooth (polished chrome, glass)
+- **10-30** - Brushed or satin finish (brushed aluminum)
+- **40-60** - Moderate (matte plastic, painted steel)
+- **70-100** - Very rough (unfinished wood, concrete, rubber)
 
 Lower values give sharp reflections; higher values give diffuse, soft reflections.
 
 ### Opacity
-How transparent the material is (0.0 to 1.0):
-- **1.0** - Fully opaque (solid, can't see through)
-- **0.5** - Semi-transparent (glass, translucent plastic)
-- **0.0** - Fully transparent (invisible, but geometry still exists)
+How transparent the material is, expressed as a percentage from 0 to 100:
+- **100** - Fully opaque (solid, can't see through)
+- **50** - Semi-transparent (glass, translucent plastic)
+- **0** - Fully transparent (invisible, but geometry still exists)
 
 Useful for seeing inside models or creating glass effects.
+
+**Note:** Although many PBR tools express these properties as normalized decimals from 0 to 1, Zoo Design Studio and KCL use percentages from 0 to 100.
 
 ## Design Applications
 
@@ -58,14 +60,14 @@ Use color to visually distinguish components in complex assemblies:
 
 ### Material Intent Communication
 Represent intended manufacturing materials:
-- Aluminum: metalness=1.0, roughness=0.2, color=#C0C0C0 (brushed)
-- Anodized aluminum: metalness=1.0, roughness=0.3, color=#FF6600 (orange)
-- ABS plastic: metalness=0.0, roughness=0.5, color=#FFFFFF
-- Polished steel: metalness=1.0, roughness=0.1, color=#E0E0E0
+- Aluminum: metalness=100, roughness=20, color=#C0C0C0 (brushed)
+- Anodized aluminum: metalness=100, roughness=30, color=#FF6600 (orange)
+- ABS plastic: metalness=0, roughness=50, color=#FFFFFF
+- Polished steel: metalness=100, roughness=10, color=#E0E0E0
 
 ### Assembly Visualization
 Improve clarity in complex models:
-- Use opacity=0.3 on enclosures to view internal mechanisms
+- Use opacity=30 on enclosures to view internal mechanisms
 - Color transparent components to show assemblies without hiding geometry
 - Distinguish mating surfaces with contrasting colors
 
@@ -86,11 +88,11 @@ Zoo Design Studio uses Physically-Based Rendering (PBR) principles for appearanc
 
 | Material | Color | Metalness | Roughness |
 |----------|-------|-----------|-----------|
-| Polished Aluminum | #C0C0C0 | 1.0 | 0.1 |
-| Brushed Aluminum | #B8B8B8 | 1.0 | 0.3 |
-| Anodized Red | #CC0000 | 1.0 | 0.25 |
-| Stainless Steel | #E0E0E0 | 1.0 | 0.15 |
-| Matte Plastic | #4A90E2 | 0.0 | 0.6 |
-| Glossy Plastic | #4A90E2 | 0.0 | 0.2 |
-| Rubber | #2C2C2C | 0.0 | 0.9 |
-| Glass | #FFFFFF | 0.0 | 0.0, opacity=0.2 |
+| Polished Aluminum | #C0C0C0 | 100 | 10 |
+| Brushed Aluminum | #B8B8B8 | 100 | 30 |
+| Anodized Red | #CC0000 | 100 | 25 |
+| Stainless Steel | #E0E0E0 | 100 | 15 |
+| Matte Plastic | #4A90E2 | 0 | 60 |
+| Glossy Plastic | #4A90E2 | 0 | 20 |
+| Rubber | #2C2C2C | 0 | 90 |
+| Glass | #FFFFFF | 0 | 0, opacity=20 |
