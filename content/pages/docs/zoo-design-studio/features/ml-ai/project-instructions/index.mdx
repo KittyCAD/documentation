@@ -83,20 +83,19 @@ settings or automatically apply to other projects.
 ## Documents Zookeeper maintains
 
 `AGENTS.md` is your input to Zookeeper. Zookeeper also keeps its own working documents in the
-project, and creates them on its own judgment when a task benefits from them:
-
-- `NOTES.md` records design decisions, assumptions, and open questions.
-- `CHECKLIST.md` tracks the state of multi-step or multi-part work.
-- `MEMORY.md` holds durable facts worth carrying into later conversations.
+project, written as Markdown files with descriptive names. It creates and updates them on its own
+judgment whenever a task benefits from a written record, such as design decisions and the
+assumptions behind them, open questions, the state of multi-step work, or context worth carrying
+into later conversations.
 
 These are ordinary project files. They open as Markdown in the **Code Editor** pane, they
 [sync and diff](/docs/zoo-design-studio/features/data-management/cloud-sync) like any other text
-file, and you can edit or delete them whenever you want. Editing them is a useful way to correct an
-assumption Zookeeper recorded, because it reads these documents before continuing earlier work.
+file, and you can edit or delete them whenever you want. Editing one is a useful way to correct an
+assumption Zookeeper recorded, because it reads its own documents before continuing earlier work.
 
-Expect Zookeeper to create them without being asked on longer or multi-part tasks. They supplement
-the CAD work rather than replacing it, so a request for a model still produces a model. If you would
-rather keep a project free of them, say so in `AGENTS.md`.
+Expect them on longer or multi-part tasks. They supplement the CAD work rather than replacing it, so
+a request for a model still produces a model. If you would rather keep a project free of them, or
+want them named or organized a particular way, say so in `AGENTS.md`.
 
 ## Custom functions and editability
 
