@@ -1,14 +1,13 @@
 ---
 title: "zoo ml kcl"
-excerpt: "Edit a KCL file with machine learning."
+excerpt: "KCL machine learning commands."
 layout: manual
 ---
 
-Edit a KCL file with machine learning.
+KCL machine learning commands.
 
 ### Subcommands
 
-* [zoo ml kcl edit](./zoo_ml_kcl_edit)
 * [zoo ml kcl copilot](./zoo_ml_kcl_copilot)
 
 ### Options
