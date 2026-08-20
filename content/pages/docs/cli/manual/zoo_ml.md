@@ -8,7 +8,6 @@ Perform machine learning (ML-Ephant) commands.
 
 ### Subcommands
 
-* [zoo ml text-to-cad](./zoo_ml_text-to-cad)
 * [zoo ml kcl](./zoo_ml_kcl)
 
 ### Options

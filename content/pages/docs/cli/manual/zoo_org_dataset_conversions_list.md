@@ -22,7 +22,7 @@ List conversions for an organization dataset.
    <dd>Token returned by a previous list call</dd>
 
    <dt><code>--sort-by</code></dt>
-   <dd>Sort order<br/>Possible values: <code>created-at-ascending | created-at-descending | status-ascending | status-descending | updated-at-ascending | updated-at-descending</code></dd>
+   <dd>Sort order<br/>Possible values: <code>created-at-ascending | created-at-descending | status-ascending | status-descending | phase-ascending | phase-descending | updated-at-ascending | updated-at-descending</code></dd>
 
    <dt><code>--paginate</code></dt>
    <dd>Follow pagination until every conversion is returned<br/>Default value: <code>false</code></dd>
