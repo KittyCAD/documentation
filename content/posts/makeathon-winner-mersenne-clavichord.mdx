@@ -16,17 +16,16 @@ draft: true
 
 When we launched our first virtual Zoo Design Studio Makeathon in May, we expected participants to surprise us. We did not expect the winning project to begin with a drawing published in 1636.
 
-<figure>
+<figure style={{ margin: '2rem auto 2.5rem', textAlign: 'center' }}>
     <img
-        src="/documentation-assets/makeathon-mersenne-clavichord/mersenne-1636-clavichord-drawing.webp"
-        alt="Mersenne's 1636 drawing of the clavichord"
+        src="/documentation-assets/makeathon-mersenne-clavichord/mersenne-1636-clavichord-drawing-public-domain.jpg"
+        alt="Marin Mersenne's 1636 diagram of the manichordion, or clavichord"
+        style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }}
     />
-    <figcaption>
-        Mersenne's 1636 drawing of the clavichord. Image via <a href="https://www.masonm.org/posts/meresennes-clavichord/">Mason Malone's build log</a>.
+    <figcaption style={{ color: 'inherit', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '0.75rem', opacity: 0.72 }}>
+        Marin Mersenne's diagram of the manichordion, or clavichord, from <cite>Harmonie universelle</cite> (1636), Third Book of Stringed Instruments, Proposition IV, p. 115. Scan: <a href="https://gallica.bnf.fr/ark:/12148/bpt6k15111009/f1092.item">Bibliothèque nationale de France</a>, via <a href="https://commons.wikimedia.org/w/index.php?curid=171021767">Wikimedia Commons</a>. Public domain.
     </figcaption>
 </figure>
-
-{/* TODO: Before publication, confirm that this particular digital scan of the public-domain 1636 drawing permits reuse. Prefer a museum, library, or archive source with explicit reuse terms, and update the credit and link accordingly. */}
 
 Mason Malone reconstructed a clavichord described by French polymath Marin Mersenne. The instrument has 49 keys, 70 strings, five bridges, and a network of mechanical relationships governed by music, geometry, and acoustics. Mason translated that system into an editable parametric model built in [KCL](https://zoo.dev/docs/kcl).
 
@@ -34,7 +33,16 @@ The historical subject made the project memorable. The way Mason modeled it made
 
 Mason has written [a detailed account of the history, equations, and build process](https://www.masonm.org/posts/meresennes-clavichord/). Rather than repeat his excellent technical walkthrough, we want to explain what we saw from the other side: why this project stood out to the people building the software, what it demonstrated about Zoo Design Studio, and what it taught us about the kind of work modern CAD should support.
 
-![Mason Malone's first-place model of Mersenne's clavichord.](/documentation-assets/makeathon-mersenne-clavichord/clavichord-model.png)
+<figure style={{ margin: '2rem auto 2.5rem', textAlign: 'center' }}>
+    <img
+        src="/documentation-assets/makeathon-mersenne-clavichord/clavichord-model.png"
+        alt="Mason Malone's first-place model of Mersenne's clavichord"
+        style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }}
+    />
+    <figcaption style={{ color: 'inherit', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '0.75rem', opacity: 0.72 }}>
+        Mason Malone's first-place model of Mersenne's clavichord.
+    </figcaption>
+</figure>
 
 ## Why this project won
 
@@ -46,7 +54,9 @@ At first glance, the model is a finely detailed historical instrument. Underneat
 
 That combination mattered. Mason used code to express how the instrument works instead of merely using it to draw repeated shapes more quickly.
 
-{/* TODO: Add a confirmed quote from the Makeathon judges here. The quote in the source document is marked as a placeholder. */}
+> “The submission includes KCL code using Mersenne's Laws to calculate string sounding lengths and even supports two different temperaments. The technical depth, historical inspiration, and execution made this a standout across the board.”
+>
+> — Zoo Makeathon judges
 
 ## A model that behaves, not just one that looks right
 
@@ -56,7 +66,16 @@ Mersenne's clavichord is fretted. Several keys can share the same pair of string
 
 Mason encoded those relationships into functions. A change in temperament drives new frequencies. Those frequencies produce new sounding lengths. The sounding lengths determine where the tangents must sit. Forty-nine keys and 35 courses remain connected through the logic of the model.
 
-![A close view of Mason Malone's clavichord model in Zoo Design Studio, showing its keyboard, strings, bridges, and tangent layout.](/documentation-assets/makeathon-mersenne-clavichord/clavichord-strings-and-keyboard.png)
+<figure style={{ margin: '2rem auto 2.5rem', textAlign: 'center' }}>
+    <img
+        src="/documentation-assets/makeathon-mersenne-clavichord/clavichord-strings-and-keyboard.png"
+        alt="A close view of Mason Malone's clavichord model in Zoo Design Studio, showing its keyboard, strings, bridges, and tangent layout"
+        style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }}
+    />
+    <figcaption style={{ color: 'inherit', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '0.75rem', opacity: 0.72 }}>
+        A close view of the keyboard, strings, bridges, and tangent layout in Mason's model.
+    </figcaption>
+</figure>
 
 This is the kind of parametric work we hoped the Makeathon would uncover. The result is an inspectable explanation of the instrument.
 
@@ -78,12 +97,13 @@ One detail from Mason's process was especially instructive to us: his first atte
 
 He initially gave Zookeeper Mersenne's drawing and original French description and asked for a model. The output was incoherent.
 
-<figure>
+<figure style={{ margin: '2rem auto 2.5rem', textAlign: 'center' }}>
     <img
         src="/documentation-assets/makeathon-mersenne-clavichord/clavichord-in-zoo-design-studio.png"
         alt="Mason Malone's first attempt to generate Mersenne's clavichord with Zookeeper"
+        style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }}
     />
-    <figcaption>
+    <figcaption style={{ color: 'inherit', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '0.75rem', opacity: 0.72 }}>
         Mason's first attempt to generate the clavichord from Mersenne's drawing and original French description.
     </figcaption>
 </figure>
@@ -124,12 +144,13 @@ Mason also showed us a use case we had not imagined. We spend much of our time t
 
 Mason had been learning CAD for about a year when he entered the Makeathon. He brought a programmer's comfort with rules, a music lover's curiosity, and the patience to work through sources that did not offer clean answers.
 
-<figure>
+<figure style={{ margin: '2rem auto 2.5rem', textAlign: 'center' }}>
     <img
         src="/documentation-assets/makeathon-mersenne-clavichord/bavington-physical-reconstruction.jpg"
         alt="Peter Bavington's physical reconstruction of Mersenne's clavichord in his workshop"
+        style={{ display: 'block', margin: '0 auto', maxWidth: '100%' }}
     />
-    <figcaption>
+    <figcaption style={{ color: 'inherit', fontSize: '0.95rem', lineHeight: '1.5', marginTop: '0.75rem', opacity: 0.72 }}>
         Peter Bavington's physical reconstruction of Mersenne's clavichord. Image via <a href="https://www.peter-bavington.co.uk/mersenneintro.htm">The Mersenne Clavichord Project</a>.
     </figcaption>
 </figure>
