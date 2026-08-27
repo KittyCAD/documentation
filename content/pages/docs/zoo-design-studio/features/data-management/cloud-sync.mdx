@@ -10,8 +10,9 @@ not automatically upload every project on your computer.
 - **Personal Cloud projects sync.** They are stored in your Zoo account so you can open them in the
   browser and on other devices. On desktop, Zoo Design Studio also keeps a working copy in a
   separate, managed folder while you edit.
-- **Directory projects do not sync.** They stay in the folder you chose on that computer and are not
-  uploaded unless you move them to Personal Cloud.
+- **Directory projects do not sync.** They stay in the folder you chose on that computer unless you
+  move them to Personal Cloud or publish them to Aquarium. Publishing automatically moves a
+  Directory project to Personal Cloud after a successful submission.
 
 When you change a Personal Cloud project, Zoo Design Studio saves the change to the working copy
 first and syncs it to your Zoo account in the background. You can then open the latest synced
@@ -42,7 +43,8 @@ In the browser, Personal Cloud is the only project library.
 
 Check the library that contains the project on Home. Only projects in `Personal Cloud` are saved to
 your Zoo account. Projects in a Directory library are local-only, even while Cloud Sync is enabled.
-Move a Directory project to Personal Cloud when you want to start syncing it.
+Move a Directory project to Personal Cloud when you want to start syncing it directly. Publishing a
+Directory project to Aquarium also moves it to Personal Cloud and starts syncing it.
 
 ### How Much Cloud Storage Do I Get?
 
@@ -89,7 +91,7 @@ history or recovery outside the current synced project.
 
 ### Start Syncing
 
-To start syncing a local Directory project, move it to `Personal Cloud`:
+To start syncing a local Directory project directly, move it to `Personal Cloud`:
 
 1. Select `Move to library` from the Command Bar, the project menu in the top bar, or the project
    card context menu on Home.
@@ -103,6 +105,11 @@ on desktop, the project remains local in that folder until you enable it again.
 
 Creating a project directly in `Personal Cloud` also starts it as a synced project. In the browser,
 Personal Cloud is the only project library, so projects are cloud-backed by default.
+
+Publishing a Directory project to Aquarium also moves it into cloud storage. The submission dialog
+warns about the move before you submit. After a successful submission, Zoo Design Studio moves the
+folder to Personal Cloud, reopens it there, and starts cloud sync. Publishing a project that is
+already in Personal Cloud does not move its working copy.
 
 {/* VIDEO PLACEHOLDER: Moving a Directory project to Personal Cloud and watching the sync status reach Cloud synced. */}
 
@@ -324,6 +331,7 @@ same-file merging.
 
 ## Related
 
+- [Aquarium](/docs/zoo-design-studio/features/data-management/aquarium)
 - [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries)
 - [Project Browser](/docs/zoo-design-studio/features/workspace/project-browser)
 - [File Explorer](/docs/zoo-design-studio/features/workspace/file-explorer)
