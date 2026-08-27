@@ -34,6 +34,14 @@ const OgImage = defineNestedType(() => ({
   },
 }))
 
+const draftField = {
+  type: 'boolean',
+  description:
+    'Whether the content is a draft and should only appear outside production.',
+  required: false,
+  default: false,
+}
+
 const Page = defineDocumentType(() => ({
   name: 'Page',
   filePathPattern: `pages/**/*.mdx`,
@@ -212,12 +220,7 @@ const BlogPost = defineDocumentType(() => ({
       description: 'The tags of the blog post, for SEO, categorization, and filtering use.',
       required: false,
     },
-    draft: {
-      type: 'boolean',
-      description: 'Whether the blog post is a draft and should not be published.',
-      required: false,
-      default: false,
-    },
+    draft: draftField,
   },
   computedFields: {
     slug: {
@@ -288,6 +291,7 @@ const ResearchPage = defineDocumentType(() => ({
       description: 'The tags of the research page, for SEO, categorization, and filtering use.',
       required: false,
     },
+    draft: draftField,
   },
   computedFields: {
     slug: {
@@ -357,6 +361,7 @@ const PressPage = defineDocumentType(() => ({
       description: 'The tags of the press page, for SEO, categorization, and filtering use.',
       required: false,
     },
+    draft: draftField,
   },
   computedFields: {
     slug: {
