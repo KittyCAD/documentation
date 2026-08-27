@@ -8,7 +8,7 @@ author:
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
         url: '/documentation-assets/meta-images/researching-foreign-cloud-native-CAD-software-blog.png'
-tags: ['New', 'Security']
+tags: ['Security']
 ---
 
 

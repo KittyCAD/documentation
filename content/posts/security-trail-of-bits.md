@@ -8,7 +8,7 @@ author:
     picture: '/documentation-assets/maxammann.jpeg'
 ogImage:
     url: '/documentation-assets/meta-images/zoo-got-audited-by-trial-of-bits-again-blog.png'
-tags: ['New', 'Security']
+tags: ['Security']
 ---
 
 Secure code audits provide a unique view into the security of a product.
