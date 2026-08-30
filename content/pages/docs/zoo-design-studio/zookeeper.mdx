@@ -158,6 +158,33 @@ The selector keeps unavailable modes visible so users can see what an upgraded p
   </div>
 </div>
 
+## What Zookeeper Can't Do Yet
+
+Zookeeper models in KCL, so it inherits KCL's and the geometry engine's current limits. The most
+common surprise:
+
+**It cannot modify imported CAD files.** A STEP, STL, OBJ, PLY, glTF/GLB, FBX, or SLDPRT file you
+add to a project is reference geometry. Zookeeper can render it, measure it, position it, and
+recreate it as native KCL, but it cannot cut into it, fillet it, or boolean it — those operations
+require a KCL `Solid`, and an imported file is `ImportedGeometry`. There is no conversion between
+the two, for mesh and BREP files alike.
+
+If you want a change to an imported part, ask for one of these instead:
+
+- *"Recreate this part in KCL, then add a 10 mm slot."* Zookeeper rebuilds the shape natively,
+  which makes every feature editable afterwards.
+- *"Model a bracket that bolts onto this imported flange."* The import stays untouched as a
+  reference and Zookeeper builds a separate part around it.
+
+See [Editing imported geometry](/docs/zoo-design-studio/features/data-management/import#editing-imported-geometry)
+for the full picture.
+
+Two smaller limits worth knowing:
+
+- Zookeeper responds in text and cannot drive the Zoo Design Studio UI for you.
+- KCL has no dedicated tooling for modeled text, so lettering and engraving requests need a CAD
+  workaround rather than a text feature.
+
 ## What's Coming Next
 
 The agent described above is only the beginning. An upcoming capability will extend both its reach and its usefulness.
