@@ -8,7 +8,11 @@ Import workflows bring external CAD files, 3D models, and KCL code into Zoo Desi
 
 ## Supported Import Formats
 
-Zoo Design Studio supports the following file formats for import into projects:
+{/* Keep this table in sync with modeling-app's kcl-lib import formats. */}
+
+“Supported” means the current Design Studio import workflow accepts the format. It does not mean
+that external geometry becomes parametrically editable. Formats under active development are
+explicitly labeled “Experimental.”
 
 ### CAD Formats
 
@@ -22,25 +26,45 @@ Zoo Design Studio supports the following file formats for import into projects:
 - For STEP-specific syntax, export settings, and troubleshooting, see
   [STEP Import](/docs/zoo-design-studio/features/data-management/import/step)
 
+**SolidWorks Part (.sldprt)**
+- Supported for importing external SolidWorks part geometry
+- Imported geometry does not include editable feature history
+- Useful for visualization, measurement, references, and downstream modeling operations
+
 ### 3D Model Formats
 
-**glTF/GLB (.glb)**
-- Graphics Library Transmission Format (binary variant)
+**glTF/GLB (.gltf, .glb)**
+- Graphics Library Transmission Format
 - Modern 3D asset format optimized for web and real-time rendering
-- Supports meshes, materials, textures, animations
+- Supports meshes, materials, textures, and complex scenes
 - Commonly used for visualization assets and game engines
 
-**FBX (.fbxb)**
-- Filmbox format (binary variant)
+**FBX (.fbx, .fbxb)**
+- Filmbox format
 - Autodesk interchange format for 3D content
 - Widely used in animation, VFX, and game development pipelines
 - Supports complex scenes with multiple objects and materials
+
+**OBJ (.obj)**
+- Widely supported mesh interchange format
+- Useful for visualization and compatibility with general-purpose 3D software
+- Supports custom length units and coordinate systems when imported from KCL
+
+**PLY (.ply)**
+- Polygon File Format for mesh and scan data
+- Commonly used for visualization, 3D scanning, and graphics workflows
+- Supports custom length units and coordinate systems when imported from KCL
+
+**STL (.stl)**
+- Tessellated surface format commonly used for 3D printing
+- Contains mesh geometry without parametric feature history
+- Supports custom length units and coordinate systems when imported from KCL
 
 ### Native Formats
 
 **KCL (.kcl)**
 - Zoo's native parametric modeling language
-- Imports as fully editable parametric model
+- Imports as a fully editable parametric model
 - Enables code-based design reuse and library building
 - Preserves feature history and parameter definitions
 
@@ -102,7 +126,7 @@ The `Insert` command (available via Command Bar) provides a UI workflow for the 
 
 ## Imported Geometry Behavior
 
-### Non-Native Formats (STEP, GLB, FBX)
+### Non-Native Formats
 
 Imported CAD geometry from external formats:
 - Appears as reference geometry in the Scene

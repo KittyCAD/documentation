@@ -11,9 +11,14 @@ To save a PNG of the current viewport instead of exporting model geometry, use
 
 ## Supported Export Formats
 
+{/* Keep this table in sync with modeling-app's Export command options. */}
+
+These are the formats currently exposed by Zoo Design Studio's Export command. The Engine API may
+support additional conversion formats that are not available in the Design Studio UI.
+
 ### CAD and Engineering Formats
 
-**STEP (.step, .stp)**
+**STEP (.step)**
 - Standard for the Exchange of Product model data (ISO 10303)
 - Industry-standard neutral CAD format
 - Preserves precise solid geometry and assemblies
@@ -54,11 +59,12 @@ To create an STL and open it directly in a supported desktop slicing application
 - Used in computer graphics, 3D scanning, and point clouds
 - **Useful for visualization and data exchange with graphics tools**
 
-**FBX (.fbx)**
-- Filmbox format (Autodesk)
-- Interchange for animation, VFX, and game development
-- Supports complex scenes, animations, and rigs
-- **Best for animation pipelines and game engine import**
+### API-Only Export Formats
+
+**FBX (.fbx)** is supported as an output format by Zoo's APIs, but it is not currently available
+from Zoo Design Studio's Export command. Developers can create FBX output with the
+[File Format API](/docs/developer-tools/api/file) or the
+[`zoo file convert`](/docs/cli/manual/zoo_file_convert) CLI command.
 
 ## Export Command
 
@@ -79,7 +85,6 @@ Which file format to export:
 - **OBJ** - General mesh format
 - **glTF / GLB** - Modern graphics format for web and AR/VR
 - **PLY** - Polygon format
-- **FBX** - For animation and game engines
 
 ### Storage
 Where to save the file:
@@ -134,9 +139,9 @@ When exporting projects containing multiple solid bodies:
 | SolidWorks, CATIA, NX | STEP | - |
 | Fusion 360, Onshape | STEP | - |
 | 3D Printing (FDM/SLA) | STL | - |
-| Unity, Unreal Engine | glTF/GLB | FBX |
-| Blender | glTF, OBJ | FBX |
-| Rendering (V-Ray, Corona) | OBJ, FBX | glTF |
+| Unity, Unreal Engine | glTF/GLB | OBJ |
+| Blender | glTF, OBJ | PLY |
+| Rendering (V-Ray, Corona) | OBJ | glTF |
 | Web viewers (Three.js) | glTF/GLB | - |
 | CNC machining (CAM) | STEP | - |
 | Laser cutting | DXF (see DXF Export) | - |
@@ -149,8 +154,8 @@ When exporting projects containing multiple solid bodies:
 | Manufacturing (CNC) | STEP | CAM software requires precise surfaces |
 | 3D printing | STL | Standard for slicing software |
 | Web visualization | glTF/GLB | Optimized for web transmission |
-| Photorealistic rendering | OBJ, FBX | Widely supported by renderers |
-| Game development | glTF, FBX | Includes materials and optimizations |
+| Photorealistic rendering | OBJ, glTF | Widely supported by renderers |
+| Game development | glTF | Includes materials and optimizations |
 | AR/VR applications | glTF/GLB | Lightweight, optimized for real-time |
 
 ## Export Quality Considerations
@@ -171,7 +176,7 @@ Zoo automatically determines appropriate tessellation based on geometry complexi
 - STEP (solid models, exact curves and surfaces)
 
 **Formats using approximation:**
-- STL, OBJ, PLY, glTF, FBX (tessellated meshes, curved surfaces approximated)
+- STL, OBJ, PLY, glTF (tessellated meshes, curved surfaces approximated)
 
 For engineering and manufacturing workflows requiring dimensional accuracy, always use STEP format.
 
