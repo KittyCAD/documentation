@@ -8,11 +8,15 @@ Import workflows bring external CAD files, 3D models, and KCL code into Zoo Desi
 
 ## Supported Import Formats
 
-{/* Keep this table in sync with modeling-app's kcl-lib import formats. */}
+{/* Source of truth: modeling-app/rust/kcl-lib/src/import_format.rs. */}
 
 “Supported” means the current Design Studio import workflow accepts the format. It does not mean
 that external geometry becomes parametrically editable. Formats under active development are
 explicitly labeled “Experimental.”
+
+For proprietary CAD formats, compatibility can vary with the application version that produced the
+file. An accepted extension does not guarantee complete version coverage or preservation of native
+feature history.
 
 ### CAD Formats
 
@@ -30,6 +34,29 @@ explicitly labeled “Experimental.”
 - Supported for importing external SolidWorks part geometry
 - Imported geometry does not include editable feature history
 - Useful for visualization, measurement, references, and downstream modeling operations
+
+**ACIS (.sat, .sab)**
+- Accepted for importing ACIS solid-model geometry
+- Includes both text (`.sat`) and binary (`.sab`) ACIS files
+- Imported geometry does not include editable feature history
+
+**CATIA Part (.catpart)**
+- Accepted for importing CATIA part geometry
+- Imported geometry does not include editable CATIA feature history
+
+**Creo and Siemens NX Part (.prt, versioned .prt.N)**
+- Unversioned `.prt` files can represent either Siemens NX or Creo/ProE parts
+- When the format is inferred automatically, an unversioned `.prt` file is treated as NX
+- Creo can be selected explicitly, and versioned Creo filenames such as `.prt.1` or `.prt.23` are recognized as Creo
+- Imported geometry does not include editable native feature history
+
+**Autodesk Inventor Part (.ipt)**
+- Accepted for importing Autodesk Inventor part geometry
+- Imported geometry does not include editable Inventor feature history
+
+**Parasolid (.x_t, .x_b)**
+- Accepted for importing Parasolid text (`.x_t`) and binary (`.x_b`) geometry
+- Imported geometry does not include editable feature history
 
 ### 3D Model Formats
 
