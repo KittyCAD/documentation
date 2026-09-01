@@ -18,7 +18,7 @@ support additional conversion formats that are not available in the Design Studi
 
 ### CAD and Engineering Formats
 
-**STEP (.step)**
+**STEP (.step, .stp)**
 - Standard for the Exchange of Product model data (ISO 10303)
 - Industry-standard neutral CAD format
 - Preserves precise solid geometry and assemblies
@@ -126,7 +126,7 @@ Use this when the target software expects specific units.
 
 When exporting projects containing multiple solid bodies:
 - **STEP format:** Exports as assembly with multiple components
-- **Mesh formats (STL, OBJ, glTF):** Exports as single file with multiple meshes
+- **Mesh formats (STL, OBJ, PLY, glTF/GLB):** Export as a single file with multiple meshes
 - Body names are preserved as component identifiers
 - Spatial relationships and positions are maintained
 
@@ -139,10 +139,10 @@ When exporting projects containing multiple solid bodies:
 | SolidWorks, CATIA, NX | STEP | - |
 | Fusion 360, Onshape | STEP | - |
 | 3D Printing (FDM/SLA) | STL | - |
-| Unity, Unreal Engine | glTF/GLB | OBJ |
-| Blender | glTF, OBJ | PLY |
-| Rendering (V-Ray, Corona) | OBJ | glTF |
-| Web viewers (Three.js) | glTF/GLB | - |
+| Unity, Unreal Engine | glTF/GLB | OBJ, PLY |
+| Blender | glTF/GLB | OBJ, PLY |
+| Rendering (V-Ray, Corona) | glTF/GLB | OBJ, PLY |
+| Web viewers (Three.js) | glTF/GLB | OBJ, PLY |
 | CNC machining (CAM) | STEP | - |
 | Laser cutting | DXF (see DXF Export) | - |
 
@@ -154,8 +154,8 @@ When exporting projects containing multiple solid bodies:
 | Manufacturing (CNC) | STEP | CAM software requires precise surfaces |
 | 3D printing | STL | Standard for slicing software |
 | Web visualization | glTF/GLB | Optimized for web transmission |
-| Photorealistic rendering | OBJ, glTF | Widely supported by renderers |
-| Game development | glTF | Includes materials and optimizations |
+| Photorealistic rendering | glTF/GLB, OBJ, PLY | Widely supported by renderers |
+| Game development | glTF/GLB | Includes materials and optimizations |
 | AR/VR applications | glTF/GLB | Lightweight, optimized for real-time |
 
 ## Export Quality Considerations
@@ -176,7 +176,7 @@ Zoo automatically determines appropriate tessellation based on geometry complexi
 - STEP (solid models, exact curves and surfaces)
 
 **Formats using approximation:**
-- STL, OBJ, PLY, glTF (tessellated meshes, curved surfaces approximated)
+- STL, OBJ, PLY, glTF/GLB (tessellated meshes, curved surfaces approximated)
 
 For engineering and manufacturing workflows requiring dimensional accuracy, always use STEP format.
 
