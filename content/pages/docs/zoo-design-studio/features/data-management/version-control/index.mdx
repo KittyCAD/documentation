@@ -16,9 +16,9 @@ records intentional revision history and reviewable changes.
 
 ## Git and Project Libraries
 
-Use a Directory library when you want a project to remain in a normal folder whose location you
-control. This is the most direct fit for a Git working tree and other filesystem-based development
-tools.
+Use Local Projects or another local library when you want a project to remain in a normal folder
+whose location you control. This is the most direct fit for a Git working tree and other
+filesystem-based development tools.
 
 Personal Cloud uses a managed working-copy folder on desktop. Cloud Sync uploads project files but
 excludes version-control metadata directories such as `.git`, `.hg`, `.svn`, and `.jj`. Those
@@ -29,7 +29,7 @@ remove excluded local files. See
 
 ## Publish a Version-Controlled Project
 
-Publishing a Directory project to Aquarium moves the entire project folder into Personal Cloud
+Publishing a local project to Aquarium moves the entire project folder into Personal Cloud
 after a successful submission. Local version-control metadata moves with the folder, but it is not
 uploaded or protected by Cloud Sync.
 

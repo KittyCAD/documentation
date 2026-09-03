@@ -7,15 +7,16 @@ sidebarPosition: 3
 A project library is a place where Zoo Design Studio keeps projects. Libraries also organize the
 projects you see on Home.
 
-On desktop, there are two choices:
+On desktop, there are two storage models:
 
-- **Directory** keeps projects in a folder you choose on your computer. These projects remain local
+- **Local Projects** is the default local library. It keeps projects in a folder on your computer.
+  You can change its folder, rename it, or add other local libraries. These projects remain local
   unless you move them to Personal Cloud or publish them to Aquarium.
 - **Personal Cloud** stores projects in your Zoo account so you can open them on other devices and
   in the browser. Zoo Design Studio also keeps a local working copy while you edit on desktop.
 
-These are separate locations. Adding a Directory library does not sync its projects. To start
-syncing a Directory project directly, move it to Personal Cloud. Publishing a Directory project to
+These are separate locations. Projects in Local Projects or another local library do not sync. To
+start syncing a local project directly, move it to Personal Cloud. Publishing a local project to
 Aquarium also moves it to Personal Cloud after a successful submission.
 
 Aquarium is not a third library. It is a public gallery containing reviewed versions submitted from
@@ -25,48 +26,48 @@ and paid plans, and changing or canceling a subscription does not remove it. See
 for the current visibility and data-use policy.
 
 **Only projects in Personal Cloud sync to your Zoo account. Projects remain local-only while they
-stay in a Directory library.**
+stay in Local Projects or another local library.**
 
 Zoo Design Studio adds Personal Cloud automatically for signed-in users with Cloud Sync; you do not
 need to create it yourself. On desktop Home, its cloud icon and `zoo://personal` address distinguish
-it from Directory libraries, which have folder icons and normal paths on your computer. In the
-browser, Personal Cloud is the default project library and may open directly.
+it from Local Projects and any other local libraries, which have folder icons and normal paths on
+your computer. In the browser, Personal Cloud is the default project library and may open directly.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/project-libraries-home.webp"
-  alt="Home showing a Directory library with a folder icon and local path beside Personal Cloud with a cloud icon and zoo://personal address"
+  alt="Home showing Local Projects with a folder icon and local path beside Personal Cloud with a cloud icon and zoo://personal address"
   aspect="1000 / 650"
   maxHeightPx={520}
 />
 
 ## Choose a Library
 
-Zoo Design Studio currently supports two library types.
+Zoo Design Studio currently supports local libraries and Personal Cloud.
 
 | Library | Where the project lives | Use it when |
 | --- | --- | --- |
-| Directory | In a folder you choose on this computer. | You want local-only work, a specific folder, or a Git workflow. |
+| Local Projects | In a folder you choose on this computer. | You want local-only work, a specific folder, or a Git workflow. |
 | Personal Cloud | In your Zoo account, plus a working copy on the device where you open it. | You want the project in the browser or on multiple devices. |
 
-### Directory Libraries
+### Local Projects
 
-A Directory library points to a normal folder on your computer. Each project is a subfolder inside
-that library folder. A Directory project stays in that folder and is not uploaded to Zoo unless you
-move it to Personal Cloud or submit it to Aquarium.
+Local Projects is the default local project library. It points to a normal folder on your computer,
+and each project is a subfolder inside that library folder. A project stays in that folder and is
+not uploaded to Zoo unless you move it to Personal Cloud or submit it to Aquarium.
 
-Directory libraries are available in the desktop app. Under `Settings` > `User` > `App` >
-`Libraries`, you can add more than one, rename them, choose different folders, reorder them, or remove
-them from Home. Changing a library path changes which folder Home scans; it does not move projects.
-Removing a Directory library does not delete its folder or projects on disk.
+Local libraries are available in the desktop app. Under `Settings` > `User` > `App` > `Libraries`,
+you can rename Local Projects, add more local libraries, choose different folders, reorder them, or
+remove them from Home. Changing a library path changes which folder Home scans; it does not move
+projects. Removing a local library does not delete its folder or projects on disk.
 
-Zoo Design Studio projects remain normal, readable files. You can open a Directory project in a text
+Zoo Design Studio projects remain normal, readable files. You can open a local project in a text
 editor, search it, copy it, version it with Git, or use it with other filesystem tools.
 
 ### Personal Cloud
 
 Personal Cloud stores projects in your Zoo account.
 
-On desktop, Personal Cloud uses its own managed folder, separate from your Directory libraries.
+On desktop, Personal Cloud uses its own managed folder, separate from your local libraries.
 When you create or open a cloud project, Zoo Design Studio puts a working copy in that folder and
 syncs your changes in the background. The Personal Cloud settings row shows the folder's path and
 can reveal it in your file explorer.
@@ -76,7 +77,7 @@ cloud-only entries. Opening one downloads the project first, then opens the loca
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/project-libraries-settings.webp"
-  alt="User App settings showing an editable Directory library and the Personal Cloud local storage path"
+  alt="User App settings showing Local Projects and the Personal Cloud local storage path"
   aspect="1300 / 720"
   maxHeightPx={520}
 />
@@ -94,15 +95,16 @@ configured library, Home goes directly to that library's projects.
 From Home, choose `Create project`. If more than one writable library is available, the Create
 project command includes a `Library` field.
 
-Creating a project in a Directory library creates a new folder inside that Directory library's path.
-Creating a project in Personal Cloud creates a local cloud working copy and starts cloud sync when
-sync is enabled.
+Creating a project in Local Projects or another local library creates a new folder inside that
+library's path. Creating a project in Personal Cloud creates a local cloud working copy and starts
+cloud sync when sync is enabled.
 
-{/* VIDEO PLACEHOLDER: Short walkthrough creating one project in a Directory library and one in Personal Cloud. */}
+{/* VIDEO PLACEHOLDER: Short walkthrough creating one project in Local Projects and one in Personal
+Cloud. */}
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/create-project-library-chooser.webp"
-  alt="Create project command showing Workshop Projects and Personal Cloud as library choices"
+  alt="Create project command showing Local Projects and Personal Cloud as library choices"
   aspect="576 / 244"
   maxHeightPx={320}
 />
@@ -119,10 +121,10 @@ project menu in the top bar, or a project card's context menu on Home.
 
 The result depends on the source and destination:
 
-- Directory to Directory moves the project folder between local library paths.
-- Directory to Personal Cloud moves it into managed cloud storage and starts cloud sync.
-- Personal Cloud to Directory deletes the remote cloud project, disconnects the local copy, and
-  moves that remaining folder to the Directory library.
+- Local library to local library moves the project folder between local library paths.
+- Local library to Personal Cloud moves it into managed cloud storage and starts cloud sync.
+- Personal Cloud to local library deletes the remote cloud project, disconnects the local copy, and
+  moves that remaining folder to the local library.
 
 A cloud-only project must be opened before it can be moved. Moving out of Personal Cloud also
 requires Cloud Sync to be enabled.
@@ -135,23 +137,24 @@ the cloud link.
 This is the preferred way to move projects between libraries. It lets Zoo Design Studio update the
 project files, library membership, and cloud sync metadata together.
 
-Publishing a Directory project to Aquarium is a special case of the Directory-to-Personal-Cloud
-move. The publishing dialog discloses the storage change before submission. After a successful
+Publishing a local project to Aquarium is a special case of moving from a local library to Personal
+Cloud. The publishing dialog discloses the storage change before submission. After a successful
 submission, Zoo Design Studio moves the project folder into Personal Cloud and reopens it there; it
-does not leave another project in the Directory library.
+does not leave another project in the local library.
 
-{/* VIDEO PLACEHOLDER: Moving a local project into Personal Cloud, then moving it back to a Directory library. */}
+{/* VIDEO PLACEHOLDER: Moving a project from Local Projects into Personal Cloud, then moving it
+back. */}
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/move-directory-to-personal-cloud.webp"
-  alt="Move to library review for moving a Directory project into Personal Cloud"
+  alt="Move to library review for moving a project from Local Projects into Personal Cloud"
   aspect="576 / 254"
   maxHeightPx={320}
 />
 <br />
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/project-libraries/move-personal-cloud-to-directory.webp"
-  alt="Move to library review for moving a Personal Cloud project into a Directory library"
+  alt="Move to library review for moving a Personal Cloud project into Local Projects"
   aspect="576 / 254"
   maxHeightPx={320}
 />
@@ -160,8 +163,8 @@ does not leave another project in the Directory library.
 
 Deleting a project follows the library it belongs to:
 
-- Deleting from a Directory library removes the local project folder.
-- Deleting a cloud-backed copy from a Directory library removes the selected folder but keeps the
+- Deleting from a local library removes the local project folder.
+- Deleting a cloud-backed copy from a local library removes the selected folder but keeps the
   cloud project. Other local folders with the same cloud identity may be removed if they are exact
   duplicates or disconnected if they differ.
 - Deleting from `Personal Cloud` deletes the cloud project and removes the local working copy on the
@@ -174,7 +177,7 @@ Read the confirmation dialog before deleting. Project deletion is permanent and 
 
 ### Desktop and Browser Differences
 
-On desktop, Zoo Design Studio can show Directory and Cloud libraries side by side. This lets you keep
+On desktop, Zoo Design Studio can show local and Cloud libraries side by side. This lets you keep
 local-only work, Git-based work, and cloud-backed work in one Home view.
 
 In the browser, Zoo Design Studio uses `Personal Cloud`. Its working copy lives in browser storage,
