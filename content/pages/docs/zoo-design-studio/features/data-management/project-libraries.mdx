@@ -9,15 +9,23 @@ projects you see on Home.
 
 On desktop, there are two choices:
 
-- **Directory** keeps projects in a folder you choose on your computer. These projects are local and
-  are not uploaded to Zoo.
+- **Directory** keeps projects in a folder you choose on your computer. These projects remain local
+  unless you move them to Personal Cloud or publish them to Aquarium.
 - **Personal Cloud** stores projects in your Zoo account so you can open them on other devices and
   in the browser. Zoo Design Studio also keeps a local working copy while you edit on desktop.
 
 These are separate locations. Adding a Directory library does not sync its projects. To start
-syncing a Directory project, move it to Personal Cloud.
+syncing a Directory project directly, move it to Personal Cloud. Publishing a Directory project to
+Aquarium also moves it to Personal Cloud after a successful submission.
 
-**Only projects in Personal Cloud sync to your Zoo account. Directory projects remain local-only.**
+Aquarium is not a third library. It is a public gallery containing reviewed versions submitted from
+Personal Cloud projects. Today, an unpublished Personal Cloud project remains private on both Free
+and paid plans, and changing or canceling a subscription does not remove it. See
+[Are Personal Cloud Projects Private?](/docs/zoo-design-studio/features/data-management/cloud-sync#are-personal-cloud-projects-private)
+for the current visibility and data-use policy.
+
+**Only projects in Personal Cloud sync to your Zoo account. Projects remain local-only while they
+stay in a Directory library.**
 
 Zoo Design Studio adds Personal Cloud automatically for signed-in users with Cloud Sync; you do not
 need to create it yourself. On desktop Home, its cloud icon and `zoo://personal` address distinguish
@@ -43,7 +51,8 @@ Zoo Design Studio currently supports two library types.
 ### Directory Libraries
 
 A Directory library points to a normal folder on your computer. Each project is a subfolder inside
-that library folder. A Directory project stays in that folder and is not uploaded to Zoo.
+that library folder. A Directory project stays in that folder and is not uploaded to Zoo unless you
+move it to Personal Cloud or submit it to Aquarium.
 
 Directory libraries are available in the desktop app. Under `Settings` > `User` > `App` >
 `Libraries`, you can add more than one, rename them, choose different folders, reorder them, or remove
@@ -119,11 +128,17 @@ A cloud-only project must be opened before it can be moved. Moving out of Person
 requires Cloud Sync to be enabled.
 
 **Important:** Moving out of Personal Cloud is a permanent remote deletion, not a way to retain both
-copies. If Zoo Design Studio cannot delete the remote project, the move fails and restores the cloud
-link.
+copies. If the project has an Aquarium publication, moving it out of Personal Cloud deletes that
+public entry too. If Zoo Design Studio cannot delete the remote project, the move fails and restores
+the cloud link.
 
 This is the preferred way to move projects between libraries. It lets Zoo Design Studio update the
 project files, library membership, and cloud sync metadata together.
+
+Publishing a Directory project to Aquarium is a special case of the Directory-to-Personal-Cloud
+move. The publishing dialog discloses the storage change before submission. After a successful
+submission, Zoo Design Studio moves the project folder into Personal Cloud and reopens it there; it
+does not leave another project in the Directory library.
 
 {/* VIDEO PLACEHOLDER: Moving a local project into Personal Cloud, then moving it back to a Directory library. */}
 
@@ -150,7 +165,8 @@ Deleting a project follows the library it belongs to:
   cloud project. Other local folders with the same cloud identity may be removed if they are exact
   duplicates or disconnected if they differ.
 - Deleting from `Personal Cloud` deletes the cloud project and removes the local working copy on the
-  current device when one exists.
+  current device when one exists. It also deletes any Aquarium publication backed by that cloud
+  project.
 
 Read the confirmation dialog before deleting. Project deletion is permanent and has no undo.
 
@@ -168,6 +184,7 @@ location.
 
 ## Related
 
+- [Aquarium](/docs/zoo-design-studio/features/data-management/aquarium)
 - [Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync)
 - [Project Browser](/docs/zoo-design-studio/features/workspace/project-browser)
 - [Version Control](/docs/zoo-design-studio/features/data-management/version-control)

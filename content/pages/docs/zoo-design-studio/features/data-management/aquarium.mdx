@@ -5,8 +5,11 @@ sidebarPosition: 6
 ---
 
 Aquarium is Zoo's public CAD gallery for discovering, viewing, and sharing models. Use it when you
-want a model to be browsable outside your local project workflow. Projects are submitted from Zoo
-Design Studio and become public after Aquarium review.
+want a model to have a public destination outside Zoo Design Studio. Projects are submitted from
+Zoo Design Studio and become public after Aquarium review.
+
+Aquarium is not a project library. Personal Cloud stores the private, editable project; Aquarium
+shows an approved public version only after you choose to publish it.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/aquarium/aquarium-gallery.webp"
@@ -29,6 +32,13 @@ Before publishing, make sure you are signed in, have a username set on your Zoo 
 non-empty KCL file without errors open in the project. The `Publish` button is disabled when the
 current KCL file is empty or has errors.
 
+Publishing requires the project to be stored in Personal Cloud. If you publish a project from a
+Directory library on desktop, the submission dialog warns that a successful submission will move
+the project folder into the managed Personal Cloud folder. Zoo Design Studio closes the project,
+moves it rather than leaving a second copy behind, then reopens it from Personal Cloud and starts
+cloud sync. Projects already in Personal Cloud do not move. In the browser, projects are already
+cloud-backed.
+
 To submit a project:
 
 1. Open the project in Zoo Design Studio.
@@ -37,19 +47,61 @@ To submit a project:
 4. Select at least one Aquarium category.
 5. Review the Aquarium terms, then select `Submit for review`.
 
-Zoo Design Studio uploads the complete project, including files in subfolders, rather than only the
-KCL file currently open. The app confirms whether the project was published or submitted for
-review.
+The Aquarium title is currently also used as the project title in Personal Cloud. Changing the
+Aquarium title can therefore rename the project and its desktop working-copy folder.
+
+Zoo Design Studio uploads eligible project files from the entire folder tree rather than only the
+KCL file currently open. Publishing uses the same file-selection rules as Cloud Sync: `.gitignore`
+files are included, while ignored files, version-control metadata directories, Zoo's internal
+`._meta` data, and the generated project thumbnail are excluded. See
+[Which Files Sync?](/docs/zoo-design-studio/features/data-management/cloud-sync#which-files-sync)
+for details.
+
+The app confirms whether the project was published or submitted for review.
 
 If the project has already been submitted, the dialog restores its publication details and shows
 the last submission date. Edit the details and select `Update submission` to send a new version.
 When reviewers request changes, Zoo Design Studio shows their feedback when you open the project;
 update the project and submit it again to return it to the review queue.
 
+## Submitted Version and Status
+
+An Aquarium submission captures the current version of the project at the time you submit it.
+Edits and Cloud Sync updates to the Personal Cloud project do not automatically change the version
+submitted to Aquarium. Open the Publish dialog and select `Update submission` when you want to
+submit the current project version for review.
+
+Zoo Design Studio can show these publication statuses:
+
+| Status | Meaning |
+| --- | --- |
+| Pending Review | The submitted version is waiting for Aquarium review. |
+| Published | The approved version is publicly available in Aquarium. |
+| Changes requested | A reviewer asked you to revise the project and submit it again. |
+| Rejected | The submitted version was not accepted for Aquarium. |
+
+Updating a submission returns it to `Pending Review`. Wait for `Published` before sharing it as a
+public Aquarium model.
+
+## Keep or Remove a Publication
+
+The cloud project powers its Aquarium entry. Moving a published project from Personal Cloud to a
+Directory library makes the project local-only by deleting the cloud project, which also deletes
+the public Aquarium entry. Deleting the project from Personal Cloud has the same effect.
+
+Keep the editable project in Personal Cloud while you want its Aquarium publication to remain
+available.
+
 ## Model Files
 
 Keep the model files organized before publishing. Clear names, stable KCL files, and meaningful
 parameters make the shared model easier to understand and reuse.
+
+If a Directory project uses Git or another version-control system, commit and push or back up the
+repository before publishing. The repository folder moves into managed Personal Cloud storage, but
+version-control metadata is not uploaded. Cloud operations that replace the managed working copy
+can remove excluded local content such as `.git` and ignored files. Consider keeping another clone
+or backup outside the Personal Cloud folder.
 
 ## Sharing
 

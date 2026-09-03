@@ -10,8 +10,23 @@ not automatically upload every project on your computer.
 - **Personal Cloud projects sync.** They are stored in your Zoo account so you can open them in the
   browser and on other devices. On desktop, Zoo Design Studio also keeps a working copy in a
   separate, managed folder while you edit.
-- **Directory projects do not sync.** They stay in the folder you chose on that computer and are not
-  uploaded unless you move them to Personal Cloud.
+- **Directory projects do not sync.** They stay in the folder you chose on that computer unless you
+  move them to Personal Cloud or publish them to Aquarium. Publishing automatically moves a
+  Directory project to Personal Cloud after a successful submission.
+
+## Directory, Personal Cloud, and Aquarium
+
+These names describe three different parts of project storage and sharing:
+
+| Name | What it means |
+| --- | --- |
+| Directory library | Editable project files stored in a folder you choose on one computer. The project is not synced or public while it remains there. |
+| Personal Cloud | An editable project stored privately in your Zoo account, plus a working copy on the device where you open it. |
+| Aquarium | A reviewed, public version of a Personal Cloud project. Aquarium is a gallery, not another project library. |
+
+The project library determines where the editable project is saved, Cloud Sync keeps a Personal
+Cloud project current across devices, and publishing submits a version of that project to Aquarium.
+Personal Cloud projects are not public unless you publish them.
 
 When you change a Personal Cloud project, Zoo Design Studio saves the change to the working copy
 first and syncs it to your Zoo account in the background. You can then open the latest synced
@@ -36,18 +51,51 @@ In the browser, Personal Cloud is the only project library.
   maxHeightPx={120}
 />
 
+The Home status `Cloud synced` describes the projects in Personal Cloud. It does not mean that
+projects in Directory libraries have been uploaded.
+
+## Common Workflows
+
+### Use a Project on Another Device
+
+1. Create the project in Personal Cloud or move an existing Directory project there.
+2. Wait for Home to show `Cloud synced`.
+3. Sign in to Zoo Design Studio with the same account on the other device or in a browser.
+4. Open the project from Personal Cloud. Zoo Design Studio downloads a working copy when needed.
+
+### Share a Project Publicly
+
+1. Open the project and select `Publish`.
+2. Complete the Aquarium submission and submit it for review.
+3. Wait for the publication status to become `Published`.
+4. Share the public Aquarium URL.
+
+Publishing a Directory project moves it to Personal Cloud as part of a successful submission. See
+[Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) for publication details.
+
 ## Common Questions
 
 ### How Do I Know Which Projects Are Saved to the Cloud?
 
 Check the library that contains the project on Home. Only projects in `Personal Cloud` are saved to
 your Zoo account. Projects in a Directory library are local-only, even while Cloud Sync is enabled.
-Move a Directory project to Personal Cloud when you want to start syncing it.
+Move a Directory project to Personal Cloud when you want to start syncing it directly. Publishing a
+Directory project to Aquarium also moves it to Personal Cloud and starts syncing it.
 
 ### How Much Cloud Storage Do I Get?
 
 Storage is limited to what we consider fair use for Free users.
 Paid subscription tiers all get unlimited storage.
+
+### Are Personal Cloud Projects Private?
+
+Yes. Today, unpublished Personal Cloud projects remain private in your Zoo account on both Free and
+paid plans. Changing or canceling a subscription does not publish or remove them; after a downgrade,
+the projects remain private in the same account on the Free plan.
+
+Zoo may introduce a semi-public storage state for Free-plan projects in the future. That behavior,
+including any associated data-use or model-training policy, is not active today. Zoo will update
+its website and documentation before enabling a different visibility or data-use policy.
 
 ### Will Clearing My Browser Cache Delete My Cloud Projects?
 
@@ -85,11 +133,18 @@ No. Cloud Sync keeps the current project available through your Zoo account, but
 Git-style history, branches, or code review. Use Git or another backup system when you need revision
 history or recovery outside the current synced project.
 
+### Does a Directory Project Still Use Zoo's Cloud Modeling?
+
+Yes. Project storage and modeling computation are separate. A project can remain local in a
+Directory library while Zoo Design Studio uses Zoo's cloud services to execute KCL, render the
+model, or perform other modeling operations. Cloud Sync controls where the project files are saved
+and synchronized; it does not determine where modeling computation runs.
+
 ## Use Cloud Sync
 
 ### Start Syncing
 
-To start syncing a local Directory project, move it to `Personal Cloud`:
+To start syncing a local Directory project directly, move it to `Personal Cloud`:
 
 1. Select `Move to library` from the Command Bar, the project menu in the top bar, or the project
    card context menu on Home.
@@ -103,6 +158,11 @@ on desktop, the project remains local in that folder until you enable it again.
 
 Creating a project directly in `Personal Cloud` also starts it as a synced project. In the browser,
 Personal Cloud is the only project library, so projects are cloud-backed by default.
+
+Publishing a Directory project to Aquarium also moves it into cloud storage. The submission dialog
+warns about the move before you submit. After a successful submission, Zoo Design Studio moves the
+folder to Personal Cloud, reopens it there, and starts cloud sync. Publishing a project that is
+already in Personal Cloud does not move its working copy.
 
 {/* VIDEO PLACEHOLDER: Moving a Directory project to Personal Cloud and watching the sync status reach Cloud synced. */}
 
@@ -145,8 +205,9 @@ that Directory library unless you move the project back to `Personal Cloud`.
 
 **Important:** Moving a project from Personal Cloud to a Directory library deletes the remote cloud
 project before moving the remaining local folder. The cloud project is no longer available in the
-browser or on other devices. If remote deletion fails, Zoo Design Studio restores the cloud link and
-the move fails.
+browser or on other devices. If the project has an Aquarium publication, deleting the cloud project
+also deletes its public Aquarium entry. If remote deletion fails, Zoo Design Studio restores the
+cloud link and the move fails.
 
 Turning Cloud Sync off only pauses synchronization; it does not make a project local-only.
 A cloud-only project must first be opened and downloaded before it can be moved.
@@ -165,7 +226,8 @@ A cloud-only project must first be opened and downloaded before it can be moved.
 Deleting a cloud-backed project follows the library that owns the project card.
 
 If you delete a project from `Personal Cloud`, Zoo Design Studio deletes the cloud project. If the
-project has a local working copy on that device, the local working copy is removed too.
+project has a local working copy on that device, the local working copy is removed too. Any Aquarium
+publication backed by that cloud project is also deleted.
 
 If you delete a cloud-backed project from a Directory library, Zoo Design Studio deletes the
 selected local folder. The cloud project remains in your Zoo account, and the delete dialog says
@@ -324,6 +386,7 @@ same-file merging.
 
 ## Related
 
+- [Aquarium](/docs/zoo-design-studio/features/data-management/aquarium)
 - [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries)
 - [Project Browser](/docs/zoo-design-studio/features/workspace/project-browser)
 - [File Explorer](/docs/zoo-design-studio/features/workspace/file-explorer)
