@@ -33,10 +33,10 @@ non-empty KCL file without errors open in the project. The `Publish` button is d
 current KCL file is empty or has errors.
 
 Publishing requires the project to be stored in Personal Cloud. If you publish a project from a
-Directory library on desktop, the submission dialog warns that a successful submission will move
-the project folder into the managed Personal Cloud folder. Zoo Design Studio closes the project,
-moves it rather than leaving a second copy behind, then reopens it from Personal Cloud and starts
-cloud sync. Projects already in Personal Cloud do not move. In the browser, projects are already
+local library on desktop, the submission dialog warns that a successful submission will move the
+project folder into the managed Personal Cloud folder. Zoo Design Studio closes the project, moves
+it rather than leaving a second copy behind, then reopens it from Personal Cloud and starts cloud
+sync. Projects already in Personal Cloud do not move. In the browser, projects are already
 cloud-backed.
 
 To submit a project:
@@ -86,7 +86,7 @@ public Aquarium model.
 ## Keep or Remove a Publication
 
 The cloud project powers its Aquarium entry. Moving a published project from Personal Cloud to a
-Directory library makes the project local-only by deleting the cloud project, which also deletes
+local library makes the project local-only by deleting the cloud project, which also deletes
 the public Aquarium entry. Deleting the project from Personal Cloud has the same effect.
 
 Keep the editable project in Personal Cloud while you want its Aquarium publication to remain
@@ -97,7 +97,7 @@ available.
 Keep the model files organized before publishing. Clear names, stable KCL files, and meaningful
 parameters make the shared model easier to understand and reuse.
 
-If a Directory project uses Git or another version-control system, commit and push or back up the
+If a local project uses Git or another version-control system, commit and push or back up the
 repository before publishing. The repository folder moves into managed Personal Cloud storage, but
 version-control metadata is not uploaded. Cloud operations that replace the managed working copy
 can remove excluded local content such as `.git` and ignored files. Consider keeping another clone
