@@ -6,12 +6,25 @@ sidebarPosition: 1
 
 ## Getting started
 
-In the video below, we'll walk through the basics, including how to create an account, log in, choose between the desktop and browser version, and configure your settings. By the end, you'll know where to start, how to pick the right environment for your workflow, and how to set up Zoo Design Studio so you're ready to begin designing.
+1. Open [Zoo Design Studio](https://zoo.dev/design-studio) and sign in or create an account.
+2. Choose the browser app or download the desktop app for your operating system.
+3. Create a project from scratch or choose **Create from Sample** on the project dashboard.
+
+Browser projects use **Personal Cloud**, so synced projects are available on other devices when
+signed in to the same account. Desktop projects can live in Personal Cloud or a local Directory
+library. Wait for **Cloud synced** before switching devices. See [Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync) for details.
+
+## UI overview
+
+Start with this tour of the workspace, feature tree, KCL editor, project files, and settings.
+You'll also learn about project libraries, mouse controls, measurements, and the tools for importing
+and exporting your work.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
         <iframe
-            src="https://www.youtube.com/embed/vs5mKL1Tzok"
+            src="https://www.youtube.com/embed/q9clNqGUMdY"
+            title="UI Overview in Zoo Design Studio"
             allowFullScreen="allowfullscreen"
             mozallowfullscreen="mozallowfullscreen"
             msallowfullscreen="msallowfullscreen"
@@ -36,30 +49,7 @@ In the video below, we’ll show you how to create a new, empty project in Zoo D
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
         <iframe
             src="https://www.youtube.com/embed/300B-OpLWRs"
-            allowFullScreen="allowfullscreen"
-            mozallowfullscreen="mozallowfullscreen"
-            msallowfullscreen="msallowfullscreen"
-            oallowfullscreen="oallowfullscreen"
-            webkitallowfullscreen="webkitallowfullscreen"
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-            }}
-        />
-    </div>
-</div>
-
-## Zookeeper basics
-
-In this video, we introduce Zookeeper’s core capabilities and show how to work with it effectively. You’ll learn how to ask Zookeeper for actions, explanations, and guidance, and how to use conversation to explore designs, make changes, and understand design decisions. By the end, you’ll have a solid foundation for using Zookeeper as part of your design workflow.
-
-<div style={{ maxWidth: '800px', margin: '0 auto' }}>
-    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
-        <iframe
-            src="https://www.youtube.com/embed/oWvExe3ZFdk"
+            title="Creating Your First Project in Zoo Design Studio"
             allowFullScreen="allowfullscreen"
             mozallowfullscreen="mozallowfullscreen"
             msallowfullscreen="msallowfullscreen"
@@ -78,7 +68,29 @@ In this video, we introduce Zookeeper’s core capabilities and show how to work
 
 ## Sketch basics
 
-For a video-led introduction to the complete visual modeling workflow, follow the [Point-and-Click Tutorials](/docs/zoo-design-studio/point-and-click-tutorials). The series continues from sketching through solid features, modifications, transforms, construction geometry, and patterns.
+Learn how to draw lines, circles, arcs, and rectangles, trim sketch geometry, and add constraints
+and dimensions in this introductory lesson.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/Xmoc6A0pWoo"
+            title="Sketch Basics in Zoo Design Studio"
+            allowFullScreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
 
 To begin creating geometry, open a project. Before starting your sketch, ensure your desired units (e.g., mm, inches) are set.
 Once ready, click the Start Sketch button. This will prompt you for a plane on which to sketch, and then you will enter 2D sketching mode. This will allow you to:
@@ -88,7 +100,69 @@ Once ready, click the Start Sketch button. This will prompt you for a plane on w
 
 When finished, click Exit Sketch and select a 3D feature such as Extrude, Revolve, or Sweep from the feature toolbar to create a solid model.
 
-**Important Note on Creating Holes**: For features like holes within a solid, it's generally best practice to extrude the main shape first. Then, create a new sketch on a face of that solid for the hole's profile, and use a cutting feature (e.g., an extrude-cut, or a Boolean subtract). Sketching a circle inside another closed profile on the same initial sketch may not automatically result in a hole when extruded.
+For holes and cutouts, continue to the [Hole](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/hole) and [Boolean operations](/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/boolean-operations) guides.
+
+## From 2D to 3D
+
+Turn sketch profiles into solid bodies with Extrude, Sweep, Loft, and Revolve. This lesson shows
+how to select profiles, set feature inputs, and reuse dimensions through variables.
+
+**Follow along:** To try the first example, start a sketch on the XY plane, draw a circle, and
+exit the sketch. Select its filled region with Extrude and use a length of 5 mm. The video uses
+prepared sketches for its other examples; find the author's starting KCL in the
+[video's YouTube comments](https://www.youtube.com/watch?v=KRYgKR6it60).
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/KRYgKR6it60"
+            title="Extrude, Sweep, Loft, and Revolve in Zoo Design Studio"
+            allowFullScreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
+
+### Continue the point-and-click series
+
+Follow the [Point-and-Click Tutorials](/docs/zoo-design-studio/point-and-click-tutorials) for the
+remaining lessons on shell and hole features, fillets and chamfers, Boolean operations, transforms,
+construction geometry, and patterns.
+
+## Zookeeper basics
+
+In this video, we introduce Zookeeper’s core capabilities and show how to work with it effectively. You’ll learn how to ask Zookeeper for actions, explanations, and guidance, and how to use conversation to explore designs, make changes, and understand design decisions. By the end, you’ll have a solid foundation for using Zookeeper as part of your design workflow.
+
+<div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+        <iframe
+            src="https://www.youtube.com/embed/oWvExe3ZFdk"
+            title="What Is Zookeeper? A Tour of the Conversational CAD Agent"
+            allowFullScreen="allowfullscreen"
+            mozallowfullscreen="mozallowfullscreen"
+            msallowfullscreen="msallowfullscreen"
+            oallowfullscreen="oallowfullscreen"
+            webkitallowfullscreen="webkitallowfullscreen"
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+            }}
+        />
+    </div>
+</div>
 
 ## KCL basics
 
