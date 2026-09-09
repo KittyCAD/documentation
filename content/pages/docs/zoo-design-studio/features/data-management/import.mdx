@@ -200,9 +200,13 @@ When importing files into version-controlled projects:
 ### Unit Handling
 
 STEP files include unit metadata:
-- Zoo automatically interprets STEP file units
-- If units are ambiguous, verify scale after import
-- Use `Scale` transform if unit conversion is needed
+- Zoo interprets STEP numeric values in the current KCL file or scene unit; it does not rescale
+  from STEP unit metadata
+- Match the KCL file or scene unit to the source CAD file before importing
+- If you need to keep a different scene unit, use a `Scale` transform after import
+
+See [STEP units and scale](/docs/zoo-design-studio/features/data-management/import/step#units-and-scale)
+for an example and the conversion workflow.
 
 ### Performance Considerations
 
