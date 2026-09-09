@@ -116,22 +116,7 @@ Use the **Add file to project** command to import local files or Zoo sample mode
 4. Select sample from library
 5. Choose to add to current or new project
 
-### Import File from URL
-
-Import remote files directly from web URLs:
-
-1. Open Command Bar
-2. Select "Import file from URL"
-3. Specify import method (add to current or create new project)
-4. Enter remote file URL
-5. Specify filename and optional project name
-
-Supported URL formats:
-- Direct file links (https://example.com/model.step)
-- Cloud storage shared links (Google Drive, Dropbox, OneDrive)
-- Repository raw file URLs (GitHub, GitLab)
-
-### Insert Command (KCL)
+### Import Command (KCL)
 
 Reference existing project files from within KCL code:
 
@@ -146,7 +131,7 @@ import utils from "./library/utils.kcl"
 import reference from "./reference/concept.glb"
 ```
 
-The `Insert` command (available via Command Bar) provides a UI workflow for the same functionality:
+The `Import` command (available via Command Bar and the toolbar) provides a UI workflow for the same functionality:
 1. Select file from project directory
 2. Specify local variable name for the imported geometry
 3. KCL import statement is automatically generated
