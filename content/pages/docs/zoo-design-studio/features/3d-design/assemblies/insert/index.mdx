@@ -6,6 +6,16 @@ sidebarPosition: 0
 
 Import is the current point-and-click assembly workflow in Zoo Design Studio. Use it to place an
 existing single-body part into the active main assembly so it can be positioned and referenced.
-The Import command generates a KCL `import` statement for the selected project file.
 Current support is focused on single-body part insertion, not nested subassemblies or broader
 multi-body assembly structures.
+
+The first time you import a project file, Import generates a KCL `import` statement with the
+local name you choose. If the file already has a whole-file import with an alias, Import adds
+another instance using `clone(...)` instead of adding a second import statement.
+
+You stay in Import to choose the new instance name and review the change. The review identifies
+the existing part that will be cloned. Submitting generates code such as
+`clone001 = clone(washer)`; cancelling leaves the code unchanged.
+
+For STEP files, a clone reuses the original import's representation, so you do not choose
+Mesh or B-rep again.
