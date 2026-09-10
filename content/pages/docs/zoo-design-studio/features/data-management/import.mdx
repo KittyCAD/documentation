@@ -132,9 +132,14 @@ import reference from "./reference/concept.glb"
 ```
 
 The `Import` command (available via Command Bar and the toolbar) provides a UI workflow for the same functionality:
-1. Select file from project directory
-2. Specify local variable name for the imported geometry
-3. KCL import statement is automatically generated
+1. Select a file from the project directory.
+2. Choose a local name for the imported geometry or the new instance.
+3. Review and submit. For a new file, Import generates a KCL `import` statement. If the file
+   already has a whole-file import with an alias, it generates `clone(...)` using that alias.
+
+For repeated imports, Import suggests an available instance name and the review identifies
+which existing part will be cloned. Code changes only when you submit; cancelling leaves it
+unchanged. Repeated STEP imports reuse the original representation and skip the Mesh/B-rep choice.
 
 ## Imported Geometry Behavior
 
