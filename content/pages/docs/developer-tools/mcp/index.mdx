@@ -95,9 +95,9 @@ Here is a simple version using Codex or Claude Code:
 1. Open your MCP-compatible AI client.
 2. Connect Zoo MCP with `uvx zoo-mcp` and your `ZOO_API_TOKEN`.
 3. Ask for something concrete, for example: "Create a simple mounting bracket with two bolt holes."
-4. Let the assistant use Zoo MCP to generate the result.
-5. Open the files or project output in Zoo Design Studio.
-6. Inspect the geometry, review the files, and keep editing from there.
+4. Have the assistant save `main.kcl` and any required project files in a dedicated CAD project folder using the client's authorized file-editing tools.
+5. Have it execute the saved project through Zoo MCP using `kcl_path` and inspect the geometry.
+6. Open `main.kcl` in Zoo Design Studio and keep the KCL project as the editable deliverable. Request STEP or STL exports when needed.
 
 This is the practical benefit of Zoo MCP. You can stay inside the AI tool you already like while still checking the resulting CAD work in Zoo Design Studio.
 
