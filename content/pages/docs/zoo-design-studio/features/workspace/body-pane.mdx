@@ -16,6 +16,7 @@ work with the resulting geometry without finding the operation that created it.
 - Select a body by clicking its row. The selection stays synchronized with the Scene and the
   associated KCL.
 - Hide or show a body with the eye control on its row.
+- Right-click a body and choose **Delete** to remove it from the model.
 - Select and control individual copies created by a pattern. Each pattern instance has its own row.
 - Resize the Bodies pane and Feature Tree by dragging the divider between them.
 
@@ -26,6 +27,14 @@ again to show the body.
 
 Visibility changes update the model's KCL with a `hide()` operation. A hidden body remains part of
 the design and can still be restored from the pane; hiding it does not delete its geometry.
+
+## Delete a Body
+
+Right-click a body row and choose **Delete**. This immediately adds a Delete feature to the model
+history and removes that body from the Scene and the Bodies pane. Undo the operation, or remove the
+Delete feature, to restore the body.
+
+See [Delete Body](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete-body) for deleting multiple bodies and the differences between deleting, hiding, and deleting a feature.
 
 ## How the List Is Organized
 
