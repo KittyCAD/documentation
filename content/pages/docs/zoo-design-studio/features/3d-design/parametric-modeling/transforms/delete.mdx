@@ -1,0 +1,84 @@
+---
+title: Delete
+excerpt: Remove selected bodies from the model with Delete in Zoo Design Studio.
+sidebarPosition: 6
+---
+
+Delete removes whole bodies from the model and records a Remove feature in the Feature Tree.
+Use it to discard unwanted results after splitting a body or to remove geometry once it has served
+its purpose. The command is named **Delete** in the app.
+
+## Delete from the toolbar or Command Bar
+
+1. Choose **Delete** from the **Transform** dropdown in the toolbar, or search for **Delete** in the
+   [Command Bar](/docs/zoo-design-studio/features/workspace/command-bar).
+2. Select the body or bodies to remove in the Scene. You can also select a body from the
+   [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane).
+3. Continue to the review step, check the **Objects** selection, and confirm the command.
+
+You can select bodies before starting the command. Multiple bodies can be removed in one Delete
+feature.
+
+## Delete from the Bodies pane
+
+Open the [Feature Tree](/docs/zoo-design-studio/features/workspace/feature-tree), then right-click a
+body in the Bodies pane and choose **Delete**. This applies the operation immediately to that body.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/before-delete.png"
+  alt="Split model with two bodies and the Delete context menu open in the Bodies pane"
+  aspect="3600 / 2260"
+  maxWidthPx="800"
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  Before: choose Delete from the Bodies pane to remove an unwanted split body.
+</div>
+
+The body disappears from the Scene and the Bodies pane. The features that created it remain in the
+model history. Undo the operation, or remove its Remove feature from the Feature Tree, to restore
+the body.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/after-delete.png"
+  alt="Model after deleting one split body, with one body remaining in the Bodies pane and a Delete feature in the Feature Tree"
+  aspect="3600 / 2260"
+  maxWidthPx="800"
+/>
+<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
+  After: the unwanted body is removed, while the remaining body and earlier features are preserved.
+</div>
+
+## Delete, hide, or delete a feature?
+
+- **Delete** adds a modeling operation that removes the selected geometry. Later operations
+  cannot use the deleted body.
+- **Hide** changes visibility while keeping the body available. Use the eye control in the Bodies
+  pane when you want to show it again later.
+- [**Remove feature**](/docs/zoo-design-studio/features/workspace/feature-tree/remove-feature) removes
+  an operation from the model history and can affect the features that depend on it.
+- [**Delete Face**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/delete-face)
+  removes selected faces from a body, leaving the rest of the geometry.
+
+## KCL example
+
+Zoo Design Studio writes a `delete()` call for this operation. This example creates a cylinder,
+copies it to a new position, and deletes the original. The moved copy remains.
+
+```kcl
+@settings(kclVersion = 2.0)
+
+profile = sketch(on = XY) {
+  circle1 = circle(start = [var 5mm, var 0mm], center = [var 0mm, var 0mm])
+}
+body = extrude(region(sketch = profile, point = profile.circle1.center), length = 10mm)
+keptBody = clone(body)
+  |> translate(x = 15mm)
+
+delete(body)
+```
+
+Pass an array to delete several bodies, for example `delete([bodyA, bodyB])`. Deleting a body twice,
+or hiding or otherwise using it after deletion, produces an error.
+
+See the [`delete` KCL reference](/docs/kcl-std/functions/std-transform-delete) for all supported object
+types and more examples.
