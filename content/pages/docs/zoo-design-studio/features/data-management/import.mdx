@@ -97,6 +97,24 @@ feature history.
 
 ## Import Methods
 
+### Import a Project ZIP
+
+Use **Import project** to bring a project ZIP exported by another Zoo Design Studio user
+into your own library. This works in the browser and desktop app without unzipping the
+archive first.
+
+1. Go to the home page and select **Import project...**, or drag the ZIP onto the home page.
+2. Choose the ZIP file if you have not already dropped it.
+3. Select a destination library. Choose **Personal Cloud** to keep the project in your cloud library.
+4. Select **Import project**. The new project opens at its configured entry file.
+
+The import preserves the project's files, folder structure, and settings. It creates a
+separate copy with a new identity; an existing project with the same name is not overwritten.
+Personal Cloud uploads the copy when cloud sync is enabled and a connection is available.
+
+This imports a complete project into your library. To reference a part inside an existing
+model, use a KCL `import` statement instead.
+
 ### Add File to Project
 
 Use the **Add file to project** command to import local files or Zoo sample models:
