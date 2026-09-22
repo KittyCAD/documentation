@@ -12,9 +12,6 @@ View a render of a `kcl` file in your terminal.
    <dt><code>input</code></dt>
    <dd>The path to the input kcl file to view. This can also be the path to a directory containing a main.kcl file. If you pass `-` as the path, the file will be read from stdin</dd>
 
-   <dt><code>-f/--format</code></dt>
-   <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
-
    <dt><code>--angle</code></dt>
    <dd>Which angle to take the snapshot from. Defaults to "front"<br/>Possible values: <code>front | top | right-side | four-ways | iso</code></dd>
 
