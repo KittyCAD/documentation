@@ -18,9 +18,6 @@ Export a `kcl` file as any other supported CAD file format.
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output file format<br/>Possible values: <code>fbx | glb | gltf | obj | ply | step | stl</code></dd>
 
-   <dt><code>-f/--format</code></dt>
-   <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
-
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
 
