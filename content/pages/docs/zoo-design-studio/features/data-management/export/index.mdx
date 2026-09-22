@@ -21,9 +21,9 @@ support additional conversion formats that are not available in the Design Studi
 **STEP (.step, .stp)**
 - Standard for the Exchange of Product model data (ISO 10303)
 - Industry-standard neutral CAD format
-- Preserves precise solid geometry and assemblies
+- Preserves precise solid geometry, including multi-body models
 - Best for CAD system interchange (SolidWorks, CATIA, NX, Creo, Inventor, Fusion 360)
-- Includes assembly structure if exporting multi-body designs
+- Exports each solid as a separate STEP part
 - **Recommended for manufacturing and engineering collaboration**
 
 **STL (.stl)**
@@ -68,7 +68,9 @@ from Zoo Design Studio's Export command. Developers can create FBX output with t
 
 ## Export Command
 
-The Export command exports the current model, including parts and assemblies.
+The Export command exports the current model, including parts and assemblies. For step-by-step
+instructions, see [Export a part](/docs/zoo-design-studio/features/data-management/export/export-brep#export-a-part)
+or [Export an assembly](/docs/zoo-design-studio/features/data-management/export/export-brep#export-an-assembly).
 
 Access the Export command via:
 - Command Bar: Search "Export"
@@ -126,11 +128,16 @@ Use this when the target software expects specific units.
 
 ### Multi-Body Export
 
-When exporting projects containing multiple solid bodies:
-- **STEP format:** Exports as assembly with multiple components
+Export includes the geometry produced by the active KCL file. To export a complete assembly from
+a multi-file project, open the file that builds it, usually `main.kcl`, and export once.
+
+- **STEP format:** Each solid becomes a separate part. Most CAD applications interpret these parts
+  as an assembly; repeated parts are not exported as linked instances.
 - **Mesh formats (STL, OBJ, PLY, glTF/GLB):** Export as a single file with multiple meshes
-- Body names are preserved as component identifiers
 - Spatial relationships and positions are maintained
+
+See [Export an assembly](/docs/zoo-design-studio/features/data-management/export/export-brep#export-an-assembly)
+for the full workflow and what transfers to another CAD system.
 
 ## Format Selection Guide
 
