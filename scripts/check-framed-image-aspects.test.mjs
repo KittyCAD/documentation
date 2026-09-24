@@ -29,7 +29,7 @@ test('rejects a FramedImage ratio that does not match its asset', () => {
 
     writeFileSync(
       page,
-      '<FramedImage src="/documentation-assets/example.png" aspect="3024 / 1906" />'
+      '<FramedImage src="/documentation-assets/example.png" aspect="3024 / 1906" frameAspect="520 / 60" />'
     )
     assert.deepEqual(checkFramedImageAspects(root), { checked: 1, errors: [] })
   } finally {

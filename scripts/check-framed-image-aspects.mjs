@@ -25,6 +25,7 @@ export function checkFramedImageAspects(root = contentDir) {
       const tag = match[1]
       const src = tag.match(/\bsrc="([^"]+)"/)?.[1]
       const aspect = tag.match(/\baspect="([^"]+)"/)?.[1]
+      const frameAspect = tag.match(/\bframeAspect="([^"]+)"/)?.[1]
       const location = `${path.relative(root, file)}:${source.slice(0, match.index).split('\n').length}`
 
       if (!src?.startsWith('/') || !aspect) {
@@ -36,6 +37,14 @@ export function checkFramedImageAspects(root = contentDir) {
       if (!parts || Number(parts[1]) === 0 || Number(parts[2]) === 0) {
         errors.push(`${location}: invalid aspect ratio "${aspect}"`)
         continue
+      }
+
+      if (frameAspect) {
+        const frameParts = frameAspect.match(/^\s*(\d+)\s*\/\s*(\d+)\s*$/)
+        if (!frameParts || Number(frameParts[1]) === 0 || Number(frameParts[2]) === 0) {
+          errors.push(`${location}: invalid frame aspect ratio "${frameAspect}"`)
+          continue
+        }
       }
 
       const asset = path.join(root, src.slice(1))

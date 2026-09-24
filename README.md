@@ -31,6 +31,8 @@ When adding a `FramedImage`, set `aspect` to the source image's width and height
 (or an equivalent ratio such as `1 / 1` for a square image). Run
 `npm run check:images` to compare these values with the image files. The pull
 request build runs the same check and rejects differences above 5%.
+Use `frameAspect` when a different frame shape is intentional; the image will
+remain undistorted inside that frame.
 
 ## Live content edit preview
 
