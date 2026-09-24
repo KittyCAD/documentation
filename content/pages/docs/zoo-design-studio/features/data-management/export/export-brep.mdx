@@ -1,8 +1,77 @@
 ---
 title: Export B-rep
-excerpt: Export boundary-representation geometry from Zoo Design Studio.
+excerpt: Export parts and assemblies as STEP files for downstream CAD workflows.
 sidebarPosition: 0
 ---
 
-Export B-rep preserves analytic geometry and topology for downstream CAD workflows that need more
-than a faceted mesh.
+Use STEP (`.step`) to export precise solid geometry from Zoo Design Studio to another CAD system.
+STEP preserves boundary-representation (B-rep) geometry and topology, including curved surfaces,
+without converting the model to a triangular mesh.
+
+The Export command exports the geometry produced by the currently open KCL file. To export a
+complete assembly, open the file that builds that assembly, usually `main.kcl`, and export once.
+You do not need to export each imported part file separately.
+
+## Export a part
+
+1. In Project Files, open the KCL file that builds the part you want to export.
+2. Wait for the model to finish updating and confirm that the viewport shows the intended part
+   without KCL errors.
+3. Click `Export` in the left Toolbar, or open the Command Bar and search for `Export`.
+4. Choose `STEP` for `Type`.
+5. Review `Up` and `Scale`. `Up` sets the output orientation; `Scale` selects the output length
+   unit. Keep the defaults unless the receiving application needs different settings.
+6. Confirm the command. In the desktop app, choose a filename and save location. In the browser,
+   save the downloaded file.
+7. Open the `.step` file in the receiving CAD application and check its dimensions and orientation.
+
+Export includes the model built by the active file, not just a selected face or body. If that file
+builds several solids, all of them are included. Open a file that builds only the desired part when
+you need a separate part export.
+
+## Export an assembly
+
+Use this workflow to export the parts of a multi-file project together in one STEP file:
+
+1. Open the project and select the KCL file that builds the complete assembly, usually `main.kcl`.
+   Keep the imported KCL files and other dependencies available in the project.
+2. Wait for the model to finish updating. Confirm that the viewport shows all expected parts in
+   their intended positions and that there are no KCL errors.
+3. Click `Export`, choose `STEP` for `Type`, and review `Up` and `Scale`.
+4. Confirm the command and save the `.step` file.
+5. Import that file into the receiving CAD application. Check the number of parts, their placement,
+   and critical dimensions before using the model downstream.
+
+For example, if `main.kcl` builds an assembly from a flange, bolts, and washers, exporting from
+`main.kcl` includes those solids together. Exporting from a file that builds only a washer includes
+only that file's model. Files merely stored in the project are not automatically included in an
+assembly export; their geometry must be used by the active model.
+
+Each solid becomes a separate part in the STEP file. Most CAD applications interpret the resulting
+collection of parts as an assembly. Repeated solids are exported as separate parts, not as linked
+instances of one reusable part definition. Do not expect the exported structure to reproduce the
+project's KCL file or subassembly hierarchy.
+
+## What transfers to another CAD system
+
+STEP transfers the resulting solid geometry and placement. It does not recreate the KCL source,
+parameters, sketches, or feature history as native editable features in the receiving application,
+and it does not create assembly mates there.
+
+You can use the imported geometry for viewing and assembly placement. Further changes depend on
+the receiving application's tools for editing imported solids. Verify any material, density, or
+other engineering properties in that application before relying on calculated physical properties.
+
+Keep the complete KCL project, including its imported files, if you need to continue parametric
+editing in Zoo Design Studio. A STEP export is not a backup of the project's source files.
+
+## Troubleshooting
+
+- **Only one part was exported:** Check which KCL file is open. Open the assembly's `main.kcl`, or
+  the file that builds the full assembly, and export again.
+- **Some parts are missing:** Check that the active file builds or imports those parts and that the
+  model finishes updating without errors. Export does not collect every file in the project folder.
+- **Export is unavailable or fails:** Check the modeling-engine connection, resolve KCL errors,
+  and confirm that the active file produces solid geometry.
+- **The imported model has the wrong size or orientation:** Check `Scale` and `Up` in the export
+  options and the receiving application's import settings.
