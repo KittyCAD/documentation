@@ -25,6 +25,13 @@ stored in this repository.
 See [`AGENTS.md`](./AGENTS.md) for generator commands and the exact ownership
 rules used by coding agents.
 
+## Image aspect ratios
+
+When adding a `FramedImage`, set `aspect` to the source image's width and height
+(or an equivalent ratio such as `1 / 1` for a square image). Run
+`npm run check:images` to compare these values with the image files. The pull
+request build runs the same check and rejects differences above 5%.
+
 ## Live content edit preview
 
 If you have access to our website repository and you'd like to live preview your content in the website as your write/edit it, head over to that repo's README to get instructions on how to set it up.
