@@ -4,7 +4,72 @@ excerpt: Import geometry and project data into Zoo Design Studio.
 sidebarPosition: 0
 ---
 
-Import workflows bring external CAD files, 3D models, and KCL code into Zoo Design Studio for visualization, measurement, reuse, and native parametric editing. Zoo supports industry-standard formats enabling interoperability with other CAD systems and 3D content pipelines.
+Bring external CAD files, 3D models, and KCL code into Zoo Design Studio in two steps:
+
+1. [Add files to your project](#add-file-to-project) using drag and drop, the Local Drive picker, or KCL Samples.
+2. [Import a file into your model](#import-into-a-model) using the **Import** command.
+
+Adding a file makes it available in **Project Files**. Importing it references that file from the
+model's KCL code so its geometry can appear in the Scene.
+
+## Add File to Project
+
+Choose one of the methods below to add files. In the browser, use **drag and drop** for files on your
+computer. The **Local Drive** picker is available only in the desktop app.
+
+### Drag and Drop (Browser and Desktop)
+
+1. Open a project, or create and open a new project.
+2. Open the **Project Files** panel ([File Explorer](/docs/zoo-design-studio/features/workspace/file-explorer)).
+3. Drag supported files or folders from your computer's file manager (such as Finder or Windows File Explorer) into **Project Files**. Drop them onto a project folder to add them there.
+4. Confirm that the files appear in **Project Files**.
+
+For ZIP archives, unzip them on your computer first, then drag the extracted files and folders into
+**Project Files**. Keep the folder structure intact so relative file references continue to work.
+
+### Local Drive Picker (Desktop Only)
+
+1. Open the Command Bar.
+2. Select **Add file to project**.
+3. Choose **Local Drive** as the source.
+4. Choose a new or existing project and enter or select its name.
+5. Browse to the file location.
+6. Select the file to add.
+
+### KCL Samples (Browser and Desktop)
+
+1. Open the Command Bar.
+2. Select **Add file to project**.
+3. Choose **KCL Samples** as the source if prompted. In the browser, this source is selected automatically.
+4. Select a sample from the library.
+5. Select the destination project. The desktop app also lets you create a new project from the sample.
+
+Once your files are in the project, continue below to import one into a model. To edit a `.kcl` file
+as its own model, open it directly from **Project Files**.
+
+## Import Into a Model
+
+Use the **Import** command to bring an existing project file into the current model, regardless of
+how you added the file to the project.
+
+For CAD and 3D model files in either the browser or desktop app:
+
+1. Open the KCL file for the model you want to import into, such as `main.kcl`.
+2. Right-click on the the CAD or 3D model file from **Project Files** and click **Import into my current file**.
+3. Confirm the local variable name and any format-specific options, then submit the command.
+
+You can also launch the same **Import** command from the Command Bar or toolbar
+and select a file already in the project. The command was previously named **Insert** and can be
+found by searching for either name in the Command Bar.
+
+The command adds an `import` statement to the active KCL file. For example:
+
+```kcl
+import "./parts/bracket.stp" as bracket
+```
+
+You can also write an `import` statement directly in the Code Editor, including to reuse another
+`.kcl` file. See [KCL modules](/docs/kcl-lang/modules) for syntax and examples.
 
 ## Supported Import Formats
 
@@ -94,49 +159,6 @@ feature history.
 - Imports as a fully editable parametric model
 - Enables code-based design reuse and library building
 - Preserves feature history and parameter definitions
-
-## Import Methods
-
-### Add File to Project
-
-Use the **Add file to project** command to import local files or Zoo sample models:
-
-**From Local Drive:**
-1. Open Command Bar
-2. Select "Add file to project"
-3. Choose "Local Drive" as source
-4. Select add to current project or create new project
-5. Browse to file location
-6. Select file(s) to import
-
-**From KCL Samples:**
-1. Open Command Bar
-2. Select "Add file to project"
-3. Choose "KCL Samples" as source
-4. Select sample from library
-5. Choose to add to current or new project
-
-### Import Command (KCL)
-
-Previously named **Insert**, the **Import** command can be found by searching for either name in the Command Bar.
-
-Reference existing project files from within KCL code:
-
-```kcl
-// Import STEP file
-import bracket from "./parts/bracket.stp"
-
-// Import other KCL file
-import utils from "./library/utils.kcl"
-
-// Import GLB visualization
-import reference from "./reference/concept.glb"
-```
-
-The `Import` command (available via Command Bar and the toolbar) provides a UI workflow for the same functionality:
-1. Select file from project directory
-2. Specify local variable name for the imported geometry
-3. KCL import statement is automatically generated
 
 ## Imported Geometry Behavior
 
