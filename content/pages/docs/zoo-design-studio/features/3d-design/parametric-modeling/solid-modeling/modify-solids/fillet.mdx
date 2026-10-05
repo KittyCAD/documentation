@@ -84,6 +84,55 @@ Whether to continue the fillet along edges that are tangent to the selected edge
 />
 
 
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. Here’s an example of a fillet in KCL:
+
+```kcl
+@settings(kclVersion = "3.0")
+
+sketch001 = sketch(on = XY) {
+  line1 = line(start = [var 0mm, var 0mm], end = [var 4.98mm, var 0mm])
+  coincident([line1.start, ORIGIN])
+  horizontal([line1.end, ORIGIN])
+  arc1 = arc(start = [var 4.98mm, var 0mm], end = [var 4.98mm, var 3.56mm], center = [var 4.98mm, var 1.78mm])
+  coincident([line1.end, arc1.start])
+  tangent([line1, arc1])
+  line2 = line(start = [var 4.98mm, var 3.56mm], end = [var 0mm, var 3.56mm])
+  coincident([line2.start, arc1.end])
+  vertical([line2.end, ORIGIN])
+  line3 = line(start = [var 0mm, var 3.56mm], end = [var 0mm, var 0mm])
+  coincident([line2.end, line3.start])
+  coincident([line3.end, line1.start])
+  horizontal(line2)
+  tangent([line2, arc1])
+}
+
+hidden001 = hide(sketch001)
+region001 = region(segments = [sketch001.line3, sketch001.line1])
+extrude001 = extrude(region001, length = 5, tagEnd = $capEnd001)
+
+fillet001 = fillet(
+  extrude001,
+  edges = [
+    {
+      sideFaces = [
+        region001.tags.line1,
+        extrude001.faces.capEnd001
+      ]
+    },
+    {
+      sideFaces = [
+        region001.tags.line3,
+        extrude001.faces.capEnd001
+      ]
+    }
+  ],
+  radius = 0.5,
+)
+```
+
+Want to find out more about the `fillet` function? [Check it out](/docs/kcl-std/functions/std-solid-fillet) in our KCL docs.
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
