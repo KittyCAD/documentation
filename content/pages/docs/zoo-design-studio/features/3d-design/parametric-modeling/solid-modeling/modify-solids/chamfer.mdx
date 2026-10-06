@@ -27,6 +27,9 @@ Typical angles:
 ### Tag  
 Tag the chamfer surface if you need to reference it later.
 
+### Tangent Chain
+Whether to continue the chamfer along edges that are tangent to the selected edges. Defaults to true.
+
 ## Chamfer Types
 
 **Equal Distance:** Specify only Length for a symmetric chamfer with equal legs.
@@ -34,6 +37,148 @@ Tag the chamfer surface if you need to reference it later.
 **Distance-Distance:** Specify both Length and Second Length for asymmetric setbacks.
 
 **Distance-Angle:** Specify Length and Angle for one fixed setback with the bevel at a specific angle.
+
+## Steps
+
+1. Click <img src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-icon.webp" alt="the chamfer icon" /> in the toolbar, or press `C`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-select-edges.webp"
+    alt="the chamfer dialog"
+/>
+
+2. Select the edges you want to chamfer.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet-selected-edges.webp"
+    alt="edges selected to chamfer"
+/>
+
+3. Click "Continue" or press `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-length.webp"
+    alt="the chamfer length input"
+/>
+
+4. Enter a length for the chamfer, then click "Continue" or press `Enter`
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-options.webp"
+    alt="the optional chamfer settings"
+/>
+
+5. If a tangent chaining chamfer with equal distance is desired, click "Submit" or press `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-result.webp"
+    alt="the completed chamfer"
+/>
+
+6. If tangent chain is not desired, click "Tangent chain +" and choose "Off".
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-tangent-chain-options.webp"
+    alt="the tangent chain input"
+/>
+
+7. Click "Submit" or press `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-result-no-chain.webp"
+    alt="the completed chamfer with no tangent chain"
+/>
+
+8. If a distance-distance chamfer is desired, click "Second length +", enter a second length, and click "Continue" or hit `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-second-length.webp"
+    alt="the second length input dialog"
+/>
+
+9. Click "Submit" or press `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-result-second-length.webp"
+    alt="the completed distance-distance chamfer"
+/>
+
+10. If a distance-angle chamfer is desired, click "Angle +", enter an angle between 0 and 90 degrees, and click "Continue" or hit `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-angle-options.webp"
+    alt="the completed distance-distance chamfer"
+/>
+
+11. Click "Submit" or press `Enter`.
+
+<img
+    width='500px'
+    src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-angle-result.webp"
+    alt="the completed distance-distance chamfer"
+/>
+
+
+## Are you interested in code?
+
+Zoo Design Studio writes KCL behind the scenes. Here’s an example of a chamfer in KCL:
+
+```kcl
+@settings(kclVersion = "3.0")
+
+sketch001 = sketch(on = XY) {
+  line1 = line(start = [var 0mm, var 0mm], end = [var 4.98mm, var 0mm])
+  coincident([line1.start, ORIGIN])
+  horizontal([line1.end, ORIGIN])
+  arc1 = arc(start = [var 4.98mm, var 0mm], end = [var 4.98mm, var 3.56mm], center = [var 4.98mm, var 1.78mm])
+  coincident([line1.end, arc1.start])
+  tangent([line1, arc1])
+  line2 = line(start = [var 4.98mm, var 3.56mm], end = [var 0mm, var 3.56mm])
+  coincident([line2.start, arc1.end])
+  vertical([line2.end, ORIGIN])
+  line3 = line(start = [var 0mm, var 3.56mm], end = [var 0mm, var 0mm])
+  coincident([line2.end, line3.start])
+  coincident([line3.end, line1.start])
+  horizontal(line2)
+  tangent([line2, arc1])
+}
+
+hidden001 = hide(sketch001)
+region001 = region(segments = [sketch001.line3, sketch001.line1])
+extrude001 = extrude(region001, length = 5, tagEnd = $capEnd001)
+
+chamfer001 = chamfer(
+  extrude001,
+  edges = [
+    {
+      sideFaces = [
+        region001.tags.line1,
+        extrude001.faces.capEnd001
+      ]
+    },
+    {
+      sideFaces = [
+        region001.tags.line3,
+        extrude001.faces.capEnd001
+      ]
+    }
+  ],
+  length = 0.5,
+)
+```
+
+Want to find out more about the `chamfer` function? [Check it out](/docs/kcl-std/functions/std-solid-chamfer) in our KCL docs.
+
 
 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
     <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
