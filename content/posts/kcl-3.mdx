@@ -10,7 +10,7 @@ ogImage:
 tags: ['Zoo Design Studio', 'KCL']
 --- 
 
-Over the last few months, Zoo has been hard at work on improving both the Zoo engine and our CAD programming language, KCL (the "KittyCAD language"). Today we're announcing KCL 3, which lets users upgrade to our latest and greatest Zoo engine, and adds some powerful new language features.
+Over the last few months, Zoo has been hard at work on improving both the Zoo engine and our CAD programming language, KCL (the "KittyCAD language"). Today we're announcing KCL 3, the newest version of our Zoo programming language and file format. New projects will use KCL 3, which improves our CAD engine and adds powerful new language features. All your existing Zoo projects that use KCL 2 will continue to work just fine, no changes required. You can manually upgrade your old projects from KCL 2 to 3 if you want, but it's not mandatory. Our Zookeeper AI agent can also do the upgrade for you. Read on for more details!
 
 ## Background: Change without stagnation
 
@@ -36,6 +36,13 @@ Today we're releasing Zoo Design Studio 1.5, which supports KCL 3. All your old 
 If you want to update your models to KCL 3, you can [read our migration guide](https://github.com/KittyCAD/modeling-app/blob/main/docs/kcl-lang/migrating-to-kcl-3.md) or ask Zookeeper, our AI agent for CAD. Zookeeper has seen a lot of example KCL 2 -> 3 migrations, it's read the migration guide, and it knows the KCL standard library inside and out. It will compare your model before and after to detect any unintended changes. 
 
 ![Zookeeper analyzing a KCL 2 file for migration to KCL 3](/documentation-assets/kcl-3/zk_kcl_3.png)
+
+Here's a full comparison, showing the limits of fillets in KCL 2 and how KCL 3 fixes them:
+
+<video width="100%" controls>
+  <source src="/documentation-assets/kcl-3/fillet_explainer.mp4" type="video/mp4" poster="/documentation-assets/kcl-3/zk_kcl_3.png"/>
+</video>
+
 
 We'll soon be adding a dedicated "Update to KCL 3" button, but for now, you can just chat to Zookeeper and ask it.
 
