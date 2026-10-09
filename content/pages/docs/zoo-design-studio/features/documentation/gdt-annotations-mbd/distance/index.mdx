@@ -1,12 +1,19 @@
 ---
-title: Distance
-excerpt: Distance GD&T annotation workflows in Zoo Design Studio.
+title: Dimension
+excerpt: Diameter, radius, and distance annotations in Zoo Design Studio.
 sidebarPosition: 7
 ---
 
-Distance captures a dimensional tolerance for an edge length or for spacing between selected faces
-and edges. Use it when a model-based definition needs the measured value to remain attached to the
-3D geometry instead of living only in a separate drawing.
+Dimension adds a measured value to selected 3D geometry as part of model-based definition (MBD).
+Select the geometry, then choose **Dimension** from the GD&T toolbar:
+
+- Select one circle or a complete cylindrical face to annotate its diameter.
+- Select one circular arc or a partial cylindrical face to annotate its radius.
+- Select other edges to annotate their lengths, or select two faces or edges to annotate the distance
+  between them. Selecting two circles or cylindrical faces measures their spacing.
+
+The annotation stays attached to the geometry and updates when the model changes. Editing an
+existing annotation preserves its measurement type.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/documentation/gdt-annotations-mbd/distance/distance.webp"
@@ -27,23 +34,24 @@ combined with `from` and `to`.
 
 ## Tolerance
 
-Set the acceptable distance variation in the current unit system.
+Optionally set the acceptable dimensional variation in the current unit system. Leave tolerance
+empty to display only the measured value.
 
 ## Precision
 
-Choose how many decimal places to display for the measured distance and tolerance.
+Choose how many decimal places to display for the measured value and tolerance.
 
 ## Frame Position
 
-Place the distance label relative to the selected geometry.
+Place the dimension label relative to the selected geometry.
 
 ## Frame Plane
 
-Choose the display plane for the distance annotation.
+Choose the display plane for the dimension annotation.
 
 ## Leader Scale
 
-Adjust the visual scale of the distance arrows.
+Adjust the visual scale of the dimension arrows.
 
 ## Font Size
 
@@ -51,8 +59,9 @@ Set the model-space height of the annotation text.
 
 ## Are you interested in code?
 
-Zoo Design Studio writes KCL behind the scenes. A Distance annotation uses `gdt::distance` with
-either edge selections or a `from` / `to` pair.
+Zoo Design Studio writes KCL behind the scenes. Diameter and radius annotations use
+`gdt::diameter(target = ...)` and `gdt::radius(target = ...)`. Distance annotations continue to use
+`gdt::distance` with either edge selections or a `from` / `to` pair.
 
 ```kcl
 gdt::distance(
