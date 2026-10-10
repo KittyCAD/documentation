@@ -14,7 +14,6 @@ the downstream mirrors in this repository will be overwritten.
 | --- | --- |
 | `content/pages/docs/kcl-lang/**` | [`KittyCAD/modeling-app`](https://github.com/KittyCAD/modeling-app) `docs/kcl-lang/**` |
 | `content/pages/docs/kcl-std/**` | `modeling-app/rust/kcl-lib/std/**` doc comments, rendered into `modeling-app/docs/kcl-std/**` |
-| `content/pages/docs/kcl-samples/**` | `modeling-app/public/kcl-samples/**` |
 | `content/kcl-test-outputs/**` | `modeling-app/rust/kcl-lib/tests/outputs/**` |
 | `content/pages/docs/cli/manual/zoo*.md` | [`KittyCAD/cli`](https://github.com/KittyCAD/cli), generated with `make gen-md` |
 
