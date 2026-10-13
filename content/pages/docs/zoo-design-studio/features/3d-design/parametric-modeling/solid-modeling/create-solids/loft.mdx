@@ -120,8 +120,8 @@ leave this at the default.
 ## Prefer to learn by watching?
 If you want to find out more in a different way, check out our video walkthrough:
 
-<div style={{ maxWidth: '800px', margin: '0 auto' }}>
-    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+<div className="mx-auto w-full max-w-[800px]">
+    <div className="relative w-full aspect-video">
         <iframe
             src="https://www.youtube.com/embed/x0-biMvzV78"
             allowFullScreen="allowfullscreen"
@@ -129,13 +129,7 @@ If you want to find out more in a different way, check out our video walkthrough
             msallowfullscreen="msallowfullscreen"
             oallowfullscreen="oallowfullscreen"
             webkitallowfullscreen="webkitallowfullscreen"
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-            }}
+            className="absolute inset-0 h-full w-full border-0"
         />
     </div>
 </div>
