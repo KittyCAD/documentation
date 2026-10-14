@@ -1,0 +1,122 @@
+---
+title: 'Case Study: ThreeDSViewerCAD'
+excerpt: "An exceptional example of Zoo's portability story"
+coverImage: '/documentation-assets/three-ds-viewer/three-ds-viewer-on-console.png'
+date: '2026-10-14'
+author:
+    name: Zoo Team
+    picture: '/documentation-assets/zoo-pfp.png'
+ogImage:
+    url: '/documentation-assets/three-ds-viewer/three-ds-viewer-on-console.png'
+tags: ['Case Study', 'Zoo API']
+---
+
+<figure>
+    <img src="/documentation-assets/three-ds-viewer/three-ds-viewer-on-console.png" alt="ThreeDSViewerCAD running on a Nintendo 3DS" />
+</figure>
+
+## Overview
+
+When we saw Guilherme's ThreeDSViewerCAD running on the Nintendo 3DS, **our jaws dropped**. Someone had done the joke of running CAD software on a game console - an unimaginable reality. It wasn't just any game console though: the Nintendo 3DS is a system that lets you **see 3D without 3D glasses**. Being able to see your CAD models in real 3D as you work is super cool.
+
+Guilherme Espada is an optimization software developer (for NP-hard problems, such as routes and schedules) from Portugal with an interest in CAD, having used Fusion360 and OpenSCAD for around-the-house problems. They had heard of Zoo through the social media grapevine quite a long time ago, when it was still called KittyCAD. His project takes inspiration from the famous Louvre art exhibit in France, which at one time used Nintendo 3DS systems as tour aids.
+
+The API makeathon perfectly coincided with Guilherme's 2 week vacation they had booked. It would be the opportunity to have the time to try out this idea and learn the Zoo APIs.
+
+<figure>
+    <a href="https://reactormag.com/wp-content/uploads/2015/04/ds-louvre04.jpg"><img src="/documentation-assets/three-ds-viewer/louvre-nintendo-3ds.png" alt="Nintendo 3DS used as a tour aid at the Louvre" /></a>
+    <figcaption>Ⓒ Peter Tieryas</figcaption>
+</figure>
+
+## The Challenge
+
+Initially the goal was to use the Nintendo 3DS as a secondary stereoscopic screen for viewing a CAD model overlaid in the real world. Edit using the preexisting workflows, such as using the Zoo Design Studio. Preview in the 3DS’s stereoscopic screen to get a better feel of how the object would look in the real world.
+
+Guilherme’s first idea was to connect to the zoo.dev engine with a normal computer device and the 3DS simultaneously. Unfortunately multiple connections to the engine aren’t possible as of writing, so the plan needed to be re-evaluated. The new approach was to instead reimagine what a CAD workflow directly on the device would be.
+
+## The Solution
+
+How would he get what's typically understood as a large piece of software that runs on a desktop that costs thousands of dollars, onto what's comparatively a potato? Zoo easily answers the question: run it in the cloud. **Zoo would do the geometry computations and export to a mesh the 3DS can render.**
+
+### File Format
+
+Typically the Zoo **Engine API** would use a stream, and while the 3DS does support the correct video codec, it would prove to be an unsuitable fit for this project.
+
+Instead, the **File Format API** provides an alternative: the capability to export models in various formats, with different trade-offs on features, simplicity and compactness. Some formats are simpler than others, but only include the bare minimum. Others, such as glTF, are more complex, but include additional information that contribute to its appearance.
+
+Zoo supports [setting that information](https://zoo.dev/docs/kcl-std/functions/std-solid-appearance), so for the model to look correct, the more complex format, **glTF**, is used. To further save on precious bytes, the **glb** variant will be used, which encodes glTF as binary.
+
+The glTF specification spans 199 pages. That’s a lot! Thankfully Zoo's **File Format API** takes care of all that complexity, exposing a simple programming interface to turn CAD models into this format.
+
+### Rendering
+
+**Now pixels need to actually get to the screen**. The 3DS, in its uniqueness, uses a mix of both legacy and modern graphics technologies. What this means in practice is that a developer is bound by legacy technology more often than not, and need to adjust their code architecture.
+
+If the 3DS can't render models exactly how they truly are, the next best thing is approximation! Guilherme uses a tried and true concept from mathematical optimization: Just try a whole bunch of times until it’s good enough™.
+
+The next step was to set up an agent workflow loop that would get him the result:
+
+1. Make a few models to be used as test cases.
+2. Render them using a modern renderer (in this case, a headless browser using Three.js was used), and capture screenshots.
+3. Create a harness that launches a 3DS application inside an emulator, and screenshots it.
+4. Until it’s good enough, have an LLM do the following:
+   1. Launch the harness with the last version of the application.
+   2. Compare the screenshots between the modern-rendered and the emulator-rendered version.
+   3. Edit the code to make the emulated version look more like the modern version.
+   4. Repeat
+
+Thus, rendering was solved.
+
+![Rendering comparisons](/documentation-assets/three-ds-viewer/render-comparison.png)
+
+### Connection
+
+This was the first and only submission we got for the API makeathon that didn't use web programming languages. Guilherme had to construct this custom CAD software in Rust in order to run it on the 3DS. Our official [Rust SDK](https://github.com/KittyCAD/kittycad.rs) uses the popular [tokio](https://tokio.rs) library. While [tokio](https://tokio.rs) supports many platforms, unsurprisingly the Nintendo 3DS is not one of them. Thus, he had to write his own to talk to our **Engine API**.
+
+Shortly after, the first login screen appeared, followed by the renders of a few models from the zoo.dev cloud.
+
+![Sign in to Zoo](/documentation-assets/three-ds-viewer/sign-in.png)
+
+![Scene Browser](/documentation-assets/three-ds-viewer/scene-browser.png)
+
+### Modeling
+
+**The next step was creating models on-device**. The form factor of the screen necessitated designing multiple interfaces and interactions. Knowing this would be the most time consuming part of the project and the deadline was getting uncomfortably close, **Guilherme would have to work while asleep**. To maximise development under the available time limits, the following strategy was used alongside an LLM:
+
+*While awake*:
+
+* Design or refine mockups
+* Test the application on-device
+* Clarify specifications
+
+**While asleep**:
+
+* Implement the mockups and behaviours into the application
+* Fuzz the application by creating models and sketches
+* Fix any crash that comes up.
+
+![The first mockups](/documentation-assets/three-ds-viewer/interface-mockups.png)
+
+(the first mockups)
+
+### Finishing up
+
+A project like this would easily be a multi-month effort, and even longer part-time. **Guilherme managed it in 2 weeks.** There are usually many unforeseen hiccups along the way that cause re-thinking of how systems are used. Zoo's **File Format API** gave Guilherme the flexibility to choose from a wider selection of solutions for showing models to suit his problem.
+
+After days and nights of coming up with visual mocks, figuring out architecture, and improving the test feedback loop, ThreeDSViewerCAD started to materialize. In the last couple days, very little sleep was had, and when he did, the AI agent continued to work.
+
+![Cloud Projects](/documentation-assets/three-ds-viewer/cloud-projects.png)
+
+## The Result
+
+* **Proof that CAD systems can exist in places never thought possible:** What was is once again. In the beginning of CAD software, mainframes were required to run these gargantuan packages - then came along AutoCAD, running on consumer PCs. One of Zoo's goals has always been to "run CAD on a potato", and while not exactly a potato, Guilherme has gotten impressively close. We can't wait to see other unexpected places where Zoo's platform can pop up.
+* **Having Cloud-CAD on the go:** Mobile devices are extremely prevalent today, but there is a severe lack of actual CAD software on them, and even less where you have two screens, one where you use a stylus and one that projects in 3D. ThreeDSViewerCAD ends up being an extremely compelling CAD program when considering what the hardware gives you.
+* **A development feedback loop for further AI-coded improvements:** Whenever Guilherme decides to take his next vacation to improve ThreeDSViewerCAD, or pursue a new device, he now has a framework in place to either reproduce this kind of development or incorporate further improvements and workflows immediately.
+
+## The Conclusion
+
+While it may not be a potato, ThreeDSViewerCAD has shown the truly exceptional capabilities of Zoo's API-centric platform. No other CAD platform is able to offer the same without having to rearchitecture and effectively rewrite their entire technology stack - something we invested into doing since day 1 for these exact reasons.
+
+The one thing Guilherme would like to see next is better **Project API** and **Engine API** integration, in that when project contents change, the engine scene will change too. **Zoo is well on its way to that feature set today, already having implemented and shipped Cloud Sync since the makeathon.**
+
+Their one "dream feature" would be the ability to produce GCODE for manufacturing machines directly - similar to what [FullControlGCode](https://fullcontrolgcode.com/) has done. This too is in development at Zoo R&D in our toolpathing department. We can't wait for Guilherme to be able to play with it in the future.
