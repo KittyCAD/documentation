@@ -4,18 +4,32 @@ excerpt: Manage model history with the feature tree in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-The Feature Tree shows the ordered operations used to build the current model.
+The Feature Tree shows the ordered operations used to build the current model in a
+Scene browser tray docked to the side of the 3D scene. It fits its contents and scrolls when space is
+limited, leaving the scene below it available for interaction. Click the Scene browser heading or press
+`Shift+T` to collapse the tray into a small sidebar icon; click the icon to expand it. Drag its
+right edge to resize every section together. The toggle tooltip shows your current shortcut;
+you can change it in keybinding settings under **Scene browser**.
+The existing Feature Tree and Bodies layout panes remain available alongside the Scene browser.
 
-The [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane) below it lists the current
+Click anywhere on the Feature tree row to collapse or expand just the operation history.
+
+Default planes, operation history, and bodies use the same tree rows. A divider separates the
+planes from operations, and keyboard navigation moves between both sections in one tree.
+
+The [Bodies section](/docs/zoo-design-studio/features/workspace/body-pane) beneath it lists the current
 body-level results, so you can select and control finished geometry separately from its operation
 history.
 
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/workspace/feature-tree/feature-tree.webp"
-  alt="Zoo Design Studio feature tree"
-  aspect="706 / 1154"
-  maxHeightPx={460}
-/>
+## Keyboard Navigation
+
+Focus the tree to navigate rows with the up and down arrows. Use the right arrow to expand a
+branch and the left arrow to collapse it. Type a label's beginning to move to a matching row.
+Selection follows the model's existing single-selection behavior.
+
+Press `F2` to enter a row's actions, `Escape` to return to the row, or `Shift+F10` to open its
+context menu. These action shortcuts are registered commands and can be changed in the keybinding
+settings.
 
 ## What You Can Do
 
