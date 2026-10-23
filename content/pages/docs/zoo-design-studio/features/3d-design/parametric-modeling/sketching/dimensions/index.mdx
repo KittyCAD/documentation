@@ -32,6 +32,17 @@ Distance dimensions can be applied directly to a line to control its length, or 
 references to control their spacing. Double-click an existing distance, angle, radius, or diameter
 dimension label to edit its value.
 
+You can select sketch geometry before choosing Smart Dimension, or equip Smart Dimension first and
+then select the geometry. With the tool equipped, an unmodified line click starts a length dimension;
+clicking an arc creates a radius dimension, and clicking a circle creates a diameter dimension.
+To select a line as the first of two references, hold Shift while clicking it, then click the second
+reference.
+
+When the requested dimension already exists, Smart Dimension highlights it and displays a warning
+instead of adding another copy. Different angle sectors for the same two lines count as one angle
+dimension. Radius and diameter dimensions on the same arc or circle also count as the same size
+dimension. Edit the existing label to change its value.
+
 If a sketch becomes over-constrained, Zoo Design Studio highlights the conflicting sketch geometry
 or dimension in red. Remove or edit one of the competing dimensions or constraints to loosen the
 sketch until it can solve again.
