@@ -25,8 +25,9 @@ beside each name summarizes its camera orientation, distance when specified, and
   maxHeightPx={240}
 />
 
-Moving the camera clears the active indicator without changing the saved view. Apply the view
-again to return to its saved camera and visibility preset.
+Moving the camera exits the active view and restores the visibility defined by the model's KCL,
+including authored `hide()` operations. The camera stays where you moved it, and the active
+indicator clears. Apply the view again to return to its saved camera and visibility preset.
 
 **Default View** is built in and cannot be renamed, edited, or removed. Applying it resets the
 camera like **Reset View** and restores the visibility defined by the model's KCL, including
