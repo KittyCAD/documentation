@@ -26,6 +26,31 @@ history.
   `Set Appearance` when the operation type supports them.
 - Export supported sketch operations to DXF from the context menu.
 
+## Roll Back the Model
+
+Drag the thin rollback bar from the bottom of the tree to a boundary between features.
+Features below the bar stay visible in grey, while execution stops at that boundary. Drag the
+bar back to the bottom to execute the full model. You can also focus the bar and use the arrow
+keys, Home, or End.
+
+The bar adds a marked `exit()` call to KCL, including a pipeline stage when rolling back inside
+a pipeline. Moving the bar to the bottom removes that call. The rollback position is saved with
+the source, and moving the bar can be undone and redone. Imported modules retain their own KCL
+execution behavior; the bar stops the current file.
+
+## Reorder Features
+
+Drag the handle beside a feature to a boundary in the tree. The corresponding KCL source moves
+at the same time, and the model executes again. Sketch blocks stay intact. Dragging the input
+of a pipeline moves the whole pipeline; later pipeline stages can move within that pipeline.
+
+Moves across a referenced variable, captured value, or tag are blocked. Pipeline stages also
+stay after their input, and moves across type-changing or unrecognized stages are blocked.
+Imports stay in place. Use the code editor for changes outside these supported moves.
+
+Reordering is undoable. It is unavailable while the model is executing, during an active
+modeling command, or when the tree shows a reference to unrendered or invalid source.
+
 ## What You Cannot Do
 
 - Edit every operation from the tree. Some operation types are view-only or partially supported.

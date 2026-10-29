@@ -17,6 +17,21 @@ It also opens project text files selected in the
 - Edit UTF-8 project text files up to 1 MiB with automatic saving. Markdown files have syntax
   highlighting; other non-KCL text files use plain text editing.
 
+## Pause and Execute KCL
+
+Select **Pause** above the KCL editor to stop automatically executing each code change. Your
+edits continue to save, and the last rendered model remains visible. You can still rotate,
+zoom, and pan the model.
+
+After you change code while paused, the feature tree and modeling tools become unavailable.
+The editor explains that you need to execute the pending changes. Select **Execute** to render
+them once while keeping automatic execution paused, or select **Resume** to render pending
+changes and turn automatic execution back on.
+
+These controls use the **Automatically Render** editor setting. Pausing execution does not
+cancel a model that is already running. The controls apply to KCL; opening a project text file
+does not show them or execute KCL.
+
 ## What You Cannot Do
 
 - Treat point-and-click edits as separate from code. In Zoo Design Studio, KCL remains the source
