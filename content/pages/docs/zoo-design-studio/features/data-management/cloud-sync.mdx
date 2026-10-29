@@ -18,6 +18,8 @@ Opening a cloud project requires a connection. An already-open project can retai
 
 ## Zookeeper Changes
 
+Zookeeper reads cloud project files directly from Zoo. Cloud prompts and resumed conversations identify the project without uploading another copy of its files. Local projects still send their files with the prompt, and you can attach reference files to prompts for either project type.
+
 Zookeeper saves cloud project changes directly to Zoo. Zoo Design Studio reloads the latest project files after cloud file operations and when the turn finishes, including added, moved, and deleted files. If Zookeeper removes the file you are viewing, the app opens the project's default file.
 
 A refresh does not replace edits whose cloud save has failed. Resolve the failed save before refreshing so those edits remain protected.
