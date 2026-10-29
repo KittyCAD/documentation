@@ -16,6 +16,12 @@ If a save fails, your changes remain in memory and the top bar shows **Save fail
 
 Opening a cloud project requires a connection. An already-open project can retain edits in memory during a connection failure, but those edits are not durably saved until the server accepts them.
 
+## Zookeeper Changes
+
+Zookeeper saves cloud project changes directly to Zoo. Zoo Design Studio reloads the latest project files after cloud file operations and when the turn finishes, including added, moved, and deleted files. If Zookeeper removes the file you are viewing, the app opens the project's default file.
+
+A refresh does not replace edits whose cloud save has failed. Resolve the failed save before refreshing so those edits remain protected.
+
 ## Using Multiple Devices
 
 Wait for saving to finish before switching devices. Cloud projects are not live collaboration sessions. If another device has changed the project since you opened it, the server rejects a stale save rather than overwriting the newer version. Preserve your edits with an export before reloading the latest cloud version.
