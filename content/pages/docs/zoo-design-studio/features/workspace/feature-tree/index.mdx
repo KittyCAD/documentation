@@ -26,7 +26,7 @@ history.
   `Set Appearance` when the operation type supports them.
 - Export supported sketch operations to DXF from the context menu.
 
-`hide()` calls do not create feature-tree rows, including assigned calls and pipeline stages.
+`hide()` and `region()` calls do not create feature-tree rows, including assigned calls and pipeline stages.
 They remain in KCL and execute normally. The rollback bar moves between the visible features.
 
 ## Roll Back the Model
@@ -35,6 +35,10 @@ Drag the thin rollback bar from the bottom of the tree to a boundary between fea
 Features below the bar stay visible in grey, while execution stops at that boundary. Drag the
 bar back to the bottom to execute the full model. You can also focus the bar and use the arrow
 keys, Home, or End.
+
+Moving the bar regenerates the model while keeping the existing feature-tree rows and expanded
+groups in place. Later features remain visible and disabled. Ordinary code edits and feature
+reordering rebuild the tree normally.
 
 The bar adds a marked `exit()` call to KCL, including a pipeline stage when rolling back inside
 a pipeline. Moving the bar to the bottom removes that call. The rollback position is saved with
