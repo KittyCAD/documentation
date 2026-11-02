@@ -1,0 +1,211 @@
+---
+title: "Ben's Build Logs: Single-Engine Aircraft"
+excerpt: |
+    Follow Ben Friedel as he designs a small single-engine aircraft, piece by piece, in Zoo Design Studio with Zookeeper.
+coverImage: '/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-11-1.jpg'
+date: '2026-11-02'
+author:
+    name: Ben Friedel
+ogImage:
+    url: '/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-11-1.jpg'
+tags: ['Case Study']
+draft: true
+---
+
+Hey, Ben the intern here! 👋
+
+I’m an aeronautical engineering student and recently joined Zoo to explore what practical engineering looks like in Zoo Design Studio.
+
+Over the next few months, I’ll be designing a small single-engine aircraft piece by piece and sharing the process along the way.
+
+Excited to see where this ends up ✈️
+
+- Ben (@benwithhat)
+
+[Originally posted on X](https://x.com/zoodotdev/status/2087250475708219629).
+
+[Jump to latest update ↓](#bens-build-log-17) - Latest: Build Log #17 · October 31, 2026
+
+## Ben’s Build Log #01
+
+While creating the aircraft tires, I built the outer tire cross-section manually to define the geometry.
+
+Instead of recreating essentially the same shape again for the inner profile, I handed that part to Zookeeper. One prompt later, it reproduced the profile with a consistent offset.
+
+![Aircraft tire cross-section and offset inner profile](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-01-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2087606795024134441).
+
+## Ben’s Build Log #02
+
+For the wheel rims, I needed some info on how the bolt assembly is typically constructed on aircraft wheels.
+
+I asked Zookeeper for some technical context and it gave me a breakdown and technical drawings to support my modelling.
+
+![Aircraft wheel rim and bolt assembly](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-02-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2089428557760274668).
+
+## Ben’s Build Log #03
+
+I was modeling the fork and oleo strut of the nose landing gear when I wondered if Zookeeper could take over from there.
+
+It completed the assembly and even suggested the next steps.
+
+![Nose landing gear fork and oleo strut assembly](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-03-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2090859882409082988).
+
+## Ben’s Build Log #04
+
+To model the aircraft wing, I first needed to define the rib and its spar geometry.
+
+I sketched out the rough profiles I wanted by hand and gave them to Zookeeper to size them properly.
+
+![Aircraft wing rib and spar profiles](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-04-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2092323099396219246).
+
+## Ben’s Build Log #05
+
+A wing obviously has more than just one rib, so I let Zookeeper duplicate the rib along the entire wingspan.
+
+Then I had him extend the spars and stringers through all the ribs to complete the internal wing structure.
+
+![Ribs, spars, and stringers along the wingspan](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-05-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2095572461115134329).
+
+## Ben’s Build Log #06
+
+Before finishing the wings, I wanted to start on the aircraft’s piston engine, beginning with the crankshaft.
+
+I noticed I had gotten the propeller mounting flange slightly wrong, so I gave Zookeeper reference images of a real aircraft crankshaft.
+
+Zookeeper corrected the geometry and laid the groundwork for the rest of the crankshaft.
+
+![Aircraft engine crankshaft and propeller mounting flange](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-06-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2097774389072924799).
+
+## Ben’s Build Log #07
+
+After modeling the crankshaft and pistons, I asked Zookeeper to bring everything together.
+
+Instead of positioning every part myself, he took over and assembled the almost complete engine internals.
+
+![Assembled crankshaft, pistons, and engine internals](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-07-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2102446183117688953).
+
+## Ben’s Build Log #08
+
+For the valve mechanism, I needed to add compression springs, but wasn’t sure about the best way to model them in Zoo Design Studio.
+
+So I asked Zookeeper which approach he would recommend. He suggested using a helix, which turned out to be exactly what I needed for the spring geometry.
+
+![Compression springs in the engine valve mechanism](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-08-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2103521173867041231).
+
+## Ben’s Build Log #09
+
+To finish up the wing structure, I first refined the stringers to make them more representative of a real aircraft.
+
+On top of that, I modelled two different spar angle designs and gave Zookeeper the placement logic for each of them.
+
+He then positioned and duplicated all 45 angles across the wing structure.
+
+![Wing structure with stringers and spar angles](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-09-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2104645609588469944).
+
+## Ben’s Build Log #10
+
+Of course, the wing still needed a proper wingtip, so I gave Zookeeper the existing wing geometry and some basic design requirements while leaving the actual shape mostly up to him.
+
+The first result looked promising, but wasn’t quite there yet. With a few more prompts, I refined the geometry and ended up with a final version that felt much more convincing.
+
+![Refined wingtip geometry](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-10-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2105726703607906405).
+
+## Ben’s Build Log #11
+
+In the Zoo Aquarium, I came across a different approach to generating a wing’s NACA profile, so I asked Zookeeper to compare it with the method I was already using.
+
+Turns out my approach was better suited for this model, so I kept it and completed the wing assembly with the final additions of the ailerons and outer skin.
+
+![Completed wing assembly with ailerons and outer skin](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-11-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2107173142934532238).
+
+## Ben’s Build Log #12
+
+An important part of the crankshaft and camshaft setup is the timing connection that keeps both shafts synchronized.
+
+In a four-stroke engine the camshaft rotates at half the crankshaft speed, so I had Zookeeper create a 2:1 gear setup between them.
+
+![Crankshaft and camshaft timing gears](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-12-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2108327716177187013).
+
+## Ben’s Build Log #13
+
+While reviewing the engine assembly, I realized there was a deeper logic issue in the way I had arranged the layout.
+
+After working through the problem with Zookeeper and exploring a few possible fixes, I reworked the affected geometry to better match the flat-four configuration typical for this kind of aircraft engine.
+
+The result is a more mechanically plausible setup that I’m much happier to continue with.
+
+![Reworked flat-four aircraft engine layout](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-13-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2110072699930190229).
+
+## Ben’s Build Log #14
+
+With the rest of the engine components in place, I asked Zookeeper to create a functional linkage between the camshaft lobes and the valves.
+
+The first result already had the basic mechanism in place, but some of the geometry still needed refinement.
+
+After a few adjustments to make the setup cleaner and more realistic, the engine internals were finally complete.
+
+![Camshaft-to-valve linkage and completed engine internals, image 1](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-14-1.png)
+
+![Camshaft-to-valve linkage and completed engine internals, image 2](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-14-2.jpg)
+
+![Camshaft-to-valve linkage and completed engine internals, image 3](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-14-3.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2111539366728474778).
+
+## Ben’s Build Log #15
+
+Moving on to the propeller, I asked Zookeeper to design a mounting plate that fits the existing crankshaft flange.
+
+I had him start with a sketch so I could review and validate the design before letting him turn it into the final 3D part.
+
+![Propeller mounting plate design, image 1](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-15-1.jpg)
+
+![Propeller mounting plate design, image 2](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-15-2.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2112995291029016712).
+
+## Ben’s Build Log #16
+
+With KCL 3.0 released, I asked Zookeeper to migrate the entire project, review the existing code and make sure everything still worked as intended.
+
+With that done, I finished the propeller spacer, making use of the improved fillet capabilities in KCL 3.0 to smooth out the transitions around the mounting bolts and structural ribs.
+
+![Propeller spacer with fillets around mounting bolts and ribs](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-16-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2113740248048099674).
+
+## Ben’s Build Log #17
+
+Before modeling the propeller itself, I asked Zookeeper to evaluate what kind of fixed-pitch propeller would make sense for this type of aircraft and to work out suitable dimensions and blade profiles.
+
+He then used that information to create a series of sketches, visualizing the blade shape, twist and overall proportions.
+
+![Fixed-pitch propeller blade profile sketches](/documentation-assets/bens-build-logs-single-engine-aircraft/build-log-17-1.jpg)
+
+[View original post on X](https://x.com/zoodotdev/status/2116562008195612898).
