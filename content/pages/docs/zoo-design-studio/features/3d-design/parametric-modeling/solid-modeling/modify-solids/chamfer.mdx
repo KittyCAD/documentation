@@ -40,7 +40,7 @@ Typical angles:
 - **30° or 60°** - Asymmetric chamfers for specific requirements
 
 ### Tag  
-Tag the chamfer surface if you need to reference it later.
+Tag the chamfer surface if you need to reference it later. A tag can only be assigned when a single edge is selected.
 
 ### Tangent Chain
 Whether to continue the chamfer along edges that are tangent to the selected edges. Defaults to true.
@@ -55,71 +55,71 @@ Whether to continue the chamfer along edges that are tangent to the selected edg
 
 ## Steps
 
-1. Click <img src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-icon.webp" alt="the chamfer icon" /> in the toolbar, or press `C`.
+1. Choose **Chamfer** <img src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-icon.webp" alt="the chamfer icon" /> from the toolbar or search for it in the [Command Bar](/docs/zoo-design-studio/features/workspace/command-bar).
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-select-edges.webp"
-    alt="the chamfer dialog"
+    alt="the Chamfer dialog with its arguments shown together"
 />
 
-2. Select the edges you want to chamfer.
+2. Click **Selection** and select the edges to modify. You can also select edges before opening the dialog.
 
 <img
     width='500px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/fillet-selected-edges.webp"
-    alt="edges selected to chamfer"
+    alt="two edges selected to chamfer"
 />
 
-3. Click "Continue" or press `Enter`.
+3. Enter **Length** directly in the dialog.
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-length.webp"
-    alt="the chamfer length input"
+    alt="the Chamfer dialog with a 0.5 mm length"
 />
 
-4. Enter a length for the chamfer, then click "Continue" or press `Enter`
+4. Leave **Second Length** and **Angle** blank for equal setbacks. Leave **Tag** blank for this two-edge example, and leave **Tangent Chain** at its default or choose **On**.
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-options.webp"
-    alt="the optional chamfer settings"
+    alt="the equal-distance Chamfer dialog with tangent chaining enabled"
 />
 
-5. If a tangent chaining chamfer with equal distance is desired, click "Submit" or press `Enter`.
+5. Click **Submit** to apply the equal-distance chamfer.
 
 <img
     width='500px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-result.webp"
-    alt="the completed chamfer"
+    alt="the completed equal-distance chamfer with tangent chaining"
 />
 
-6. If tangent chain is not desired, click "Tangent chain +" and choose "Off".
+6. To chamfer only the selected edges, double-click the Chamfer operation in the Feature Tree and set **Tangent Chain** to **Off**. Keep **Length** at **0.5 mm** for this example. Existing edge selections are read-only during editing.
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-tangent-chain-options.webp"
-    alt="the tangent chain input"
+    alt="editing the Chamfer dialog with tangent chaining disabled"
 />
 
-7. Click "Submit" or press `Enter`.
+7. Click **Submit** to apply the change.
 
 <img
     width='500px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-result-no-chain.webp"
-    alt="the completed chamfer with no tangent chain"
+    alt="the completed chamfer without tangent chaining"
 />
 
-8. If a distance-distance chamfer is desired, click "Second length +", enter a second length, and click "Continue" or hit `Enter`.
+8. For a distance-distance chamfer, reopen the operation, keep **Length** at **0.5 mm**, enter **0.2 mm** for **Second Length**, and leave **Angle** blank. Set **Tangent Chain** back to **On** to include tangent edges.
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-second-length.webp"
-    alt="the second length input dialog"
+    alt="the distance-distance Chamfer dialog with unequal setbacks"
 />
 
-9. Click "Submit" or press `Enter`.
+9. Click **Submit** to apply the distance-distance chamfer.
 
 <img
     width='500px'
@@ -127,22 +127,23 @@ Whether to continue the chamfer along edges that are tangent to the selected edg
     alt="the completed distance-distance chamfer"
 />
 
-10. If a distance-angle chamfer is desired, click "Angle +", enter an angle between 0 and 90 degrees, and click "Continue" or hit `Enter`.
+10. For a distance-angle chamfer, reopen the operation, clear **Second Length**, and enter **60°** for **Angle**.
 
 <img
-    width='500px'
+    width='280px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-angle-options.webp"
-    alt="the completed distance-distance chamfer"
+    alt="the distance-angle Chamfer dialog with a 60 degree angle"
 />
 
-11. Click "Submit" or press `Enter`.
+11. Click **Submit** to apply the distance-angle chamfer.
 
 <img
     width='500px'
     src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/solid-modeling/modify-solids/chamfer-angle-result.webp"
-    alt="the completed distance-distance chamfer"
+    alt="the completed distance-angle chamfer"
 />
 
+Click **Cancel** or press Esc to discard the draft. If the dialog covers an edge, drag its header to move it.
 
 ## Are you interested in code?
 
