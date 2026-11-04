@@ -27,9 +27,14 @@ Shortcut to open the Zoo documentation or Account in your browser.
 
 If no arguments are given, the default is to open the Zoo documentation.
 
-    # open the Zoo docs in your browser
-    $ zoo open docs
-    
-    # open your Zoo account in your browser
-    $ zoo open account
-    
+```
+shell
+# open the Zoo docs in your browser
+zoo open docs
+```
+
+```
+shell
+# open your Zoo account in your browser
+zoo open account
+```

@@ -16,13 +16,13 @@ Get the mass of objects in a kcl file.
    <dd>Material density</dd>
 
    <dt><code>--material-density-unit</code></dt>
-   <dd>Material density unit</dd>
+   <dd>Material density unit<br/>Possible values: <code>lb:ft3 | kg:m3</code></dd>
 
    <dt><code>-f/--format</code></dt>
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit</dd>
+   <dd>Output unit<br/>Possible values: <code>g | kg | lb</code></dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
@@ -44,12 +44,17 @@ Get the mass of objects in a kcl file.
 ### About
 
 
-    # get the mass of a file
-    $ zoo kcl mass my-file.kcl
-    
-    # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl mass
-    
+```
+shell
+# get the mass of a file
+zoo kcl mass my-file.kcl --material-density 1.0 --material-density-unit lb-ft3 --output-unit kg
+```
+
+```
+shell
+# pass a file from stdin
+cat my-file.kcl | zoo kcl mass - --material-density 1.0 --material-density-unit lb-ft3 --output-unit kg
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

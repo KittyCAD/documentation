@@ -16,7 +16,7 @@ Get the bounding box that contains everything in a KCL file.
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit</dd>
+   <dd>Output unit<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
 
    <dt><code>--allow-errors</code></dt>
    <dd>When there are KCL problems that are are errors, continue anyway. Problems (AKA compilation issues) may be detected in KCL parsing or execution and can have varying severity. Some errors are fatal and are not affected by this option. Which errors are considered fatal may change without notice<br/>Default value: <code>false</code></dd>
@@ -35,12 +35,17 @@ Get the bounding box that contains everything in a KCL file.
 ### About
 
 
-    # get the volume of a file
-    $ zoo kcl bounding-box my-file.kcl
-    
-    # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl bounding-box
-    
+```
+shell
+# get the volume of a file
+zoo kcl bounding-box my-file.kcl --output-unit mm
+```
+
+```
+shell
+# pass a file from stdin
+cat my-file.kcl | zoo kcl bounding-box - --output-unit mm
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

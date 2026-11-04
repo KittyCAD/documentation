@@ -41,15 +41,23 @@ Format a `kcl` file.
 ### About
 
 
-    # Output to stdout by default
-    $ zoo kcl fmt my-file.kcl
-    
-    # Overwrite the file
-    $ zoo kcl fmt -w my-file.kcl
-    
-    # Pass a file to format from stdin
-    $ cat my-obj.kcl | zoo kcl fmt
-    
+```
+shell
+# Output to stdout by default
+zoo kcl fmt my-file.kcl
+```
+
+```
+shell
+# Overwrite the file
+zoo kcl fmt -w my-file.kcl
+```
+
+```
+shell
+# Pass a file to format from stdin
+cat my-obj.kcl | zoo kcl fmt -
+```
 
 ### See also
 
