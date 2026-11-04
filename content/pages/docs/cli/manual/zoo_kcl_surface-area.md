@@ -16,7 +16,7 @@ Get the surface area of objects in a kcl file.
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit</dd>
+   <dd>Output unit<br/>Possible values: <code>cm2 | dm2 | ft2 | in2 | km2 | m2 | mm2 | yd2</code></dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
@@ -38,12 +38,17 @@ Get the surface area of objects in a kcl file.
 ### About
 
 
-    # get the surface-area of a file
-    $ zoo kcl surface-area my-file.kcl
-    
-    # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl surface-area
-    
+```
+shell
+# get the surface-area of a file
+zoo kcl surface-area my-file.kcl --output-unit mm2
+```
+
+```
+shell
+# pass a file from stdin
+cat my-file.kcl | zoo kcl surface-area - --output-unit mm2
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

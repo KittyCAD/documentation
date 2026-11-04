@@ -25,12 +25,17 @@ Log out of an Zoo host.
 This command removes the authentication configuration for a host either specified
 interactively or via the global `--host` passed to `zoo`.
 
-    $ zoo auth logout
-    # => select what host to log out of via a prompt
-    
-    $ zoo --host zoo.internal auth logout
-    # => log out of specified host
-    
+```
+shell
+zoo auth logout
+# => select what host to log out of via a prompt
+```
+
+```
+shell
+zoo --host api.zoo.dev auth logout
+# => log out of specified host
+```
 
 ### See also
 

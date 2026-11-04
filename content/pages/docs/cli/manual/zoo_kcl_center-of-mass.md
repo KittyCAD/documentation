@@ -16,7 +16,7 @@ Get the center of mass of objects in a kcl file.
    <dd>Output format<br/>Possible values: <code>json | yaml | table</code></dd>
 
    <dt><code>-u/--output-unit</code></dt>
-   <dd>Output unit</dd>
+   <dd>Output unit<br/>Possible values: <code>cm | ft | in | m | mm | yd</code></dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
@@ -38,12 +38,17 @@ Get the center of mass of objects in a kcl file.
 ### About
 
 
-    # get the mass of a file
-    $ zoo kcl center-of-mass my-file.kcl
-    
-    # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl center-of-mass
-    
+```
+shell
+# get the mass of a file
+zoo kcl center-of-mass my-file.kcl --output-unit mm
+```
+
+```
+shell
+# pass a file from stdin
+cat my-file.kcl | zoo kcl center-of-mass - --output-unit mm
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
