@@ -32,12 +32,17 @@ Lint a KCL file for style issues.
 ### About
 
 
-    # check a file for issues
-    $ zoo kcl lint my-file.kcl
-    
-    # pass a file from stdin
-    $ cat my-file.kcl | zoo kcl lint -
-    
+```
+shell
+# check a file for issues
+zoo kcl lint my-file.kcl
+```
+
+```
+shell
+# pass a file from stdin
+cat my-file.kcl | zoo kcl lint -
+```
 
 ### See also
 

@@ -53,12 +53,17 @@ Snapshot a render of a `kcl` file as any supported image format.
 ### About
 
 
-    # snapshot as png
-    $ zoo kcl snapshot my-file.kcl my-file.png
-    
-    # pass a file to snapshot from stdin
-    $ cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png
-    
+```
+shell
+# snapshot as png
+zoo kcl snapshot my-file.kcl my-file.png --angle iso
+```
+
+```
+shell
+# pass a file to snapshot from stdin
+cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png --angle iso
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

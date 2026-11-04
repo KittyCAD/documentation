@@ -19,9 +19,17 @@ Delete an alias.
    <dd>Zoo API host to use for all commands (e.g., "api.zoo.dev" or "http://localhost:8888"). Overrides the configured default host</dd>
 
    <dt><code>-h/--help</code></dt>
-   <dd>Print help</dd>
+   <dd>Print help (see a summary with '-h')</dd>
 </dl>
 
+
+### About
+
+
+```
+shell
+zoo alias delete aabb_mm
+```
 
 ### See also
 

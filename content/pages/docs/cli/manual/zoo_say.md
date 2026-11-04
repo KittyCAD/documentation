@@ -26,7 +26,9 @@ Prints your text in a text bubble with Zoo as ASCII art
 ### About
 
 
-    $ zoo say
-    $ zoo say hello!
-    $ zoo say Hello World!
-    
+```
+shell
+zoo say
+zoo say hello!
+zoo say Hello World!
+```

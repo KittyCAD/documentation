@@ -38,11 +38,16 @@ View a render of a `kcl` file in your terminal.
 ### About
 
 
-    $ zoo kcl view my-file.kcl
-    
-    # pass a file to view from stdin
-    $ cat my-obj.kcl | zoo kcl view -
-    
+```
+shell
+zoo kcl view my-file.kcl --angle iso
+```
+
+```
+shell
+# pass a file to view from stdin
+cat my-obj.kcl | zoo kcl view - --angle iso
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 
