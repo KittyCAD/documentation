@@ -34,16 +34,13 @@ We want you to have control over your files, which is why we give you the option
 3. Sign in to Zoo Design Studio with the same account on the other device or in a browser.
 4. Open the project from Personal Cloud.
 
-### Resolving Sync Conflicts
-Cloud Sync does **not yet support live collaboration** between multiple users at the same time, so if you make edits to the same project across several devices, its possible that Zoo Design Studio won't know which edit "wins". When this happens, the project will show a badge in the top bar when opened, with a menu item that will let you inspect the conflict.
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/conflict-menu.png"
-  alt="Zoo Design Studio with two initial empty project libraries"
-  aspect="2266 / 690"
-  maxHeightPx={240}
-/>
+### Save Failures and Conflicts
 
-Choose either to use the local edits or the edits coming from the cloud using the buttons at the bottom of the dialog.
+While a cloud save is pending, the project header shows `Saving...`. If the save fails, your edits remain in memory and the header shows `Save failed. Retry`. Restore your connection and click that button to try again. Keep the project open until saving finishes.
+
+If the cloud project has changed since your last acknowledged save, Zoo Design Studio reloads the current cloud snapshot. The cloud version is the source of truth: differing cloud contents replace your editor contents, and pending edits based on the previous snapshot are canceled. Further edits save against the newly loaded cloud revision.
+
+A connection can fail after the server accepts a save but before the app receives its acknowledgement. Retrying may then encounter a revision conflict even though your contents reached the cloud. Reloading the cloud snapshot resolves that uncertainty without uploading the old snapshot again.
 
 ### Stop Syncing
 
