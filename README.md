@@ -24,7 +24,21 @@ stored in this repository.
 See [`AGENTS.md`](./AGENTS.md) for generator commands and the exact ownership
 rules used by coding agents.
 
-## Image aspect ratios
+## Editorial tags and the New badge
+
+For blog, research, and press posts, use frontmatter `tags` for content categories.
+Do not add `New` manually. The website frontend uses the frontmatter `date` to
+automatically show a `New` badge for posts published within the last two calendar
+months. It checks recency when the page loads, including on preview cards, article
+headings, and the New tag results page. Refreshing or revisiting the page updates
+the badge; no content edits or site rebuilds are needed for it to expire.
+
+## Image frames and aspect ratios
+
+Image frames use the website's page accent by default. To choose a different
+accent for an image, set `theme="green"` (or another supported theme) on
+`FramedImage`, or `frameColor="var(--green)"` on `ZoomableImage`. The frame,
+corner markers, and zoom control use the same accent.
 
 When adding a `FramedImage`, set `aspect` to the source image's width and height
 (or an equivalent ratio such as `1 / 1` for a square image). Run
