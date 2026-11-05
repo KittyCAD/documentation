@@ -40,6 +40,12 @@ accent for an image, set `theme="green"` (or another supported theme) on
 `FramedImage`, or `frameColor="var(--green)"` on `ZoomableImage`. The frame,
 corner markers, and zoom control use the same accent.
 
+By default, `ZoomableImage` preserves the source image's proportions and draws a
+frame around its preview. Use `unframed` when the surrounding component already
+provides a frame. Custom thumbnails, including `FramedImage`, keep their own frames.
+Provide image `width` and `height` for a stable layout while loading; galleries
+use the first image's dimensions to size their previews.
+
 When adding a `FramedImage`, set `aspect` to the source image's width and height
 (or an equivalent ratio such as `1 / 1` for a square image). Run
 `npm run check:images` to compare these values with the image files. The pull
