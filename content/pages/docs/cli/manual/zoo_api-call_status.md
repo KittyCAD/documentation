@@ -29,8 +29,7 @@ Perform operations for API calls.
 ### About
 
 
-```
-shell
+```shell
 # get the status of an async API call
 zoo api-call status <id>
 ```

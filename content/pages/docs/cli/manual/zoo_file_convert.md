@@ -45,20 +45,17 @@ performed asynchronously, you can then check its status with the
 `zoo api-call status <id_of_your_operation>` command. The status call will return
 404 if the size is under 25MB, it will not be processed asynchronously.
 
-```
-shell
+```shell
 # convert step to obj
 zoo file convert --output-format=obj my-file.step output_dir
 ```
 
-```
-shell
+```shell
 # convert obj to step
 zoo file convert --output-format=step my-obj.obj .
 ```
 
-```
-shell
+```shell
 # pass a file to convert from stdin
 # when converting from stdin, the original file type is required
 cat my-obj.obj | zoo file convert --output-format=step --src-format=obj - output_dir

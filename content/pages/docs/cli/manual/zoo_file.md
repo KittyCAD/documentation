@@ -33,8 +33,7 @@ Perform operations on CAD files.
 ### About
 
 
-```
-shell
+```shell
 # convert a step file to an obj file
 zoo file convert --output-format=obj ./input.step ./
 ```
