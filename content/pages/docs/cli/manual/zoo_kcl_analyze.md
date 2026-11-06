@@ -57,14 +57,12 @@ Analyze multiple physical properties of objects in a kcl file.
 
 This runs KCL once and then returns all requested analyses from the same scene.
 
-```
-shell
+```shell
 # analyze a file and print a table
 zoo kcl analyze my-file.kcl --material-density 1.0 --material-density-unit lb-ft3
 ```
 
-```
-shell
+```shell
 # output for scripting
 zoo kcl analyze my-file.kcl --format json --material-density 1.0 --material-density-unit lb-ft3
 ```

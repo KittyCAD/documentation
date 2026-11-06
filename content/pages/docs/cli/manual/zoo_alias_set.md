@@ -45,8 +45,7 @@ If the expansion starts with "!" or if "--shell" was given, the expansion is a s
 expression that will be evaluated through the "sh" interpreter when the alias is
 invoked. This allows for chaining multiple commands via piping and redirection.
 
-```
-shell
+```shell
 zoo alias set aabb_mm "kcl bounding-box $1 --output-unit mm"
 zoo aabb_mm my-file.kcl
 ```

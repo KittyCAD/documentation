@@ -27,8 +27,7 @@ Start an interactive Copilot chat for KCL in the current project directory.
 
 Requires the current directory to contain a `main.kcl` file.
 
-```
-shell
+```shell
 zoo ml kcl copilot
 ```
 

@@ -38,14 +38,12 @@ Get the volume of an object in a kcl file.
 ### About
 
 
-```
-shell
+```shell
 # get the volume of a file
 zoo kcl volume my-file.kcl --output-unit mm3
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl volume - --output-unit m3
 ```

@@ -44,14 +44,12 @@ Get the density of objects in a kcl file.
 ### About
 
 
-```
-shell
+```shell
 # get the density of a file
 zoo kcl density my-file.kcl --material-mass 1 --material-mass-unit g --output-unit kg:m3
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl density - --material-mass 1 --material-mass-unit g --output-unit kg:m3
 ```
