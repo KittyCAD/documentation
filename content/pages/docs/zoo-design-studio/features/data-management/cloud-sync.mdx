@@ -22,7 +22,7 @@ The project header shows `Saving...` while a cloud save is pending and `Save fai
 ## Common Workflows
 
 ### Use A Project On Another Device
-1. Create the project within the Personal Cloud library or move an existing project into there.
+1. Create the project within the Personal Cloud library or clone an existing project into it.
 2. Keep the project open and wait until `Saving...` disappears. If `Save failed. Retry` appears, resolve the failure and retry before switching devices.
 3. Sign in to Zoo Design Studio with the same account on the other device or in a browser.
 4. Open the project from Personal Cloud.
@@ -41,10 +41,10 @@ A connection can fail after the server accepts a save but before the app receive
 
 ### Stop Syncing
 
-On desktop, use `Move to library` to move the project from Personal Cloud to a Directory library. This writes the project to that folder and asks you to confirm deletion of its cloud project. After the move, edits save to the local folder. See [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries#move-projects-between-libraries).
+On desktop, use **Clone project** to create a project in a Directory library from the cloud project. Edits to the new project save to that local folder. The original cloud project remains in Personal Cloud; delete it separately if you no longer need it. See [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries#clone-projects-into-another-library).
 
 ### Publish To Our Project Showcase 
-Our public project showcase  [the Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) uses cloud sync too!. Not all cloud synced projects are published to the Aquarium, but all projects submitted to the Aquarium must be cloud synced, so when you submit a project for publication in ZDS we move it to your Personal Cloud library for you.
+Our public project showcase  [the Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) uses cloud sync too!. Not all cloud synced projects are published to the Aquarium, but all projects submitted to the Aquarium must be cloud synced, so when you submit a project for publication in ZDS we create a new project in Personal Cloud from your Directory project and keep the original folder.
 
 1. Open the project and click the `Publish` button in the top-right.
 2. Complete the Aquarium submission and submit it for review.
@@ -75,7 +75,7 @@ No. Clearing the browser's cached images and files does not delete projects from
 
 The saved project lives in Zoo's cloud storage. While it is open, the app holds its files and any pending edits in memory. Closing or reloading the app discards changes that have not reached the cloud.
 
-To keep a project as files on your computer, move it to a Directory library in the desktop app.
+To keep a project as files on your computer, clone it into a Directory library in the desktop app.
 
 ### Can I Work Offline?
 
