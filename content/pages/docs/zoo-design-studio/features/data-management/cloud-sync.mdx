@@ -31,11 +31,15 @@ The project header shows `Saving...` while a cloud save is pending and `Save fai
 
 While a cloud project is open, Zoo Design Studio checks for changes from other clients. Remote edits and deletions appear automatically when there are no pending edits or active Zookeeper operations. Checks pause while the app is hidden or offline and resume when you return.
 
+Cloud projects are read-only while your device is offline. You can view files, but cannot edit their contents or create, rename, or delete files. Editing becomes available again when your connection returns. Edits caught by a disconnection stay in memory and saving resumes after reconnection. Local files remain editable and continue saving to disk while offline.
+
 ### Save Failures and Conflicts
 
 While a cloud save is pending, the project header shows `Saving...`. If the save fails, your edits remain in memory and the header shows `Save failed. Retry`. Restore your connection and click that button to try again. Keep the project open until saving finishes.
 
-If the cloud project has changed since your last acknowledged save, Zoo Design Studio reloads the current cloud snapshot. The cloud version is the source of truth: differing cloud contents replace your editor contents, and pending edits based on the previous snapshot are canceled. Further edits save against the newly loaded cloud revision.
+If the cloud project has changed since your last acknowledged save, Zoo Design Studio reloads the current cloud snapshot. The cloud version is the source of truth: differing cloud contents replace your editor contents, and pending edits based on the previous snapshot are canceled. A notification explains when the cloud version replaces unsaved edits. Further edits save against the newly loaded cloud revision.
+
+Unsaved cloud edits remain only in memory. Closing or reloading the app discards them and opens the current cloud version; an older local recovery draft cannot replace it. Keep the project open until saving finishes if you want to retry an unsaved edit.
 
 A connection can fail after the server accepts a save but before the app receives its acknowledgement. Retrying may then encounter a revision conflict even though your contents reached the cloud. Reloading the cloud snapshot resolves that uncertainty without uploading the old snapshot again.
 
