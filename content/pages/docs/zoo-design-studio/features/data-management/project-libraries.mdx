@@ -53,6 +53,14 @@ Deleting from a Directory library removes the local project folder. Deleting fro
 
 Read the confirmation dialog before deleting. Project deletion is permanent and has no undo.
 
+### Delete Files and Folders
+
+You can undo file and folder deletions while they remain in the current editor's undo history. For local projects, deleted contents are kept only in memory for that editing session. Closing or reloading the app discards them.
+
+For cloud projects, Undo retrieves the deleted contents from the saved cloud revision without rolling back other project changes. For both kinds of project, Undo will not overwrite a different entry created at the same path, and Redo will not delete restored contents that have since changed.
+
+This editing history is temporary; reloading or switching files can make the deletion unavailable to Undo. Deleting an entire cloud project remains permanent.
+
 ### Desktop and Browser Differences
 
 On desktop, Zoo Design Studio can show Directory and Cloud libraries side by side. This lets you keep local-only work, Git-based work, and cloud-backed work in one Home view.
