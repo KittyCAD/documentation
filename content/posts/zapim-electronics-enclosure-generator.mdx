@@ -1,0 +1,80 @@
+---
+title: 'Case Study: Zapim'
+excerpt: 'A ready-for-manufacturing electronics, wire-routing enclosure generator'
+coverImage: '/documentation-assets/zapim/zapim-overview.png'
+date: '2026-11-09'
+author:
+    name: Zoo Team
+    picture: '/documentation-assets/zoo-pfp.png'
+ogImage:
+    url: '/documentation-assets/zapim/zapim-overview.png'
+tags: ['Case Study', 'Zoo API']
+---
+
+<figure>
+    <img src="/documentation-assets/zapim/zapim-overview.png" alt="Zapim landing page showing an electronics enclosure and its lid" />
+</figure>
+
+## Overview
+
+The 2nd place winner of our first API Makeathon, Kaitane Kircher - "Kai", created [Zapim](https://github.com/kai-kircher/zapim): an electronics enclosure generator that does more than you could've asked! From Seattle, Kai has a rich background in PLM and traditional CAD as a product manager for the last several years. He typically uses the usual suspects for CAD software.
+
+Kai recalls having first heard of Zoo through a combination of LinkedIn and his coworkers around 8 months ago. Originally his eye was focused on submitting a project to Zoo's first makeathon, which revolved around using Zoo Design Studio, but didn't have the time. When we announced the API makeathon, Kai saw this as an even better opportunity for what he actually wanted to do.
+
+## The Challenge
+
+<figure>
+    <img src="/documentation-assets/zapim/homestead.jpg" alt="Kai’s homestead with a small red outbuilding" />
+</figure>
+
+Kai takes care of a homestead, which requires a lot of DIY, self-repairs, and is the perfect breeding ground for innovation. More often than not he needs to hook up sensors and small devices around to receive alerts of various kinds - moisture levels, doors open, or mechanical automations. Each small DIY solution requires him to create a custom enclosure. The problem with needing a custom enclosure each time is the time cost. Between all the tasks and chores and the day job, there is very little leftover to open up traditional CAD software and hammer out another.
+
+<figure>
+    <img src="/documentation-assets/zapim/custom-enclosure.jpg" alt="A custom electronics enclosure mounted on an exterior wall" />
+</figure>
+
+<figure>
+    <img src="/documentation-assets/zapim/wire-routing.png" alt="A 3D electronics enclosure with components and routed wires in Zapim" />
+</figure>
+
+Here's an example of what Kai needs to deal with. The various components need to be arranged to reduce the overall footprint of the enclosure, while at the same time leaving space for wire-routing between them. Posts need to be placed at the correct heights so screws don't poke through the other side. Small alignment walls with openings for wires need to be considered. While a couple to a few hours isn't so bad for a few one-offs, Kai has to deal with this on the regular.
+
+Surely we can use technology to deal with technology!
+
+## The Solution
+
+Zoo's API makeathon gave Kai the opportunity (and excuse to put some chores on-hold) to explore Zoo's developer-focused offerings. One of the biggest strengths Zoo gave him was a coherent experience across the APIs. Instead of needing to deal with multiple APIs across multiple services, a single Zoo authentication token gives access to everything you'd need for an AI-CAD application.
+
+Kai went with the **Agent API**, the **Engine API**, the **File Format API**, the KittyCAD Language (KCL), and our TypeScript SDK to create Zapim. With the documentation and source code resources Zoo has available, he was able to AI-code a "boutique software solution" in a reasonable amount of time and effort.
+
+We'd like to emphasize that Zapim is more than a glorified box generator. It presents many module presets for familiar PCBs such as the Raspberry Pi, or allows for custom modules. It has flexibility to either automatically route wires, or manually place them, **all in 3D**, and cut out ports where needed.
+
+Need a quick change outside the abilities of the interface? No problem, there's an AI feature using Zoo's **Agent API** to make those adjustments. Some examples could be "add a support bracket to this wall", or "add markings to each outer side of the enclosure".
+
+Since all geometry computation happens on Zoo's infrastructure through the **Engine API**, Zapim doesn't require users to have powerful computers to do that work. Either on the go or at home, the **Engine API** enables devices of all kinds to become useful CAD tools. In particular, Zapim uses the **Engine API** to go from KCL (mentioned below) to a manufacturable model.
+
+True STEP files - real BREP surface information - can be exported for real manufacturing. The total material required to create the enclosure is computed in parallel. These are both done by the **File Format API** which deals with a wide variety of popular CAD formats for useful interoperability with the current CAD ecosystem at large.
+
+What makes Zapim's enclosure generations particularly interesting is the ability to share a Zoo KCL project that captures the original design decisions and parameters associated with them. In other circumstances, "model generators" are to be reasonably expected to output a "model blob" that has a one-shot use. That's not true of KCL generated models: these models can live well beyond their initial purpose and be "remixed" as much as desired by others!
+
+## The Results
+
+- **Significantly reduced time to manufacture real world enclosures:** Kai no longer spends 2-4 hours in CAD software now designing a one-off enclosure - Zapim produces a ready-to-manufacture enclosure with a click of a few buttons in **15 minutes at most**.
+
+- **Automatic improvements delivered instantly:** Because the Zoo platform was used as the foundational core of Zapim, all of the improvements and changes pushed to our production servers become available and in-use immediately. No more waiting months for a library update from multiple vendors and particular update instructions. Improvements to Zookeeper enable more than just simple adjustments as time goes on.
+
+- **An extensible application to grow with increased needs:** As Kai finds more places and uses for various devices around the farm, the particularity of the enclosures will increase as well. They may need to handle a certain amount of heat or physical stress. While it's in the pipeline at Zoo to have these analysis tools on our platform, most third-party tools can easily interoperate with Zoo through STEP or the multitude of file formats we offer to convert to-and-from.
+
+## The Conclusion
+
+All of Zoo's technology is written with humans and AI/LLMs in mind, and this case study demonstrates the fruits of that labor. Instead of having to download several components and figure out the glue between them, we've already done the work.
+
+Of course we benefit from Kai's investment in us also. After the makeathon we took their (and every participant's) feedback and improved our systems, with a heavy intentional focus on documentation. A good example of a failure around documentation is not being able to easily discover Zoo has support for Datums/Control frames (GD&T, MBD). To Kai that was very surprising and pleasing to hear. Sometimes we move so fast that we forget to pause and ask ourselves, are our new features easy to find?
+
+Another thing we were interested in was what people would like to see from us sooner than later. For Kai, it was larger assemblies and the ability to create more organic shapes for objects like wheel rims. Constraint-based assemblies and object instancing are well on their way in the R&D lab at Zoo, so it's affirming to hear [our roadmap](https://zoo.dev/roadmap) is aligned with customers’ wants.
+
+What's next for Kai? He wants to continue developing an open-source PLM system called [Cascadia PLM](https://cascadiaplm.com/), citing little to no PLM systems in the Free & Open Source Software world. Building relationships with makers like Kai opens the doors to future collaborations and integrations.
+
+<figure>
+    <img src="/documentation-assets/zapim/homestead-garden.jpg" alt="The garden at Kai’s homestead" />
+</figure>
