@@ -35,7 +35,7 @@ Cloud projects are read-only while your device is offline. You can view files, b
 
 ### Save Failures and Conflicts
 
-While a cloud save is pending, the project header shows `Saving...`. If the save fails, your edits remain in memory and the header shows `Save failed. Retry`. Restore your connection and click that button to try again. Keep the project open until saving finishes.
+While a cloud save is pending, the status bar shows `Saving...`. If the save fails, your edits remain in memory and the status bar shows `Save failed. Retry`. Restore your connection and click that button to try again. Keep the project open until saving finishes.
 
 If the cloud project has changed since your last acknowledged save, Zoo Design Studio reloads the current cloud snapshot. The cloud version is the source of truth: differing cloud contents replace your editor contents, and pending edits based on the previous snapshot are canceled. A notification explains when the cloud version replaces unsaved edits. Further edits save against the newly loaded cloud revision.
 
