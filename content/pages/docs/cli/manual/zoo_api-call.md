@@ -28,8 +28,7 @@ Perform operations on CAD files.
 
 A file conversion under 25MB will not have a zoo api-call status. The requested id will return 404.
 
-```
-shell
+```shell
 # convert a step file to an obj file
 zoo file convert ~/Downloads/cube.step ~/Downloads --output-format obj
 ```

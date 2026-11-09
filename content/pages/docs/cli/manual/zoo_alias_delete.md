@@ -26,8 +26,7 @@ Delete an alias.
 ### About
 
 
-```
-shell
+```shell
 zoo alias delete aabb_mm
 ```
 

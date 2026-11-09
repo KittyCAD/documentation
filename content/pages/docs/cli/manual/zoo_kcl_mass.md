@@ -44,14 +44,12 @@ Get the mass of objects in a kcl file.
 ### About
 
 
-```
-shell
+```shell
 # get the mass of a file
 zoo kcl mass my-file.kcl --material-density 1.0 --material-density-unit lb-ft3 --output-unit kg
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl mass - --material-density 1.0 --material-density-unit lb-ft3 --output-unit kg
 ```

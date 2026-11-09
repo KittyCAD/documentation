@@ -53,14 +53,12 @@ Snapshot a render of a `kcl` file as any supported image format.
 ### About
 
 
-```
-shell
+```shell
 # snapshot as png
 zoo kcl snapshot my-file.kcl my-file.png --angle iso
 ```
 
-```
-shell
+```shell
 # pass a file to snapshot from stdin
 cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png --angle iso
 ```

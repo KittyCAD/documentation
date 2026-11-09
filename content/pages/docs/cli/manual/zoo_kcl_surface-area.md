@@ -38,14 +38,12 @@ Get the surface area of objects in a kcl file.
 ### About
 
 
-```
-shell
+```shell
 # get the surface-area of a file
 zoo kcl surface-area my-file.kcl --output-unit mm2
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl surface-area - --output-unit mm2
 ```

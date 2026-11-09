@@ -27,17 +27,14 @@ Open a directory or file in the Zoo Design Studio on your desktop.
 
 If you do not have the app installed, you will be prompted to download it.
 
-```
-shell
+```shell
 zoo app .
 ```
 
-```
-shell
+```shell
 zoo app main.kcl
 ```
 
-```
-shell
+```shell
 zoo app ../main.kcl
 ```

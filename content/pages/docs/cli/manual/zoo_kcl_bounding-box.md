@@ -35,14 +35,12 @@ Get the bounding box that contains everything in a KCL file.
 ### About
 
 
-```
-shell
+```shell
 # get the volume of a file
 zoo kcl bounding-box my-file.kcl --output-unit mm
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl bounding-box - --output-unit mm
 ```

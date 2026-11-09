@@ -23,8 +23,7 @@ List your aliases.
 ### About
 
 
-```
-shell
+```shell
 zoo alias list
 ```
 
