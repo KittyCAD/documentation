@@ -17,7 +17,7 @@ When you open the desktop Zoo Design Studio app for the first time, you will see
   maxHeightPx={520}
 />
 
-The project header shows `Saving...` while a cloud save is pending and `Save failed. Retry` if it fails. Wait until saving finishes before closing the project or switching devices.
+The status bar shows `Saving...` while a cloud save is pending and `Save failed. Retry` if it fails. Wait until saving finishes before closing the project or switching devices.
 
 ## Common Workflows
 
@@ -29,7 +29,7 @@ The project header shows `Saving...` while a cloud save is pending and `Save fai
 
 ### Updates From Another Device
 
-While a cloud project is open, Zoo Design Studio checks for changes from other clients. Remote edits and deletions appear automatically when there are no pending edits or active Zookeeper operations. Checks pause while the app is hidden or offline and resume when you return.
+While a cloud project is open, Zoo Design Studio checks for changes from other clients. Remote edits and deletions appear automatically when there are no pending edits or active Zookeeper operations. Checks pause while the app is hidden or offline and resume when you return. Updates also refresh geometry in a sketch that is already open. If an update deletes that sketch, Zoo Design Studio exits sketch mode. When there are no pending saves, starting a new shape checks for newer saved contents. New geometry appears immediately. As with code edits, quick sketch operations share a save debounce window: after you pause, the latest committed edits save in the background. An upload already in progress finishes before the next save begins. Pointer movement continues to update the shape and code preview without waiting for storage. Circles show their code while you size the radius; canceling removes the unfinished circle without saving it.
 
 Cloud projects are read-only while your device is offline. You can view files, but cannot edit their contents or create, rename, or delete files. Editing becomes available again when your connection returns. Edits caught by a disconnection stay in memory and saving resumes after reconnection. Local files remain editable and continue saving to disk while offline.
 
@@ -41,7 +41,7 @@ If the cloud project has changed since your last acknowledged save, Zoo Design S
 
 Unsaved cloud edits remain only in memory. Closing or reloading the app discards them and opens the current cloud version; an older local recovery draft cannot replace it. Keep the project open until saving finishes if you want to retry an unsaved edit.
 
-A connection can fail after the server accepts a save but before the app receives its acknowledgement. Retrying may then encounter a revision conflict even though your contents reached the cloud. Reloading the cloud snapshot resolves that uncertainty without uploading the old snapshot again.
+A connection can fail after the server accepts a save but before the app receives its acknowledgement. Retrying may then encounter a revision conflict even though your contents reached the cloud. Zoo Design Studio compares the cloud snapshot with the rejected upload. If they match, it acknowledges that save and continues saving newer edits without replacing the editor. If they differ, it adopts the cloud snapshot.
 
 ### Stop Syncing
 
