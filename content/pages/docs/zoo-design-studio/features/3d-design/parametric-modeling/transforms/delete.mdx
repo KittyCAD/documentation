@@ -13,47 +13,26 @@ its purpose. The command is named **Delete** in the app.
 1. Choose **Delete** from the **Transform** dropdown in the toolbar, or search for **Delete** in the
    [Command Bar](/docs/zoo-design-studio/features/workspace/command-bar).
 2. Select the body or bodies to remove in the Scene. You can also select a body from the
-   [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane).
+   [Feature Tree](/docs/zoo-design-studio/features/workspace/body-pane).
 3. Check the **Objects** selection in the Delete dialog, then click **Submit**.
 
 You can select bodies before starting the command. Multiple bodies can be removed in one Delete
 feature.
 
-## Delete from the Bodies pane
+## Delete from the Feature Tree
 
 Open the [Feature Tree](/docs/zoo-design-studio/features/workspace/feature-tree), then right-click a
-body in the Bodies pane and choose **Delete**. This applies the operation immediately to that body.
+body row in the tree and choose **Delete**. This applies the operation immediately to that body.
 
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/before-delete.png"
-  alt="Split model with two bodies and the Delete context menu open in the Bodies pane"
-  aspect="3600 / 2260"
-  maxWidthPx="800"
-/>
-<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  Before: choose Delete from the Bodies pane to remove an unwanted split body.
-</div>
-
-The body disappears from the Scene and the Bodies pane. The features that created it remain in the
+The body disappears from the Scene and the Feature Tree. The features that created it remain in the
 model history. Undo the operation, or remove its Remove feature from the Feature Tree, to restore
 the body.
-
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/after-delete.png"
-  alt="Model after deleting one split body, with one body remaining in the Bodies pane and a Delete feature in the Feature Tree"
-  aspect="3600 / 2260"
-  maxWidthPx="800"
-/>
-<div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  After: the unwanted body is removed, while the remaining body and earlier features are preserved.
-</div>
 
 ## Delete, hide, or delete a feature?
 
 - **Delete** adds a modeling operation that removes the selected geometry. Later operations
   cannot use the deleted body.
-- **Hide** changes visibility while keeping the body available. Use the eye control in the Bodies
-  pane when you want to show it again later.
+- **Hide** changes visibility while keeping the body available. Use the eye control on the body row when you want to show it again later.
 - [**Remove feature**](/docs/zoo-design-studio/features/workspace/feature-tree/remove-feature) removes
   an operation from the model history and can affect the features that depend on it.
 - [**Delete Face**](/docs/zoo-design-studio/features/3d-design/parametric-modeling/surface-modeling/modify-surfaces/delete-face)
