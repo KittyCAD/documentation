@@ -14,7 +14,7 @@ contribute to it, or collapse it to keep the tree compact.
   associated KCL.
 - Hide or show a body with the eye control on its row.
 - Right-click a body and choose **Delete** to remove it from the model.
-- Select and control individual copies created by a pattern. Each pattern instance has its own row.
+- Inspect 3D pattern features under their source body without adding a body row for every copy.
 - Expand or collapse a body's feature history independently. Collapsing a body does not hide its geometry.
 
 ## Control Body Visibility
@@ -43,7 +43,9 @@ A feature shared by several bodies can appear under each of them. These entries 
 same feature: editing one updates the shared model. Parameters and features that are not
 associated with a body remain at the root of the tree.
 
-Pattern instances retain separate body rows, so each copy can be selected or hidden independently.
+3D patterns stay within the source body branch. The pattern feature and later edits to its copies
+appear in that body's feature history. Body-row selection and visibility act on the source body;
+select individual pattern copies in the Scene.
 
 ## What You Cannot Do
 
