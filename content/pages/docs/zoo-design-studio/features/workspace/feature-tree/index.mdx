@@ -4,22 +4,25 @@ excerpt: Manage model history with the feature tree in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-The Feature Tree shows the ordered operations used to build the current model.
+The Feature Tree organizes the current model by body. Each [body row](/docs/zoo-design-studio/features/workspace/body-pane)
+has a body icon, selection and visibility controls, and an arrow to expand its contributing
+features. Features remain in execution order within each body. Parameters and features without
+a body association stay at the root. 3D pattern features remain under their source body; their
+copies do not add separate body branches.
 
-The [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane) below it lists the current
-body-level results, so you can select and control finished geometry separately from its operation
-history.
+Shared features can appear under more than one body. Editing a shared feature updates all bodies
+that depend on it. Collapsing a body only hides its feature rows; use its eye control to hide the
+geometry.
 
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/workspace/feature-tree/feature-tree.webp"
-  alt="Zoo Design Studio feature tree"
-  aspect="706 / 1154"
-  maxHeightPx={460}
-/>
+When viewing an assembly KCL file, expand an imported part to see its bodies, then expand a body
+to see its contributing features. Bodies created in the assembly file stay at the assembly level.
+Imported subassemblies keep their nested part hierarchy. Collapsing an imported part hides all of
+its body and feature rows together.
 
 ## What You Can Do
 
-- Inspect ordered model history and grouped operations.
+- Expand individual bodies to inspect their feature histories and grouped operations.
+- Select, hide, show, or delete a body directly from its row.
 - Select operations and jump to the corresponding KCL source.
 - Double-click a supported modeling operation to edit its parameters in a dialog. Existing
   geometry selections are read-only; edit those references in KCL when needed, or delete the
