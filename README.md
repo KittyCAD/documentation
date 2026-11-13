@@ -33,12 +33,11 @@ months. It checks recency when the page loads, including on preview cards, artic
 headings, and the New tag results page. Refreshing or revisiting the page updates
 the badge; no content edits or site rebuilds are needed for it to expire.
 
-## Blog author placement
+## Post author placement
 
-Set frontmatter `authorPosition: upper` to show the author's portrait, name, and
-date below the title, without repeating the author block at the bottom.
-`authorPosition: lower` (the default) places the author block after the post and
-keeps a standalone date below the title.
+Blog posts show the author's portrait, name, and publication date below the title.
+The author block appears once, above the post content. Research and press posts
+have layouts with the author block below the post content.
 
 ## Image frames and aspect ratios
 
