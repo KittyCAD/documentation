@@ -205,6 +205,12 @@ const BlogPost = defineDocumentType(() => ({
       description: 'The author of the blog post.',
       required: true,
     },
+    authorPosition: {
+      type: 'enum',
+      options: ['upper', 'lower'],
+      default: 'lower',
+      description: 'Show the author portrait and date below the title or after the post.',
+    },
     ogImage: {
       type: 'nested',
       of: OgImage,

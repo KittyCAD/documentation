@@ -33,6 +33,13 @@ months. It checks recency when the page loads, including on preview cards, artic
 headings, and the New tag results page. Refreshing or revisiting the page updates
 the badge; no content edits or site rebuilds are needed for it to expire.
 
+## Blog author placement
+
+Set frontmatter `authorPosition: upper` to show the author's portrait, name, and
+date below the title, without repeating the author block at the bottom.
+`authorPosition: lower` (the default) places the author block after the post and
+keeps a standalone date below the title.
+
 ## Image frames and aspect ratios
 
 Image frames use the website's page accent by default. To choose a different
