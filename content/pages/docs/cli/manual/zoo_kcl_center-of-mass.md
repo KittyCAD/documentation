@@ -38,14 +38,12 @@ Get the center of mass of objects in a kcl file.
 ### About
 
 
-```
-shell
+```shell
 # get the mass of a file
 zoo kcl center-of-mass my-file.kcl --output-unit mm
 ```
 
-```
-shell
+```shell
 # pass a file from stdin
 cat my-file.kcl | zoo kcl center-of-mass - --output-unit mm
 ```

@@ -30,26 +30,22 @@ Authenticate with an Zoo host.
 
 Alternatively, pass in a token on standard input by using `--with-token`.
 
-```
-shell
+```shell
 # start interactive setup
 zoo auth login
 ```
 
-```
-shell
+```shell
 # authenticate against a specific Zoo instance by reading the token from a file
 zoo --host api.zoo.dev auth login --with-token < mytoken.txt
 ```
 
-```
-shell
+```shell
 # authenticate with a specific Zoo instance
 zoo --host api.zoo.dev auth login
 ```
 
-```
-shell
+```shell
 # authenticate with an insecure Zoo instance (not recommended)
 zoo --host http://api.zoo.dev auth login
 ```

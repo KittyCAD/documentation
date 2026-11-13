@@ -38,13 +38,11 @@ View a render of a `kcl` file in your terminal.
 ### About
 
 
-```
-shell
+```shell
 zoo kcl view my-file.kcl --angle iso
 ```
 
-```
-shell
+```shell
 # pass a file to view from stdin
 cat my-obj.kcl | zoo kcl view - --angle iso
 ```

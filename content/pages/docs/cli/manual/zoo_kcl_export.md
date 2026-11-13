@@ -41,20 +41,17 @@ Export a `kcl` file as any other supported CAD file format.
 ### About
 
 
-```
-shell
+```shell
 # convert kcl to obj
 zoo kcl export --output-format=obj my-file.kcl output_dir
 ```
 
-```
-shell
+```shell
 # convert kcl to step
 zoo kcl export --output-format=step my-obj.kcl .
 ```
 
-```
-shell
+```shell
 # pass a file to convert from stdin
 cat my-obj.kcl | zoo kcl export --output-format=step - output_dir
 ```

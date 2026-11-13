@@ -39,8 +39,7 @@ First, ensure that you install `bash-completion` using your package manager.
 
 After, add this to your `~/.bash_profile`:
 
-```
-shell
+```shell
 eval "$(zoo completion -s bash)"
 ```
 
@@ -48,8 +47,7 @@ eval "$(zoo completion -s bash)"
 
 Generate a `_zoo` completion script and put it somewhere in your `$fpath`:
 
-```
-shell
+```shell
 zoo completion -s zsh > /usr/local/share/zsh/site-functions/_zoo
 ```
 
@@ -66,8 +64,7 @@ Zsh version 5.7 or later is recommended.
 
 Generate a `zoo.fish` completion script:
 
-```
-shell
+```shell
  zoo completion -s fish > ~/.config/fish/completions/zoo.fish
 ```
 
@@ -75,15 +72,13 @@ shell
 
 Open your profile script with:
 
-```
-shell
+```shell
 mkdir -Path (Split-Path -Parent $profile) -ErrorAction SilentlyContinue
 notepad $profile
 ```
 
 Add the line and save the file:
 
-```
-shell
+```shell
 Invoke-Expression -Command $(zoo completion -s powershell | Out-String)
 ```

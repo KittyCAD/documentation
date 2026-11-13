@@ -27,14 +27,12 @@ Shortcut to open the Zoo documentation or Account in your browser.
 
 If no arguments are given, the default is to open the Zoo documentation.
 
-```
-shell
+```shell
 # open the Zoo docs in your browser
 zoo open docs
 ```
 
-```
-shell
+```shell
 # open your Zoo account in your browser
 zoo open account
 ```
