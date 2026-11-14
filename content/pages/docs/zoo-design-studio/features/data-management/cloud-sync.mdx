@@ -4,9 +4,9 @@ excerpt: Keep Personal Cloud projects up to date across your devices.
 sidebarPosition: 4
 ---
 
-Cloud Sync what we call it when you use our cloud storage to save and sync your projects across devices. Zoo offers a [Projects API service](https://zoo.dev/docs/developer-tools/api/projects) to upload project snapshots to the cloud and manage them over time. The Zoo Design Studio app provides that service to you wrapped up into a plugin. 
+Personal Cloud saves projects to your Zoo account so you can open them from another device. The browser app uses cloud storage. The desktop app also supports Directory libraries for projects stored on your computer.
 
-If you save a project to cloud type [project libraries](/docs/zoo-design-studio/features/data-management/project-libraries), congratulations you're using Cloud Sync! Your changes get automatically saved as you work. Hopefully that should be as much as you ever need to know about Cloud Sync: it should "just work™️". But in case you ever need to dig into how it works, these docs are here for you.
+Opening a cloud project downloads its files into memory. Edits save directly to the cloud; Zoo Design Studio does not maintain a disk or browser-storage mirror of the project. Keep the project open while a save is pending or has failed.
 
 ## Getting Started
 When you open the desktop Zoo Design Studio app for the first time, you will see two project libraries where you can create projects. One of those is called "Personal Cloud", and any projects you put in there will be synced across any device you sign in from. 
@@ -17,45 +17,38 @@ When you open the desktop Zoo Design Studio app for the first time, you will see
   maxHeightPx={520}
 />
 
-The badge on the Personal Cloud library will show you if syncing work is in-progress or complete, and let you inspect any problems that occur while Cloud Sync is running. It is clickable if you ever want to inspect what's syncing.
+The status bar shows `Saving...` while a cloud save is pending and `Save failed. Retry` if it fails. Wait until saving finishes before closing the project or switching devices.
 
-We want you to have control over your files, which is why we give you the option of saving projects without running Cloud Sync in the desktop app. However, please note that **in the rowser version of the app we only allow for cloud synced projects**: all projects you add to app.zoo.dev will be synced to the cloud.
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/synced-status.png"
-  alt="Zoo Design Studio's Cloud Sync badge on a library, with the popover opened"
-  aspect="1926 / 450"
-  maxHeightPx={240}
-/>
 ## Common Workflows
 
 ### Use A Project On Another Device
-1. Create the project within the Personal Cloud library or move an existing project into there.
-2. Wait for Home to show `Cloud synced`.
+1. Create the project within the Personal Cloud library or clone an existing project into it.
+2. Keep the project open and wait until `Saving...` disappears. If `Save failed. Retry` appears, resolve the failure and retry before switching devices.
 3. Sign in to Zoo Design Studio with the same account on the other device or in a browser.
 4. Open the project from Personal Cloud.
 
-### Resolving Sync Conflicts
-Cloud Sync does **not yet support live collaboration** between multiple users at the same time, so if you make edits to the same project across several devices, its possible that Zoo Design Studio won't know which edit "wins". When this happens, the project will show a badge in the top bar when opened, with a menu item that will let you inspect the conflict.
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/conflict-menu.png"
-  alt="Zoo Design Studio with two initial empty project libraries"
-  aspect="2266 / 690"
-  maxHeightPx={240}
-/>
+### Updates From Another Device
 
-Choose either to use the local edits or the edits coming from the cloud using the buttons at the bottom of the dialog.
+While a cloud project is open, Zoo Design Studio checks for changes from other clients. Remote edits and deletions appear automatically when there are no pending edits or active Zookeeper operations. Checks pause while the app is hidden or offline and resume when you return. Updates also refresh geometry in a sketch that is already open. If an update deletes that sketch, Zoo Design Studio exits sketch mode. When there are no pending saves, starting a new shape checks for newer saved contents. New geometry appears immediately. As with code edits, quick sketch operations share a save debounce window: after you pause, the latest committed edits save in the background. An upload already in progress finishes before the next save begins. Pointer movement continues to update the shape and code preview without waiting for storage. Circles show their code while you size the radius; canceling removes the unfinished circle without saving it.
+
+Cloud projects are read-only while your device is offline. You can view files, but cannot edit their contents or create, rename, or delete files. Editing becomes available again when your connection returns. Edits caught by a disconnection stay in memory and saving resumes after reconnection. Local files remain editable and continue saving to disk while offline.
+
+### Save Failures and Conflicts
+
+While a cloud save is pending, the status bar shows `Saving...`. If the save fails, your edits remain in memory and the status bar shows `Save failed. Retry`. Restore your connection and click that button to try again. Keep the project open until saving finishes.
+
+If the cloud project has changed since your last acknowledged save, Zoo Design Studio reloads the current cloud snapshot. The cloud version is the source of truth: differing cloud contents replace your editor contents, and pending edits based on the previous snapshot are canceled. A notification explains when the cloud version replaces unsaved edits. Further edits save against the newly loaded cloud revision.
+
+Unsaved cloud edits remain only in memory. Closing or reloading the app discards them and opens the current cloud version; an older local recovery draft cannot replace it. Keep the project open until saving finishes if you want to retry an unsaved edit.
+
+A connection can fail after the server accepts a save but before the app receives its acknowledgement. Retrying may then encounter a revision conflict even though your contents reached the cloud. Zoo Design Studio compares the cloud snapshot with the rejected upload. If they match, it acknowledges that save and continues saving newer edits without replacing the editor. If they differ, it adopts the cloud snapshot.
 
 ### Stop Syncing
 
-To make a synced project local-only, move it from `Personal Cloud` to a directory-type project library, such as the default "Local Projects" library. You can move a project by dragging it between libraries on the home page, or right clicking on the project card and selecting "Move to another library". The project will be deleted from Zoo's cloud storage and your project will only be stored on your one device from then on.
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/conflict.png"
-  alt="Zoo Design Studio with two initial empty project libraries"
-  aspect="3024 / 1898"
-  maxHeightPx={520}
-/>
+On desktop, use **Clone project** to create a project in a Directory library from the cloud project. Edits to the new project save to that local folder. The original cloud project remains in Personal Cloud; delete it separately if you no longer need it. See [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries#clone-projects-into-another-library).
+
 ### Publish To Our Project Showcase 
-Our public project showcase  [the Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) uses cloud sync too!. Not all cloud synced projects are published to the Aquarium, but all projects submitted to the Aquarium must be cloud synced, so when you submit a project for publication in ZDS we move it to your Personal Cloud library for you.
+Our public project showcase  [the Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) uses cloud sync too!. Not all cloud synced projects are published to the Aquarium, but all projects submitted to the Aquarium must be cloud synced, so when you submit a project for publication in ZDS we create a new project in Personal Cloud from your Directory project and keep the original folder.
 
 1. Open the project and click the `Publish` button in the top-right.
 2. Complete the Aquarium submission and submit it for review.
@@ -84,38 +77,25 @@ No. Clearing the browser's cached images and files does not delete projects from
 
 ### Where Do My Files Live?
 
-Cloud Sync projects live in two places:
-1. In the Zoo cloud storage system, where the canonical project is stored
-2. On your device, where a working local copy is stored.
-	1. In the desktop app you can see this folder's path under `Settings` > `User` > `App` > `Libraries` and reveal it in your file explorer.
-	2. In the browser, the working copy lives in browser site storage rather than a normal folder.
-You always own your Zoo projects, which is why we make sure you have a working copy on your device at all times as plain text.
+The saved project lives in Zoo's cloud storage. While it is open, the app holds its files and any pending edits in memory. Closing or reloading the app discards changes that have not reached the cloud.
+
+To keep a project as files on your computer, clone it into a Directory library in the desktop app.
 
 ### Can I Work Offline?
 
-You can keep editing a downloaded Personal Cloud project without an internet connection. Your
-changes stay in its working copy and sync after you reconnect. A cloud-only project must be
-downloaded before you can open it offline. The ZDS app does need an internet connection to connect to the engine though.
+Cloud projects need a connection to open and save. If your connection drops while a project is open, edits remain in memory. Keep it open, restore the connection, and retry any failed save before closing or reloading.
+
+Use a Directory library for files you need to access on your computer without downloading them from Personal Cloud. Modeling execution still needs a connection to the engine.
 
 ### Can I Use Personal Cloud on Multiple Devices?
 
-Before moving to another device or browser, wait for the first device to show `Cloud synced`. Cloud Sync is not a live collaboration session. If the same project changes in two places, Zoo Design Studio may combine independent file changes or ask you to resolve a conflict.
+Wait for saving to finish on the first device before opening the project elsewhere. If another device changes the cloud revision before your save, Zoo Design Studio reloads the cloud snapshot. Differing cloud contents replace your editor contents, as described under [Save Failures and Conflicts](#save-failures-and-conflicts).
 
 ### Is Cloud Sync Version Control or a Backup?
 
 No. Cloud Sync keeps the current project available through your Zoo account, but it does not provide Git-style history, branches, or code review. Use Git or another backup system when you need revision history or recovery outside the current synced project.
 
 Development is underway for version control built on top of the Zoo Projects API that powers Cloud Sync, so stay tuned.
-
-### What does this "duplicate local copies" warning mean?
-
-This rare warning appears when more than one project on your device shares the same cloud project ID. Zoo Design Studio will try to help you out to prevent conflicts by alerting you with this badge. To fix it, right-click on one of the duplicate copies' project card and select "Review duplicate copies", then choose which version to keep from the dialog that appears.
-<FramedImage
-  src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-duplicate-copies-menu.webp"
-  alt="Project card with a Duplicate copies badge and the Review duplicate copies menu action"
-  aspect="420 / 300"
-  maxHeightPx={420}
-/>
 
 ### What does this "shared history" warning mean?
 
@@ -125,10 +105,6 @@ because they were copied outside Zoo Design Studio. These copies can share Zooke
 Right-click a project card and choose **Separate project copies**. Choose which copy keeps the
 shared history, or start fresh for all copies. Each remaining copy gets a new project ID and no
 saved conversation reference. This does not delete the conversations stored by Zoo.
-
-### How do I turn off Cloud Sync?
-
-You can toggle the Cloud Sync feature on or off within the Plugins section of the settings. The plugin is on by default, but you can use Zoo Design Studio with entirely local storage in the Desktop app. The plugin is forced on in the browser version of the app, because we have found that users are confused with "local-only" storage in the browser.
 
 ## Related
 

@@ -11,6 +11,10 @@ Zoo Design Studio projects are folders of files. The main project source is huma
 KCL files for model logic and, when present, `project.toml` for project metadata. That makes projects
 portable, inspectable, syncable, and practical to version with normal developer tools.
 
+Unsaved edits stay in memory until saved to the project's storage. Zoo Design Studio does not
+persist recovery drafts for local or cloud projects. Closing or reloading the app discards unsaved
+edits; reopening reads the saved files.
+
 ## Topics
 
 - [Import](/docs/zoo-design-studio/features/data-management/import) covers bringing CAD files,
