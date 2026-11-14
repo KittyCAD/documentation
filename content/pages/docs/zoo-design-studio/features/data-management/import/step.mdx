@@ -9,7 +9,7 @@ sidebarPosition: 0
 > drawings are not supported. Some files may fail to import, especially files with complex geometry,
 > and behavior may change as the importer improves.
 
-STEP import brings precise CAD geometry from other systems into Zoo Design Studio. Use it for
+STEP import brings CAD geometry from other systems into Zoo Design Studio. Use it for
 supplier parts, mechanical assemblies, visual reference geometry, and CAD interchange with tools such
 as SolidWorks, CATIA, NX, Creo, Inventor, Fusion 360, and Onshape.
 
@@ -60,6 +60,16 @@ Selecting a STEP file or expanding a folder does not start an import.
 
 The imported file path is quoted and can be aliased with `as`. For a file in a folder, use a path
 relative to the project directory, such as `"parts/flange.step"`.
+
+STEP files import as triangle meshes by default. To request boundary representation (BREP) instead,
+set `targetRepresentation` on the import:
+
+```kcl
+@(targetRepresentation = brep)
+import "flange.step" as flange
+```
+
+Both representations are read-only; selecting BREP does not enable editing or boolean operations.
 
 After import, you can transform, style, or clone the imported geometry. For example:
 
