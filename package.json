@@ -14,7 +14,7 @@
         "remark-math": "^6.0.0"
     },
     "devDependencies": {
-        "image-size": "^2.0.4",
+        "image-size": "^2.1.0",
         "react": "^19.3.1"
     }
 }
