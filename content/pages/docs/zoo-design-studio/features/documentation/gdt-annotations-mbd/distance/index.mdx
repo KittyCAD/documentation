@@ -9,12 +9,16 @@ Select the geometry, then choose **Dimension** from the GD&T toolbar:
 
 - Select one circle or a complete cylindrical face to annotate its diameter.
 - Select one circular arc or a partial cylindrical face to annotate its radius.
+- Select one constant-radius fillet face to annotate its radius, including a fillet around a circular edge.
 - Select other edges to annotate their lengths, or select two faces or edges to annotate the distance
   between them. Selecting two circles or cylindrical faces measures their spacing.
 
 Circular edges created by a fillet follow the same rules: a complete circle measures diameter, and
 a circular arc measures radius. This measures the selected boundary edge; its radius can differ
 from the radius used to create the fillet. Straight fillet edges continue to measure distance.
+
+Selecting the fillet face measures its evaluated cross-section radius instead of the radius of
+a boundary edge. Faces without consistent circular cross-sections do not create a radius annotation.
 
 The annotation stays attached to the geometry and updates when the model changes. Editing an
 existing annotation preserves its measurement type.
@@ -54,7 +58,7 @@ the feature size and annotation font size. Set a position to override this place
 ## Frame Plane
 
 Choose the display plane for the dimension annotation. Diameter and radius infer a standard plane
-from the referenced circle or cylinder rim. Set a plane to override this choice.
+from the referenced circle, cylinder rim, or fillet cross-section. Set a plane to override this choice.
 
 ## Leader Scale
 
