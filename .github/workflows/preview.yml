@@ -1,0 +1,83 @@
+name: Preview documentation
+run-name: 'Preview documentation PR #${{ inputs.pr_number }}'
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Documentation pull request number (for example, 123)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: documentation-preview-${{ inputs.pr_number }}
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    # Always run the reviewed workflow from main, rather than PR-authored code.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: '22'
+      - name: Resolve documentation snapshot
+        id: request
+        run: node .github/scripts/preview.mjs prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          DEPLOY_AUTHOR: ${{ vars.DOCS_PREVIEW_GIT_AUTHOR }}
+      - name: Create website token
+        uses: actions/create-github-app-token@v3.3.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.GH_ORG_APP_ID }}
+          private-key: ${{ secrets.GH_ORG_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: website
+          permission-contents: write
+          permission-deployments: read
+      - name: Checkout website
+        uses: actions/checkout@v7.0.1
+        with:
+          repository: ${{ github.repository_owner }}/website
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          path: preview-website
+      - name: Push preview snapshot
+        id: snapshot
+        working-directory: preview-website
+        env:
+          DOCS_SHA: ${{ steps.request.outputs.docs_sha }}
+          AUTHOR_NAME: ${{ steps.request.outputs.author_name }}
+          AUTHOR_EMAIL: ${{ steps.request.outputs.author_email }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          set -euo pipefail
+          branch="docs-preview/pr-${PR_NUMBER}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git update-index --add --cacheinfo "160000,$DOCS_SHA,documentation"
+          git -c user.name="$AUTHOR_NAME" -c user.email="$AUTHOR_EMAIL" commit --allow-empty \
+            -m "Preview documentation PR #$PR_NUMBER at $DOCS_SHA" \
+            -m "Requested by $GITHUB_ACTOR in https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          git push origin "HEAD:refs/heads/$branch"
+          echo "website_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "preview_branch=$branch" >> "$GITHUB_OUTPUT"
+      - name: Wait for preview and share link
+        run: node .github/scripts/preview.mjs publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WEBSITE_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          DOCS_SHA: ${{ steps.request.outputs.docs_sha }}
+          WEBSITE_SHA: ${{ steps.snapshot.outputs.website_sha }}
+          PREVIEW_BRANCH: ${{ steps.snapshot.outputs.preview_branch }}
