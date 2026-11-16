@@ -20,6 +20,11 @@ and edges. Use it when a model-based definition needs the measured value to rema
 Select a starting face or edge and an ending face or edge when the annotation should measure spacing
 between two entities. `from` and `to` must be used together.
 
+For two parallel planar faces, Distance measures perpendicular to the faces: the minimum distance
+between their infinite supporting planes. Moving either face sideways does not change this value,
+even when the face boundaries do not overlap. Other pairs of entities use their centers.
+Coincident supporting planes cannot display a distance annotation.
+
 ## Edges
 
 Select one or more edges when the annotation should display edge length. Edge selection cannot be
@@ -27,7 +32,8 @@ combined with `from` and `to`.
 
 ## Tolerance
 
-Set the acceptable distance variation in the current unit system.
+Optionally set the acceptable distance variation in the current unit system. Skip this field to
+show only the measured distance.
 
 ## Precision
 
@@ -35,11 +41,19 @@ Choose how many decimal places to display for the measured distance and toleranc
 
 ## Frame Position
 
-Place the distance label relative to the selected geometry.
+The label is centered by default, with its setback scaled to the model size. Set `[along, setback]`
+to control its position: `along` moves it along the measurement and `setback` chooses the leader
+extent perpendicular to the measurement. A negative setback places it on the opposite side.
 
 ## Frame Plane
 
-Choose the display plane for the distance annotation.
+Leave **Automatic** selected when measuring two parallel planar faces. Zoo chooses a display plane
+that contains their common normal, including for rotated faces. The generated KCL omits `framePlane`
+so the orientation is recalculated when the model changes.
+
+An explicit display plane must contain the direction perpendicular to the measured faces. Its
+origin does not change the measured distance. If the chosen plane is incompatible, choose Automatic
+or another plane. Edge lengths and other entity pairs keep their existing display-plane behavior.
 
 ## Leader Scale
 
