@@ -4,11 +4,19 @@ excerpt: Manage model history with the feature tree in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-The Feature Tree shows the ordered operations used to build the current model.
+The Feature Tree organizes the model as imported parts, bodies, and their contributing features.
+Expand a [body](/docs/zoo-design-studio/features/workspace/body-pane) to see its sketches, regions,
+creation features, and later modifications in execution order. Consumed Boolean inputs remain in
+the resulting body's history. Shared features can appear under several bodies as references to the
+same feature.
 
-The [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane) below it lists the current
-body-level results, so you can select and control finished geometry separately from its operation
-history.
+Imported parts and subassemblies contain their own bodies. Bodies created directly in an assembly
+remain at its top level, alongside file-level parameters and unresolved features. 3D patterns and
+instance edits stay under the source body; individual instances remain selectable in the Scene.
+
+Parts, bodies, and feature groups start collapsed. Their disclosure arrows control the tree only;
+they do not hide geometry. Expansion choices survive sketch editing, rebuilds, and closing and
+reopening a parent branch, and are scoped to the current file.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/workspace/feature-tree/feature-tree.webp"
@@ -19,7 +27,8 @@ history.
 
 ## What You Can Do
 
-- Inspect ordered model history and grouped operations.
+- Inspect body histories and grouped operations.
+- Click a body row to select that body, or use its eye control to hide or show it.
 - Select operations and jump to the corresponding KCL source.
 - Double-click a supported modeling operation to edit its parameters in a dialog. Existing
   geometry selections are read-only; edit those references in KCL when needed, or delete the
