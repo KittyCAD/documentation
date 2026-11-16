@@ -1,15 +1,16 @@
 ---
-title: Bodies Pane
-excerpt: Select and control the visibility of current bodies from the Feature Tree in Zoo Design Studio.
+title: Bodies in the Feature Tree
+excerpt: Inspect body histories and control body selection and visibility in Zoo Design Studio.
 sidebarPosition: 4
 ---
 
-The Bodies pane appears below the operation history when you open the
-[Feature Tree](/docs/zoo-design-studio/features/workspace/feature-tree). It lists the 3D bodies that
-currently result from your model, with one row for each body.
+Bodies appear directly in the [Feature Tree](/docs/zoo-design-studio/features/workspace/feature-tree).
+Each body has a body icon and a disclosure arrow. Expand it to see its contributing sketches,
+regions, creation features and later modifications in execution order. Collapsing a branch hides
+its rows without changing geometry visibility.
 
-Use the Feature Tree to understand how the model was built. Use the Bodies pane when you want to
-work with the resulting geometry without finding the operation that created it.
+Imported parts, bodies and feature groups start collapsed. Expansion choices stay in place during
+sketch editing and model execution in the current file. Bodies share one scrolling tree with their features.
 
 ## What You Can Do
 
@@ -17,8 +18,8 @@ work with the resulting geometry without finding the operation that created it.
   associated KCL.
 - Hide or show a body with the eye control on its row.
 - Right-click a body and choose **Delete** to remove it from the model.
-- Select and control individual copies created by a pattern. Each pattern instance has its own row.
-- Resize the Bodies pane and Feature Tree by dragging the divider between them.
+- Expand an imported part to inspect its bodies, then expand a body to inspect its features.
+- Inspect 3D patterns and edits to their instances within the source body's history.
 
 ## Control Body Visibility
 
@@ -26,36 +27,36 @@ Hover over a body row to reveal its eye control. Click the control to hide the b
 again to show the body.
 
 Visibility changes update the model's KCL with a `hide()` operation. A hidden body remains part of
-the design and can still be restored from the pane; hiding it does not delete its geometry.
+the design and can still be restored from its body row; hiding it does not delete its geometry.
 
 ## Delete a Body
 
 Right-click a body row and choose **Delete**. This immediately adds a Remove feature to the model
-history and removes that body from the Scene and the Bodies pane. Undo the operation, or remove the
+history and removes that body from the Scene and the Feature Tree. Undo the operation, or remove the
 Remove feature, to restore the body.
 
 See [Delete](/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete) for deleting multiple bodies and the differences between deleting, hiding, and deleting a feature.
 
 ## How the List Is Organized
 
-The pane shows current model results rather than modeling history. Bodies are labeled `Body 1`,
-`Body 2`, and so on in display order. When an operation consumes an earlier body to produce a new
-result, the pane focuses on the resulting body instead of keeping the intermediate body as a
-separate entry.
+Bodies are labeled `Body 1`, `Body 2`, and so on in display order. Consumed inputs and their
+features appear in the resulting body's history. A shared feature can appear under several bodies;
+these rows reference the same feature, so editing one updates the shared model.
 
-Patterned geometry is expanded into separate entries for the source body and its copies, making it
-possible to select or hide one instance at a time.
+In assemblies, imported parts contain their bodies and contributing features. Nested subassemblies
+retain their hierarchy. Bodies authored in the assembly remain at assembly scope. Parameters and
+features without a resolved body association remain at their file scope.
+
+3D pattern copies do not add separate body rows. Body-row selection and visibility apply to the
+source body; individual copies remain selectable in the Scene.
 
 ## What You Cannot Do
 
-- Rename, reorder, or group bodies in the pane.
-- Use the pane to inspect sketches, construction planes, faces, edges, or individual modeling
-  operations. Use the Feature Tree for those items.
+- Rename, reorder, or group bodies in the tree.
 - Treat visibility as deletion. Hidden bodies remain in the model and in its KCL.
 
 ## Key Differences in This Area
 
-- The Feature Tree shows the ordered operations that build the model; the Bodies pane shows the
-  current body-level results.
+- Bodies and their contributing features share one tree.
 - Selecting a body works at the geometry level while remaining linked to its source code.
 - Visibility is parametric model state recorded in KCL, not a temporary viewport-only setting.

@@ -4,11 +4,17 @@ excerpt: Manage model history with the feature tree in Zoo Design Studio.
 sidebarPosition: 3
 ---
 
-The Feature Tree shows the ordered operations used to build the current model.
+The Feature Tree organizes the current model by body. Expand a [body row](/docs/zoo-design-studio/features/workspace/body-pane)
+to inspect its contributing features in execution order. Shared features can appear under several
+bodies and remain references to the same operation.
 
-The [Bodies pane](/docs/zoo-design-studio/features/workspace/body-pane) below it lists the current
-body-level results, so you can select and control finished geometry separately from its operation
-history.
+In assemblies, imported parts contain bodies and their feature histories, including nested
+subassemblies. Bodies authored in the assembly stay at assembly scope. Global parameters and
+unresolved features remain at their file scope. 3D patterns and edits to their instances stay
+under the source body, without separate copy body rows.
+
+Imported parts, bodies and feature groups start collapsed. Expansion choices survive sketch
+editing and execution in the current file. Collapsing a branch does not hide its geometry.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/workspace/feature-tree/feature-tree.webp"
@@ -19,7 +25,8 @@ history.
 
 ## What You Can Do
 
-- Inspect ordered model history and grouped operations.
+- Expand bodies to inspect model history and grouped operations.
+- Select, hide, show or delete a body directly from its row.
 - Select operations and jump to the corresponding KCL source.
 - Double-click a supported modeling operation to edit its parameters in a dialog. Existing
   geometry selections are read-only; edit those references in KCL when needed, or delete the
