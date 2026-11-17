@@ -4,7 +4,7 @@ excerpt: Remove selected bodies from the model with Delete in Zoo Design Studio.
 sidebarPosition: 6
 ---
 
-Delete removes whole bodies from the model and records a Remove feature in the Feature Tree.
+Delete removes whole bodies from the model and records a Delete feature in the Feature Tree.
 Use it to discard unwanted results after splitting a body or to remove geometry once it has served
 its purpose. The command is named **Delete** in the app.
 
@@ -26,21 +26,21 @@ body in the Feature Tree and choose **Delete**. This applies the operation immed
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/before-delete.png"
-  alt="Split model with two bodies and the Delete context menu open in the Feature Tree"
-  aspect="3600 / 2260"
+  alt="Two cylinders with the Delete context menu open on Body 1 in the Feature Tree"
+  aspect="1440 / 1000"
   maxWidthPx="800"
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
-  Before: choose Delete from the Feature Tree to remove an unwanted split body.
+  Before: choose Delete from the Feature Tree to remove the original cylinder.
 </div>
 
-The body disappears from the Scene and the Feature Tree. The features that created it remain available in the model history, including at file scope when no live body owns them. Undo the operation, or remove its Remove feature from the Feature Tree, to restore
+The body disappears from the Scene and the Feature Tree. The features that created it remain available in the model history, including at file scope when no live body owns them. Undo the operation, or remove its Delete feature from the Feature Tree, to restore
 the body.
 
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/3d-design/parametric-modeling/transforms/delete/after-delete.png"
-  alt="Model after deleting one split body, with one body remaining in the Feature Tree and a Delete feature in the Feature Tree"
-  aspect="3600 / 2260"
+  alt="The copied cylinder remains after deleting the original body from the Feature Tree"
+  aspect="1440 / 1000"
   maxWidthPx="800"
 />
 <div style={{textAlign: 'center', marginBottom: '1.5em', fontStyle: 'italic'}}>
@@ -63,12 +63,12 @@ Zoo Design Studio writes a `delete()` call for this operation. This example crea
 copies it to a new position, and deletes the original. The moved copy remains.
 
 ```kcl
-@settings(kclVersion = 2.0)
+@settings(kclVersion = 3.0)
 
 profile = sketch(on = XY) {
   circle1 = circle(start = [var 5mm, var 0mm], center = [var 0mm, var 0mm])
 }
-body = extrude(region(sketch = profile, point = profile.circle1.center), length = 10mm)
+body = extrude(region(segments = [profile.circle1]), length = 10mm)
 keptBody = clone(body)
   |> translate(x = 15mm)
 
