@@ -14,21 +14,25 @@ own branches, and bodies created in the assembly remain at the assembly level.
 - Select a body by clicking its row. The selection stays synchronized with the Scene and the
   associated KCL.
 - Hide or show a body with the eye control on its row.
-- Right-click a body and choose **Delete** to remove it from the model.
+- Right-click a body for **Center on body**, **Hide body** or **Show body**, and **Delete body**.
+- Right-click an already selected body without clearing the other selected bodies. Menu actions
+  target the clicked body; **Center on body** selects it and centers the view on it. Show hidden
+  bodies before centering them.
 - Expand or collapse a body with its disclosure arrow. This does not change geometry visibility.
 - Select individual pattern instances in the Scene; the source body row controls the source body.
 
 ## Control Body Visibility
 
-Hover over a body row to reveal its eye control. Click the control to hide the body, then click it
-again to show the body.
+Hover over, select, or keyboard-focus a body row to reveal its eye control. Click the control to hide
+the body, then click it again to show the body. Hidden bodies retain a visible eye control and a
+muted label.
 
 Visibility changes update the model's KCL with a `hide()` operation. A hidden body remains part of
 the design and can still be restored from the tree; hiding it does not delete its geometry.
 
 ## Delete a Body
 
-Right-click a body row and choose **Delete**. This immediately adds a Delete feature to the model
+Right-click a body row and choose **Delete body**. This immediately adds a Delete feature to the model
 history and removes that body from the Scene and the Feature Tree. Undo the operation, or remove the
 Delete feature, to restore the body.
 
