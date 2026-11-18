@@ -18,11 +18,8 @@ Snapshot a render of a `kcl` file as any supported image format.
    <dt><code>-t/--output-format</code></dt>
    <dd>A valid output image format<br/>Possible values: <code>png | jpeg</code></dd>
 
-   <dt><code>-f/--format</code></dt>
-   <dd>Command output format<br/>Possible values: <code>json | yaml | table</code></dd>
-
    <dt><code>--session</code></dt>
-   <dd>If given, this command will reuse an existing KittyCAD modeling session. You can start the session via `zoo session-start --listen-on 0.0.0.0:3333` in this CLI</dd>
+   <dd>If given, this command will reuse an existing KittyCAD modeling session. You can start the session via `zoo start-session 0.0.0.0:3333` in this CLI. Sessions return PNG using the server's fixed rendering settings</dd>
 
    <dt><code>--show-trace</code></dt>
    <dd>If true, print a link to this request's tracing data<br/>Default value: <code>false</code></dd>
@@ -56,12 +53,15 @@ Snapshot a render of a `kcl` file as any supported image format.
 ### About
 
 
-    # snapshot as png
-    $ zoo kcl snapshot my-file.kcl my-file.png
-    
-    # pass a file to snapshot from stdin
-    $ cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png
-    
+```shell
+# snapshot as png
+zoo kcl snapshot my-file.kcl my-file.png --angle iso
+```
+
+```shell
+# pass a file to snapshot from stdin
+cat my-obj.kcl | zoo kcl snapshot --output-format=png - my-file.png --angle iso
+```
 
 By default, this will search the input path for a `project.toml` file to determine any specific execution settings.
 

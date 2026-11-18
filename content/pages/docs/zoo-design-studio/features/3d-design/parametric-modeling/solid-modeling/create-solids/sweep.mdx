@@ -16,7 +16,7 @@ Use Sweep to carry a 2D sketch profile along a 3D path, generating complex geome
     Sweep Solid carries a selected region along a selected path
 </div>
 
-## Sketches
+## Profiles
 Select a closed sketch region as the sweep profile. A closed sketch encloses an area, and Zoo Design Studio exposes that filled area as a selectable region. For a solid sweep, select the region as the profile, not the individual sketch segments. Segments are selected for the path, not for the solid profile.
 
 <FramedImage
@@ -168,8 +168,8 @@ result looks wrong.
 ## Prefer to learn by watching?
 If you want to find out more in a different way, check out our video walkthrough:
 
-<div style={{ maxWidth: '800px', margin: '0 auto' }}>
-    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+<div className="mx-auto w-full max-w-[800px]">
+    <div className="relative w-full aspect-video">
         <iframe
             src="https://www.youtube.com/embed/ovrVbMHKrCo"
             allowFullScreen="allowfullscreen"
@@ -177,13 +177,7 @@ If you want to find out more in a different way, check out our video walkthrough
             msallowfullscreen="msallowfullscreen"
             oallowfullscreen="oallowfullscreen"
             webkitallowfullscreen="webkitallowfullscreen"
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-            }}
+            className="absolute inset-0 h-full w-full border-0"
         />
     </div>
 </div>

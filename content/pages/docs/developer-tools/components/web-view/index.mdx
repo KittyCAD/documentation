@@ -1,0 +1,40 @@
+---
+title: '@kittycad/web-view'
+excerpt: Easy-to-use web-based component to view Zoo's CAD streams.
+---
+
+You've played around with the
+[CLI](/docs/developer-tools/cli/manual), and wrote some code that interfaced with
+[`@kittycad/lib`](https://www.npmjs.com/package/@kittycad/lib), and now you start
+to wonder - **how do I build my own tool that can show CAD models**?
+
+Very easily - with [`@kittycad/web-view`](https://www.github.com/KittyCAD/web-view).
+
+For more information on how to use it,
+[read the README](https://github.com/KittyCAD/web-view/blob/main/README.md).
+
+This is the primary component that drives the [Zoo Viewer](https://viewer.zoo.dev)
+tool as seen below (designed for inspecting models more deeply than just a quick peek).
+
+In the following screenshot, `@kittycad/web-view` is _only_ the model-displaying
+portion of this. All the extra functionality, such as the feature tree, results,
+and X-Ray mode are built around this component.
+
+<figure>
+  <img
+    src="/documentation-assets/docs/developer-tools/components/web-view/zoo-viewer.png"
+    alt="Zoo Viewer displaying a detailed engine model"
+  />
+</figure>
+
+In the future we plan for [Zoo Design Studio](/docs/zoo-design-studio) to also
+use this component, so you can count on behaviors to be the same across all Zoo
+tools and products.
+
+If you want something closer to [Zoo Viewer](https://viewer.zoo.dev)
+immediately today, you can iframe embed a
+[self-hosted version](https://github.com/KittyCAD/viewer#run-locally).
+
+It's intended to also eventually bring over more compositional packages that
+can work on top of `@kittycad/web-view` to get more functionality, like
+XRay-mode or Feature trees.

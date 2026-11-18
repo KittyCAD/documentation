@@ -22,6 +22,11 @@ List your aliases.
 
 ### About
 
+
+```shell
+zoo alias list
+```
+
 This command prints out all of the aliases `zoo` is configured to use.
 
 ### See also

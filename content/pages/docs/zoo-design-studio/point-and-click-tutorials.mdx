@@ -12,8 +12,8 @@ The player below contains the complete series. Use its playlist menu or previous
 to move between lessons without leaving the docs, or
 [watch the full playlist on YouTube](https://www.youtube.com/playlist?list=PLInwIcwpMOys).
 
-<div style={{ maxWidth: '800px', margin: '0 auto' }}>
-    <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}>
+<div className="mx-auto w-full max-w-[800px]">
+    <div className="relative w-full aspect-video">
         <iframe
             src="https://www.youtube.com/embed/videoseries?list=PLInwIcwpMOys"
             title="Zoo Design Studio point-and-click tutorial playlist"
@@ -22,13 +22,7 @@ to move between lessons without leaving the docs, or
             msallowfullscreen="msallowfullscreen"
             oallowfullscreen="oallowfullscreen"
             webkitallowfullscreen="webkitallowfullscreen"
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-            }}
+            className="absolute inset-0 h-full w-full border-0"
         />
     </div>
 </div>

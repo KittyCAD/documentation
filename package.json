@@ -4,6 +4,7 @@
     "private": false,
     "scripts": {
         "build": "contentlayer2 build",
+        "check:images": "node --test scripts/check-framed-image-aspects.test.mjs && node scripts/check-framed-image-aspects.mjs",
         "dev": "contentlayer2 dev"
     },
     "dependencies": {
@@ -13,6 +14,7 @@
         "remark-math": "^6.0.0"
     },
     "devDependencies": {
-        "react": "^19.2.8"
+        "image-size": "^2.1.0",
+        "react": "^19.3.1"
     }
 }

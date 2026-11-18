@@ -141,7 +141,7 @@ for your models. The typical workflow is:
 
 - Make a single part
   - Use your mouse to start a sketch on some plane, dragging lines around with our interactive
-        visual editor.
+        visual editor and constraint solver.
   - This generates KCL code, which you can view
   - Turn those 2D sketches into 3D solids with point-and-click tools like Extrude, Revolve, Sweep,
         and apply fillets to them
@@ -151,10 +151,13 @@ for your models. The typical workflow is:
   - Call the function with different parameters, or start new parts
 
 KCL has a standard library with common geometry tools like various kinds of lines, or operations on
-2D and 3D geometry like Revolve and Fillet and Pattern. It also has the standard math tools you know
-and love from normal programming, so you don’t need a calculator open in another window. All your
-calculations can be written in KCL. To check your work, view each constant’s value in the Variables
-pane, or use an `assert` statement to ensure an error gets printed if your math was wrong.
+2D and 3D geometry like Revolve and Fillet and Pattern. It supports familiar 2D constraints, like
+constraining two lines to be parallel, or equal length, or tangent to an arc. This uses a novel 2D
+constraint solver, which we've made [open-source](https://github.com/KittyCAD/ezpz) for general public usage.
+It also has the standard math tools from normal programming, so you don’t need a calculator open in
+another window. All your calculations can be written in KCL. To check your work, view each constant’s
+value in the Variables pane, or use an `assert` statement to ensure an error gets printed if your
+math was wrong.
 
 ## 5 Core Design Principles
 
@@ -174,8 +177,10 @@ programmers too. It’s difficult to serve both beginners and experts. We have a
 making KCL friendlier to beginners in particular. We are excited to do user testing, find the pain
 points beginners experience, and tackle each one so that beginners have an easier time with KCL.
 
-One limitation KCL has is that it has fairly limited support for geometric constraints. That's
-something we need to improve, because constraints are key tools for mechanical engineers. They let
-engineers declare what they want (e.g. two sides to be the same length) instead of calculating the
-exact numbers to make it happen. Post-launch we'll be working hard on improving KCL's constraint
-system, so engineers spend less time doing math and more time designing products
+One limitation KCL has is that it does not properly support declaratively positioning 3D parts
+relative to each other. That's something we need to improve, because manually positioning parts
+for assemblies is a waste of valuable mechanical engineering time. We're actively working to extend
+KCL with a 3D constraint solver that works similarly to existing CAD software, allowing users to,
+say, constraint a bolt to be concentric with the hole it fits into, or ensuring that two faces
+on two different parts are mated together representing where they'll be welded together. This will
+allow engineers to spend less time manually positioning their parts in space, and more time designing.
