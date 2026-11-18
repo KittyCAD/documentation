@@ -93,15 +93,25 @@ your habits, or **Trackpad Friendly** for keyboard modifiers with left-button dr
 </div>
 
 Notes:
+
 - `Option` means `Alt` on Windows and Linux, and `Option` on macOS.
 - `Cmd` means `Command` on macOS, `Win` on Windows, or `Super` on Linux.
 - `Middle click` is usually the mouse wheel button.
-- For CATIA, press order matters: Ctrl before Middle zooms; Middle before Ctrl rotates.
-  Releasing Ctrl, Left, or Right after rotation while keeping Middle held switches to zoom.
-  Release Middle and press it again to start a fresh gesture.
-- CATIA overrides **Camera Orbit**: rotation is spherical inside a central oval and trackball
-  outside it. The oval fits within the central third of the scene's width and height. Rotation
-  switches as the cursor crosses the oval.
+
+**On CATIA controls:** Press order matters: Ctrl before Middle zooms; Middle before Ctrl rotates.
+Releasing Ctrl, Left, or Right after rotation while keeping Middle held switches to zoom.
+Release Middle and press it again to start a fresh gesture.
+
+CATIA overrides **Camera Orbit**: rotation is spherical inside a central oval and trackball outside
+it, switching as the cursor crosses the boundary. The oval spans 80% of the scene's width and height.
+The blue oval below illustrates this region; the boundary is not drawn in the app.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/workspace/settings/catia-orbit-boundary.png"
+  alt="Scene screenshot with a blue oval marking the spherical rotation region for CATIA controls; outside the oval uses trackball rotation."
+  aspect="1734 / 1382"
+  maxHeightPx={460}
+/>
 
 ### Enable Touch Controls
 
