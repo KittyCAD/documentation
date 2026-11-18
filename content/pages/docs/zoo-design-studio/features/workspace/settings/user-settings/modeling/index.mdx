@@ -98,7 +98,9 @@ Notes:
 - `Middle click` is usually the mouse wheel button.
 - For CATIA, press order matters: Ctrl before Middle zooms; Middle before Ctrl rotates.
   Releasing Ctrl, Left, or Right after rotation while keeping Middle held switches to zoom.
-  Release Middle and press it again to start a fresh gesture. Rotation uses the **Camera Orbit** setting.
+  Release Middle and press it again to start a fresh gesture.
+- CATIA overrides **Camera Orbit**: rotation is spherical in the central third of the scene's width
+  and height, and trackball outside that area. It switches as the cursor moves.
 
 ### Enable Touch Controls
 
@@ -115,7 +117,9 @@ Projection method applied to the 3D view, perspective or orthographic.
 
 ### Camera Orbit
 
-What methodology to use for orbiting the camera.
+Choose spherical or trackball rotation. When **Mouse Controls** is set to **CATIA**, this dropdown
+is disabled because CATIA selects the orbit from the cursor position. Your saved Camera Orbit
+preference applies again when you switch to another mouse scheme.
 
 ### Gizmo Type
 
