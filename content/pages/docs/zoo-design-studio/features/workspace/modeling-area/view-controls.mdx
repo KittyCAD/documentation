@@ -51,11 +51,20 @@ named standard views such as top, bottom, front, back, left, and right.
 
 ## Find Your Model
 
-When using the local renderer, a **Recenter** button appears beside the orientation gizmo after
-you stop moving the camera if your model is mostly outside the view or too small to see.
-Select it to bring the model back into
-view while keeping the current viewing direction and camera projection. Recenter fits the model
-itself, excluding reference planes.
+When using the local renderer, select **Recenter** from the view settings menu next to
+the orientation gizmo to bring the model back into view. The action stays available
+whether or not the model is visible. It keeps the current viewing direction and camera
+projection, and fits the model itself, excluding reference planes, with a short ease-out animation.
+
+If your model is mostly outside the view or too small to see, a one-time tip opens
+the view settings menu and highlights **Recenter** after you stop navigating. This also
+helps when zooming through a hole leaves no model visible. Dismiss the tip with **Got it**,
+Escape, or a click outside the menu. The tip is remembered locally; using Recenter
+before the tip appears also marks it as seen.
+
+The action's arrow points toward an offscreen model when its direction is clear.
+Inward arrows suggest zooming in; outward arrows suggest zooming out. A neutral
+target icon is used when the hint is ambiguous.
 
 You can also run **Zoom to fit** from the Command Bar at any time.
 
