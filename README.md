@@ -27,17 +27,11 @@ rules used by coding agents.
 ## Editorial tags and the New badge
 
 For blog, research, and press posts, use frontmatter `tags` for content categories.
-Do not add `New` manually. The website frontend uses the frontmatter `date` to
+Do not add the `New` tag manually. The website frontend uses the frontmatter `date` to
 automatically show a `New` badge for posts published within the last two calendar
 months. It checks recency when the page loads, including on preview cards, article
-headings, and the New tag results page. Refreshing or revisiting the page updates
+headings, and the `New` tag results page. Refreshing or revisiting the page updates
 the badge; no content edits or site rebuilds are needed for it to expire.
-
-## Post author placement
-
-Blog posts show the author's portrait, name, and publication date below the title.
-The author block appears once, above the post content. Research and press posts
-have layouts with the author block below the post content.
 
 ## Image frames and aspect ratios
 
@@ -58,6 +52,19 @@ When adding a `FramedImage`, set `aspect` to the source image's width and height
 request build runs the same check and rejects differences above 5%.
 Use `frameAspect` when a different frame shape is intentional; the image will
 remain undistorted inside that frame.
+
+## Metadata validation
+
+`npm run build` fails with a nonzero exit status for malformed frontmatter,
+missing required fields, incompatible field values, unknown metadata fields,
+or documents that do not match a content type. Invalid pages must be corrected
+instead of being silently omitted from the website. The error output identifies
+the affected file and, for YAML syntax errors, the line and column.
+
+Run `npm run test:metadata` to exercise the build against valid and invalid
+metadata, including the unclosed `ogImage.url` quote that previously caused Ben's
+post to disappear. These regression tests and the full content build run in the
+`build` PR check, which is required by the repository's `CI` ruleset for `main`.
 
 ## Live content edit preview
 
