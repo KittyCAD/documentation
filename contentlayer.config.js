@@ -379,6 +379,11 @@ export default makeSource({
   disableImportAliasWarning: true,
   contentDirExclude: ['**/README.md', '**/manifest.json'],
 
+  // Never publish a partial site by silently skipping invalid documents.
+  onMissingOrIncompatibleData: 'fail',
+  onExtraFieldData: 'fail',
+  onUnknownDocuments: 'fail',
+
   mdx: {
     remarkPlugins: [
       remarkMath, // Parses $...$ and $$...$$.

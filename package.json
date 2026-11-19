@@ -4,6 +4,7 @@
     "private": false,
     "scripts": {
         "build": "contentlayer2 build",
+        "test:metadata": "node --test scripts/metadata-validation.test.mjs",
         "check:images": "node --test scripts/check-framed-image-aspects.test.mjs && node scripts/check-framed-image-aspects.mjs",
         "dev": "contentlayer2 dev"
     },
