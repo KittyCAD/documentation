@@ -1,116 +1,120 @@
-import { appendFileSync } from 'node:fs'
+import { appendFileSync, cpSync, lstatSync, mkdirSync, readFileSync, readlinkSync, realpathSync, readdirSync, writeFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
+import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-export async function github(path, token, body) {
-  const response = await fetch(`https://api.github.com${path}`, {
-    method: body ? 'POST' : 'GET',
+async function github(endpoint, token) {
+  const response = await fetch(`https://api.github.com${endpoint}`, {
     headers: {
       Accept: 'application/vnd.github+json',
       Authorization: `Bearer ${token}`,
       'X-GitHub-Api-Version': '2022-11-28',
-      ...(body ? { 'Content-Type': 'application/json' } : {}),
     },
-    ...(body ? { body: JSON.stringify(body) } : {}),
     signal: AbortSignal.timeout(30_000),
   })
-  if (!response.ok) {
-    throw new Error(`GitHub ${path}: HTTP ${response.status}: ${(await response.text()).slice(0, 300)}`)
-  }
+  if (!response.ok) throw new Error(`GitHub ${endpoint}: HTTP ${response.status}`)
   return response.json()
 }
 
-export async function resolveRequest({ repository, prNumber, deployAuthor, request }) {
-  if (!deployAuthor || !/^[\w-]+$/.test(deployAuthor)) {
-    throw new Error('Set the DOCS_PREVIEW_GIT_AUTHOR repository variable to the GitHub username of an automation account linked to the website Vercel team.')
+export async function resolveRequest({ repository, branch, request }) {
+  try {
+    if (!branch || branch.startsWith('-')) throw new Error()
+    // Validate the literal ref, without Git's @{-1} branch-name expansion.
+    execFileSync('git', ['check-ref-format', `refs/heads/${branch}`], { stdio: 'ignore' })
+  } catch {
+    throw new Error('Enter a branch name in the documentation repository, such as bens-build-logs or codex/my-edit.')
   }
-  if (!/^[1-9]\d*$/.test(prNumber)) {
-    throw new Error('Enter a pull request number, such as 123.')
+  const ref = await request(`/repos/${repository}/git/ref/heads/${encodeURIComponent(branch)}`)
+  if (ref.ref !== `refs/heads/${branch}` || ref.object?.type !== 'commit' ||
+      !/^[a-f0-9]{40}$/.test(ref.object.sha)) {
+    throw new Error('GitHub did not return an exact documentation branch and commit.')
   }
-  const pr = await request(`/repos/${repository}/pulls/${prNumber}`)
-  if (pr.state !== 'open' || pr.head.repo?.full_name.toLowerCase() !== repository.toLowerCase()) {
-    throw new Error('Preview requires an open PR with a branch in this documentation repository. Copy fork changes to an internal branch first.')
+  return { docs_sha: ref.object.sha }
+}
+
+const excluded = (name) => ['.git', '.vercel', 'node_modules', '.next', '.contentlayer'].includes(name) ||
+  name === '.env' || name.startsWith('.env.')
+const inside = (root, target) => {
+  const relative = path.relative(root, target)
+  return relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative)
+}
+
+export function stageSource({ source, destination, orgId, projectId }) {
+  if (!/^team_[a-zA-Z0-9]+$/.test(orgId || '') || !/^prj_[a-zA-Z0-9]+$/.test(projectId || '')) {
+    throw new Error('Set the VERCEL_ORG_ID (team_...) and VERCEL_PROJECT_ID (prj_...) Actions variables for the existing website project.')
   }
-  if (!/^[a-f0-9]{40}$/.test(pr.head.sha)) {
-    throw new Error('GitHub returned an invalid documentation commit.')
+  source = realpathSync(source)
+  mkdirSync(destination, { recursive: true })
+  destination = realpathSync(destination)
+  if (inside(source, destination) || inside(destination, source)) {
+    throw new Error('Stage the preview in a separate directory outside the checkout.')
   }
-  // The automation account authors the website snapshot. The person requesting
-  // it needs no Vercel deploy access; their identity stays in the run and commit.
-  const user = await request(`/users/${encodeURIComponent(deployAuthor)}`)
-  if (!/^[\w-]+$/.test(user.login) || !Number.isSafeInteger(user.id)) {
-    throw new Error('GitHub returned an invalid deployment author.')
+  // Refuse any parent Git checkout, so the CLI cannot infer a commit author.
+  try {
+    execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd: destination, stdio: 'ignore' })
+    throw new Error('The preview staging directory must not be inside a Git repository.')
+  } catch (error) {
+    if (!error.status) throw error
   }
-  return {
-    docs_sha: pr.head.sha,
-    author_name: user.login,
-    author_email: `${user.id}+${user.login}@users.noreply.github.com`,
-  }
+  if (readdirSync(destination).length) throw new Error('The preview staging directory must be empty.')
+  cpSync(source, destination, {
+    recursive: true,
+    verbatimSymlinks: true,
+    filter: (entry) => {
+      if (entry !== source && excluded(path.basename(entry))) return false
+      if (lstatSync(entry).isSymbolicLink()) {
+        const target = realpathSync(entry)
+        if (path.isAbsolute(readlinkSync(entry)) || !inside(source, target) ||
+            path.relative(source, target).split(path.sep).some(excluded)) {
+          throw new Error(`Preview source has an unsafe symlink: ${path.relative(source, entry)}`)
+        }
+      }
+      return true
+    },
+  })
+  mkdirSync(path.join(destination, '.vercel'), { recursive: true })
+  writeFileSync(path.join(destination, '.vercel/project.json'), JSON.stringify({ orgId, projectId }))
 }
 
 export function previewUrl(value) {
-  const url = new URL(value)
+  const url = new URL(value.trim())
   if (url.protocol !== 'https:' || url.username || url.password ||
-      !(url.hostname.endsWith('.vercel.app') || url.hostname.endsWith('.vercel.dev.zoo.dev'))) {
+      !(url.hostname.endsWith('.vercel.app') || url.hostname.endsWith('.vercel.dev.zoo.dev')) ||
+      url.pathname !== '/' || url.search || url.hash || url.port) {
     throw new Error('Vercel returned an unexpected preview URL.')
   }
-  return url.toString().replace(/\/$/, '')
+  return url.origin
 }
 
-export async function waitForPreview({ repository, sha, request,
-  now = Date.now, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
-  timeoutMs = 20 * 60 * 1000 }) {
-  const deadline = now() + timeoutMs
-  while (now() < deadline) {
-    const deployments = await request(`/repos/${repository}/deployments?sha=${sha}&environment=Preview&per_page=10`)
-    const deployment = deployments.find((item) => item.creator?.login === 'vercel[bot]')
-    if (deployment) {
-      const [status] = await request(`/repos/${repository}/deployments/${deployment.id}/statuses`)
-      if (status?.creator?.login === 'vercel[bot]') {
-        if (status.state === 'success') return previewUrl(status.environment_url)
-        if (['failure', 'error'].includes(status.state)) {
-          throw new Error(`Vercel preview failed: ${status.description || status.state}. Check the website deployment logs.`)
-        }
-      }
-    }
-    await sleep(10_000)
-  }
-  throw new Error('Timed out waiting for Vercel. Check website deployments and confirm DOCS_PREVIEW_GIT_AUTHOR has Vercel team access.')
+export function previewSummary({ repository, branch, docsSha, websiteSha, url }) {
+  const branchPath = branch.split('/').map(encodeURIComponent).join('/')
+  return `## Documentation preview\n\n[Open website preview](${previewUrl(url)})\n\n` +
+    `[Documentation branch](https://github.com/${repository}/tree/${branchPath})\n\n` +
+    `Documentation snapshot: \`${docsSha}\`\n\nWebsite snapshot: \`${websiteSha}\`\n\n` +
+    'This is a manual snapshot. Run **Preview documentation** again to preview newer edits.\n'
 }
 
 async function main() {
   const env = process.env
-  const request = (path, body) => github(path, env.GH_TOKEN, body)
   if (process.argv[2] === 'prepare') {
     const outputs = await resolveRequest({
-      repository: env.GITHUB_REPOSITORY, prNumber: env.PR_NUMBER,
-      deployAuthor: env.DEPLOY_AUTHOR, request,
+      repository: env.GITHUB_REPOSITORY, branch: env.DOCS_BRANCH,
+      request: (endpoint) => github(endpoint, env.GH_TOKEN),
     })
-    for (const [key, value] of Object.entries(outputs)) {
-      appendFileSync(env.GITHUB_OUTPUT, `${key}=${value}\n`)
-    }
-    return
-  }
-  if (process.argv[2] !== 'publish') throw new Error('Expected prepare or publish.')
-  const website = `${env.GITHUB_REPOSITORY.split('/')[0]}/website`
-  const runUrl = `https://github.com/${env.GITHUB_REPOSITORY}/actions/runs/${env.GITHUB_RUN_ID}`
-  const branchUrl = `https://github.com/${website}/tree/${env.PREVIEW_BRANCH}`
-  appendFileSync(env.GITHUB_STEP_SUMMARY,
-    `Documentation snapshot: \`${env.DOCS_SHA}\`\n\n[Website preview branch](${branchUrl})\n\n`)
-  try {
-    const url = await waitForPreview({ repository: website, sha: env.WEBSITE_SHA,
-      request: (path) => github(path, env.WEBSITE_TOKEN) })
-    const body = `Website preview: ${url}\n\nDocumentation snapshot: \`${env.DOCS_SHA}\`.\n\nThis preview was requested manually. Run **Preview documentation** again to preview newer edits. [Workflow run](${runUrl}).`
-    // Make the link available in the run even if posting the PR comment fails.
-    appendFileSync(env.GITHUB_STEP_SUMMARY, `${body}\n`)
-    await request(`/repos/${env.GITHUB_REPOSITORY}/issues/${env.PR_NUMBER}/comments`, { body })
-  } catch (error) {
-    appendFileSync(env.GITHUB_STEP_SUMMARY, `Preview did not finish: ${error.message}\n`)
-    throw error
+    for (const [key, value] of Object.entries(outputs)) appendFileSync(env.GITHUB_OUTPUT, `${key}=${value}\n`)
+  } else if (process.argv[2] === 'stage') {
+    stageSource({ source: env.WEBSITE_SOURCE, destination: env.PREVIEW_SOURCE,
+      orgId: env.VERCEL_ORG_ID, projectId: env.VERCEL_PROJECT_ID })
+  } else if (process.argv[2] === 'publish') {
+    const url = previewUrl(readFileSync(env.PREVIEW_URL_FILE, 'utf8'))
+    appendFileSync(env.GITHUB_OUTPUT, `preview_url=${url}\n`)
+    appendFileSync(env.GITHUB_STEP_SUMMARY, previewSummary({ repository: env.GITHUB_REPOSITORY,
+      branch: env.DOCS_BRANCH, docsSha: env.DOCS_SHA, websiteSha: env.WEBSITE_SHA, url }))
+  } else {
+    throw new Error('Expected prepare, stage, or publish.')
   }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  main().catch((error) => {
-    console.error(error.message)
-    process.exitCode = 1
-  })
+  main().catch((error) => { console.error(error.message); process.exitCode = 1 })
 }

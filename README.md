@@ -70,26 +70,29 @@ post to disappear. These regression tests and the full content build run in the
 
 If you have access to our website repository and you'd like to live preview your content in the website as your write/edit it, head over to that repo's README to get instructions on how to set it up.
 
-## Preview a pull request in your browser
+## Preview a branch in your browser
 
 You can request a website preview without installing anything locally:
 
-1. Open a pull request with your documentation edits. Its branch must be in
-   `KittyCAD/documentation`.
+1. Push your edits to a branch in `KittyCAD/documentation`. No pull request is
+   needed.
 2. Go to [Actions → Preview documentation](https://github.com/KittyCAD/documentation/actions/workflows/preview.yml).
 3. Click **Run workflow**, leave **Use workflow from** set to **main**, enter
-   your pull request number, and click the green **Run workflow** button.
-4. Wait for the run to finish. The preview link appears in a comment on your
-   pull request and in the workflow run's summary. Open it to review your pages.
+   your documentation branch name (such as `bens-build-logs` or
+   `codex/my-edit`), and click the green **Run workflow** button.
+4. Wait for the run to finish, then open the **Open website preview** link in
+   the run's summary. Add `/blog` or the path of your edited page to that URL.
 
 Previews are manual snapshots. Saving more edits or opening a PR does not
-request a preview; press **Run workflow** again when you want a new one.
-Each request uses the PR's current commit and the website's current `main`.
-An existing preview continues to show the snapshot it was built from.
+request a preview; press **Run workflow** again when you want a new one. The
+workflow resolves the selected branch to an exact commit when it starts and
+combines it with the website's current `main`. Both commit IDs appear in the
+summary. An existing preview continues to show the snapshot it was built from.
 
 You need write access to this repository to run the workflow. You do not need
-website repository membership or Vercel deployment permissions: a configured
-automation account authors the website snapshot on your behalf.
+website repository membership or Vercel deployment permissions: a stored Vercel
+token authorizes the deployment on your behalf. Fork branches and tags are not
+accepted; the branch must exist in this repository.
 Opening the preview is a separate permission check: the website's existing
 Vercel preview protection still applies. A maintainer may need to grant viewer
 access or provide a Vercel shareable link.
@@ -98,27 +101,41 @@ If a run fails, check its logs and the website's Vercel deployment logs.
 ### Maintainer setup
 
 The workflow becomes available after `.github/workflows/preview.yml` is merged
-into `main`. It reuses the `GH_ORG_APP_ID` and `GH_ORG_APP_PRIVATE_KEY` secrets
-used by the existing website notification workflow. The App must be installed
-on `KittyCAD/website` with **Contents: read and write** and
-**Deployments: read** permissions. Its token is scoped to `website` for this job.
-The documentation repository's Actions token needs permission to comment on PRs.
+into `main`. Configure these in the documentation repository under
+**Settings → Secrets and variables → Actions**:
 
-Set the documentation repository's **Actions variable** `DOCS_PREVIEW_GIT_AUTHOR`
-to the GitHub username of an automation account that is linked to a Vercel
-account with deployment access to the website team/project. A maintainer must
-provision and authorize this account first; the GitHub App token alone does not
-satisfy Vercel's commit-author membership check. The workflow fails early if
-the variable is missing. It uses the account's GitHub noreply email for the
-website commit and records the human requester and workflow run in its message.
-The original documentation commits and authors remain unchanged.
+| Setting | Type | Value |
+| --- | --- | --- |
+| `VERCEL_TOKEN` | Secret | A Vercel access token scoped to the Zoo team, owned by an account authorized to deploy to `website` |
+| `VERCEL_ORG_ID` | Variable | Zoo's Vercel team ID (`team_...`) |
+| `VERCEL_PROJECT_ID` | Variable | The existing website project's ID (`prj_...`) |
+| `GH_ORG_APP_ID` | Secret | Existing GitHub App ID, also used by the website notification workflow |
+| `GH_ORG_APP_PRIVATE_KEY` | Secret | Existing GitHub App private key |
 
-No website code changes or additional Vercel secrets are required. The workflow
-pushes a new `docs-preview/pr-<number>-<run>-<attempt>` branch to `website`, changing
-only its documentation submodule pointer. Vercel's existing Git integration must
-allow preview deployments for these branches. The run waits up to 20 minutes for
-a successful Vercel preview before posting its URL.
+Create the Vercel token in your Vercel account's token settings, select the Zoo
+team scope, and choose an expiration date. Store its value only as the Actions
+secret, and rotate it before it expires or if its owner's access changes. A
+team-scoped token can grant more than preview-only access; the workflow always
+requests the Preview target. Find the team and project IDs in Vercel's general
+settings or the website's linked `.vercel/project.json` file. Select the existing
+website project, which must already have a production deployment.
 
-Preview branches can be deleted from `website` when no longer needed; the run
-summary links to the branch. Deployment retention follows the Vercel project's
-settings. This workflow does not merge documentation or website changes.
+The GitHub App only needs **Contents: read** on `KittyCAD/website` for this
+workflow. It checks out the website and its existing submodules, replaces the
+documentation checkout with the selected commit, and stages a source snapshot
+outside Git. Git metadata, local `.env` files, credentials, and generated caches
+are excluded; symlinks outside the source snapshot are rejected. No website
+branches or commits are created. `DOCS_PREVIEW_GIT_AUTHOR` is no longer used,
+and no GitHub service account is needed.
+
+The pinned Vercel CLI uploads the snapshot directly and waits for Vercel to
+build it using the website project's existing Preview settings. The deployment
+token is available only to the upload step; it is not forwarded to the remote
+build. Documentation install/build scripts run on Vercel and still have access
+to the project's Preview environment variables. Only default Preview variables
+apply: this upload has no website Git branch association for branch-specific
+variables or domains. No source archives are uploaded to public GitHub artifacts.
+
+Deployment retention follows the Vercel project's settings. The job has a
+30-minute timeout; canceling it does not necessarily cancel a build already
+submitted to Vercel. This workflow does not merge changes or deploy to production.

@@ -1,84 +1,123 @@
 import assert from 'node:assert/strict'
+import { execFileSync, spawnSync } from 'node:child_process'
+import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
 import { test } from 'node:test'
-import { previewUrl, resolveRequest, waitForPreview } from './preview.mjs'
+import { previewSummary, previewUrl, resolveRequest, stageSource } from './preview.mjs'
 
 const sha = 'a'.repeat(40)
 const repository = 'KittyCAD/documentation'
-const pr = { state: 'open', head: { repo: { full_name: repository }, sha } }
-const resolve = (pull = pr, prNumber = '42', deployAuthor = 'zoo-preview-bot') => resolveRequest({
-  repository, prNumber, deployAuthor,
-  request: async (path) => path.includes('/pulls/') ? pull : { login: 'zoo-preview-bot', id: 123 },
-})
+const settings = { orgId: 'team_example', projectId: 'prj_example' }
 
-test('captures the exact PR head and authors it with the configured automation account', async () => {
-  assert.deepEqual(await resolve(), {
-    docs_sha: sha, author_name: 'zoo-preview-bot', author_email: '123+zoo-preview-bot@users.noreply.github.com',
-  })
-})
-
-test('requires an explicitly configured deployment author rather than the requester', async () => {
-  for (const author of ['', 'invalid\nname', 'invalid/name']) {
-    await assert.rejects(resolve(pr, '42', author), /DOCS_PREVIEW_GIT_AUTHOR/)
-  }
+test('resolves an exact branch, including slashes, to an immutable commit without a PR or author account', async () => {
   const paths = []
-  await resolveRequest({ repository, prNumber: '42', deployAuthor: 'zoo-preview-bot',
-    request: async (path) => {
-      paths.push(path)
-      return path.includes('/pulls/') ? pr : { login: 'zoo-preview-bot', id: 123 }
+  const result = await resolveRequest({ repository, branch: 'codex/bens-build-logs',
+    request: async (endpoint) => {
+      paths.push(endpoint)
+      return { ref: 'refs/heads/codex/bens-build-logs', object: { type: 'commit', sha } }
     },
   })
-  assert.deepEqual(paths, ['/repos/KittyCAD/documentation/pulls/42', '/users/zoo-preview-bot'])
+  assert.deepEqual(result, { docs_sha: sha })
+  assert.deepEqual(paths, ['/repos/KittyCAD/documentation/git/ref/heads/codex%2Fbens-build-logs'])
 })
 
-test('rejects invalid inputs, closed PRs, forks, and deleted repositories', async () => {
-  for (const number of ['0', '-1', '42\n', '42; echo unsafe', 'https://github.com/KittyCAD/documentation/pull/42']) {
-    await assert.rejects(resolve(pr, number), /pull request number/)
-  }
-  await assert.rejects(resolve({ ...pr, state: 'closed' }), /open PR/)
-  for (const repo of [null, { full_name: 'someone/documentation' }]) {
-    await assert.rejects(resolve({ ...pr, head: { ...pr.head, repo } }), /internal branch/)
-  }
-})
-
-test('accepts preview hosts and rejects unexpected URLs', () => {
-  assert.equal(previewUrl('https://website-123.vercel.app/'), 'https://website-123.vercel.app')
-  assert.equal(previewUrl('https://website-123.vercel.dev.zoo.dev'), 'https://website-123.vercel.dev.zoo.dev')
-  for (const url of ['http://website.vercel.app', 'https://vercel.app.evil.test',
-    'https://user:pass@website.vercel.app', 'https://zoo.dev']) {
-    assert.throws(() => previewUrl(url), /unexpected preview URL/)
+test('rejects invalid ref names before making any GitHub request', async () => {
+  for (const branch of ['', '-main', '../main', 'main\n', '@{-1}', 'a..b', 'a:b', 'a b',
+    'https://github.com/KittyCAD/documentation/tree/main']) {
+    await assert.rejects(resolveRequest({ repository, branch,
+      request: () => assert.fail('Invalid input reached GitHub'),
+    }), /Enter a branch name/)
   }
 })
 
-function polling({ states = [], creator = 'vercel[bot]' } = {}) {
-  let time = 0
-  let polls = 0
-  const paths = []
-  const result = waitForPreview({ repository: 'KittyCAD/website', sha,
-    now: () => time, sleep: async (ms) => { time += ms }, timeoutMs: 30_000,
-    request: async (path) => {
-      paths.push(path)
-      if (path.endsWith('/statuses')) {
-        return [{ state: states[polls - 1], creator: { login: creator },
-          environment_url: 'https://website-123.vercel.app' }]
-      }
-      polls++
-      return states[polls - 1] ? [{ id: 123, creator: { login: 'vercel[bot]' } }] : []
-    },
-  })
-  return { result, paths }
+test('rejects missing branches, partial matches, tags, and invalid commit IDs', async () => {
+  await assert.rejects(resolveRequest({ repository, branch: 'missing',
+    request: async () => { throw new Error('GitHub: HTTP 404') },
+  }), /404/)
+  for (const ref of [[], { ref: 'refs/heads/main-extra', object: { type: 'commit', sha } },
+    { ref: 'refs/heads/main', object: { type: 'tag', sha } },
+    { ref: 'refs/heads/main', object: { type: 'commit', sha: 'bad' } }]) {
+    await assert.rejects(resolveRequest({ repository, branch: 'main', request: async () => ref }), /exact documentation branch/)
+  }
+})
+
+function fixture(t) {
+  const root = mkdtempSync(path.join(tmpdir(), 'docs-preview-'))
+  t.after(() => rmSync(root, { recursive: true, force: true }))
+  const source = path.join(root, 'website')
+  const destination = path.join(root, 'upload')
+  mkdirSync(source)
+  const write = (file, content = 'fixture') => {
+    mkdirSync(path.dirname(path.join(source, file)), { recursive: true })
+    writeFileSync(path.join(source, file), content)
+  }
+  return { root, source, destination, write }
 }
 
-test('waits for creation and success of the exact website snapshot', async () => {
-  const { result, paths } = polling({ states: [null, 'pending', 'success'] })
-  assert.equal(await result, 'https://website-123.vercel.app')
-  assert.ok(paths[0].includes(`sha=${sha}&environment=Preview`))
-  assert.ok(paths.includes('/repos/KittyCAD/website/deployments/123/statuses'))
+test('stages content and submodule assets while removing Git metadata, credentials, and caches', (t) => {
+  const { source, destination, write } = fixture(t)
+  for (const file of ['package.json', 'public/material-properties/example.json',
+    'public/litterbox_assets/part.png', 'documentation/content/posts/ben.mdx']) write(file)
+  for (const file of ['.git/config', '.vercel/project.json', '.env.local',
+    'documentation/.git', 'documentation/.env', 'documentation/.env.production',
+    'documentation/node_modules/package/index.js', 'documentation/.contentlayer/generated.json']) write(file)
+  mkdirSync(path.join(source, 'documentation/content/pages/docs/cli'), { recursive: true })
+  write('documentation/content/pages/docs/cli/index.md')
+  symlinkSync('cli', path.join(source, 'documentation/content/pages/docs/cli-alias'))
+
+  stageSource({ source, destination, ...settings })
+  assert.equal(readFileSync(path.join(destination, 'documentation/content/posts/ben.mdx'), 'utf8'), 'fixture')
+  assert.ok(existsSync(path.join(destination, 'public/material-properties/example.json')))
+  assert.ok(existsSync(path.join(destination, 'public/litterbox_assets/part.png')))
+  assert.ok(lstatSync(path.join(destination, 'documentation/content/pages/docs/cli-alias')).isSymbolicLink())
+  assert.equal(readFileSync(path.join(destination, 'documentation/content/pages/docs/cli-alias/index.md'), 'utf8'), 'fixture')
+  for (const file of ['.git', '.env.local', 'documentation/.git', 'documentation/.env',
+    'documentation/.env.production', 'documentation/node_modules', 'documentation/.contentlayer']) {
+    assert.equal(existsSync(path.join(destination, file)), false, file)
+  }
+  assert.deepEqual(JSON.parse(readFileSync(path.join(destination, '.vercel/project.json'), 'utf8')), settings)
+  assert.notEqual(spawnSync('git', ['rev-parse', '--show-toplevel'], { cwd: destination }).status, 0)
 })
 
-test('fails on deployment errors and times out when no trusted success appears', async () => {
-  for (const state of ['failure', 'error']) {
-    await assert.rejects(polling({ states: [state] }).result, /preview failed/)
+test('rejects symlinks that could upload runner secrets or Git credentials', (t) => {
+  for (const target of ['../outside.txt', '.env.local', '.git/config']) {
+    const { root, source, destination, write } = fixture(t)
+    writeFileSync(path.join(root, 'outside.txt'), 'outside secret')
+    write('.env.local', 'environment secret')
+    write('.git/config', 'Git credential')
+    symlinkSync(target, path.join(source, 'innocent.txt'))
+    assert.throws(() => stageSource({ source, destination, ...settings }), /unsafe symlink/)
   }
-  await assert.rejects(polling().result, /Timed out/)
-  await assert.rejects(polling({ states: ['success'], creator: 'someone-else' }).result, /Timed out/)
+})
+
+test('requires explicit existing project IDs and a staging directory outside any Git repository', (t) => {
+  const { root, source, destination } = fixture(t)
+  assert.throws(() => stageSource({ source, destination }), /VERCEL_ORG_ID/)
+  assert.throws(() => stageSource({ source, destination: path.join(source, 'upload'), ...settings }), /separate directory/)
+  const checkout = path.join(root, 'checkout')
+  mkdirSync(checkout)
+  execFileSync('git', ['init', '-q', checkout])
+  assert.throws(() => stageSource({ source, destination: path.join(checkout, 'upload'), ...settings }), /must not be inside a Git repository/)
+})
+
+test('accepts a single Vercel URL and rejects unexpected hosts or output injection', () => {
+  assert.equal(previewUrl('https://website-123.vercel.app/\n'), 'https://website-123.vercel.app')
+  assert.equal(previewUrl('https://website-123.vercel.dev.zoo.dev'), 'https://website-123.vercel.dev.zoo.dev')
+  for (const url of ['http://website.vercel.app', 'https://vercel.app.evil.test',
+    'https://user:pass@website.vercel.app', 'https://zoo.dev',
+    'https://website.vercel.app/?bypass=secret', 'https://website.vercel.app/path',
+    'https://website.vercel.app\npreview_url=evil']) {
+    assert.throws(() => previewUrl(url))
+  }
+})
+
+test('publishes a branch link and both exact snapshot commits without requiring a PR', () => {
+  const summary = previewSummary({ repository, branch: 'codex/bens-build-logs',
+    docsSha: sha, websiteSha: 'b'.repeat(40), url: 'https://website-123.vercel.app' })
+  assert.match(summary, /Open website preview.*https:\/\/website-123\.vercel\.app/)
+  assert.match(summary, /documentation\/tree\/codex\/bens-build-logs/)
+  assert.ok(summary.includes(sha))
+  assert.ok(summary.includes('b'.repeat(40)))
+  assert.match(summary, /Run \*\*Preview documentation\*\* again/)
 })

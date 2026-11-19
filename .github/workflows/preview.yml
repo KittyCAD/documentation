@@ -1,25 +1,24 @@
 name: Preview documentation
-run-name: 'Preview documentation PR #${{ inputs.pr_number }}'
+run-name: 'Preview documentation branch: ${{ inputs.branch }}'
 
 on:
   workflow_dispatch:
     inputs:
-      pr_number:
-        description: 'Documentation pull request number (for example, 123)'
+      branch:
+        description: 'Documentation branch name (for example, bens-build-logs)'
         required: true
         type: string
 
 permissions:
   contents: read
-  pull-requests: write
 
 concurrency:
-  group: documentation-preview-${{ inputs.pr_number }}
+  group: documentation-preview-${{ inputs.branch }}
   cancel-in-progress: false
 
 jobs:
   preview:
-    # Always run the reviewed workflow from main, rather than PR-authored code.
+    # Run reviewed tooling from main; the input selects only the content snapshot.
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -29,15 +28,16 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v7.1.0
         with:
-          node-version: '22'
-      - name: Resolve documentation snapshot
+          node-version: '24'
+      - name: Install deployment CLI
+        run: npm install --global vercel@66.2.0
+      - name: Resolve documentation branch to a fixed commit
         id: request
         run: node .github/scripts/preview.mjs prepare
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ inputs.pr_number }}
-          DEPLOY_AUTHOR: ${{ vars.DOCS_PREVIEW_GIT_AUTHOR }}
-      - name: Create website token
+          DOCS_BRANCH: ${{ inputs.branch }}
+      - name: Create read-only website token
         uses: actions/create-github-app-token@v3.3.0
         id: app-token
         with:
@@ -45,39 +45,54 @@ jobs:
           private-key: ${{ secrets.GH_ORG_APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
           repositories: website
-          permission-contents: write
-          permission-deployments: read
-      - name: Checkout website
+          permission-contents: read
+      - name: Checkout website and its assets
         uses: actions/checkout@v7.0.1
         with:
           repository: ${{ github.repository_owner }}/website
           ref: main
           token: ${{ steps.app-token.outputs.token }}
           path: preview-website
-      - name: Push preview snapshot
-        id: snapshot
-        working-directory: preview-website
+          submodules: recursive
+          lfs: true
+          persist-credentials: false
+      - name: Checkout requested documentation snapshot
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ steps.request.outputs.docs_sha }}
+          path: preview-website/documentation
+          lfs: true
+          persist-credentials: false
+      - name: Record website snapshot
+        id: website
+        run: echo "sha=$(git -C preview-website rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Prepare source without Git metadata or local credentials
+        run: node .github/scripts/preview.mjs stage
         env:
+          WEBSITE_SOURCE: ${{ github.workspace }}/preview-website
+          PREVIEW_SOURCE: ${{ runner.temp }}/documentation-preview
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+      - name: Upload source and wait for Vercel preview build
+        # No npm install/build from the requested branch runs on this runner.
+        # The deployment token is not passed to Vercel's remote build environment.
+        working-directory: ${{ runner.temp }}/documentation-preview
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DOCS_BRANCH: ${{ inputs.branch }}
           DOCS_SHA: ${{ steps.request.outputs.docs_sha }}
-          AUTHOR_NAME: ${{ steps.request.outputs.author_name }}
-          AUTHOR_EMAIL: ${{ steps.request.outputs.author_email }}
-          PR_NUMBER: ${{ inputs.pr_number }}
+          WEBSITE_SHA: ${{ steps.website.outputs.sha }}
         run: |
           set -euo pipefail
-          branch="docs-preview/pr-${PR_NUMBER}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          git update-index --add --cacheinfo "160000,$DOCS_SHA,documentation"
-          git -c user.name="$AUTHOR_NAME" -c user.email="$AUTHOR_EMAIL" commit --allow-empty \
-            -m "Preview documentation PR #$PR_NUMBER at $DOCS_SHA" \
-            -m "Requested by $GITHUB_ACTOR in https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
-          git push origin "HEAD:refs/heads/$branch"
-          echo "website_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-          echo "preview_branch=$branch" >> "$GITHUB_OUTPUT"
-      - name: Wait for preview and share link
+          : "${VERCEL_TOKEN:?Add the VERCEL_TOKEN Actions secret}"
+          vercel deploy --yes --target=preview --archive=tgz --token="$VERCEL_TOKEN" \
+            --meta "docsBranch=$DOCS_BRANCH" --meta "docsSha=$DOCS_SHA" \
+            --meta "websiteSha=$WEBSITE_SHA" > "$RUNNER_TEMP/documentation-preview-url.txt"
+      - name: Publish preview link in the run summary
+        id: publish
         run: node .github/scripts/preview.mjs publish
         env:
-          GH_TOKEN: ${{ github.token }}
-          WEBSITE_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR_NUMBER: ${{ inputs.pr_number }}
+          PREVIEW_URL_FILE: ${{ runner.temp }}/documentation-preview-url.txt
+          DOCS_BRANCH: ${{ inputs.branch }}
           DOCS_SHA: ${{ steps.request.outputs.docs_sha }}
-          WEBSITE_SHA: ${{ steps.snapshot.outputs.website_sha }}
-          PREVIEW_BRANCH: ${{ steps.snapshot.outputs.preview_branch }}
+          WEBSITE_SHA: ${{ steps.website.outputs.sha }}
