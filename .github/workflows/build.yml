@@ -27,6 +27,9 @@ jobs:
       - name: Test manual preview tooling
         run: node --test .github/scripts/*.test.mjs
 
+      - name: Test strict metadata validation
+        run: npm run test:metadata
+
       - name: Check documentation image aspect ratios
         run: npm run check:images
 
