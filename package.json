@@ -4,6 +4,7 @@
     "private": false,
     "scripts": {
         "build": "contentlayer2 build",
+        "test:metadata": "node --test scripts/metadata-validation.test.mjs",
         "check:images": "node --test scripts/check-framed-image-aspects.test.mjs && node scripts/check-framed-image-aspects.mjs",
         "dev": "contentlayer2 dev"
     },
@@ -14,7 +15,7 @@
         "remark-math": "^6.0.0"
     },
     "devDependencies": {
-        "image-size": "^2.0.4",
-        "react": "^19.3.0"
+        "image-size": "^2.1.0",
+        "react": "^19.3.1"
     }
 }
