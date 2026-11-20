@@ -41,6 +41,10 @@ support additional conversion formats that are not available in the Design Studi
 - Includes assembly structure if exporting multi-body designs
 - **Recommended for manufacturing and engineering collaboration**
 
+**Rhino 3DM (.3dm)**
+- Native Rhino format that preserves solid geometry as boundary representations (B-reps)
+- Choose **3DM** in the Export command, then open the saved file in Rhino
+
 **STL (.stl)**
 - Stereolithography format (ISO/ASTM 52915)
 - Tessellated (triangulated) surface representation
@@ -100,6 +104,7 @@ Which file format to export:
 - **OBJ** - General mesh format
 - **glTF / GLB** - Modern graphics format for web and AR/VR
 - **PLY** - Polygon format
+- **3DM** - Native Rhino format for NURBS & BREP geometry
 
 ### STEP Schema
 
@@ -107,25 +112,19 @@ When **Type** is **STEP**, choose **AP203 (edition 2)**, **AP214**, or **AP242**
 Use the schema required by your receiving CAD software.
 
 ### Storage
-Where to save the file:
-- **Local** - Save to your computer (default)
-- **Cloud** - Save to Zoo cloud storage (if available)
+
+**Storage** controls how glTF, STL, and PLY files are encoded. The available encodings depend on
+the format.
 
 ### Up Axis
-Which direction is "up":
-- **Y-up** - Y-axis is vertical (common in graphics software)
-- **Z-up** - Z-axis is vertical (common in CAD)
 
-Zoo will use the standard for your chosen format unless you override it.
+For formats with an **Up** setting, including 3DM, choose **Z+** (the default) for Z-up or **Y+**
+for Y-up.
 
 ### Scale
-Scaling factor for unit conversion:
-- **1.0** - No scaling (default)
-- **0.001** - Millimeters to meters
-- **25.4** - Inches to millimeters
-- **0.0393701** - Millimeters to inches
 
-Use this when the target software expects specific units.
+For formats with a **Scale** setting, including 3DM, choose the output length unit. For example,
+choose **Meters** to export a millimeter model in meters. The 3DM file records the chosen unit.
 
 ## Export Workflow
 
@@ -135,19 +134,16 @@ Use this when the target software expects specific units.
 2. **Open Command Bar** or use File menu
 3. **Select Export command**
 4. **Choose file format** appropriate for downstream use
-5. **Configure parameters:**
-   - Set up-axis if needed
-   - Apply scale conversion if required
-   - Select storage destination
-6. **Specify filename and location**
-7. **Confirm export**
+5. **Set export options** for the chosen format
+6. **Confirm export**
+7. **Save the file** in the desktop app or download it in the browser
 
 ### Multi-Body Export
 
 When exporting projects containing multiple solid bodies:
-- **STEP format:** Exports as assembly with multiple components
+- **STEP** exports an assembly with multiple components, using body names as component identifiers.
+- **3DM** exports separate B-reps in a single file, with a generic object name for each body.
 - **Mesh formats (STL, OBJ, PLY, glTF/GLB):** Export as a single file with multiple meshes
-- Body names are preserved as component identifiers
 - Spatial relationships and positions are maintained
 
 ## Format Selection Guide
@@ -158,6 +154,7 @@ When exporting projects containing multiple solid bodies:
 |---------------|-------------------|-------------|
 | SolidWorks, CATIA, NX | STEP | - |
 | Fusion 360, Onshape | STEP | - |
+| Rhino | 3DM | STEP |
 | 3D Printing (FDM/SLA) | STL | - |
 | Unity, Unreal Engine | glTF/GLB | OBJ, PLY |
 | Blender | glTF/GLB | OBJ, PLY |
@@ -194,11 +191,12 @@ Zoo automatically determines appropriate tessellation based on geometry complexi
 
 **Formats preserving exact geometry:**
 - STEP (solid models, exact curves and surfaces)
+- 3DM (solid B-rep geometry for Rhino)
 
 **Formats using approximation:**
 - STL, OBJ, PLY, glTF/GLB (tessellated meshes, curved surfaces approximated)
 
-For engineering and manufacturing workflows requiring dimensional accuracy, always use STEP format.
+Use STEP for engineering and manufacturing workflows that require a neutral CAD format.
 
 ## Unit Conversion Best Practices
 
@@ -206,14 +204,8 @@ When exporting between systems using different units:
 
 1. **Know your source units** (check Zoo file unit setting)
 2. **Know target system expectations** (inches vs. mm)
-3. **Apply scale parameter** or convert units before export
+3. **Choose the output unit** under **Scale** when the format offers that option
 4. **Verify scale** after import in target system
-
-Common unit conversions:
-- Millimeters → Meters: scale = 0.001
-- Meters → Millimeters: scale = 1000
-- Inches → Millimeters: scale = 25.4
-- Millimeters → Inches: scale = 0.0393701
 
 ## Advanced Export Workflows
 
