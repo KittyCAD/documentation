@@ -28,7 +28,7 @@ To save a PNG of the current viewport instead of exporting model geometry, use
 
 {/* Keep this table in sync with modeling-app's Export command options. */}
 
-These are the formats currently exposed by Zoo Design Studio's Export command. The Engine API may
+These are the formats currently exposed by Zoo Design Studio's **Export 3D model** command. The Engine API may
 support additional conversion formats that are not available in the Design Studio UI.
 
 ### CAD and Engineering Formats
@@ -81,19 +81,27 @@ To create an STL and open it directly in a supported desktop slicing application
 ### API-Only Export Formats
 
 **FBX (.fbx)** is supported as an output format by Zoo's APIs, but it is not currently available
-from Zoo Design Studio's Export command. Developers can create FBX output with the
+from Zoo Design Studio's **Export 3D model** command. Developers can create FBX output with the
 [File Format API](/docs/developer-tools/api/file) or the
 [`zoo file convert`](/docs/cli/manual/zoo_file_convert) CLI command.
 
 ## Export Command
 
-Access the Export command via:
-- Command Bar: Search "Export"
-- Menu: File → Export
-- Keyboard shortcut (if configured)
+Choose **Export 3D model** from the File menu, search for it in the Command Bar, or press
+`Ctrl+Shift+E` with a project open.
 
 `Export to Slicer` is a separate, optional desktop workflow. Enable it under `Settings` → `Plugins`,
 then start it from the left Toolbar or the Command Bar.
+
+## Export a project archive
+
+Choose **Export KCL project** beside **Export 3D model** in the left sidebar or project menu.
+You can also find it in the Project Files pane, the Command Bar, and the desktop File menu.
+Press `Cmd+Shift+S` on macOS or `Ctrl+Shift+S` on Windows and Linux to export the project.
+
+The ZIP includes the project’s KCL files, assets, and settings. It preserves the folder structure
+and the project’s default file. Local and cloud projects can be exported on web and desktop
+even when the modeling engine is disconnected.
 
 ## Export Options
 
@@ -132,7 +140,7 @@ choose **Meters** to export a millimeter model in meters. The 3DM file records t
 
 1. **Complete design** in Zoo Design Studio
 2. **Open Command Bar** or use File menu
-3. **Select Export command**
+3. **Select Export 3D model**
 4. **Choose file format** appropriate for downstream use
 5. **Set export options** for the chosen format
 6. **Confirm export**
