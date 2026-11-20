@@ -24,7 +24,10 @@ Default backface color for surfaces. For details, see
 
 ### Mouse Controls
 
-The controls for how to navigate the 3D view.
+We want you to be able to use Zoo Design Studio in a way that feels familiar. **Mouse Controls**
+lets you choose familiar buttons and keyboard modifiers for panning, zooming, and rotating the 3D
+view, including schemes from other CAD tools. **Zoo** is the default; choose the scheme that matches
+your habits, or **Trackpad Friendly** for keyboard modifiers with left-button drags.
 
 <div style={{ overflowX: 'auto', margin: '2rem 0' }}>
   <table style={{ width: '100%', minWidth: '56rem', tableLayout: 'auto', borderCollapse: 'collapse' }}>
@@ -44,7 +47,7 @@ The controls for how to navigate the 3D view.
         <td>Right click drag</td>
       </tr>
       <tr>
-        <td><strong>OnShape</strong></td>
+        <td><strong>Onshape</strong></td>
         <td>Ctrl + Right click drag<br />or Middle click drag</td>
         <td>Scroll</td>
         <td>Right click drag</td>
@@ -56,7 +59,7 @@ The controls for how to navigate the 3D view.
         <td>Option + Left click drag</td>
       </tr>
       <tr>
-        <td><strong>Solidworks</strong></td>
+        <td><strong>SolidWorks</strong></td>
         <td>Ctrl + Right click drag</td>
         <td>Scroll<br />or Shift + Middle click drag</td>
         <td>Middle click drag</td>
@@ -79,14 +82,36 @@ The controls for how to navigate the 3D view.
         <td>Scroll</td>
         <td>Shift + Middle click drag</td>
       </tr>
+      <tr>
+        <td><strong>CATIA</strong></td>
+        <td>Middle click drag</td>
+        <td>Hold Ctrl, then Middle, and drag<br />or hold Middle, click and release Left or Right, then drag<br />or scroll</td>
+        <td>Hold Middle, then Ctrl or Left or Right, and drag</td>
+      </tr>
     </tbody>
   </table>
 </div>
 
 Notes:
+
 - `Option` means `Alt` on Windows and Linux, and `Option` on macOS.
 - `Cmd` means `Command` on macOS, `Win` on Windows, or `Super` on Linux.
 - `Middle click` is usually the mouse wheel button.
+
+**On CATIA controls:** Press order matters: Ctrl before Middle zooms; Middle before Ctrl rotates.
+Releasing Ctrl, Left, or Right after rotation while keeping Middle held switches to zoom.
+Release Middle and press it again to start a fresh gesture.
+
+CATIA overrides **Camera Orbit**: rotation is spherical inside a central oval and trackball outside
+it, switching as the cursor crosses the boundary. The oval spans 80% of the scene's width and height.
+The blue oval below illustrates this region; the boundary is not drawn in the app.
+
+<FramedImage
+  src="/documentation-assets/docs/zoo-design-studio/features/workspace/settings/catia-orbit-boundary.png"
+  alt="Scene screenshot with a blue oval marking the spherical rotation region for CATIA controls; outside the oval uses trackball rotation."
+  aspect="1734 / 1382"
+  maxHeightPx={460}
+/>
 
 ### Enable Touch Controls
 
@@ -103,7 +128,9 @@ Projection method applied to the 3D view, perspective or orthographic.
 
 ### Camera Orbit
 
-What methodology to use for orbiting the camera.
+Choose spherical or trackball rotation. When **Mouse Controls** is set to **CATIA**, this dropdown
+is disabled because CATIA selects the orbit from the cursor position. Your saved Camera Orbit
+preference applies again when you switch to another mouse scheme.
 
 ### Gizmo Type
 
