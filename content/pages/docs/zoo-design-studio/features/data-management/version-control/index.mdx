@@ -7,9 +7,8 @@ Zoo is currently developing a PLM-style version control system on top of its [Pr
 
 However, since Zoo projects are just human-readable text files, version control systems like [Git](https://git-scm.com/) work great with them!
 
-You should be able to use whatever version control system you prefer within a Zoo project's folder, and our systems like [Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync) will ignore the version control metadata and files from its syncing.
+Use Git or another version control system with projects in a Directory library. Cloud projects have no working folder on disk. Export or move a cloud project to a Directory library when you need local version-control tools.
 
-## What happens when you publish a version-controlled project
+## Publishing a Version-Controlled Project
 
-Publishing a Directory project to Aquarium moves the entire project folder into Personal Cloud
-after a successful submission. Local version-control metadata moves with the folder, but it may surprise you to find that your project moved on your computer, so don't be alarmed the project is just in a new folder on your computer, which you can find under Libraries in your settings.
+Publishing a Directory project moves its editable content to Personal Cloud. Version-control metadata is not uploaded, and Personal Cloud does not maintain a local Git working copy. If an upload excludes files such as Git metadata or ignored files, Zoo keeps the original local folder and reports this after the cloud project is saved.
