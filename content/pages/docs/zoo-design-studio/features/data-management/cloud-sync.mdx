@@ -30,11 +30,19 @@ Cloud storage is not a live collaboration session. Wait for saving to finish bef
 
 Zoo Design Studio checks for changes to an open cloud project and can load the newer cloud version. If a save encounters a revision conflict, the app reloads the current cloud snapshot. Differing cloud contents can replace unsaved edits; a notification explains when this happens. Keep only one editing session active when you need to avoid competing changes.
 
+## Zookeeper changes
+
+Zookeeper reads and saves cloud project files directly through Zoo. Zoo Design Studio refreshes the open project after Zookeeper changes cloud files, including additions, moves, and deletions. Local projects continue to use files from their Directory library.
+
+## Existing local cloud copies
+
+Folders and browser storage created by earlier versions of Cloud Sync are left untouched. They are no longer working copies of the cloud project, and edits in them are not automatically uploaded. Keep any old copy containing work you still need; files in an existing desktop folder remain available for manual recovery.
+
 ## Keep a local copy
 
 In the desktop app, use **Duplicate project** to create an independent copy in a Directory library. Edits to that copy save to its local folder. The original remains in Personal Cloud unless you delete it separately.
 
-See [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries#duplicate-projects-into-another-library) for the duplicating workflow.
+See [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries#duplicate-projects) for the duplication workflow.
 
 ## Publish to Aquarium
 
