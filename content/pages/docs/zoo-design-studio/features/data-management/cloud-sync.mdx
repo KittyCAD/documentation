@@ -1,31 +1,34 @@
 ---
 title: Cloud Sync
-excerpt: Keep Personal Cloud projects up to date across your devices.
+excerpt: Save and sync your cloud projects across devices with Zoo Design Studio.
 sidebarPosition: 4
 ---
 
-Cloud Sync what we call it when you use our cloud storage to save and sync your projects across devices. Zoo offers a [Projects API service](https://zoo.dev/docs/developer-tools/api/projects) to upload project snapshots to the cloud and manage them over time. The Zoo Design Studio app provides that service to you wrapped up into a plugin. 
+Cloud Sync automatically saves and synchronizes your Zoo Design Studio projects across devices using Zoo cloud storage.
 
-If you save a project to cloud type [project libraries](/docs/zoo-design-studio/features/data-management/project-libraries), congratulations you're using Cloud Sync! Your changes get automatically saved as you work. Hopefully that should be as much as you ever need to know about Cloud Sync: it should "just work™️". But in case you ever need to dig into how it works, these docs are here for you.
+When you save a project to a cloud-type [project library](/docs/zoo-design-studio/features/data-management/project-libraries), Cloud Sync automatically saves and synchronizes your changes as you work.
+
+Cloud Sync uses the [Zoo Projects API](https://zoo.dev/docs/developer-tools/api/projects) to upload and manage project snapshots. In Zoo Design Studio, Cloud Sync is available as a built-in plugin.
 
 ## Getting Started
-When you open the desktop Zoo Design Studio app for the first time, you will see two project libraries where you can create projects. One of those is called "Personal Cloud", and any projects you put in there will be synced across any device you sign in from. 
+When you first open the Zoo Design Studio desktop app, two project libraries are available by default. Projects in the **Personal Cloud** library synchronize across devices when you sign in with the same Zoo account.
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/empty-libraries.png"
-  alt="Zoo Design Studio with two initial empty project libraries"
+  alt="Zoo Design Studio Home showing the default Personal Cloud and Local Projects libraries"
   aspect="3024 / 1906"
   maxHeightPx={520}
 />
 
-The badge on the Personal Cloud library will show you if syncing work is in-progress or complete, and let you inspect any problems that occur while Cloud Sync is running. It is clickable if you ever want to inspect what's syncing.
-
-We want you to have control over your files, which is why we give you the option of saving projects without running Cloud Sync in the desktop app. However, please note that **in the rowser version of the app we only allow for cloud synced projects**: all projects you add to app.zoo.dev will be synced to the cloud.
+The sync status badge on the **Personal Cloud** library indicates whether synchronization is in progress, complete, or requires attention. Select the badge to view synchronization details and any reported issues.
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/synced-status.png"
   alt="Zoo Design Studio's Cloud Sync badge on a library, with the popover opened"
   aspect="1926 / 450"
   maxHeightPx={240}
 />
+
+We want you to have control over your files, which is why we give you the option of saving projects without running Cloud Sync in the desktop app. However, please note that **in the browser version of the app we only allow for cloud synced projects**: all projects you add to app.zoo.dev will be synced to the cloud.
+
 ## Common Workflows
 
 ### Use A Project On Another Device
@@ -35,7 +38,7 @@ We want you to have control over your files, which is why we give you the option
 4. Open the project from Personal Cloud.
 
 ### Resolving Sync Conflicts
-Cloud Sync does **not yet support live collaboration** between multiple users at the same time, so if you make edits to the same project across several devices, its possible that Zoo Design Studio won't know which edit "wins". When this happens, the project will show a badge in the top bar when opened, with a menu item that will let you inspect the conflict.
+Cloud Sync does **not yet support live collaboration** between multiple users at the same time, so if you make edits to the same project across several devices, it's possible that Zoo Design Studio won't know which edit "wins". When this happens, the project will show a badge in the top bar when opened, with a menu item that will let you inspect the conflict.
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/conflict-menu.png"
   alt="Zoo Design Studio with two initial empty project libraries"
@@ -109,7 +112,7 @@ Development is underway for version control built on top of the Zoo Projects API
 
 ### What does this "duplicate local copies" warning mean?
 
-This rare warning appears when more than one project on your device shares the same cloud project ID. Zoo Design Studio will try to help you out to prevent conflicts by alerting you with this badge. To fix it, right-click on one of the duplicate copies' project card and select "Review duplicate copies", then choose which version to keep from the dialog that appears.
+This rare warning appears when more than one project on your device shares the same cloud project ID. Zoo Design Studio will try to help you out to prevent conflicts by alerting you with this badge. To fix it, right-click on one of the duplicate copies' project cards and select "Review duplicate copies", then choose which version to keep from the dialog that appears.
 <FramedImage
   src="/documentation-assets/docs/zoo-design-studio/features/data-management/cloud-sync/cloud-sync-duplicate-copies-menu.webp"
   alt="Project card with a Duplicate copies badge and the Review duplicate copies menu action"
