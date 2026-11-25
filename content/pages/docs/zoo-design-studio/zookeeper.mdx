@@ -10,7 +10,7 @@ Modern CAD work is full of repetition. Engineers redraw the same patterns, rebui
 
 At Zoo, we’re building **Zookeeper**: an ML-powered agent that uses LLMs to generate and modify CAD models.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-1.png)
+![Zoo Design Studio with the Zookeeper panel open beside three reference planes](/documentation-assets/pages/zookeeper/zookeeper-doc-1.png)
 
 LLMs need clear, human-readable code to work well. To have your own code, you need your own kernel. Zoo built both—a readable CAD [language](https://zoo.dev/research/introducing-kcl) and a custom 3D [kernel](https://zoo.dev/research/zoo-cad-engine-overview)—which is why Zookeeper works so well with LLMs. Most other CAD systems rely on legacy kernels with opaque representations that LLMs struggle to work with.
 
@@ -45,7 +45,7 @@ In Zookeeper, conversation can be used for a wide range of design-adjacent tasks
 
 The value here is coordination. Conversation captures intent explicitly, instead of forcing it to be inferred later from geometry alone.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-2.png)
+![Zookeeper provides step-by-step guidance for a circular flange model](/documentation-assets/pages/zookeeper/zookeeper-doc-2.png)
 
 In traditional workflows, much of this context is lost—buried in meeting notes, emails, or institutional memory. By treating conversation as a first-class interface, we can keep intent close to the geometry it informs.
 
@@ -57,7 +57,7 @@ Zookeeper creates and edits real, parametric CAD geometry through **incremental,
 
 Instead of relying on one-shot descriptions of an entire model, designs are built up step by step. Features are created, dimensions are adjusted, and constraints are refined iteratively—mirroring how engineers actually work in CAD.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-3.jpeg)
+![Zookeeper edits a bracket model to replace circular holes with an elongated slot](/documentation-assets/pages/zookeeper/zookeeper-doc-3.jpeg)
 
 This process produces real models with a full feature tree and editable parameters, so designs can be inspected, modified, and extended just like hand-built CAD.
 
@@ -101,7 +101,7 @@ These tools expose model-derived properties—such as:
 
 Traditionally, accessing this information requires breaking focus: switching tools, running separate analyses, or manually inspecting the model. With Zookeeper, these queries become part of the same conversational loop as design and modification.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-4.jpeg)
+![Zookeeper reports center-of-mass coordinates for a bottle-shaped model](/documentation-assets/pages/zookeeper/zookeeper-doc-4.jpeg)
 
 The goal is to shorten the distance between evaluating a model and deciding what to change next.
 
@@ -111,7 +111,7 @@ A critical detail: the agent is aware of what you have selected.
 
 When you point at a face, an edge, a feature, or a part, the agent understands that context. This allows interactions to be precise without being verbose.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-5.jpeg)
+![Zookeeper edits a flange after the user asks to move the selected face](/documentation-assets/pages/zookeeper/zookeeper-doc-5.jpeg)
 
 Instead of trying to explain in words exactly where a change should happen, you can simply select the relevant geometry. This reduces friction and keeps interactions grounded in the model itself.
 
@@ -121,7 +121,7 @@ Zookeeper can access the internet to pull in external references such as standar
 
 This allows design decisions to be grounded in real-world constraints without leaving the modeling environment. Instead of switching contexts to search for information, relevant sources can be brought directly into the same conversational loop used for design and modification.
 
-![Image](/documentation-assets/pages/zookeeper/zookeeper-doc-6.jpeg)
+![Zookeeper cites standards while researching requirements for a passenger-car crash box model](/documentation-assets/pages/zookeeper/zookeeper-doc-6.jpeg)
 
 By combining live external information with full model context, the agent can reason about designs not just in isolation, but against the standards and references they need to meet.
 
