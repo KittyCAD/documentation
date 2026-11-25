@@ -23,34 +23,33 @@ The Project Browser is your home screen for project-level work.
 - Open a project.
 - Duplicate a project.
 - Rename or delete a project (if you have write access).
-- Move projects between libraries.
-- Review duplicate local copies of the same cloud project.
+- Duplicate projects into another library while keeping the originals.
+- Separate local project copies that share the same project ID and Zookeeper history.
 - Open Project Libraries settings.
-- Inspect cloud sync status badges, including cloud-only, synced, blocked, conflicted, and duplicate
-  projects.
 - Inspect Aquarium publication statuses, including pending review, published, changes requested,
   and rejected.
 
 ## Aquarium Publication Status
 
-Aquarium publication status is separate from project storage and Cloud Sync status. `Published`
+Aquarium publication status is separate from project storage and save status. `Published`
 means an approved version of the project is public in Aquarium. `Pending Review`, `Changes
 requested`, and `Rejected` describe the review state of the submitted version.
 
-Editing or syncing the Personal Cloud project does not automatically update the submitted Aquarium
+Editing or saving the Personal Cloud project does not automatically update the submitted Aquarium
 version. Open the project's Publish dialog to update the submission. See
 [Aquarium](/docs/zoo-design-studio/features/data-management/aquarium) for details.
 
 ## Duplicate a Project
 
 Duplicating a project creates an independent copy with the same files and folders. You can duplicate
-local projects and cloud projects, including cloud projects that have not been downloaded to your
-device.
+local projects and cloud projects, including projects you have not opened on your device.
 
 From the Project Browser:
 
 1. Right-click the project card.
 2. Select **Duplicate project**.
+3. Keep the current library to copy alongside the original, or choose another destination library.
+4. Review the command and confirm the duplication.
 
 From an open project, open the project menu next to the project name in the top bar and select
 **Duplicate project**. In the desktop app, you can also select **File → Duplicate Project**.
@@ -66,11 +65,9 @@ Zoo Design Studio adds a number, such as `-copy-1` or `-copy-2`.
 
 - Work starts from a project dashboard, not from a single-file open flow.
 - Project metadata (preview, file count, edit time) is part of the default start experience.
-- Cloud projects can appear before they are downloaded locally; opening one creates a local working
-  copy first.
-- A cloud project can have duplicate local copies. The Project Browser keeps the canonical copy
-  clear, shows duplicate copies for review, and does not silently delete Directory library copies.
+- Opening a cloud project loads its files into memory. Changes save directly to your Zoo account.
+- Duplicating into another library keeps the original and creates an independent project.
 
-For project storage and sync details, see
+For project storage details, see
 [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries) and
-[Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync).
+[Cloud Storage](/docs/zoo-design-studio/features/data-management/cloud-sync).

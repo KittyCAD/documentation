@@ -20,17 +20,16 @@ Whether to show the debug panel, a development tool.
 
 Project libraries control which project sources appear on Home.
 
-On desktop, you can add, rename, reorder, and remove Directory libraries. A Directory library points
+On desktop, you can add, rename, reorder, and remove Local libraries. A Local library points
 to a folder on your computer. Removing the library from settings does not delete the projects in that
 folder.
 
-With Cloud Sync, the `Personal Cloud` library appears as a Cloud library. Its settings
-row shows the resolved local storage path for the cloud working copy.
+Personal Cloud is a Cloud library backed by your Zoo account. Its files load into memory when
+opened and save directly to Zoo; there is no local working-copy folder.
 
-In the browser, projects use Personal Cloud. Browser storage is not a
-normal local folder, so Zoo Design Studio treats all projects as cloud-backed projects rather than
-showing local-only browser libraries, which would not follow the user's account.
+In the browser, projects use Personal Cloud. Local libraries are available only in the desktop
+app.
 
 For the full storage model, see
 [Project Libraries](/docs/zoo-design-studio/features/data-management/project-libraries) and
-[Cloud Sync](/docs/zoo-design-studio/features/data-management/cloud-sync).
+[Cloud Storage](/docs/zoo-design-studio/features/data-management/cloud-sync).
